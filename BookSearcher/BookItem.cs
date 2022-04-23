@@ -1,6 +1,6 @@
 ﻿namespace BookSearcher
 {
-    internal class BookItem
+    internal class BookItem : ItemColumn
     {
         public BookItem(string line)
         {

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Forms;
+using System.Security.Cryptography;
 
 namespace BookSearcher
 {
@@ -111,5 +112,53 @@ namespace BookSearcher
 
             // 著者名の部分一致で名前と苗字の間のスペースを削除できれば、完全一致で良い
         }
+
+        public void SearchType15(string resultPath)
+        {
+            var bookMap = new Dictionary<string, BookItem>();
+            foreach (var bookItem in bookList)
+            {
+                var title = bookItem.Title;
+                if (bookMap.ContainsKey(title))
+                {
+                    continue;
+                }
+                bookMap.Add(title, bookItem);
+            }
+
+            var scrapingMap = new Dictionary<string, ScrapingItem>();
+            foreach (var scrapingItem in scrapingList)
+            {
+                var title = scrapingItem.Title;
+                if (scrapingMap.ContainsKey(title))
+                {
+                    continue;
+                }
+                scrapingMap.Add(title, scrapingItem);
+            }
+
+            var resultList =
+                from bookItem in bookMap
+                join scrapingItem in scrapingMap on bookItem.Key equals scrapingItem.Key
+                orderby bookItem.Key
+                select new { scrapingItem.Value.Url, bookItem.Value.Title, scrapingItem.Value.ProductUrl, scrapingItem.Value.Price };
+
+            try
+            {
+                using (var writer = new StreamWriter(resultPath, false, Encoding.GetEncoding(932)))
+                {
+                    foreach (var result in resultList)
+                    {
+                        var line = $"{result.Url},{result.Title},{result.ProductUrl},{result.Price}";
+                        writer.WriteLine(line);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
     }
 }

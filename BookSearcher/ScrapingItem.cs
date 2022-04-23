@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BookSearcher
+﻿namespace BookSearcher
 {
-    internal class ScrapingItem
+    internal class ScrapingItem : ItemColumn
     {
         public ScrapingItem(string line)
         {
