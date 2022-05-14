@@ -48,7 +48,7 @@ namespace BookSearcher
         private bool ParseTitleSingleLine()
         {
             bool result = false;
-            using (var stream = new StreamReader(Path, Encoding.GetEncoding(932)))
+            using (var stream = new StreamReader(Path, Encoding.UTF8))
             {
                 var line = stream.ReadLine();
                 var match = regex_suffix.Match(line);
@@ -73,7 +73,7 @@ namespace BookSearcher
         private bool ParseTitleMultiLine()
         {
             bool result = false;
-            using (var reader = new TextFieldParser(Path, Encoding.GetEncoding(932)))
+            using (var reader = new TextFieldParser(Path, Encoding.UTF8))
             {
                 reader.SetDelimiters(",");
                 Titles = reader.ReadFields();
@@ -157,7 +157,7 @@ namespace BookSearcher
                         file.Read(bytes, 0, length);
                         using (var buffer = new MemoryStream(bytes, 0, length))
                         {
-                            using (var reader = new StreamReader(buffer))
+                            using (var reader = new StreamReader(buffer, Encoding.UTF8))
                             {
                                 partRecords[k].Add(ReadFields(regex_suffix.Replace(reader.ReadLine(), "")));
                             }
@@ -174,7 +174,7 @@ namespace BookSearcher
 
         private void ReadAllMultiLine()
         {
-            using (var reader = new TextFieldParser(Path, Encoding.GetEncoding(932)))
+            using (var reader = new TextFieldParser(Path, Encoding.UTF8))
             {
                 reader.SetDelimiters(",");
                 _ = reader.ReadFields();
