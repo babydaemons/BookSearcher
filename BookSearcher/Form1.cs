@@ -25,7 +25,7 @@ namespace BookSearcher
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 textBox1.Text = dialog.FileName;
-                BookCSV = new CSVFile(textBox1.Text, checkBox1.Checked ? RecordType.MultiLine : RecordType.SingleLine);
+                BookCSV = new CSVFile(textBox1.Text);
                 bookColumnSetting.Rows.Clear();
                 for (int i = 0; i < BookCSV.Titles.Length; ++i)
                 {
@@ -60,7 +60,7 @@ namespace BookSearcher
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 textBox2.Text = dialog.FileName;
-                ScrapingCSV = new CSVFile(textBox2.Text, checkBox2.Checked ? RecordType.MultiLine : RecordType.SingleLine);
+                ScrapingCSV = new CSVFile(textBox2.Text);
                 scrapingColumnSetting.Rows.Clear();
                 for (int i = 0; i < ScrapingCSV.Titles.Length; ++i)
                 {

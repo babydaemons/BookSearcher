@@ -7,43 +7,26 @@ using Microsoft.VisualBasic.FileIO;
 
 namespace BookSearcher
 {
-    enum RecordType { SingleLine, MultiLine };
-
     internal class CSVFile
     {
         private static readonly string[] FieldSeparatorWithQuote = new string[] { "\",\"" };
 
         public string Path { get; }
-        public RecordType RecordType { get; }
         public string[] Titles { get; private set; }
         public string[] Fields { get; }
         public List<string[]> Records { get; private set; }
 
-        public CSVFile(string path, RecordType recordType)
+        public CSVFile(string path)
         {
             Path = path;
-            RecordType = recordType;
 
             try
             {
-                if (recordType == RecordType.SingleLine)
+                using (var reader = new TextFieldParser(path, Encoding.GetEncoding(932)))
                 {
-                    using (var stream = new StreamReader(path, Encoding.GetEncoding(932)))
-                    {
-                        var line = stream.ReadLine();
-                        Titles = ReadFields(line);
-                        line = stream.ReadLine();
-                        Fields = ReadFields(line);
-                    }
-                }
-                else
-                {
-                    using (var reader = new TextFieldParser(path, Encoding.GetEncoding(932)))
-                    {
-                        reader.SetDelimiters(",");
-                        Titles = reader.ReadFields();
-                        Fields = reader.ReadFields();
-                    }
+                    reader.SetDelimiters(",");
+                    Titles = reader.ReadFields();
+                    Fields = reader.ReadFields();
                 }
             }
             catch (Exception ex)
@@ -57,29 +40,14 @@ namespace BookSearcher
             try
             {
                 Records = new List<string[]>();
-                if (RecordType == RecordType.SingleLine)
+                using (var reader = new TextFieldParser(Path, Encoding.GetEncoding(932)))
                 {
-                    using (var stream = new StreamReader(Path, Encoding.GetEncoding(932)))
+                    reader.SetDelimiters(",");
+                    Titles = reader.ReadFields();
+                    while (!reader.EndOfData)
                     {
-                        var line = stream.ReadLine();
-                        Titles = ReadFields(line);
-                        while ((line = stream.ReadLine()) != null)
-                        {
-                            Records.Add(ReadFields(line));
-                        }
-                    }
-                }
-                else
-                {
-                    using (var reader = new TextFieldParser(Path, Encoding.GetEncoding(932)))
-                    {
-                        reader.SetDelimiters(",");
-                        Titles = reader.ReadFields();
-                        while (!reader.EndOfData)
-                        {
-                            string[] fields = reader.ReadFields();
-                            Records.Add(fields);
-                        }
+                        string[] fields = reader.ReadFields();
+                        Records.Add(fields);
                     }
                 }
             }
