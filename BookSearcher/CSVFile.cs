@@ -119,29 +119,25 @@ namespace BookSearcher
                 partRecords.Add(new List<string[]>());
             }
 
-            var lines = File.ReadAllLines(Path, Encoding.GetEncoding(932));
+            var lines = new List<string>();
+            using (var reader = new StreamReader(Path, Encoding.GetEncoding(932)))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    lines.Add(regex_suffix.Replace(line, ""));
+                }
+            }
+
             int start = 1;
-            int n = (lines.Length - start) / N + 1;
+            int n = (lines.Count - start) / N + 1;
             Parallel.For(0, N, k =>
             {
                 int k0 = start + k * n;
                 int k1 = k0 + n;
-                if (k1 > lines.Length)
+                if (k1 > lines.Count)
                 {
-                    k1 = lines.Length;
-                }
-                for (int i = k0; i < k1; i++)
-                {
-                    lines[i] = regex_suffix.Replace(lines[i], "");
-                }
-            });
-            Parallel.For(0, N, k =>
-            {
-                int k0 = start + k * n;
-                int k1 = k0 + n;
-                if (k1 > lines.Length)
-                {
-                    k1 = lines.Length;
+                    k1 = lines.Count;
                 }
                 for (int i = k0; i < k1; i++)
                 {
