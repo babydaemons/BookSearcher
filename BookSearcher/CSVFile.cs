@@ -9,13 +9,15 @@ using Microsoft.VisualBasic.FileIO;
 
 namespace BookSearcher
 {
-    enum RecordType { Unknown, SingleLine, MultiLine };
+    enum RecordType { Unknown, MercariLine, SingleLine, MultiLine };
 
     internal class CSVFile
     {
         // https://www.ipentec.com/document/csharp-read-csv-file-by-regex
         private static readonly Regex regex_delimiter = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
         private static readonly Regex regex_suffix = new Regex("(?<suffix>,+\\s*)$");
+
+        private static readonly string[] mercari_delimiter = new string[] { "=\"", "\" " };
 
         public string Path { get; }
         public RecordType RecordType { get; private set; } = RecordType.Unknown;
@@ -31,12 +33,21 @@ namespace BookSearcher
 
             try
             {
-                if (!ParseTitleSingleLine())
+                if (ParseTitleMercariLine())
                 {
-                    if (!ParseTitleMultiLine())
-                    {
-                        MessageBox.Show("不正な形式のCSVファイルです。\n" + Path);
-                    }
+                    return;
+                }
+                else if (ParseTitleSingleLine())
+                {
+                    return;
+                }
+                else if (ParseTitleMultiLine())
+                {
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("不正な形式のCSVファイルです。\n" + Path);
                 }
             }
             catch (Exception ex)
@@ -87,6 +98,31 @@ namespace BookSearcher
             }
             return result;
         }
+
+        private bool ParseTitleMercariLine()
+        {
+            bool result = false;
+            using (var reader = new TextFieldParser(Path, Encoding.UTF8))
+            {
+                reader.SetDelimiters(",");
+                _ = reader.ReadFields();
+                var fields = reader.ReadFields();
+                foreach (var field in fields)
+                {
+                    if (field.StartsWith("<mer-item-thumbnail "))
+                    {
+                        RecordType = RecordType.MercariLine;
+                        result = true;
+                        break;
+                    }
+                }
+                Titles = ReadMercariFields(fields[0], 0);
+                Fields = ReadMercariFields(fields[0], 1);
+                Columns = Titles.Length;
+            }
+            return result;
+        }
+
 
         public void ReadAll()
         {
@@ -185,6 +221,18 @@ namespace BookSearcher
             }
         }
 
+        private void ReadAllMercariLine()
+        {
+            using (var reader = new TextFieldParser(Path, Encoding.UTF8))
+            {
+                reader.SetDelimiters(",");
+                _ = reader.ReadFields();
+                var fields = reader.ReadFields();
+                Records.Add(ReadMercariFields(fields[0], 1));
+                Columns = Titles.Length;
+            }
+        }
+
         private string ReadLine(StreamReader reader)
         {
             var line = reader.ReadLine();
@@ -206,6 +254,19 @@ namespace BookSearcher
                     fields[i] = fields[i].Substring(1, fields[i].Length - 2);
                     fields[i] = fields[i].Replace("\"\"", "");
                 }
+            }
+            return fields;
+        }
+
+        private string[] ReadMercariFields(string line, int offset)
+        {
+            line = line.Replace("<mer-item-thumbnail ", "");
+            line = line.Replace("radius=\"\" mer-defined=\"\"></mer-item-thumbnail>", "");
+            string[] pairs = line.Split(mercari_delimiter, StringSplitOptions.RemoveEmptyEntries);
+            string[] fields = new string[pairs.Length / 2];
+            for (int i = 0; i < pairs.Length; i += 2)
+            {
+                fields[i / 2] = pairs[i + offset];
             }
             return fields;
         }
