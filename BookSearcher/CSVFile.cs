@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -113,38 +112,60 @@ namespace BookSearcher
         private void ReadAllSingleLine()
         {
             int N = Program.Debugging ? 1 : Environment.ProcessorCount;
-            var partRecords = new List<List<string[]>>();
-            for (int i = 0; i < N; i++)
+            var offsets = new List<long>();
+            using (var file = new FileStream(Path, FileMode.Open, FileAccess.Read))
             {
-                partRecords.Add(new List<string[]>());
-            }
-
-            var lines = new List<string>();
-            using (var reader = new StreamReader(Path, Encoding.GetEncoding(932)))
-            {
-                string line;
-                while ((line = reader.ReadLine()) != null)
+                long offset = 0;
+                offsets.Add(offset);
+                byte[] bytes = new byte[1024 * 1024];
+                while (file.Position < file.Length)
                 {
-                    lines.Add(regex_suffix.Replace(line, ""));
+                    int readBytes = file.Read(bytes, 0, bytes.Length);
+                    for (int i = 0; i < readBytes; i++)
+                    {
+                        if (bytes[i] == (byte)'\n')
+                        {
+                            offsets.Add(offset + i + 1);
+                        }
+                    }
+                    offset = file.Position;
                 }
             }
 
             int start = 1;
-            int n = (lines.Count - start) / N + 1;
+            int n = (offsets.Count - start) / N + 1;
+            var partRecords = new List<List<string[]>>(N);
+            for (int i = 0; i < N; i++)
+            {
+                partRecords.Add(new List<string[]>(n));
+            }
+            Records.Capacity = offsets.Count;
+
             Parallel.For(0, N, k =>
             {
-                int k0 = start + k * n;
-                int k1 = k0 + n;
-                if (k1 > lines.Count)
+                using (var file = new FileStream(Path, FileMode.Open, FileAccess.Read))
                 {
-                    k1 = lines.Count;
-                }
-                for (int i = k0; i < k1; i++)
-                {
-                    var fields = ReadFields(lines[i]);
-                    partRecords[k].Add(fields);
+                    var bytes = new byte[1024 * 1024];
+                    for (int i = start + k; i < offsets.Count; i += N)
+                    {
+                        if (i + 1 == offsets.Count)
+                        {
+                            break;
+                        }
+                        file.Position = offsets[i];
+                        int length = (int)(offsets[i + 1] - offsets[i]);
+                        file.Read(bytes, 0, length);
+                        using (var buffer = new MemoryStream(bytes, 0, length))
+                        {
+                            using (var reader = new StreamReader(buffer))
+                            {
+                                partRecords[k].Add(ReadFields(regex_suffix.Replace(reader.ReadLine(), "")));
+                            }
+                        }
+                    }
                 }
             });
+
             for (int i = 0; i < N; i++)
             {
                 Records.AddRange(partRecords[i]);
