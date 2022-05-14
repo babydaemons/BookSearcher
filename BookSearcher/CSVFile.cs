@@ -1,53 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.VisualBasic.FileIO;
 
 namespace BookSearcher
 {
-    enum RecordType { SingleLine, MultiLine };
+    enum RecordType { Unknown, SingleLine, MultiLine };
 
     internal class CSVFile
     {
         // https://www.ipentec.com/document/csharp-read-csv-file-by-regex
         private static readonly Regex regex_delimiter = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+        private static readonly Regex regex_suffix = new Regex("(?<suffix>,+\\s*)$");
 
         public string Path { get; }
-        public RecordType RecordType { get; }
+        public RecordType RecordType { get; private set; } = RecordType.Unknown;
         public int Columns { get; private set; }
         public string[] Titles { get; private set; }
-        public string[] Fields { get; }
+        public string[] Fields { get; private set; }
         public List<string[]> Records { get; private set; }
+        private string eraseSuffix = "";
 
         public CSVFile(string path, RecordType recordType)
         {
             Path = path;
-            RecordType = recordType;
 
             try
             {
-                if (recordType == RecordType.SingleLine)
+                if (!ParseTitleSingleLine())
                 {
-                    using (var stream = new StreamReader(path, Encoding.GetEncoding(932)))
+                    if (!ParseTitleMultiLine())
                     {
-                        var line = stream.ReadLine();
-                        Titles = EraseEmptyTitle(ReadFields(line));
-                        Columns = Titles.Length;
-                        line = stream.ReadLine();
-                        Fields = ExtractLimittedField(ReadFields(line), Columns);
-                    }
-                }
-                else
-                {
-                    using (var reader = new TextFieldParser(path, Encoding.GetEncoding(932)))
-                    {
-                        reader.SetDelimiters(",");
-                        Titles = EraseEmptyTitle(reader.ReadFields());
-                        Columns = Titles.Length;
-                        Fields = ExtractLimittedField(reader.ReadFields(), Columns);
+                        MessageBox.Show("不正な形式のCSVファイルです。\n" + Path);
                     }
                 }
             }
@@ -55,6 +44,49 @@ namespace BookSearcher
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private bool ParseTitleSingleLine()
+        {
+            bool result = false;
+            using (var stream = new StreamReader(Path, Encoding.GetEncoding(932)))
+            {
+                var line = stream.ReadLine();
+                var match = regex_suffix.Match(line);
+                if (match.Success)
+                {
+                    eraseSuffix = match.Groups["suffix"].Value;
+                    line = line.Replace(eraseSuffix, "");
+                }
+                Titles = ReadFields(line);
+                Columns = Titles.Length;
+                line = ReadLine(stream);
+                Fields = ReadFields(line);
+                if (Fields.Length == Titles.Length)
+                {
+                    RecordType = RecordType.SingleLine;
+                    result = true;
+                }
+            }
+            return result;
+        }
+
+        private bool ParseTitleMultiLine()
+        {
+            bool result = false;
+            using (var reader = new TextFieldParser(Path, Encoding.GetEncoding(932)))
+            {
+                reader.SetDelimiters(",");
+                Titles = reader.ReadFields();
+                Columns = Titles.Length;
+                Fields = reader.ReadFields();
+                if (Fields.Length == Titles.Length)
+                {
+                    RecordType = RecordType.MultiLine;
+                    result = true;
+                }
+            }
+            return result;
         }
 
         public void ReadAll()
@@ -62,29 +94,14 @@ namespace BookSearcher
             try
             {
                 Records = new List<string[]>();
+
                 if (RecordType == RecordType.SingleLine)
                 {
-                    using (var reader = new StreamReader(Path, Encoding.GetEncoding(932)))
-                    {
-                        var line = reader.ReadLine();
-                        _ = ReadFields(line);
-                        while ((line = reader.ReadLine()) != null)
-                        {
-                            Records.Add(ExtractLimittedField(ReadFields(line), Columns));
-                        }
-                    }
+                    ReadAllSingleLine();
                 }
                 else
                 {
-                    using (var reader = new TextFieldParser(Path, Encoding.GetEncoding(932)))
-                    {
-                        reader.SetDelimiters(",");
-                        _ = reader.ReadFields();
-                        while (!reader.EndOfData)
-                        {
-                            Records.Add(ExtractLimittedField(reader.ReadFields(), Columns));
-                        }
-                    }
+                    ReadAllMultiLine();
                 }
             }
             catch (Exception ex)
@@ -93,9 +110,78 @@ namespace BookSearcher
             }
         }
 
-        public static string[] ReadFields(string line)
+        private void ReadAllSingleLine()
         {
-            string[] fields = regex_delimiter.Split(line);
+            int N = Program.Debugging ? 1 : Environment.ProcessorCount;
+            var partRecords = new List<List<string[]>>();
+            for (int i = 0; i < N; i++)
+            {
+                partRecords.Add(new List<string[]>());
+            }
+
+            var lines = File.ReadAllLines(Path, Encoding.GetEncoding(932));
+            int start = 1;
+            int n = (lines.Length - start) / N + 1;
+            Parallel.For(0, N, k =>
+            {
+                int k0 = start + k * n;
+                int k1 = k0 + n;
+                if (k1 > lines.Length)
+                {
+                    k1 = lines.Length;
+                }
+                for (int i = k0; i < k1; i++)
+                {
+                    lines[i] = regex_suffix.Replace(lines[i], "");
+                }
+            });
+            Parallel.For(0, N, k =>
+            {
+                int k0 = start + k * n;
+                int k1 = k0 + n;
+                if (k1 > lines.Length)
+                {
+                    k1 = lines.Length;
+                }
+                for (int i = k0; i < k1; i++)
+                {
+                    var fields = ReadFields(lines[i]);
+                    partRecords[k].Add(fields);
+                }
+            });
+            for (int i = 0; i < N; i++)
+            {
+                Records.AddRange(partRecords[i]);
+            }
+        }
+
+        private void ReadAllMultiLine()
+        {
+            using (var reader = new TextFieldParser(Path, Encoding.GetEncoding(932)))
+            {
+                reader.SetDelimiters(",");
+                _ = reader.ReadFields();
+                while (!reader.EndOfData)
+                {
+                    Records.Add(reader.ReadFields());
+                }
+            }
+        }
+
+        private string ReadLine(StreamReader reader)
+        {
+            var line = reader.ReadLine();
+            if (line != null && eraseSuffix.Length > 0)
+            {
+                line = line.Replace(eraseSuffix, "");
+            }
+            return line;
+        }
+
+        private string[] ReadFields(string line)
+        {
+            bool quoted = line.IndexOf("\",") != -1 || line.IndexOf(",\"") != -1;
+            string[] fields = quoted ? regex_delimiter.Split(line) : line.Split(',');
             for (int i = 0; i < fields.Length; i++)
             {
                 if (fields[i].StartsWith("\"") && fields[i].EndsWith("\""))
@@ -103,35 +189,6 @@ namespace BookSearcher
                     fields[i] = fields[i].Substring(1, fields[i].Length - 2);
                     fields[i] = fields[i].Replace("\"\"", "");
                 }
-            }
-            return fields;
-        }
-
-        public static string[] EraseEmptyTitle(string[] origTitles)
-        {
-            int columns = 0;
-            foreach (string title in origTitles)
-            {
-                if (title.Length == 0)
-                {
-                    break;
-                }
-                ++columns;
-            }
-            var titles = new string[columns];
-            for (int i = 0; i < columns; i++)
-            {
-                titles[i] = origTitles[i].Trim();
-            }
-            return titles;
-        }
-
-        public static string[] ExtractLimittedField(string[] origFiealds, int columns)
-        {
-            string[] fields = new string[columns];
-            for (int i = 0; i < columns; i++)
-            {
-                fields[i] = origFiealds[i].Trim();
             }
             return fields;
         }
