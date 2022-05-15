@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CSVKoshoFile.cs" />
     <Compile Include="CSVMultiLineFile.cs" />
     <Compile Include="CSVSingleLineFile.cs" />
     <Compile Include="CSVMercariFile.cs" />

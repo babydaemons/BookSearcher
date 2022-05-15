@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace BookSearcher
 {
-    enum RecordType { Unknown, MercariLine, SingleLine, MultiLine };
+    enum RecordType { Unknown, MercariLine, KoshoLine, SingleLine, MultiLine };
 
     internal abstract class CSVFile
     {
@@ -97,6 +97,12 @@ namespace BookSearcher
                 if (mercariFile.ParseTitle())
                 {
                     return mercariFile;
+                }
+
+                CSVKoshoFile koshoFile = new CSVKoshoFile(path);
+                if (koshoFile.ParseTitle())
+                {
+                    return koshoFile;
                 }
 
                 CSVSingleLineFile singleLineFile = new CSVSingleLineFile(path);
