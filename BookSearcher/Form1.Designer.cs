@@ -29,310 +29,307 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.backgroundWorker4 = new System.ComponentModel.BackgroundWorker();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.radioButton17 = new System.Windows.Forms.RadioButton();
-            this.radioButton16 = new System.Windows.Forms.RadioButton();
-            this.radioButton15 = new System.Windows.Forms.RadioButton();
-            this.radioButton14 = new System.Windows.Forms.RadioButton();
-            this.radioButton13 = new System.Windows.Forms.RadioButton();
-            this.radioButton12 = new System.Windows.Forms.RadioButton();
-            this.radioButton11 = new System.Windows.Forms.RadioButton();
-            this.radioButton10 = new System.Windows.Forms.RadioButton();
-            this.radioButton09 = new System.Windows.Forms.RadioButton();
-            this.radioButton08 = new System.Windows.Forms.RadioButton();
-            this.radioButton07 = new System.Windows.Forms.RadioButton();
-            this.radioButton06 = new System.Windows.Forms.RadioButton();
-            this.radioButton05 = new System.Windows.Forms.RadioButton();
-            this.radioButton04 = new System.Windows.Forms.RadioButton();
-            this.radioButton03 = new System.Windows.Forms.RadioButton();
-            this.radioButton02 = new System.Windows.Forms.RadioButton();
-            this.radioButton01 = new System.Windows.Forms.RadioButton();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.bookColumnSetting = new System.Windows.Forms.DataGridView();
+            this.Timer1 = new System.Windows.Forms.Timer(this.components);
+            this.BackgroundWorker4 = new System.ComponentModel.BackgroundWorker();
+            this.BackgroundWorker2 = new System.ComponentModel.BackgroundWorker();
+            this.BackgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.StatusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.ToolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ToolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.GroupBox4 = new System.Windows.Forms.GroupBox();
+            this.RadioButton17 = new System.Windows.Forms.RadioButton();
+            this.RadioButton16 = new System.Windows.Forms.RadioButton();
+            this.RadioButton15 = new System.Windows.Forms.RadioButton();
+            this.RadioButton14 = new System.Windows.Forms.RadioButton();
+            this.RadioButton13 = new System.Windows.Forms.RadioButton();
+            this.RadioButton12 = new System.Windows.Forms.RadioButton();
+            this.RadioButton11 = new System.Windows.Forms.RadioButton();
+            this.RadioButton10 = new System.Windows.Forms.RadioButton();
+            this.RadioButton09 = new System.Windows.Forms.RadioButton();
+            this.RadioButton08 = new System.Windows.Forms.RadioButton();
+            this.RadioButton07 = new System.Windows.Forms.RadioButton();
+            this.RadioButton06 = new System.Windows.Forms.RadioButton();
+            this.RadioButton05 = new System.Windows.Forms.RadioButton();
+            this.RadioButton04 = new System.Windows.Forms.RadioButton();
+            this.RadioButton03 = new System.Windows.Forms.RadioButton();
+            this.RadioButton02 = new System.Windows.Forms.RadioButton();
+            this.RadioButton01 = new System.Windows.Forms.RadioButton();
+            this.GroupBox5 = new System.Windows.Forms.GroupBox();
+            this.BookColumnSetting = new System.Windows.Forms.DataGridView();
             this.BookColumnNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BookColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BookColumnValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BookColumnType = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.scrapingColumnSetting = new System.Windows.Forms.DataGridView();
+            this.GroupBox6 = new System.Windows.Forms.GroupBox();
+            this.ScrapingColumnSetting = new System.Windows.Forms.DataGridView();
             this.ScrapingColumnNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ScrapingColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ScrapingColumnValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ScrapingColumnType = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.radioFileTypeCSV = new System.Windows.Forms.RadioButton();
-            this.radioFileTypeExcel = new System.Windows.Forms.RadioButton();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.radioSpaceContains = new System.Windows.Forms.RadioButton();
-            this.radioSpaceIgnore = new System.Windows.Forms.RadioButton();
-            this.label5 = new System.Windows.Forms.Label();
-            this.comboBoxLength = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.button4 = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.groupBox4.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bookColumnSetting)).BeginInit();
-            this.groupBox6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.scrapingColumnSetting)).BeginInit();
-            this.statusStrip1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.groupBox7.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.GroupBox2 = new System.Windows.Forms.GroupBox();
+            this.RadioButtonFileTypeCSV = new System.Windows.Forms.RadioButton();
+            this.RadioButtonFileTypeExcel = new System.Windows.Forms.RadioButton();
+            this.GroupBox3 = new System.Windows.Forms.GroupBox();
+            this.RadioSpaceContains = new System.Windows.Forms.RadioButton();
+            this.RadioSpaceIgnore = new System.Windows.Forms.RadioButton();
+            this.Label5 = new System.Windows.Forms.Label();
+            this.ComboBoxLength = new System.Windows.Forms.ComboBox();
+            this.Label4 = new System.Windows.Forms.Label();
+            this.GroupBox7 = new System.Windows.Forms.GroupBox();
+            this.Button4 = new System.Windows.Forms.Button();
+            this.GroupBox1 = new System.Windows.Forms.GroupBox();
+            this.Button3 = new System.Windows.Forms.Button();
+            this.Button2 = new System.Windows.Forms.Button();
+            this.Button1 = new System.Windows.Forms.Button();
+            this.TextBox3 = new System.Windows.Forms.TextBox();
+            this.TextBox2 = new System.Windows.Forms.TextBox();
+            this.TextBox1 = new System.Windows.Forms.TextBox();
+            this.Label3 = new System.Windows.Forms.Label();
+            this.Label2 = new System.Windows.Forms.Label();
+            this.Label1 = new System.Windows.Forms.Label();
+            this.GroupBox4.SuspendLayout();
+            this.GroupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.BookColumnSetting)).BeginInit();
+            this.GroupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ScrapingColumnSetting)).BeginInit();
+            this.StatusStrip1.SuspendLayout();
+            this.GroupBox2.SuspendLayout();
+            this.GroupBox3.SuspendLayout();
+            this.GroupBox7.SuspendLayout();
+            this.GroupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // backgroundWorker4
+            // BackgroundWorker4
             // 
-            this.backgroundWorker4.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker4_DoWork);
-            this.backgroundWorker4.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker4_RunWorkerCompleted);
+            this.BackgroundWorker4.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker4_DoWork);
+            this.BackgroundWorker4.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorker4_RunWorkerCompleted);
             // 
-            // groupBox4
+            // GroupBox4
             // 
-            this.groupBox4.Controls.Add(this.radioButton17);
-            this.groupBox4.Controls.Add(this.radioButton16);
-            this.groupBox4.Controls.Add(this.radioButton15);
-            this.groupBox4.Controls.Add(this.radioButton14);
-            this.groupBox4.Controls.Add(this.radioButton13);
-            this.groupBox4.Controls.Add(this.radioButton12);
-            this.groupBox4.Controls.Add(this.radioButton11);
-            this.groupBox4.Controls.Add(this.radioButton10);
-            this.groupBox4.Controls.Add(this.radioButton09);
-            this.groupBox4.Controls.Add(this.radioButton08);
-            this.groupBox4.Controls.Add(this.radioButton07);
-            this.groupBox4.Controls.Add(this.radioButton06);
-            this.groupBox4.Controls.Add(this.radioButton05);
-            this.groupBox4.Controls.Add(this.radioButton04);
-            this.groupBox4.Controls.Add(this.radioButton03);
-            this.groupBox4.Controls.Add(this.radioButton02);
-            this.groupBox4.Controls.Add(this.radioButton01);
-            this.groupBox4.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.groupBox4.Location = new System.Drawing.Point(12, 226);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(747, 501);
-            this.groupBox4.TabIndex = 3;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "検索パターン";
+            this.GroupBox4.Controls.Add(this.RadioButton17);
+            this.GroupBox4.Controls.Add(this.RadioButton16);
+            this.GroupBox4.Controls.Add(this.RadioButton15);
+            this.GroupBox4.Controls.Add(this.RadioButton14);
+            this.GroupBox4.Controls.Add(this.RadioButton13);
+            this.GroupBox4.Controls.Add(this.RadioButton12);
+            this.GroupBox4.Controls.Add(this.RadioButton11);
+            this.GroupBox4.Controls.Add(this.RadioButton10);
+            this.GroupBox4.Controls.Add(this.RadioButton09);
+            this.GroupBox4.Controls.Add(this.RadioButton08);
+            this.GroupBox4.Controls.Add(this.RadioButton07);
+            this.GroupBox4.Controls.Add(this.RadioButton06);
+            this.GroupBox4.Controls.Add(this.RadioButton05);
+            this.GroupBox4.Controls.Add(this.RadioButton04);
+            this.GroupBox4.Controls.Add(this.RadioButton03);
+            this.GroupBox4.Controls.Add(this.RadioButton02);
+            this.GroupBox4.Controls.Add(this.RadioButton01);
+            this.GroupBox4.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.GroupBox4.Location = new System.Drawing.Point(12, 226);
+            this.GroupBox4.Name = "GroupBox4";
+            this.GroupBox4.Size = new System.Drawing.Size(747, 501);
+            this.GroupBox4.TabIndex = 3;
+            this.GroupBox4.TabStop = false;
+            this.GroupBox4.Text = "検索パターン";
             // 
-            // radioButton17
+            // RadioButton17
             // 
-            this.radioButton17.AutoSize = true;
-            this.radioButton17.Location = new System.Drawing.Point(20, 468);
-            this.radioButton17.Name = "radioButton17";
-            this.radioButton17.Size = new System.Drawing.Size(710, 19);
-            this.radioButton17.TabIndex = 16;
-            this.radioButton17.Text = "⑰「書籍名(前方一致)」+「出版年(部分一致)」+「出版社名(部分一致)」　【データベース側参照セル3つ⇔スクレイピングデータ側参照セル3つ】";
-            this.radioButton17.UseVisualStyleBackColor = true;
+            this.RadioButton17.AutoSize = true;
+            this.RadioButton17.Location = new System.Drawing.Point(20, 468);
+            this.RadioButton17.Name = "RadioButton17";
+            this.RadioButton17.Size = new System.Drawing.Size(710, 19);
+            this.RadioButton17.TabIndex = 16;
+            this.RadioButton17.Text = "⑰「書籍名(前方一致)」+「出版年(部分一致)」+「出版社名(部分一致)」　【データベース側参照セル3つ⇔スクレイピングデータ側参照セル3つ】";
+            this.RadioButton17.UseVisualStyleBackColor = true;
             // 
-            // radioButton16
+            // RadioButton16
             // 
-            this.radioButton16.AutoSize = true;
-            this.radioButton16.Location = new System.Drawing.Point(20, 443);
-            this.radioButton16.Name = "radioButton16";
-            this.radioButton16.Size = new System.Drawing.Size(710, 19);
-            this.radioButton16.TabIndex = 15;
-            this.radioButton16.Text = "⑯「書籍名(部分一致)」+「出版年(部分一致)」+「出版社名(部分一致)」　【データベース側参照セル3つ⇔スクレイピングデータ側参照セル3つ】";
-            this.radioButton16.UseVisualStyleBackColor = true;
+            this.RadioButton16.AutoSize = true;
+            this.RadioButton16.Location = new System.Drawing.Point(20, 443);
+            this.RadioButton16.Name = "RadioButton16";
+            this.RadioButton16.Size = new System.Drawing.Size(710, 19);
+            this.RadioButton16.TabIndex = 15;
+            this.RadioButton16.Text = "⑯「書籍名(部分一致)」+「出版年(部分一致)」+「出版社名(部分一致)」　【データベース側参照セル3つ⇔スクレイピングデータ側参照セル3つ】";
+            this.RadioButton16.UseVisualStyleBackColor = true;
             // 
-            // radioButton15
+            // RadioButton15
             // 
-            this.radioButton15.AutoSize = true;
-            this.radioButton15.Location = new System.Drawing.Point(20, 409);
-            this.radioButton15.Name = "radioButton15";
-            this.radioButton15.Size = new System.Drawing.Size(466, 19);
-            this.radioButton15.TabIndex = 14;
-            this.radioButton15.Text = "⑮「書籍名(完全一致)」　【データベース側参照セル1つ⇔スクレイピングデータ側参照セル1つ】";
-            this.radioButton15.UseVisualStyleBackColor = true;
+            this.RadioButton15.AutoSize = true;
+            this.RadioButton15.Location = new System.Drawing.Point(20, 409);
+            this.RadioButton15.Name = "RadioButton15";
+            this.RadioButton15.Size = new System.Drawing.Size(466, 19);
+            this.RadioButton15.TabIndex = 14;
+            this.RadioButton15.Text = "⑮「書籍名(完全一致)」　【データベース側参照セル1つ⇔スクレイピングデータ側参照セル1つ】";
+            this.RadioButton15.UseVisualStyleBackColor = true;
             // 
-            // radioButton14
+            // RadioButton14
             // 
-            this.radioButton14.AutoSize = true;
-            this.radioButton14.Location = new System.Drawing.Point(20, 384);
-            this.radioButton14.Name = "radioButton14";
-            this.radioButton14.Size = new System.Drawing.Size(460, 19);
-            this.radioButton14.TabIndex = 13;
-            this.radioButton14.Text = "⑭「ISBN(完全一致)」　【データベース側参照セル1つ⇔スクレイピングデータ側参照セル1つ】";
-            this.radioButton14.UseVisualStyleBackColor = true;
+            this.RadioButton14.AutoSize = true;
+            this.RadioButton14.Location = new System.Drawing.Point(20, 384);
+            this.RadioButton14.Name = "RadioButton14";
+            this.RadioButton14.Size = new System.Drawing.Size(460, 19);
+            this.RadioButton14.TabIndex = 13;
+            this.RadioButton14.Text = "⑭「ISBN(完全一致)」　【データベース側参照セル1つ⇔スクレイピングデータ側参照セル1つ】";
+            this.RadioButton14.UseVisualStyleBackColor = true;
             // 
-            // radioButton13
+            // RadioButton13
             // 
-            this.radioButton13.AutoSize = true;
-            this.radioButton13.Location = new System.Drawing.Point(20, 359);
-            this.radioButton13.Name = "radioButton13";
-            this.radioButton13.Size = new System.Drawing.Size(454, 19);
-            this.radioButton13.TabIndex = 12;
-            this.radioButton13.Text = "⑬「URL(完全一致)」　【データベース側参照セル1つ⇔スクレイピングデータ側参照セル1つ】";
-            this.radioButton13.UseVisualStyleBackColor = true;
+            this.RadioButton13.AutoSize = true;
+            this.RadioButton13.Location = new System.Drawing.Point(20, 359);
+            this.RadioButton13.Name = "RadioButton13";
+            this.RadioButton13.Size = new System.Drawing.Size(454, 19);
+            this.RadioButton13.TabIndex = 12;
+            this.RadioButton13.Text = "⑬「URL(完全一致)」　【データベース側参照セル1つ⇔スクレイピングデータ側参照セル1つ】";
+            this.RadioButton13.UseVisualStyleBackColor = true;
             // 
-            // radioButton12
+            // RadioButton12
             // 
-            this.radioButton12.AutoSize = true;
-            this.radioButton12.Location = new System.Drawing.Point(20, 325);
-            this.radioButton12.Name = "radioButton12";
-            this.radioButton12.Size = new System.Drawing.Size(582, 19);
-            this.radioButton12.TabIndex = 11;
-            this.radioButton12.Text = "⑫「書籍名(部分一致)」+「著者名(部分一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル1つ】";
-            this.radioButton12.UseVisualStyleBackColor = true;
+            this.RadioButton12.AutoSize = true;
+            this.RadioButton12.Location = new System.Drawing.Point(20, 325);
+            this.RadioButton12.Name = "RadioButton12";
+            this.RadioButton12.Size = new System.Drawing.Size(582, 19);
+            this.RadioButton12.TabIndex = 11;
+            this.RadioButton12.Text = "⑫「書籍名(部分一致)」+「著者名(部分一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル1つ】";
+            this.RadioButton12.UseVisualStyleBackColor = true;
             // 
-            // radioButton11
+            // RadioButton11
             // 
-            this.radioButton11.AutoSize = true;
-            this.radioButton11.Location = new System.Drawing.Point(20, 300);
-            this.radioButton11.Name = "radioButton11";
-            this.radioButton11.Size = new System.Drawing.Size(594, 19);
-            this.radioButton11.TabIndex = 10;
-            this.radioButton11.Text = "⑪「書籍名(部分一致)」+「出版社名(完全一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル1つ】";
-            this.radioButton11.UseVisualStyleBackColor = true;
+            this.RadioButton11.AutoSize = true;
+            this.RadioButton11.Location = new System.Drawing.Point(20, 300);
+            this.RadioButton11.Name = "RadioButton11";
+            this.RadioButton11.Size = new System.Drawing.Size(594, 19);
+            this.RadioButton11.TabIndex = 10;
+            this.RadioButton11.Text = "⑪「書籍名(部分一致)」+「出版社名(完全一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル1つ】";
+            this.RadioButton11.UseVisualStyleBackColor = true;
             // 
-            // radioButton10
+            // RadioButton10
             // 
-            this.radioButton10.AutoSize = true;
-            this.radioButton10.Location = new System.Drawing.Point(20, 275);
-            this.radioButton10.Name = "radioButton10";
-            this.radioButton10.Size = new System.Drawing.Size(582, 19);
-            this.radioButton10.TabIndex = 9;
-            this.radioButton10.Text = "⑩「書籍名(部分一致)」+「出版年(完全一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル1つ】";
-            this.radioButton10.UseVisualStyleBackColor = true;
+            this.RadioButton10.AutoSize = true;
+            this.RadioButton10.Location = new System.Drawing.Point(20, 275);
+            this.RadioButton10.Name = "RadioButton10";
+            this.RadioButton10.Size = new System.Drawing.Size(582, 19);
+            this.RadioButton10.TabIndex = 9;
+            this.RadioButton10.Text = "⑩「書籍名(部分一致)」+「出版年(完全一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル1つ】";
+            this.RadioButton10.UseVisualStyleBackColor = true;
             // 
-            // radioButton09
+            // RadioButton09
             // 
-            this.radioButton09.AutoSize = true;
-            this.radioButton09.Location = new System.Drawing.Point(20, 241);
-            this.radioButton09.Name = "radioButton09";
-            this.radioButton09.Size = new System.Drawing.Size(582, 19);
-            this.radioButton09.TabIndex = 8;
-            this.radioButton09.Text = "⑨「書籍名(部分一致)」+「著者名(部分一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル2つ】";
-            this.radioButton09.UseVisualStyleBackColor = true;
+            this.RadioButton09.AutoSize = true;
+            this.RadioButton09.Location = new System.Drawing.Point(20, 241);
+            this.RadioButton09.Name = "RadioButton09";
+            this.RadioButton09.Size = new System.Drawing.Size(582, 19);
+            this.RadioButton09.TabIndex = 8;
+            this.RadioButton09.Text = "⑨「書籍名(部分一致)」+「著者名(部分一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル2つ】";
+            this.RadioButton09.UseVisualStyleBackColor = true;
             // 
-            // radioButton08
+            // RadioButton08
             // 
-            this.radioButton08.AutoSize = true;
-            this.radioButton08.Location = new System.Drawing.Point(20, 216);
-            this.radioButton08.Name = "radioButton08";
-            this.radioButton08.Size = new System.Drawing.Size(582, 19);
-            this.radioButton08.TabIndex = 7;
-            this.radioButton08.Text = "⑧「書籍名(前方一致)」+「著者名(部分一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル2つ】";
-            this.radioButton08.UseVisualStyleBackColor = true;
+            this.RadioButton08.AutoSize = true;
+            this.RadioButton08.Location = new System.Drawing.Point(20, 216);
+            this.RadioButton08.Name = "RadioButton08";
+            this.RadioButton08.Size = new System.Drawing.Size(582, 19);
+            this.RadioButton08.TabIndex = 7;
+            this.RadioButton08.Text = "⑧「書籍名(前方一致)」+「著者名(部分一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル2つ】";
+            this.RadioButton08.UseVisualStyleBackColor = true;
             // 
-            // radioButton07
+            // RadioButton07
             // 
-            this.radioButton07.AutoSize = true;
-            this.radioButton07.Location = new System.Drawing.Point(20, 191);
-            this.radioButton07.Name = "radioButton07";
-            this.radioButton07.Size = new System.Drawing.Size(582, 19);
-            this.radioButton07.TabIndex = 6;
-            this.radioButton07.Text = "⑦「書籍名(完全一致)」+「著者名(部分一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル2つ】";
-            this.radioButton07.UseVisualStyleBackColor = true;
+            this.RadioButton07.AutoSize = true;
+            this.RadioButton07.Location = new System.Drawing.Point(20, 191);
+            this.RadioButton07.Name = "RadioButton07";
+            this.RadioButton07.Size = new System.Drawing.Size(582, 19);
+            this.RadioButton07.TabIndex = 6;
+            this.RadioButton07.Text = "⑦「書籍名(完全一致)」+「著者名(部分一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル2つ】";
+            this.RadioButton07.UseVisualStyleBackColor = true;
             // 
-            // radioButton06
+            // RadioButton06
             // 
-            this.radioButton06.AutoSize = true;
-            this.radioButton06.Location = new System.Drawing.Point(20, 156);
-            this.radioButton06.Name = "radioButton06";
-            this.radioButton06.Size = new System.Drawing.Size(594, 19);
-            this.radioButton06.TabIndex = 5;
-            this.radioButton06.Text = "⑥「書籍名(部分一致)」+「出版社名(完全一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル2つ】";
-            this.radioButton06.UseVisualStyleBackColor = true;
+            this.RadioButton06.AutoSize = true;
+            this.RadioButton06.Location = new System.Drawing.Point(20, 156);
+            this.RadioButton06.Name = "RadioButton06";
+            this.RadioButton06.Size = new System.Drawing.Size(594, 19);
+            this.RadioButton06.TabIndex = 5;
+            this.RadioButton06.Text = "⑥「書籍名(部分一致)」+「出版社名(完全一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル2つ】";
+            this.RadioButton06.UseVisualStyleBackColor = true;
             // 
-            // radioButton05
+            // RadioButton05
             // 
-            this.radioButton05.AutoSize = true;
-            this.radioButton05.Location = new System.Drawing.Point(20, 131);
-            this.radioButton05.Name = "radioButton05";
-            this.radioButton05.Size = new System.Drawing.Size(594, 19);
-            this.radioButton05.TabIndex = 4;
-            this.radioButton05.Text = "⑤「書籍名(前方一致)」+「出版社名(完全一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル2つ】";
-            this.radioButton05.UseVisualStyleBackColor = true;
+            this.RadioButton05.AutoSize = true;
+            this.RadioButton05.Location = new System.Drawing.Point(20, 131);
+            this.RadioButton05.Name = "RadioButton05";
+            this.RadioButton05.Size = new System.Drawing.Size(594, 19);
+            this.RadioButton05.TabIndex = 4;
+            this.RadioButton05.Text = "⑤「書籍名(前方一致)」+「出版社名(完全一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル2つ】";
+            this.RadioButton05.UseVisualStyleBackColor = true;
             // 
-            // radioButton04
+            // RadioButton04
             // 
-            this.radioButton04.AutoSize = true;
-            this.radioButton04.Location = new System.Drawing.Point(20, 106);
-            this.radioButton04.Name = "radioButton04";
-            this.radioButton04.Size = new System.Drawing.Size(594, 19);
-            this.radioButton04.TabIndex = 3;
-            this.radioButton04.Text = "④「書籍名(完全一致)」+「出版社名(完全一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル2つ】";
-            this.radioButton04.UseVisualStyleBackColor = true;
+            this.RadioButton04.AutoSize = true;
+            this.RadioButton04.Location = new System.Drawing.Point(20, 106);
+            this.RadioButton04.Name = "RadioButton04";
+            this.RadioButton04.Size = new System.Drawing.Size(594, 19);
+            this.RadioButton04.TabIndex = 3;
+            this.RadioButton04.Text = "④「書籍名(完全一致)」+「出版社名(完全一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル2つ】";
+            this.RadioButton04.UseVisualStyleBackColor = true;
             // 
-            // radioButton03
+            // RadioButton03
             // 
-            this.radioButton03.AutoSize = true;
-            this.radioButton03.Location = new System.Drawing.Point(20, 72);
-            this.radioButton03.Name = "radioButton03";
-            this.radioButton03.Size = new System.Drawing.Size(582, 19);
-            this.radioButton03.TabIndex = 2;
-            this.radioButton03.Text = "③「書籍名(部分一致)」+「出版年(完全一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル2つ】";
-            this.radioButton03.UseVisualStyleBackColor = true;
+            this.RadioButton03.AutoSize = true;
+            this.RadioButton03.Location = new System.Drawing.Point(20, 72);
+            this.RadioButton03.Name = "RadioButton03";
+            this.RadioButton03.Size = new System.Drawing.Size(582, 19);
+            this.RadioButton03.TabIndex = 2;
+            this.RadioButton03.Text = "③「書籍名(部分一致)」+「出版年(完全一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル2つ】";
+            this.RadioButton03.UseVisualStyleBackColor = true;
             // 
-            // radioButton02
+            // RadioButton02
             // 
-            this.radioButton02.AutoSize = true;
-            this.radioButton02.Location = new System.Drawing.Point(20, 47);
-            this.radioButton02.Name = "radioButton02";
-            this.radioButton02.Size = new System.Drawing.Size(582, 19);
-            this.radioButton02.TabIndex = 1;
-            this.radioButton02.Text = "②「書籍名(前方一致)」+「出版年(完全一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル2つ】";
-            this.radioButton02.UseVisualStyleBackColor = true;
+            this.RadioButton02.AutoSize = true;
+            this.RadioButton02.Location = new System.Drawing.Point(20, 47);
+            this.RadioButton02.Name = "RadioButton02";
+            this.RadioButton02.Size = new System.Drawing.Size(582, 19);
+            this.RadioButton02.TabIndex = 1;
+            this.RadioButton02.Text = "②「書籍名(前方一致)」+「出版年(完全一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル2つ】";
+            this.RadioButton02.UseVisualStyleBackColor = true;
             // 
-            // radioButton01
+            // RadioButton01
             // 
-            this.radioButton01.AutoSize = true;
-            this.radioButton01.Checked = true;
-            this.radioButton01.Location = new System.Drawing.Point(20, 22);
-            this.radioButton01.Name = "radioButton01";
-            this.radioButton01.Size = new System.Drawing.Size(582, 19);
-            this.radioButton01.TabIndex = 0;
-            this.radioButton01.TabStop = true;
-            this.radioButton01.Text = "①「書籍名(完全一致)」+「出版年(完全一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル2つ】";
-            this.radioButton01.UseVisualStyleBackColor = true;
+            this.RadioButton01.AutoSize = true;
+            this.RadioButton01.Checked = true;
+            this.RadioButton01.Location = new System.Drawing.Point(20, 22);
+            this.RadioButton01.Name = "RadioButton01";
+            this.RadioButton01.Size = new System.Drawing.Size(582, 19);
+            this.RadioButton01.TabIndex = 0;
+            this.RadioButton01.TabStop = true;
+            this.RadioButton01.Text = "①「書籍名(完全一致)」+「出版年(完全一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル2つ】";
+            this.RadioButton01.UseVisualStyleBackColor = true;
             // 
-            // groupBox5
+            // GroupBox5
             // 
-            this.groupBox5.Controls.Add(this.bookColumnSetting);
-            this.groupBox5.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.groupBox5.Location = new System.Drawing.Point(771, 226);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(497, 150);
-            this.groupBox5.TabIndex = 4;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "書籍データベースカラム";
+            this.GroupBox5.Controls.Add(this.BookColumnSetting);
+            this.GroupBox5.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.GroupBox5.Location = new System.Drawing.Point(771, 226);
+            this.GroupBox5.Name = "GroupBox5";
+            this.GroupBox5.Size = new System.Drawing.Size(497, 150);
+            this.GroupBox5.TabIndex = 4;
+            this.GroupBox5.TabStop = false;
+            this.GroupBox5.Text = "書籍データベースカラム";
             // 
-            // bookColumnSetting
+            // BookColumnSetting
             // 
-            this.bookColumnSetting.AllowUserToAddRows = false;
-            this.bookColumnSetting.AllowUserToDeleteRows = false;
-            this.bookColumnSetting.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.bookColumnSetting.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.BookColumnSetting.AllowUserToAddRows = false;
+            this.BookColumnSetting.AllowUserToDeleteRows = false;
+            this.BookColumnSetting.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.BookColumnSetting.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.BookColumnNumber,
             this.BookColumnName,
             this.BookColumnValue,
             this.BookColumnType});
-            this.bookColumnSetting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.bookColumnSetting.Location = new System.Drawing.Point(3, 19);
-            this.bookColumnSetting.Name = "bookColumnSetting";
-            this.bookColumnSetting.RowTemplate.Height = 21;
-            this.bookColumnSetting.Size = new System.Drawing.Size(491, 128);
-            this.bookColumnSetting.TabIndex = 0;
+            this.BookColumnSetting.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BookColumnSetting.Location = new System.Drawing.Point(3, 19);
+            this.BookColumnSetting.Name = "BookColumnSetting";
+            this.BookColumnSetting.RowTemplate.Height = 21;
+            this.BookColumnSetting.Size = new System.Drawing.Size(491, 128);
+            this.BookColumnSetting.TabIndex = 0;
             // 
             // BookColumnNumber
             // 
@@ -367,33 +364,33 @@
             "ISBN"});
             this.BookColumnType.Name = "BookColumnType";
             // 
-            // groupBox6
+            // GroupBox6
             // 
-            this.groupBox6.Controls.Add(this.scrapingColumnSetting);
-            this.groupBox6.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.groupBox6.Location = new System.Drawing.Point(774, 393);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(491, 334);
-            this.groupBox6.TabIndex = 5;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "スクレイピングデータカラム";
+            this.GroupBox6.Controls.Add(this.ScrapingColumnSetting);
+            this.GroupBox6.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.GroupBox6.Location = new System.Drawing.Point(774, 393);
+            this.GroupBox6.Name = "GroupBox6";
+            this.GroupBox6.Size = new System.Drawing.Size(491, 334);
+            this.GroupBox6.TabIndex = 5;
+            this.GroupBox6.TabStop = false;
+            this.GroupBox6.Text = "スクレイピングデータカラム";
             // 
-            // scrapingColumnSetting
+            // ScrapingColumnSetting
             // 
-            this.scrapingColumnSetting.AllowUserToAddRows = false;
-            this.scrapingColumnSetting.AllowUserToDeleteRows = false;
-            this.scrapingColumnSetting.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.scrapingColumnSetting.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ScrapingColumnSetting.AllowUserToAddRows = false;
+            this.ScrapingColumnSetting.AllowUserToDeleteRows = false;
+            this.ScrapingColumnSetting.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ScrapingColumnSetting.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ScrapingColumnNumber,
             this.ScrapingColumnName,
             this.ScrapingColumnValue,
             this.ScrapingColumnType});
-            this.scrapingColumnSetting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.scrapingColumnSetting.Location = new System.Drawing.Point(3, 19);
-            this.scrapingColumnSetting.Name = "scrapingColumnSetting";
-            this.scrapingColumnSetting.RowTemplate.Height = 21;
-            this.scrapingColumnSetting.Size = new System.Drawing.Size(485, 312);
-            this.scrapingColumnSetting.TabIndex = 0;
+            this.ScrapingColumnSetting.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ScrapingColumnSetting.Location = new System.Drawing.Point(3, 19);
+            this.ScrapingColumnSetting.Name = "ScrapingColumnSetting";
+            this.ScrapingColumnSetting.RowTemplate.Height = 21;
+            this.ScrapingColumnSetting.Size = new System.Drawing.Size(485, 312);
+            this.ScrapingColumnSetting.TabIndex = 0;
             // 
             // ScrapingColumnNumber
             // 
@@ -430,311 +427,278 @@
             "(日本の古書屋)"});
             this.ScrapingColumnType.Name = "ScrapingColumnType";
             // 
-            // statusStrip1
+            // StatusStrip1
             // 
-            this.statusStrip1.Font = new System.Drawing.Font("Meiryo UI", 9F);
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1,
-            this.toolStripStatusLabel2});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 738);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1295, 22);
-            this.statusStrip1.TabIndex = 29;
-            this.statusStrip1.Text = "statusStrip1";
+            this.StatusStrip1.Font = new System.Drawing.Font("Meiryo UI", 9F);
+            this.StatusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStripStatusLabel1,
+            this.ToolStripStatusLabel2});
+            this.StatusStrip1.Location = new System.Drawing.Point(0, 738);
+            this.StatusStrip1.Name = "StatusStrip1";
+            this.StatusStrip1.Size = new System.Drawing.Size(1295, 22);
+            this.StatusStrip1.TabIndex = 29;
+            this.StatusStrip1.Text = "StatusStrip1";
             // 
-            // toolStripStatusLabel1
+            // ToolStripStatusLabel1
             // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(59, 17);
-            this.toolStripStatusLabel1.Text = "00:00:00";
+            this.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1";
+            this.ToolStripStatusLabel1.Size = new System.Drawing.Size(59, 17);
+            this.ToolStripStatusLabel1.Text = "00:00:00";
             // 
-            // toolStripStatusLabel2
+            // ToolStripStatusLabel2
             // 
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(175, 17);
-            this.toolStripStatusLabel2.Text = "検索条件を指定してください．．．";
+            this.ToolStripStatusLabel2.Name = "ToolStripStatusLabel2";
+            this.ToolStripStatusLabel2.Size = new System.Drawing.Size(175, 17);
+            this.ToolStripStatusLabel2.Text = "検索条件を指定してください．．．";
             // 
-            // timer1
+            // Timer1
             // 
-            this.timer1.Interval = 1000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.Timer1.Interval = 1000;
+            this.Timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
-            // groupBox2
+            // GroupBox2
             // 
-            this.groupBox2.Controls.Add(this.radioFileTypeCSV);
-            this.groupBox2.Controls.Add(this.radioFileTypeExcel);
-            this.groupBox2.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.groupBox2.Location = new System.Drawing.Point(12, 152);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(237, 57);
-            this.groupBox2.TabIndex = 1;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "出力データファイル種類";
+            this.GroupBox2.Controls.Add(this.RadioButtonFileTypeCSV);
+            this.GroupBox2.Controls.Add(this.RadioButtonFileTypeExcel);
+            this.GroupBox2.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.GroupBox2.Location = new System.Drawing.Point(12, 152);
+            this.GroupBox2.Name = "GroupBox2";
+            this.GroupBox2.Size = new System.Drawing.Size(237, 57);
+            this.GroupBox2.TabIndex = 1;
+            this.GroupBox2.TabStop = false;
+            this.GroupBox2.Text = "出力データファイル種類";
             // 
-            // radioFileTypeCSV
+            // RadioButtonFileTypeCSV
             // 
-            this.radioFileTypeCSV.AutoSize = true;
-            this.radioFileTypeCSV.Location = new System.Drawing.Point(136, 24);
-            this.radioFileTypeCSV.Name = "radioFileTypeCSV";
-            this.radioFileTypeCSV.Size = new System.Drawing.Size(83, 19);
-            this.radioFileTypeCSV.TabIndex = 1;
-            this.radioFileTypeCSV.Text = "CSVファイル";
-            this.radioFileTypeCSV.UseVisualStyleBackColor = true;
+            this.RadioButtonFileTypeCSV.AutoSize = true;
+            this.RadioButtonFileTypeCSV.Location = new System.Drawing.Point(136, 24);
+            this.RadioButtonFileTypeCSV.Name = "RadioButtonFileTypeCSV";
+            this.RadioButtonFileTypeCSV.Size = new System.Drawing.Size(83, 19);
+            this.RadioButtonFileTypeCSV.TabIndex = 1;
+            this.RadioButtonFileTypeCSV.Text = "CSVファイル";
+            this.RadioButtonFileTypeCSV.UseVisualStyleBackColor = true;
             // 
-            // radioFileTypeExcel
+            // RadioButtonFileTypeExcel
             // 
-            this.radioFileTypeExcel.AutoSize = true;
-            this.radioFileTypeExcel.Checked = true;
-            this.radioFileTypeExcel.Location = new System.Drawing.Point(20, 24);
-            this.radioFileTypeExcel.Name = "radioFileTypeExcel";
-            this.radioFileTypeExcel.Size = new System.Drawing.Size(89, 19);
-            this.radioFileTypeExcel.TabIndex = 0;
-            this.radioFileTypeExcel.TabStop = true;
-            this.radioFileTypeExcel.Text = "Excelファイル";
-            this.radioFileTypeExcel.UseVisualStyleBackColor = true;
-            this.radioFileTypeExcel.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            this.RadioButtonFileTypeExcel.AutoSize = true;
+            this.RadioButtonFileTypeExcel.Checked = true;
+            this.RadioButtonFileTypeExcel.Location = new System.Drawing.Point(20, 24);
+            this.RadioButtonFileTypeExcel.Name = "RadioButtonFileTypeExcel";
+            this.RadioButtonFileTypeExcel.Size = new System.Drawing.Size(89, 19);
+            this.RadioButtonFileTypeExcel.TabIndex = 0;
+            this.RadioButtonFileTypeExcel.TabStop = true;
+            this.RadioButtonFileTypeExcel.Text = "Excelファイル";
+            this.RadioButtonFileTypeExcel.UseVisualStyleBackColor = true;
+            this.RadioButtonFileTypeExcel.CheckedChanged += new System.EventHandler(this.RadioButton1_CheckedChanged);
             // 
-            // groupBox3
+            // GroupBox3
             // 
-            this.groupBox3.Controls.Add(this.radioSpaceContains);
-            this.groupBox3.Controls.Add(this.radioSpaceIgnore);
-            this.groupBox3.Controls.Add(this.label5);
-            this.groupBox3.Controls.Add(this.comboBoxLength);
-            this.groupBox3.Controls.Add(this.label4);
-            this.groupBox3.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.groupBox3.Location = new System.Drawing.Point(269, 152);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(764, 57);
-            this.groupBox3.TabIndex = 2;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "比較条件";
+            this.GroupBox3.Controls.Add(this.RadioSpaceContains);
+            this.GroupBox3.Controls.Add(this.RadioSpaceIgnore);
+            this.GroupBox3.Controls.Add(this.Label5);
+            this.GroupBox3.Controls.Add(this.ComboBoxLength);
+            this.GroupBox3.Controls.Add(this.Label4);
+            this.GroupBox3.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.GroupBox3.Location = new System.Drawing.Point(269, 152);
+            this.GroupBox3.Name = "GroupBox3";
+            this.GroupBox3.Size = new System.Drawing.Size(764, 57);
+            this.GroupBox3.TabIndex = 2;
+            this.GroupBox3.TabStop = false;
+            this.GroupBox3.Text = "比較条件";
             // 
-            // radioSpaceContains
+            // RadioSpaceContains
             // 
-            this.radioSpaceContains.AutoSize = true;
-            this.radioSpaceContains.Location = new System.Drawing.Point(599, 24);
-            this.radioSpaceContains.Name = "radioSpaceContains";
-            this.radioSpaceContains.Size = new System.Drawing.Size(95, 19);
-            this.radioSpaceContains.TabIndex = 4;
-            this.radioSpaceContains.Text = "空白文字含む";
-            this.radioSpaceContains.UseVisualStyleBackColor = true;
+            this.RadioSpaceContains.AutoSize = true;
+            this.RadioSpaceContains.Location = new System.Drawing.Point(599, 24);
+            this.RadioSpaceContains.Name = "RadioSpaceContains";
+            this.RadioSpaceContains.Size = new System.Drawing.Size(95, 19);
+            this.RadioSpaceContains.TabIndex = 4;
+            this.RadioSpaceContains.Text = "空白文字含む";
+            this.RadioSpaceContains.UseVisualStyleBackColor = true;
             // 
-            // radioSpaceIgnore
+            // RadioSpaceIgnore
             // 
-            this.radioSpaceIgnore.AutoSize = true;
-            this.radioSpaceIgnore.Checked = true;
-            this.radioSpaceIgnore.Location = new System.Drawing.Point(466, 24);
-            this.radioSpaceIgnore.Name = "radioSpaceIgnore";
-            this.radioSpaceIgnore.Size = new System.Drawing.Size(97, 19);
-            this.radioSpaceIgnore.TabIndex = 3;
-            this.radioSpaceIgnore.TabStop = true;
-            this.radioSpaceIgnore.Text = "空白文字無視";
-            this.radioSpaceIgnore.UseVisualStyleBackColor = true;
+            this.RadioSpaceIgnore.AutoSize = true;
+            this.RadioSpaceIgnore.Checked = true;
+            this.RadioSpaceIgnore.Location = new System.Drawing.Point(466, 24);
+            this.RadioSpaceIgnore.Name = "RadioSpaceIgnore";
+            this.RadioSpaceIgnore.Size = new System.Drawing.Size(97, 19);
+            this.RadioSpaceIgnore.TabIndex = 3;
+            this.RadioSpaceIgnore.TabStop = true;
+            this.RadioSpaceIgnore.Text = "空白文字無視";
+            this.RadioSpaceIgnore.UseVisualStyleBackColor = true;
             // 
-            // label5
+            // Label5
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label5.Location = new System.Drawing.Point(271, 26);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(97, 15);
-            this.label5.TabIndex = 2;
-            this.label5.Text = "文字　(空白無視)";
+            this.Label5.AutoSize = true;
+            this.Label5.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.Label5.Location = new System.Drawing.Point(271, 26);
+            this.Label5.Name = "Label5";
+            this.Label5.Size = new System.Drawing.Size(97, 15);
+            this.Label5.TabIndex = 2;
+            this.Label5.Text = "文字　(空白無視)";
             // 
-            // comboBoxLength
+            // ComboBoxLength
             // 
-            this.comboBoxLength.FormattingEnabled = true;
-            this.comboBoxLength.Items.AddRange(new object[] {
+            this.ComboBoxLength.FormattingEnabled = true;
+            this.ComboBoxLength.Items.AddRange(new object[] {
             "3",
             "4",
             "5",
             "6",
             "7"});
-            this.comboBoxLength.Location = new System.Drawing.Point(212, 23);
-            this.comboBoxLength.Name = "comboBoxLength";
-            this.comboBoxLength.Size = new System.Drawing.Size(53, 23);
-            this.comboBoxLength.TabIndex = 1;
+            this.ComboBoxLength.Location = new System.Drawing.Point(212, 23);
+            this.ComboBoxLength.Name = "ComboBoxLength";
+            this.ComboBoxLength.Size = new System.Drawing.Size(53, 23);
+            this.ComboBoxLength.TabIndex = 1;
             // 
-            // label4
+            // Label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label4.Location = new System.Drawing.Point(61, 26);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(145, 15);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "前方一致・部分一致文字数";
+            this.Label4.AutoSize = true;
+            this.Label4.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.Label4.Location = new System.Drawing.Point(61, 26);
+            this.Label4.Name = "Label4";
+            this.Label4.Size = new System.Drawing.Size(145, 15);
+            this.Label4.TabIndex = 0;
+            this.Label4.Text = "前方一致・部分一致文字数";
             // 
-            // groupBox7
+            // GroupBox7
             // 
-            this.groupBox7.Controls.Add(this.button4);
-            this.groupBox7.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.groupBox7.Location = new System.Drawing.Point(1103, 152);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(162, 57);
-            this.groupBox7.TabIndex = 6;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "突き合わせ処理";
+            this.GroupBox7.Controls.Add(this.Button4);
+            this.GroupBox7.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.GroupBox7.Location = new System.Drawing.Point(1103, 152);
+            this.GroupBox7.Name = "GroupBox7";
+            this.GroupBox7.Size = new System.Drawing.Size(162, 57);
+            this.GroupBox7.TabIndex = 6;
+            this.GroupBox7.TabStop = false;
+            this.GroupBox7.Text = "突き合わせ処理";
             // 
-            // button4
+            // Button4
             // 
-            this.button4.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button4.Location = new System.Drawing.Point(46, 22);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 0;
-            this.button4.Text = "実行";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.Button4.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.Button4.Location = new System.Drawing.Point(46, 22);
+            this.Button4.Name = "Button4";
+            this.Button4.Size = new System.Drawing.Size(75, 23);
+            this.Button4.TabIndex = 0;
+            this.Button4.Text = "実行";
+            this.Button4.UseVisualStyleBackColor = true;
+            this.Button4.Click += new System.EventHandler(this.Button4_Click);
             // 
-            // groupBox1
+            // GroupBox1
             // 
-            this.groupBox1.Controls.Add(this.checkBox3);
-            this.groupBox1.Controls.Add(this.checkBox2);
-            this.groupBox1.Controls.Add(this.checkBox1);
-            this.groupBox1.Controls.Add(this.button3);
-            this.groupBox1.Controls.Add(this.button2);
-            this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Controls.Add(this.textBox3);
-            this.groupBox1.Controls.Add(this.textBox2);
-            this.groupBox1.Controls.Add(this.textBox1);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1253, 125);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "入力・出力データファイル指定";
+            this.GroupBox1.Controls.Add(this.Button3);
+            this.GroupBox1.Controls.Add(this.Button2);
+            this.GroupBox1.Controls.Add(this.Button1);
+            this.GroupBox1.Controls.Add(this.TextBox3);
+            this.GroupBox1.Controls.Add(this.TextBox2);
+            this.GroupBox1.Controls.Add(this.TextBox1);
+            this.GroupBox1.Controls.Add(this.Label3);
+            this.GroupBox1.Controls.Add(this.Label2);
+            this.GroupBox1.Controls.Add(this.Label1);
+            this.GroupBox1.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.GroupBox1.Location = new System.Drawing.Point(12, 12);
+            this.GroupBox1.Name = "GroupBox1";
+            this.GroupBox1.Size = new System.Drawing.Size(1253, 125);
+            this.GroupBox1.TabIndex = 0;
+            this.GroupBox1.TabStop = false;
+            this.GroupBox1.Text = "入力・出力データファイル指定";
             // 
-            // button3
+            // Button3
             // 
-            this.button3.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button3.Location = new System.Drawing.Point(1137, 83);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 8;
-            this.button3.Text = "参照";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.Button3.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.Button3.Location = new System.Drawing.Point(1137, 83);
+            this.Button3.Name = "Button3";
+            this.Button3.Size = new System.Drawing.Size(75, 23);
+            this.Button3.TabIndex = 8;
+            this.Button3.Text = "参照";
+            this.Button3.UseVisualStyleBackColor = true;
+            this.Button3.Click += new System.EventHandler(this.Button3_Click);
             // 
-            // button2
+            // Button2
             // 
-            this.button2.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button2.Location = new System.Drawing.Point(1137, 53);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "参照";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.Button2.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.Button2.Location = new System.Drawing.Point(1137, 53);
+            this.Button2.Name = "Button2";
+            this.Button2.Size = new System.Drawing.Size(75, 23);
+            this.Button2.TabIndex = 5;
+            this.Button2.Text = "参照";
+            this.Button2.UseVisualStyleBackColor = true;
+            this.Button2.Click += new System.EventHandler(this.Button2_Click);
             // 
-            // button1
+            // Button1
             // 
-            this.button1.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button1.Location = new System.Drawing.Point(1137, 25);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "参照";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.Button1.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.Button1.Location = new System.Drawing.Point(1137, 25);
+            this.Button1.Name = "Button1";
+            this.Button1.Size = new System.Drawing.Size(75, 23);
+            this.Button1.TabIndex = 2;
+            this.Button1.Text = "参照";
+            this.Button1.UseVisualStyleBackColor = true;
+            this.Button1.Click += new System.EventHandler(this.Button1_Click);
             // 
-            // textBox3
+            // TextBox3
             // 
-            this.textBox3.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.textBox3.Location = new System.Drawing.Point(324, 83);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(807, 23);
-            this.textBox3.TabIndex = 7;
+            this.TextBox3.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.TextBox3.Location = new System.Drawing.Point(161, 83);
+            this.TextBox3.Name = "TextBox3";
+            this.TextBox3.Size = new System.Drawing.Size(970, 23);
+            this.TextBox3.TabIndex = 7;
             // 
-            // textBox2
+            // TextBox2
             // 
-            this.textBox2.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.textBox2.Location = new System.Drawing.Point(324, 54);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(807, 23);
-            this.textBox2.TabIndex = 4;
+            this.TextBox2.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.TextBox2.Location = new System.Drawing.Point(161, 54);
+            this.TextBox2.Name = "TextBox2";
+            this.TextBox2.Size = new System.Drawing.Size(970, 23);
+            this.TextBox2.TabIndex = 4;
             // 
-            // textBox1
+            // TextBox1
             // 
-            this.textBox1.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.textBox1.Location = new System.Drawing.Point(324, 25);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(807, 23);
-            this.textBox1.TabIndex = 1;
+            this.TextBox1.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.TextBox1.Location = new System.Drawing.Point(161, 25);
+            this.TextBox1.Name = "TextBox1";
+            this.TextBox1.Size = new System.Drawing.Size(970, 23);
+            this.TextBox1.TabIndex = 1;
             // 
-            // label3
+            // Label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label3.Location = new System.Drawing.Point(31, 86);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(95, 15);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "出力Excelファイル";
+            this.Label3.AutoSize = true;
+            this.Label3.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.Label3.Location = new System.Drawing.Point(31, 86);
+            this.Label3.Name = "Label3";
+            this.Label3.Size = new System.Drawing.Size(95, 15);
+            this.Label3.TabIndex = 6;
+            this.Label3.Text = "出力Excelファイル";
             // 
-            // label2
+            // Label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label2.Location = new System.Drawing.Point(31, 57);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(131, 15);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "スクレイピングデータファイル";
+            this.Label2.AutoSize = true;
+            this.Label2.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.Label2.Location = new System.Drawing.Point(31, 57);
+            this.Label2.Name = "Label2";
+            this.Label2.Size = new System.Drawing.Size(131, 15);
+            this.Label2.TabIndex = 3;
+            this.Label2.Text = "スクレイピングデータファイル";
             // 
-            // label1
+            // Label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label1.Location = new System.Drawing.Point(33, 28);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(122, 15);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "書籍データベースファイル";
+            this.Label1.AutoSize = true;
+            this.Label1.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.Label1.Location = new System.Drawing.Point(33, 28);
+            this.Label1.Name = "Label1";
+            this.Label1.Size = new System.Drawing.Size(122, 15);
+            this.Label1.TabIndex = 0;
+            this.Label1.Text = "書籍データベースファイル";
             // 
-            // backgroundWorker1
+            // BackgroundWorker1
             // 
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            this.BackgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker1_DoWork);
+            this.BackgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorker1_RunWorkerCompleted);
             // 
-            // backgroundWorker2
+            // BackgroundWorker2
             // 
-            this.backgroundWorker2.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker2_DoWork);
-            this.backgroundWorker2.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker2_RunWorkerCompleted);
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(168, 27);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(150, 19);
-            this.checkBox1.TabIndex = 9;
-            this.checkBox1.Text = "複数行に渡る列データあり";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(168, 56);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(150, 19);
-            this.checkBox2.TabIndex = 10;
-            this.checkBox2.Text = "複数行に渡る列データあり";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // checkBox3
-            // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(168, 85);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(150, 19);
-            this.checkBox3.TabIndex = 11;
-            this.checkBox3.Text = "複数行に渡る列データあり";
-            this.checkBox3.UseVisualStyleBackColor = true;
+            this.BackgroundWorker2.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker2_DoWork);
+            this.BackgroundWorker2.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorker2_RunWorkerCompleted);
             // 
             // Form1
             // 
@@ -742,86 +706,88 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1295, 760);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.groupBox7);
-            this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.groupBox6);
-            this.Controls.Add(this.groupBox5);
-            this.Controls.Add(this.groupBox4);
+            this.Controls.Add(this.GroupBox1);
+            this.Controls.Add(this.GroupBox7);
+            this.Controls.Add(this.GroupBox3);
+            this.Controls.Add(this.GroupBox2);
+            this.Controls.Add(this.StatusStrip1);
+            this.Controls.Add(this.GroupBox6);
+            this.Controls.Add(this.GroupBox5);
+            this.Controls.Add(this.GroupBox4);
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "BookSearcher";
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.bookColumnSetting)).EndInit();
-            this.groupBox6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.scrapingColumnSetting)).EndInit();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.GroupBox4.ResumeLayout(false);
+            this.GroupBox4.PerformLayout();
+            this.GroupBox5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.BookColumnSetting)).EndInit();
+            this.GroupBox6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ScrapingColumnSetting)).EndInit();
+            this.StatusStrip1.ResumeLayout(false);
+            this.StatusStrip1.PerformLayout();
+            this.GroupBox2.ResumeLayout(false);
+            this.GroupBox2.PerformLayout();
+            this.GroupBox3.ResumeLayout(false);
+            this.GroupBox3.PerformLayout();
+            this.GroupBox7.ResumeLayout(false);
+            this.GroupBox1.ResumeLayout(false);
+            this.GroupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.ComponentModel.BackgroundWorker backgroundWorker4;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.RadioButton radioButton16;
-        private System.Windows.Forms.RadioButton radioButton17;
-        private System.Windows.Forms.RadioButton radioButton15;
-        private System.Windows.Forms.RadioButton radioButton14;
-        private System.Windows.Forms.RadioButton radioButton13;
-        private System.Windows.Forms.RadioButton radioButton12;
-        private System.Windows.Forms.RadioButton radioButton11;
-        private System.Windows.Forms.RadioButton radioButton10;
-        private System.Windows.Forms.RadioButton radioButton09;
-        private System.Windows.Forms.RadioButton radioButton08;
-        private System.Windows.Forms.RadioButton radioButton07;
-        private System.Windows.Forms.RadioButton radioButton06;
-        private System.Windows.Forms.RadioButton radioButton05;
-        private System.Windows.Forms.RadioButton radioButton04;
-        private System.Windows.Forms.RadioButton radioButton03;
-        private System.Windows.Forms.RadioButton radioButton02;
-        private System.Windows.Forms.RadioButton radioButton01;
-        private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.DataGridView bookColumnSetting;
-        private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.DataGridView scrapingColumnSetting;
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
-        private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.RadioButton radioFileTypeCSV;
-        private System.Windows.Forms.RadioButton radioFileTypeExcel;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox comboBoxLength;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.GroupBox groupBox7;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.RadioButton radioSpaceContains;
-        private System.Windows.Forms.RadioButton radioSpaceIgnore;
+        private System.Windows.Forms.Timer Timer1;
+        private System.ComponentModel.BackgroundWorker BackgroundWorker4;
+        private System.ComponentModel.BackgroundWorker BackgroundWorker2;
+        private System.ComponentModel.BackgroundWorker BackgroundWorker1;
+        private System.Windows.Forms.StatusStrip StatusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel ToolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel ToolStripStatusLabel2;
+        private System.Windows.Forms.GroupBox GroupBox4;
+        private System.Windows.Forms.RadioButton RadioButton16;
+        private System.Windows.Forms.RadioButton RadioButton17;
+        private System.Windows.Forms.RadioButton RadioButton15;
+        private System.Windows.Forms.RadioButton RadioButton14;
+        private System.Windows.Forms.RadioButton RadioButton13;
+        private System.Windows.Forms.RadioButton RadioButton12;
+        private System.Windows.Forms.RadioButton RadioButton11;
+        private System.Windows.Forms.RadioButton RadioButton10;
+        private System.Windows.Forms.RadioButton RadioButton09;
+        private System.Windows.Forms.RadioButton RadioButton08;
+        private System.Windows.Forms.RadioButton RadioButton07;
+        private System.Windows.Forms.RadioButton RadioButton06;
+        private System.Windows.Forms.RadioButton RadioButton05;
+        private System.Windows.Forms.RadioButton RadioButton04;
+        private System.Windows.Forms.RadioButton RadioButton03;
+        private System.Windows.Forms.RadioButton RadioButton02;
+        private System.Windows.Forms.RadioButton RadioButton01;
+        private System.Windows.Forms.GroupBox GroupBox5;
+        private System.Windows.Forms.DataGridView BookColumnSetting;
+        private System.Windows.Forms.GroupBox GroupBox6;
+        private System.Windows.Forms.DataGridView ScrapingColumnSetting;
+        private System.Windows.Forms.GroupBox GroupBox2;
+        private System.Windows.Forms.RadioButton RadioButtonFileTypeCSV;
+        private System.Windows.Forms.RadioButton RadioButtonFileTypeExcel;
+        private System.Windows.Forms.GroupBox GroupBox3;
+        private System.Windows.Forms.Label Label5;
+        private System.Windows.Forms.ComboBox ComboBoxLength;
+        private System.Windows.Forms.Label Label4;
+        private System.Windows.Forms.GroupBox GroupBox7;
+        private System.Windows.Forms.Button Button4;
+        private System.Windows.Forms.GroupBox GroupBox1;
+        private System.Windows.Forms.Button Button3;
+        private System.Windows.Forms.TextBox TextBox3;
+        private System.Windows.Forms.Label Label3;
+        private System.Windows.Forms.Button Button2;
+        private System.Windows.Forms.Button Button1;
+        private System.Windows.Forms.TextBox TextBox2;
+        private System.Windows.Forms.TextBox TextBox1;
+        private System.Windows.Forms.Label Label2;
+        private System.Windows.Forms.Label Label1;
+        private System.Windows.Forms.RadioButton RadioSpaceContains;
+        private System.Windows.Forms.RadioButton RadioSpaceIgnore;
         private System.Windows.Forms.DataGridViewTextBoxColumn BookColumnNumber;
         private System.Windows.Forms.DataGridViewTextBoxColumn BookColumnName;
         private System.Windows.Forms.DataGridViewTextBoxColumn BookColumnValue;
@@ -830,11 +796,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ScrapingColumnName;
         private System.Windows.Forms.DataGridViewTextBoxColumn ScrapingColumnValue;
         private System.Windows.Forms.DataGridViewComboBoxColumn ScrapingColumnType;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private System.ComponentModel.BackgroundWorker backgroundWorker2;
-        private System.Windows.Forms.CheckBox checkBox3;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 
