@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CSVFileSplitInfo.cs" />
+    <Compile Include="CSVRakutenBooksFile.cs" />
     <Compile Include="CSVRakutenIchibaFile.cs" />
     <Compile Include="CSVKoshoFile.cs" />
     <Compile Include="CSVMultiLineFile.cs" />
