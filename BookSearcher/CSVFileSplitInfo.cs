@@ -8,7 +8,7 @@ namespace BookSearcher
     internal abstract class CSVFileSplitInfo : CSVFile
     {
         const int CHECK_LINES = 10;
-        protected abstract string Url { get; }
+        protected abstract Regex Url { get; }
         protected abstract Regex RegexDelimiter { get; }
         protected int infoIndex = -1;
         protected int infoCount = -1;
@@ -57,7 +57,8 @@ namespace BookSearcher
                     {
                         break;
                     }
-                    if (line.Contains(Url))
+                    var match = Url.Match(line);
+                    if (match.Success)
                     {
                         return true;
                     }
