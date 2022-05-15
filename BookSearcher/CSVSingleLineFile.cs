@@ -20,7 +20,6 @@ namespace BookSearcher
 
         public override bool ParseTitle()
         {
-            bool result = false;
             using (var stream = new StreamReader(Path, FileEncoding))
             {
                 var line = stream.ReadLine();
@@ -36,10 +35,10 @@ namespace BookSearcher
                 Fields = ReadFields(line);
                 if (Fields.Length == Titles.Length)
                 {
-                    result = true;
+                    return true;
                 }
             }
-            return result;
+            return false;
         }
 
         protected override void DoReadAll()

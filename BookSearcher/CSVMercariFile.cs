@@ -13,7 +13,6 @@ namespace BookSearcher
 
         public override bool ParseTitle()
         {
-            bool result = false;
             using (var reader = new TextFieldParser(Path, FileEncoding))
             {
                 reader.SetDelimiters(",");
@@ -26,12 +25,11 @@ namespace BookSearcher
                         Titles = ReadFields(fields[0], 0);
                         Fields = ReadFields(fields[0], 1);
                         Columns = Titles.Length;
-                        result = true;
-                        break;
+                        return true;
                     }
                 }
             }
-            return result;
+            return false;
         }
 
         protected override void DoReadAll()
