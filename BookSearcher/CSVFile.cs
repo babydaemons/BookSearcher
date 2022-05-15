@@ -102,6 +102,12 @@ namespace BookSearcher
                     return koshoFile;
                 }
 
+                CSVRakutenIchibaFile rakutenIchibaFile = new CSVRakutenIchibaFile(path);
+                if (rakutenIchibaFile.ParseTitle())
+                {
+                    return rakutenIchibaFile;
+                }
+
                 CSVSingleLineFile singleLineFile = new CSVSingleLineFile(path);
                 if (singleLineFile.ParseTitle())
                 {

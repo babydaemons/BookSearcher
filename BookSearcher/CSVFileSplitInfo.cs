@@ -1,7 +1,5 @@
-﻿using System;
+﻿using System.IO;
 using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
 using System.Text.RegularExpressions;
 using Microsoft.VisualBasic.FileIO;
 
@@ -72,6 +70,10 @@ namespace BookSearcher
         {
             for (int i = 0; i < fields.Count; i++)
             {
+                if (fields[i].StartsWith("https://"))
+                {
+                    continue;
+                }
                 var infos = RegexDelimiter.Split(fields[i]);
                 if (infos.Length > infoCount)
                 {
