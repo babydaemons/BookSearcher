@@ -25,6 +25,7 @@ namespace BookSearcher
                         Titles = ReadFields(fields[0], 0);
                         Fields = ReadFields(fields[0], 1);
                         Columns = Titles.Length;
+                        CreateTable();
                         return true;
                     }
                 }
@@ -38,9 +39,11 @@ namespace BookSearcher
             {
                 reader.SetDelimiters(",");
                 _ = reader.ReadFields();
-                var fields = reader.ReadFields();
-                Records.Add(ReadFields(fields[0], 1));
-                Columns = Titles.Length;
+                while (!reader.EndOfData)
+                {
+                    var fields = reader.ReadFields();
+                    AddTableRow(ReadFields(fields[0], 1));
+                }
             }
         }
 

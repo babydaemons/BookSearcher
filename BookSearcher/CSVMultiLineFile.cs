@@ -18,6 +18,7 @@ namespace BookSearcher
                 Fields = reader.ReadFields();
                 if (Fields.Length == Titles.Length)
                 {
+                    CreateTable();
                     return true;
                 }
             }
@@ -32,7 +33,7 @@ namespace BookSearcher
                 _ = reader.ReadFields();
                 while (!reader.EndOfData)
                 {
-                    Records.Add(reader.ReadFields());
+                    AddTableRow(reader.ReadFields());
                 }
             }
         }

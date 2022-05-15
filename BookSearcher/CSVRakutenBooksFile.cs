@@ -3,10 +3,10 @@ using System.Text.RegularExpressions;
 
 namespace BookSearcher
 {
-    internal class CSVRakutenBooksFile : CSVFileSplitInfo
+    internal class CSVRakutenBooksFile : CSVFileSplitInfoSingleLine
     {
         protected override Regex Url => new Regex("https://(product|books).rakuten.co.jp/");
-        protected override Regex RegexDelimiter => new Regex(@" ／ ");
+        protected override Regex RegexInfoDelimiter => new Regex(@" ／ ");
         private static readonly Regex RegexISBN = new Regex(@"^(ISBN：|インストアコード：|UPC/JAN：)");
 
         public CSVRakutenBooksFile(string path) : base(path)

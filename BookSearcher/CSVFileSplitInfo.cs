@@ -9,7 +9,7 @@ namespace BookSearcher
     {
         const int CHECK_LINES = 10;
         protected abstract Regex Url { get; }
-        protected abstract Regex RegexDelimiter { get; }
+        protected abstract Regex RegexInfoDelimiter { get; }
         protected int infoIndex = -1;
         protected int infoCount = -1;
 
@@ -17,35 +17,9 @@ namespace BookSearcher
         {
         }
 
-        public override bool ParseTitle()
-        {
-            if (!IsMatchUrl())
-            {
-                return false;
-            }
-
-            using (var reader = new TextFieldParser(Path, FileEncoding))
-            {
-                reader.SetDelimiters(",");
-                var titles = new List<string>(reader.ReadFields());
-                var fields = new List<string>(reader.ReadFields());
-                DetectInfoColumn(fields);
-                InsertTitleColums(titles);
-                InsertInfoColumn(fields);
-                Titles = titles.ToArray();
-                Fields = fields.ToArray();
-                if (Fields.Length == Titles.Length)
-                {
-                    Columns = Titles.Length;
-                    return true;
-                }
-            }
-            return false;
-        }
-
         abstract protected void InsertTitleColums(List<string> titles);
 
-        private bool IsMatchUrl()
+        protected bool IsMatchUrl()
         {
             using (var reader = new StreamReader(Path, FileEncoding))
             {
@@ -67,7 +41,7 @@ namespace BookSearcher
             return false;
         }
 
-        private void DetectInfoColumn(List<string> fields)
+        protected void DetectInfoColumn(List<string> fields)
         {
             for (int i = 0; i < fields.Count; i++)
             {
@@ -75,7 +49,7 @@ namespace BookSearcher
                 {
                     continue;
                 }
-                var infos = RegexDelimiter.Split(fields[i]);
+                var infos = RegexInfoDelimiter.Split(fields[i]);
                 if (infos.Length > infoCount)
                 {
                     infoIndex = i;
@@ -84,27 +58,12 @@ namespace BookSearcher
             }
         }
 
-        private void InsertInfoColumn(List<string> fields)
+        protected void InsertInfoColumn(List<string> fields)
         {
-            var infos = RegexDelimiter.Split(fields[infoIndex]);
+            var infos = RegexInfoDelimiter.Split(fields[infoIndex]);
             InsertInfoColumn(fields, infos);
         }
 
         protected abstract void InsertInfoColumn(List<string> fields, string[] infos);
-
-        protected override void DoReadAll()
-        {
-            using (var reader = new TextFieldParser(Path, FileEncoding))
-            {
-                reader.SetDelimiters(",");
-                _ = reader.ReadFields();
-                while (!reader.EndOfData)
-                {
-                    var fields = new List<string>(reader.ReadFields());
-                    InsertInfoColumn(fields);
-                    Records.Add(fields.ToArray());
-                }
-            }
-        }
     }
 }

@@ -5,11 +5,11 @@ using System.Text.RegularExpressions;
 
 namespace BookSearcher
 {
-    internal class CSVKoshoFile : CSVFileSplitInfo
+    internal class CSVKoshoFile : CSVFileSplitInfoSingleLine
     {
         private readonly CultureInfo culture;
         protected override Regex Url => new Regex(@"https://www.kosho.or.jp/products/");
-        protected override Regex RegexDelimiter => new Regex(@"\s+、");
+        protected override Regex RegexInfoDelimiter => new Regex(@"\s+、");
         private static readonly Regex RegexYear = new Regex(@"^(?<year>([1１][9９]|[2２][0０])[0-9０-９][0-9０-９])");
         private static readonly Regex RegexJYear = new Regex(@"^(?<year>(明治|大正|昭和|平成|令和)[1-9１-９][0-9０-９]?)");
         private static readonly Regex RegexJYear2 = new Regex(@"^(?<era>[明大昭平令])(?<year>[1-9１-９][0-9０-９]?)");

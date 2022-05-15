@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
@@ -13,7 +14,7 @@ namespace BookSearcher
         public int Columns { get; protected set; }
         public string[] Titles { get; protected set; }
         public string[] Fields { get; protected set; }
-        public List<string[]> Records { get; protected set; }
+        protected DataTable Table = new DataTable();
 
         protected CSVFile(string path)
         {
@@ -135,11 +136,16 @@ namespace BookSearcher
             return null;
         }
 
-        protected abstract void DoReadAll();
+        protected void CreateTable()
+        {
+            foreach (var title in Titles)
+            {
+                Table.Columns.Add(title, typeof(string));
+            }
+        }
 
         public void ReadAll()
         {
-            Records = new List<string[]>();
             try
             {
                 DoReadAll();
@@ -148,6 +154,23 @@ namespace BookSearcher
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        protected abstract void DoReadAll();
+
+        protected void AddTableRow(string[] fields)
+        {
+            if (fields.Length > Table.Columns.Count)
+            {
+                return;
+            }
+            var row = Table.NewRow();
+            var i = 0;
+            foreach (var field in fields)
+            {
+                row[i++] = field;
+            }
+            Table.Rows.Add(row);
         }
     }
 }

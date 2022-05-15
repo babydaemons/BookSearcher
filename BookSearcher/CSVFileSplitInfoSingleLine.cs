@@ -1,31 +1,41 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
+using System.Data;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace BookSearcher
 {
-    internal class CSVSingleLineFile : CSVFile
+    internal abstract class CSVFileSplitInfoSingleLine : CSVFileSplitInfo
     {
         // https://www.ipentec.com/document/csharp-read-csv-file-by-regex
         protected static readonly Regex RegexDelimiter = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
         protected static readonly Regex RegexSuffix = new Regex("(?<suffix>,+\\s*)$");
 
-        public CSVSingleLineFile(string path) : base(path)
+        public CSVFileSplitInfoSingleLine(string path) : base(path)
         {
         }
 
         public override bool ParseTitle()
         {
+            if (!IsMatchUrl())
+            {
+                return false;
+            }
+
             using (var reader = new StreamReader(Path, FileEncoding))
             {
                 var line = RegexSuffix.Replace(reader.ReadLine(), "");
-                Titles = ReadFields(line);
-                Columns = Titles.Length;
+                var titles = new List<string>(CSVSingleLineFile.ReadFields(line));
                 line = RegexSuffix.Replace(reader.ReadLine(), "");
-                Fields = ReadFields(line);
+                var fields = new List<string>(CSVSingleLineFile.ReadFields(line));
+                DetectInfoColumn(fields);
+                InsertTitleColums(titles);
+                InsertInfoColumn(fields);
+                Titles = titles.ToArray();
+                Fields = fields.ToArray();
                 if (Fields.Length == Titles.Length)
                 {
+                    Columns = Titles.Length;
                     CreateTable();
                     return true;
                 }
@@ -41,25 +51,11 @@ namespace BookSearcher
                 while ((line = reader.ReadLine()) != null)
                 {
                     line = RegexSuffix.Replace(line, "");
-                    var fields = ReadFields(line);
-                    AddTableRow(fields);
+                    var fields = new List<string>(CSVSingleLineFile.ReadFields(line));
+                    InsertInfoColumn(fields);
+                    AddTableRow(fields.ToArray());
                 }
             }
-        }
-
-        public static string[] ReadFields(string line)
-        {
-            bool quoted = line.IndexOf("\",") != -1 || line.IndexOf(",\"") != -1;
-            string[] fields = quoted ? RegexDelimiter.Split(line) : line.Split(',');
-            for (int i = 0; i < fields.Length; i++)
-            {
-                if (fields[i].StartsWith("\"") && fields[i].EndsWith("\""))
-                {
-                    fields[i] = fields[i].Substring(1, fields[i].Length - 2);
-                    fields[i] = fields[i].Replace("\"\"", "");
-                }
-            }
-            return fields;
         }
     }
 }
