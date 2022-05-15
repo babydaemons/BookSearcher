@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Windows.Forms;
 
 namespace BookSearcher
@@ -26,8 +27,8 @@ namespace BookSearcher
             };
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                TextBox1.Text = dialog.FileName;
-                BookCSV = CSVFile.ParseTitle(TextBox1.Text);
+                TextBoxInput1.Text = dialog.FileName;
+                BookCSV = CSVFile.ParseTitle(TextBoxInput1.Text);
                 BookColumnSetting.Rows.Clear();
                 for (int i = 0; i < BookCSV.Titles.Length; ++i)
                 {
@@ -35,24 +36,21 @@ namespace BookSearcher
                 }
                 if (BookCSV.Titles.Length > 0)
                 {
-                    Label1.Enabled = TextBox1.Enabled = Button1.Enabled = false;
+                    LabelInput1.Enabled = TextBoxInput1.Enabled = Button1.Enabled = false;
                     BackgroundWorker1.RunWorkerAsync();
                 }
             }
         }
-
 
         private void BackgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             BookCSV.ReadAll();
         }
 
-
         private void BackgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            Label1.Enabled = TextBox1.Enabled = Button1.Enabled = true;
+            LabelInput1.Enabled = TextBoxInput1.Enabled = Button1.Enabled = true;
         }
-
 
         private void Button2_Click(object sender, EventArgs e)
         {
@@ -63,8 +61,8 @@ namespace BookSearcher
             };
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                TextBox2.Text = dialog.FileName;
-                ScrapingCSV = CSVFile.ParseTitle(TextBox2.Text);
+                TextBoxInput2.Text = dialog.FileName;
+                ScrapingCSV = CSVFile.ParseTitle(TextBoxInput2.Text);
                 ScrapingColumnSetting.Rows.Clear();
                 for (int i = 0; i < ScrapingCSV.Titles.Length; ++i)
                 {
@@ -72,7 +70,7 @@ namespace BookSearcher
                 }
                 if (ScrapingCSV.Titles.Length > 0)
                 {
-                    Label2.Enabled = TextBox2.Enabled = Button2.Enabled = false;
+                    LabelInput2.Enabled = TextBoxInput2.Enabled = Button2.Enabled = false;
                     BackgroundWorker2.RunWorkerAsync();
                 }
             }
@@ -85,19 +83,55 @@ namespace BookSearcher
 
         private void BackgroundWorker2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            Label2.Enabled = TextBox2.Enabled = Button2.Enabled = true;
+            LabelInput2.Enabled = TextBoxInput2.Enabled = Button2.Enabled = true;
+        }
+        private void RadioButtonFileType_CheckedChanged(object sender, EventArgs e)
+        {
+            string fileType;
+            if (RadioButtonFileTypeExcel.Checked)
+            {
+                fileType = "出力Excelファイル";
+            }
+            else
+            {
+                fileType = RadioButtonFileTypeCSV1.Checked ? "出力CSVファイル(パターン1)" : "出力CSVファイル(パターン2)";
+            }
+            TextBoxOutput1.Text = TextBoxOutput2.Text = TextBoxOutput3.Text = "";
+            TextBoxOutput2.Enabled = TextBoxOutput3.Enabled = LabelOutput2.Enabled = LabelOutput3.Enabled = !RadioButtonFileTypeExcel.Checked;
+            LabelOutput1.Text = fileType;
         }
 
         private void Button3_Click(object sender, EventArgs e)
         {
-            var dialog = new OpenFileDialog
+            if (RadioButtonFileTypeExcel.Checked)
             {
-                Title = Label3.Text,
-                Filter = RadioButtonFileTypeExcel.Checked ? "Excelファイル|*.xlsx;*.xlsm" : "CSVファイル|*.csv"
-            };
-            if (dialog.ShowDialog() == DialogResult.OK)
+                var dialog = new OpenFileDialog
+                {
+                    Title = LabelOutput1.Text,
+                    Filter = "Excelファイル|*.xlsx;*.xlsm"
+                };
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    TextBoxOutput1.Text = dialog.FileName;
+                }
+            }
+            else
             {
-                TextBox3.Text = dialog.FileName;
+                var dialog = new OpenFileDialog
+                {
+                    Title = LabelOutput1.Text,
+                    Filter = "CSVファイル|*.csv",
+                    CheckFileExists = false
+                };
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    var path = dialog.FileName;
+                    var dir = Path.GetDirectoryName(path);
+                    var file = Path.GetFileNameWithoutExtension(path);
+                    TextBoxOutput1.Text = path;
+                    TextBoxOutput2.Text = $"{dir}\\{file}_共通出力1.csv";
+                    TextBoxOutput3.Text = $"{dir}\\{file}_共通出力2.csv";
+                }
             }
         }
 
@@ -131,12 +165,6 @@ namespace BookSearcher
             finish = DateTime.Now;
             var time = finish - start;
             ToolStripStatusLabel1.Text = time.ToString(@"hh\:mm\:ss");
-        }
-
-        private void RadioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-            var fileType = RadioButtonFileTypeExcel.Checked ? "Excel" : "CSV";
-            Label3.Text = $"出力{fileType}ファイル";
         }
 
         private void SetContolsEnabled(bool enabled)
