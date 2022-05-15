@@ -67,6 +67,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CSVMultiLineFile.cs" />
+    <Compile Include="CSVSingleLineFile.cs" />
+    <Compile Include="CSVMercariFile.cs" />
     <Compile Include="MD5Computer.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
