@@ -36,7 +36,6 @@ namespace BookSearcher
                 Fields = ReadFields(line);
                 if (Fields.Length == Titles.Length)
                 {
-                    RecordType = RecordType.SingleLine;
                     result = true;
                 }
             }

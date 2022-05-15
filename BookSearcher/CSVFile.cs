@@ -6,12 +6,9 @@ using System.Windows.Forms;
 
 namespace BookSearcher
 {
-    enum RecordType { Unknown, MercariLine, KoshoLine, SingleLine, MultiLine };
-
     internal abstract class CSVFile
     {
         public string Path { get; }
-        public RecordType RecordType { get; protected set; } = RecordType.Unknown;
         public Encoding FileEncoding { get; protected set; }
         public int Columns { get; protected set; }
         public string[] Titles { get; protected set; }

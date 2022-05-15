@@ -19,7 +19,6 @@ namespace BookSearcher
                 Fields = reader.ReadFields();
                 if (Fields.Length == Titles.Length)
                 {
-                    RecordType = RecordType.MultiLine;
                     result = true;
                 }
             }
