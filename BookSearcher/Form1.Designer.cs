@@ -57,8 +57,16 @@
             this.RadioButtonSearchType01 = new System.Windows.Forms.RadioButton();
             this.GroupBox5 = new System.Windows.Forms.GroupBox();
             this.BookColumnSetting = new System.Windows.Forms.DataGridView();
+            this.BookColumnNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BookColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BookColumnValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BookColumnType = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.GroupBox6 = new System.Windows.Forms.GroupBox();
             this.ScrapingColumnSetting = new System.Windows.Forms.DataGridView();
+            this.ScrapingColumnNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ScrapingColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ScrapingColumnValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ScrapingColumnType = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.GroupBox2 = new System.Windows.Forms.GroupBox();
             this.RadioButtonFileTypeCSV2 = new System.Windows.Forms.RadioButton();
             this.RadioButtonFileTypeCSV1 = new System.Windows.Forms.RadioButton();
@@ -85,14 +93,6 @@
             this.LabelOutput1 = new System.Windows.Forms.Label();
             this.LabelInput2 = new System.Windows.Forms.Label();
             this.LabelInput1 = new System.Windows.Forms.Label();
-            this.BookColumnNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BookColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BookColumnValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BookColumnType = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.ScrapingColumnNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ScrapingColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ScrapingColumnValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ScrapingColumnType = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.StatusStrip1.SuspendLayout();
             this.GroupBox4.SuspendLayout();
             this.GroupBox5.SuspendLayout();
@@ -373,7 +373,7 @@
             this.GroupBox5.Size = new System.Drawing.Size(497, 150);
             this.GroupBox5.TabIndex = 4;
             this.GroupBox5.TabStop = false;
-            this.GroupBox5.Text = "書籍データベースカラム";
+            this.GroupBox5.Text = "書籍データベースカラム(テーブルをダブルクリックして詳細表示)";
             // 
             // BookColumnSetting
             // 
@@ -393,6 +393,42 @@
             this.BookColumnSetting.TabIndex = 0;
             this.BookColumnSetting.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellDoubleClick);
             // 
+            // BookColumnNumber
+            // 
+            this.BookColumnNumber.HeaderText = "列番号";
+            this.BookColumnNumber.Name = "BookColumnNumber";
+            this.BookColumnNumber.ReadOnly = true;
+            this.BookColumnNumber.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.BookColumnNumber.Width = 70;
+            // 
+            // BookColumnName
+            // 
+            this.BookColumnName.HeaderText = "列名";
+            this.BookColumnName.Name = "BookColumnName";
+            this.BookColumnName.ReadOnly = true;
+            this.BookColumnName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // BookColumnValue
+            // 
+            this.BookColumnValue.HeaderText = "列データ";
+            this.BookColumnValue.Name = "BookColumnValue";
+            this.BookColumnValue.ReadOnly = true;
+            this.BookColumnValue.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.BookColumnValue.Width = 150;
+            // 
+            // BookColumnType
+            // 
+            this.BookColumnType.HeaderText = "比較データ種別";
+            this.BookColumnType.Items.AddRange(new object[] {
+            "",
+            "書籍名",
+            "出版年",
+            "出版社名",
+            "著者名",
+            "URL",
+            "ISBN"});
+            this.BookColumnType.Name = "BookColumnType";
+            // 
             // GroupBox6
             // 
             this.GroupBox6.Controls.Add(this.ScrapingColumnSetting);
@@ -402,7 +438,7 @@
             this.GroupBox6.Size = new System.Drawing.Size(491, 334);
             this.GroupBox6.TabIndex = 5;
             this.GroupBox6.TabStop = false;
-            this.GroupBox6.Text = "スクレイピングデータカラム";
+            this.GroupBox6.Text = "スクレイピングデータカラム(テーブルをダブルクリックして詳細表示)";
             // 
             // ScrapingColumnSetting
             // 
@@ -421,6 +457,44 @@
             this.ScrapingColumnSetting.Size = new System.Drawing.Size(485, 312);
             this.ScrapingColumnSetting.TabIndex = 0;
             this.ScrapingColumnSetting.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellDoubleClick);
+            // 
+            // ScrapingColumnNumber
+            // 
+            this.ScrapingColumnNumber.HeaderText = "列番号";
+            this.ScrapingColumnNumber.Name = "ScrapingColumnNumber";
+            this.ScrapingColumnNumber.ReadOnly = true;
+            this.ScrapingColumnNumber.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.ScrapingColumnNumber.Width = 70;
+            // 
+            // ScrapingColumnName
+            // 
+            this.ScrapingColumnName.HeaderText = "列名";
+            this.ScrapingColumnName.Name = "ScrapingColumnName";
+            this.ScrapingColumnName.ReadOnly = true;
+            this.ScrapingColumnName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // ScrapingColumnValue
+            // 
+            this.ScrapingColumnValue.HeaderText = "列データ";
+            this.ScrapingColumnValue.Name = "ScrapingColumnValue";
+            this.ScrapingColumnValue.ReadOnly = true;
+            this.ScrapingColumnValue.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.ScrapingColumnValue.Width = 150;
+            // 
+            // ScrapingColumnType
+            // 
+            this.ScrapingColumnType.HeaderText = "比較データ種別";
+            this.ScrapingColumnType.Items.AddRange(new object[] {
+            "",
+            "書籍名",
+            "出版年",
+            "出版社名",
+            "著者名",
+            "URL",
+            "ISBN",
+            "(メルカリ)",
+            "(日本の古書屋)"});
+            this.ScrapingColumnType.Name = "ScrapingColumnType";
             // 
             // GroupBox2
             // 
@@ -721,80 +795,6 @@
             this.LabelInput1.Size = new System.Drawing.Size(122, 15);
             this.LabelInput1.TabIndex = 0;
             this.LabelInput1.Text = "書籍データベースファイル";
-            // 
-            // BookColumnNumber
-            // 
-            this.BookColumnNumber.HeaderText = "列番号";
-            this.BookColumnNumber.Name = "BookColumnNumber";
-            this.BookColumnNumber.ReadOnly = true;
-            this.BookColumnNumber.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.BookColumnNumber.Width = 70;
-            // 
-            // BookColumnName
-            // 
-            this.BookColumnName.HeaderText = "列名";
-            this.BookColumnName.Name = "BookColumnName";
-            this.BookColumnName.ReadOnly = true;
-            this.BookColumnName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // BookColumnValue
-            // 
-            this.BookColumnValue.HeaderText = "列データ";
-            this.BookColumnValue.Name = "BookColumnValue";
-            this.BookColumnValue.ReadOnly = true;
-            this.BookColumnValue.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.BookColumnValue.Width = 150;
-            // 
-            // BookColumnType
-            // 
-            this.BookColumnType.HeaderText = "比較データ種別";
-            this.BookColumnType.Items.AddRange(new object[] {
-            "",
-            "書籍名",
-            "出版年",
-            "出版社名",
-            "著者名",
-            "URL",
-            "ISBN"});
-            this.BookColumnType.Name = "BookColumnType";
-            // 
-            // ScrapingColumnNumber
-            // 
-            this.ScrapingColumnNumber.HeaderText = "列番号";
-            this.ScrapingColumnNumber.Name = "ScrapingColumnNumber";
-            this.ScrapingColumnNumber.ReadOnly = true;
-            this.ScrapingColumnNumber.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ScrapingColumnNumber.Width = 70;
-            // 
-            // ScrapingColumnName
-            // 
-            this.ScrapingColumnName.HeaderText = "列名";
-            this.ScrapingColumnName.Name = "ScrapingColumnName";
-            this.ScrapingColumnName.ReadOnly = true;
-            this.ScrapingColumnName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // ScrapingColumnValue
-            // 
-            this.ScrapingColumnValue.HeaderText = "列データ";
-            this.ScrapingColumnValue.Name = "ScrapingColumnValue";
-            this.ScrapingColumnValue.ReadOnly = true;
-            this.ScrapingColumnValue.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ScrapingColumnValue.Width = 150;
-            // 
-            // ScrapingColumnType
-            // 
-            this.ScrapingColumnType.HeaderText = "比較データ種別";
-            this.ScrapingColumnType.Items.AddRange(new object[] {
-            "",
-            "書籍名",
-            "出版年",
-            "出版社名",
-            "著者名",
-            "URL",
-            "ISBN",
-            "(メルカリ)",
-            "(日本の古書屋)"});
-            this.ScrapingColumnType.Name = "ScrapingColumnType";
             // 
             // Form1
             // 
