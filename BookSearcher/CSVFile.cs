@@ -7,14 +7,15 @@ using System.Windows.Forms;
 
 namespace BookSearcher
 {
-    internal abstract class CSVFile
+    public abstract class CSVFile
     {
         public string Path { get; }
         public Encoding FileEncoding { get; protected set; }
         public int Columns { get; protected set; }
         public string[] Titles { get; protected set; }
         public string[] Fields { get; protected set; }
-        protected DataTable Table = new DataTable();
+        protected DataTable table = new DataTable();
+        public DataTable Table => table;
 
         protected CSVFile(string path)
         {
@@ -140,7 +141,7 @@ namespace BookSearcher
         {
             foreach (var title in Titles)
             {
-                Table.Columns.Add(title, typeof(string));
+                table.Columns.Add(title, typeof(string));
             }
         }
 
@@ -160,17 +161,17 @@ namespace BookSearcher
 
         protected void AddTableRow(string[] fields)
         {
-            if (fields.Length > Table.Columns.Count)
+            if (fields.Length > table.Columns.Count)
             {
                 return;
             }
-            var row = Table.NewRow();
+            var row = table.NewRow();
             var i = 0;
             foreach (var field in fields)
             {
                 row[i++] = field;
             }
-            Table.Rows.Add(row);
+            table.Rows.Add(row);
         }
     }
 }

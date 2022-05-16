@@ -145,7 +145,7 @@ namespace BookSearcher
         private void Button4_Click(object sender, EventArgs e)
         {
             start = DateTime.Now;
-            SetContolsEnabled(false);
+            SetSearchContolsEnabled(false);
             ToolStripStatusLabel1.Text = "00:00:00";
             ToolStripStatusLabel2.Text = "検索処理を実行中です．．．";
             Timer1.Enabled = true;
@@ -161,7 +161,7 @@ namespace BookSearcher
             finish = DateTime.Now;
             var time = finish - start;
             MessageBox.Show(time.ToString());
-            SetContolsEnabled(true);
+            SetSearchContolsEnabled(true);
             Timer1.Enabled = false;
             ToolStripStatusLabel1.Text = time.ToString(@"hh\:mm\:ss");
             ToolStripStatusLabel2.Text = "検索処理が完了しました．";
@@ -174,10 +174,23 @@ namespace BookSearcher
             ToolStripStatusLabel1.Text = time.ToString(@"hh\:mm\:ss");
         }
 
-        private void SetContolsEnabled(bool enabled)
+        private void SetSearchContolsEnabled(bool enabled)
         {
             GroupBox1.Enabled = GroupBox2.Enabled = GroupBox3.Enabled = GroupBox4.Enabled = GroupBox5.Enabled = GroupBox6.Enabled = GroupBox7.Enabled = enabled;
             BookColumnSetting.Enabled = ScrapingColumnSetting.Enabled = enabled;
+        }
+
+        private void RadioButtonSearchType_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var dataGridView = (DataGridView)sender;
+            var csvFile = (dataGridView == BookColumnSetting) ? BookCSV : ScrapingCSV;
+            var form = new Form2(csvFile);
+            form.ShowDialog();
         }
     }
 }
