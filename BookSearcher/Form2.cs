@@ -18,12 +18,17 @@ namespace BookSearcher
         {
             this.csvFile = csvFile;
             InitializeComponent();
-            this.Text = $"BookSearcher - {csvFile.Path}";
+
+            // 画面タイトルの設定
+            Text = $"BookSearcher - {csvFile.Path}";
         }
 
         private void Form2_Load(object sender, EventArgs e)
         {
             DataGridPreView.DataSource = csvFile.Table;
+
+            // DataGridPreViewのはじめの列を非表示にする
+            DataGridPreView.Columns[0].Visible = false;
         }
     }
 }

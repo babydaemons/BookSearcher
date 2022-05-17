@@ -16,6 +16,7 @@ namespace BookSearcher
         public string[] Fields { get; protected set; }
         protected DataTable table = new DataTable();
         public DataTable Table => table;
+        private int rowIndex = 0;
 
         protected CSVFile(string path)
         {
@@ -139,6 +140,8 @@ namespace BookSearcher
 
         protected void CreateTable()
         {
+            table.Columns.Add("RowIndex", typeof(int));
+
             foreach (var title in Titles)
             {
                 table.Columns.Add(title, typeof(string));
@@ -167,6 +170,7 @@ namespace BookSearcher
             }
             var row = table.NewRow();
             var i = 0;
+            row[i++] = rowIndex++;
             foreach (var field in fields)
             {
                 row[i++] = field;

@@ -367,6 +367,7 @@
             // GroupBox5
             // 
             this.GroupBox5.Controls.Add(this.BookColumnSetting);
+            this.GroupBox5.Enabled = false;
             this.GroupBox5.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.GroupBox5.Location = new System.Drawing.Point(771, 285);
             this.GroupBox5.Name = "GroupBox5";
@@ -386,6 +387,7 @@
             this.BookColumnValue,
             this.BookColumnType});
             this.BookColumnSetting.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BookColumnSetting.Enabled = false;
             this.BookColumnSetting.Location = new System.Drawing.Point(3, 19);
             this.BookColumnSetting.Name = "BookColumnSetting";
             this.BookColumnSetting.RowTemplate.Height = 21;
@@ -432,6 +434,7 @@
             // GroupBox6
             // 
             this.GroupBox6.Controls.Add(this.ScrapingColumnSetting);
+            this.GroupBox6.Enabled = false;
             this.GroupBox6.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.GroupBox6.Location = new System.Drawing.Point(774, 452);
             this.GroupBox6.Name = "GroupBox6";
@@ -451,6 +454,7 @@
             this.ScrapingColumnValue,
             this.ScrapingColumnType});
             this.ScrapingColumnSetting.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ScrapingColumnSetting.Enabled = false;
             this.ScrapingColumnSetting.Location = new System.Drawing.Point(3, 19);
             this.ScrapingColumnSetting.Name = "ScrapingColumnSetting";
             this.ScrapingColumnSetting.RowTemplate.Height = 21;
@@ -627,13 +631,14 @@
             // GroupBox7
             // 
             this.GroupBox7.Controls.Add(this.Button4);
+            this.GroupBox7.Enabled = false;
             this.GroupBox7.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.GroupBox7.Location = new System.Drawing.Point(1103, 211);
             this.GroupBox7.Name = "GroupBox7";
             this.GroupBox7.Size = new System.Drawing.Size(162, 57);
             this.GroupBox7.TabIndex = 6;
             this.GroupBox7.TabStop = false;
-            this.GroupBox7.Text = "突き合わせ処理";
+            this.GroupBox7.Text = "突き合わせ処理【開発中】";
             // 
             // Button4
             // 
