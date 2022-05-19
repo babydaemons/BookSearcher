@@ -196,6 +196,9 @@ namespace BookSearcher
                 }
                 if (RadioButtonSearchType05.Checked)
                 {
+                    searcher = new BookSearcher05(BookCSV, ScrapingCSV, (int)NumericUpDownLength.Value);
+                    columnInfo.Add(ColumnType.BookTitle, new ColumnInfo(MatchType.BeginningMatch, spaceMatch, BookSearcher.SelectColumnIndex(BookColumnSetting, ColumnType.BookTitle), BookSearcher.SelectColumnIndex(ScrapingColumnSetting, ColumnType.BookTitle)));
+                    columnInfo.Add(ColumnType.Publisher, new ColumnInfo(MatchType.CompleteMatch, SpaceMatch.Ignore, BookSearcher.SelectColumnIndex(BookColumnSetting, ColumnType.Publisher), BookSearcher.SelectColumnIndex(ScrapingColumnSetting, ColumnType.Publisher)));
                     searchTypeName = RadioButtonSearchType05.Text;
                 }
                 if (RadioButtonSearchType06.Checked)
@@ -252,9 +255,10 @@ namespace BookSearcher
                 {
                     searchTypeName = RadioButtonSearchType17.Text;
                 }
-                else
+                else if (searcher == null)
                 {
                     MessageBox.Show("未サポートの検索パターンです。\n" + searchTypeName);
+                    return false;
                 }
             }
             catch (Exception ex)
