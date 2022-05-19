@@ -75,15 +75,15 @@
             this.NumericUpDownLength = new System.Windows.Forms.NumericUpDown();
             this.Label4 = new System.Windows.Forms.Label();
             this.GroupBoxExecute = new System.Windows.Forms.GroupBox();
-            this.Button4 = new System.Windows.Forms.Button();
+            this.ButtonExecute = new System.Windows.Forms.Button();
             this.GroupBoxFiles = new System.Windows.Forms.GroupBox();
             this.LabelOutput3 = new System.Windows.Forms.Label();
             this.LabelOutput2 = new System.Windows.Forms.Label();
             this.TextBoxOutput3 = new System.Windows.Forms.TextBox();
             this.TextBoxOutput2 = new System.Windows.Forms.TextBox();
-            this.Button3 = new System.Windows.Forms.Button();
-            this.Button2 = new System.Windows.Forms.Button();
-            this.Button1 = new System.Windows.Forms.Button();
+            this.ButtonOutput1 = new System.Windows.Forms.Button();
+            this.ButtonInput2 = new System.Windows.Forms.Button();
+            this.ButtonInput1 = new System.Windows.Forms.Button();
             this.TextBoxOutput1 = new System.Windows.Forms.TextBox();
             this.TextBoxInput2 = new System.Windows.Forms.TextBox();
             this.TextBoxInput1 = new System.Windows.Forms.TextBox();
@@ -109,7 +109,8 @@
             // 
             // Timer1
             // 
-            this.Timer1.Interval = 1000;
+            this.Timer1.Enabled = true;
+            this.Timer1.Interval = 10;
             this.Timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
             // BackgroundWorker4
@@ -320,6 +321,7 @@
             // RadioButtonSearchType05
             // 
             this.RadioButtonSearchType05.AutoSize = true;
+            this.RadioButtonSearchType05.Enabled = false;
             this.RadioButtonSearchType05.Location = new System.Drawing.Point(20, 131);
             this.RadioButtonSearchType05.Name = "RadioButtonSearchType05";
             this.RadioButtonSearchType05.Size = new System.Drawing.Size(594, 19);
@@ -378,9 +380,8 @@
             // GroupBoxDatabase
             // 
             this.GroupBoxDatabase.Controls.Add(this.BookColumnSetting);
-            this.GroupBoxDatabase.Enabled = false;
             this.GroupBoxDatabase.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.GroupBoxDatabase.Location = new System.Drawing.Point(771, 285);
+            this.GroupBoxDatabase.Location = new System.Drawing.Point(768, 285);
             this.GroupBoxDatabase.Name = "GroupBoxDatabase";
             this.GroupBoxDatabase.Size = new System.Drawing.Size(497, 150);
             this.GroupBoxDatabase.TabIndex = 5;
@@ -398,7 +399,6 @@
             this.BookColumnValue,
             this.BookColumnType});
             this.BookColumnSetting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.BookColumnSetting.Enabled = false;
             this.BookColumnSetting.Location = new System.Drawing.Point(3, 19);
             this.BookColumnSetting.Name = "BookColumnSetting";
             this.BookColumnSetting.RowTemplate.Height = 21;
@@ -446,7 +446,6 @@
             // GroupBoxScraping
             // 
             this.GroupBoxScraping.Controls.Add(this.ScrapingColumnSetting);
-            this.GroupBoxScraping.Enabled = false;
             this.GroupBoxScraping.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.GroupBoxScraping.Location = new System.Drawing.Point(774, 452);
             this.GroupBoxScraping.Name = "GroupBoxScraping";
@@ -466,7 +465,6 @@
             this.ScrapingColumnValue,
             this.ScrapingColumnType});
             this.ScrapingColumnSetting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ScrapingColumnSetting.Enabled = false;
             this.ScrapingColumnSetting.Location = new System.Drawing.Point(3, 19);
             this.ScrapingColumnSetting.Name = "ScrapingColumnSetting";
             this.ScrapingColumnSetting.RowTemplate.Height = 21;
@@ -606,7 +604,8 @@
             // 
             // GroupBoxExecute
             // 
-            this.GroupBoxExecute.Controls.Add(this.Button4);
+            this.GroupBoxExecute.Controls.Add(this.ButtonExecute);
+            this.GroupBoxExecute.Enabled = false;
             this.GroupBoxExecute.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.GroupBoxExecute.Location = new System.Drawing.Point(1103, 211);
             this.GroupBoxExecute.Name = "GroupBoxExecute";
@@ -615,16 +614,17 @@
             this.GroupBoxExecute.TabStop = false;
             this.GroupBoxExecute.Text = "突き合わせ処理";
             // 
-            // Button4
+            // ButtonExecute
             // 
-            this.Button4.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.Button4.Location = new System.Drawing.Point(46, 22);
-            this.Button4.Name = "Button4";
-            this.Button4.Size = new System.Drawing.Size(75, 23);
-            this.Button4.TabIndex = 0;
-            this.Button4.Text = "実行";
-            this.Button4.UseVisualStyleBackColor = true;
-            this.Button4.Click += new System.EventHandler(this.Button4_Click);
+            this.ButtonExecute.Enabled = false;
+            this.ButtonExecute.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.ButtonExecute.Location = new System.Drawing.Point(46, 22);
+            this.ButtonExecute.Name = "ButtonExecute";
+            this.ButtonExecute.Size = new System.Drawing.Size(75, 23);
+            this.ButtonExecute.TabIndex = 0;
+            this.ButtonExecute.Text = "実行";
+            this.ButtonExecute.UseVisualStyleBackColor = true;
+            this.ButtonExecute.Click += new System.EventHandler(this.Button4_Click);
             // 
             // GroupBoxFiles
             // 
@@ -632,9 +632,9 @@
             this.GroupBoxFiles.Controls.Add(this.LabelOutput2);
             this.GroupBoxFiles.Controls.Add(this.TextBoxOutput3);
             this.GroupBoxFiles.Controls.Add(this.TextBoxOutput2);
-            this.GroupBoxFiles.Controls.Add(this.Button3);
-            this.GroupBoxFiles.Controls.Add(this.Button2);
-            this.GroupBoxFiles.Controls.Add(this.Button1);
+            this.GroupBoxFiles.Controls.Add(this.ButtonOutput1);
+            this.GroupBoxFiles.Controls.Add(this.ButtonInput2);
+            this.GroupBoxFiles.Controls.Add(this.ButtonInput1);
             this.GroupBoxFiles.Controls.Add(this.TextBoxOutput1);
             this.GroupBoxFiles.Controls.Add(this.TextBoxInput2);
             this.GroupBoxFiles.Controls.Add(this.TextBoxInput1);
@@ -689,38 +689,38 @@
             this.TextBoxOutput2.Size = new System.Drawing.Size(952, 23);
             this.TextBoxOutput2.TabIndex = 9;
             // 
-            // Button3
+            // ButtonOutput1
             // 
-            this.Button3.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.Button3.Location = new System.Drawing.Point(1137, 83);
-            this.Button3.Name = "Button3";
-            this.Button3.Size = new System.Drawing.Size(75, 23);
-            this.Button3.TabIndex = 8;
-            this.Button3.Text = "参照";
-            this.Button3.UseVisualStyleBackColor = true;
-            this.Button3.Click += new System.EventHandler(this.Button3_Click);
+            this.ButtonOutput1.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.ButtonOutput1.Location = new System.Drawing.Point(1137, 83);
+            this.ButtonOutput1.Name = "ButtonOutput1";
+            this.ButtonOutput1.Size = new System.Drawing.Size(75, 23);
+            this.ButtonOutput1.TabIndex = 8;
+            this.ButtonOutput1.Text = "参照";
+            this.ButtonOutput1.UseVisualStyleBackColor = true;
+            this.ButtonOutput1.Click += new System.EventHandler(this.ButtonOutput1_Click);
             // 
-            // Button2
+            // ButtonInput2
             // 
-            this.Button2.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.Button2.Location = new System.Drawing.Point(1137, 53);
-            this.Button2.Name = "Button2";
-            this.Button2.Size = new System.Drawing.Size(75, 23);
-            this.Button2.TabIndex = 5;
-            this.Button2.Text = "参照";
-            this.Button2.UseVisualStyleBackColor = true;
-            this.Button2.Click += new System.EventHandler(this.Button2_Click);
+            this.ButtonInput2.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.ButtonInput2.Location = new System.Drawing.Point(1137, 53);
+            this.ButtonInput2.Name = "ButtonInput2";
+            this.ButtonInput2.Size = new System.Drawing.Size(75, 23);
+            this.ButtonInput2.TabIndex = 5;
+            this.ButtonInput2.Text = "参照";
+            this.ButtonInput2.UseVisualStyleBackColor = true;
+            this.ButtonInput2.Click += new System.EventHandler(this.ButtonInput2_Click);
             // 
-            // Button1
+            // ButtonInput1
             // 
-            this.Button1.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.Button1.Location = new System.Drawing.Point(1137, 25);
-            this.Button1.Name = "Button1";
-            this.Button1.Size = new System.Drawing.Size(75, 23);
-            this.Button1.TabIndex = 2;
-            this.Button1.Text = "参照";
-            this.Button1.UseVisualStyleBackColor = true;
-            this.Button1.Click += new System.EventHandler(this.Button1_Click);
+            this.ButtonInput1.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.ButtonInput1.Location = new System.Drawing.Point(1137, 25);
+            this.ButtonInput1.Name = "ButtonInput1";
+            this.ButtonInput1.Size = new System.Drawing.Size(75, 23);
+            this.ButtonInput1.TabIndex = 2;
+            this.ButtonInput1.Text = "参照";
+            this.ButtonInput1.UseVisualStyleBackColor = true;
+            this.ButtonInput1.Click += new System.EventHandler(this.ButtonInput1_Click);
             // 
             // TextBoxOutput1
             // 
@@ -888,13 +888,13 @@
         private System.Windows.Forms.GroupBox GroupBoxPartMatch;
         private System.Windows.Forms.Label Label4;
         private System.Windows.Forms.GroupBox GroupBoxExecute;
-        private System.Windows.Forms.Button Button4;
+        private System.Windows.Forms.Button ButtonExecute;
         private System.Windows.Forms.GroupBox GroupBoxFiles;
-        private System.Windows.Forms.Button Button3;
+        private System.Windows.Forms.Button ButtonOutput1;
         private System.Windows.Forms.TextBox TextBoxOutput1;
         private System.Windows.Forms.Label LabelOutput1;
-        private System.Windows.Forms.Button Button2;
-        private System.Windows.Forms.Button Button1;
+        private System.Windows.Forms.Button ButtonInput2;
+        private System.Windows.Forms.Button ButtonInput1;
         private System.Windows.Forms.TextBox TextBoxInput2;
         private System.Windows.Forms.TextBox TextBoxInput1;
         private System.Windows.Forms.Label LabelInput2;

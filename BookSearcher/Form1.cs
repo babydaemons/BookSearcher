@@ -21,7 +21,7 @@ namespace BookSearcher
             InitializeComponent();
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+        private void ButtonInput1_Click(object sender, EventArgs e)
         {
             var dialog = new OpenFileDialog
             {
@@ -39,7 +39,7 @@ namespace BookSearcher
                 }
                 if (BookCSV.Titles.Length > 0)
                 {
-                    LabelInput1.Enabled = TextBoxInput1.Enabled = Button1.Enabled = BookColumnSetting.Enabled = GroupBoxDatabase.Enabled = false;
+                    LabelInput1.Enabled = TextBoxInput1.Enabled = ButtonInput1.Enabled = false;
                     BackgroundWorker1.RunWorkerAsync();
                 }
             }
@@ -52,10 +52,10 @@ namespace BookSearcher
 
         private void BackgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            LabelInput1.Enabled = TextBoxInput1.Enabled = Button1.Enabled = BookColumnSetting.Enabled = GroupBoxDatabase.Enabled = true;
+            LabelInput1.Enabled = TextBoxInput1.Enabled = ButtonInput1.Enabled = true;
         }
 
-        private void Button2_Click(object sender, EventArgs e)
+        private void ButtonInput2_Click(object sender, EventArgs e)
         {
             var dialog = new OpenFileDialog
             {
@@ -73,7 +73,7 @@ namespace BookSearcher
                 }
                 if (ScrapingCSV.Titles.Length > 0)
                 {
-                    LabelInput2.Enabled = TextBoxInput2.Enabled = Button2.Enabled = ScrapingColumnSetting.Enabled = GroupBoxScraping.Enabled = false;
+                    LabelInput2.Enabled = TextBoxInput2.Enabled = ButtonInput2.Enabled = false;
                     BackgroundWorker2.RunWorkerAsync();
                 }
             }
@@ -86,7 +86,18 @@ namespace BookSearcher
 
         private void BackgroundWorker2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            LabelInput2.Enabled = TextBoxInput2.Enabled = Button2.Enabled = ScrapingColumnSetting.Enabled = GroupBoxScraping.Enabled = true;
+            LabelInput2.Enabled = TextBoxInput2.Enabled = ButtonInput2.Enabled = true;
+        }
+
+        private void DataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var dataGridView = (DataGridView)sender;
+            var csvFile = (dataGridView == BookColumnSetting) ? BookCSV : ScrapingCSV;
+            if (csvFile.Loaded)
+            {
+                var form = new Form2(csvFile);
+                form.ShowDialog();
+            }
         }
 
         private void RadioButtonFileType_CheckedChanged(object sender, EventArgs e)
@@ -105,7 +116,7 @@ namespace BookSearcher
             LabelOutput1.Text = fileType;
         }
 
-        private void Button3_Click(object sender, EventArgs e)
+        private void ButtonOutput1_Click(object sender, EventArgs e)
         {
             if (RadioButtonFileTypeExcel.Checked)
             {
@@ -294,9 +305,7 @@ namespace BookSearcher
 
         private void Timer1_Tick(object sender, EventArgs e)
         {
-            finish = DateTime.Now;
-            var time = finish - start;
-            ToolStripStatusLabel1.Text = time.ToString(@"hh\:mm\:ss");
+            GroupBoxExecute.Enabled = ButtonExecute.Enabled = (BookCSV != null && BookCSV.Loaded) && (ScrapingCSV != null && ScrapingCSV.Loaded);
         }
 
         private void SetSearchContolsEnabled(bool enabled)
@@ -308,14 +317,6 @@ namespace BookSearcher
         private void RadioButtonSearchType_CheckedChanged(object sender, EventArgs e)
         {
 
-        }
-
-        private void DataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            var dataGridView = (DataGridView)sender;
-            var csvFile = (dataGridView == BookColumnSetting) ? BookCSV : ScrapingCSV;
-            var form = new Form2(csvFile);
-            form.ShowDialog();
         }
     }
 }

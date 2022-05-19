@@ -14,6 +14,7 @@ namespace BookSearcher
         public int Columns { get; protected set; }
         public string[] Titles { get; protected set; }
         public string[] Fields { get; protected set; }
+        public bool Loaded { get; private set; } = false;
         protected DataTable table = new DataTable();
         public DataTable Table => table;
         private int rowIndex = 0;
@@ -158,6 +159,8 @@ namespace BookSearcher
 
         public void ReadAll()
         {
+            Loaded = false;
+
             try
             {
                 DoReadAll();
@@ -166,6 +169,8 @@ namespace BookSearcher
             {
                 MessageBox.Show(ex.Message);
             }
+
+            Loaded = true;
         }
 
         protected abstract void DoReadAll();
