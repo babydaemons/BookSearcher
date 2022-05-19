@@ -35,7 +35,7 @@ namespace BookSearcher
                 BookColumnSetting.Rows.Clear();
                 for (int i = 0; i < BookCSV.Titles.Length; ++i)
                 {
-                    BookColumnSetting.Rows.Add(new object[] { i + 1, BookCSV.Titles[i], BookCSV.Fields[i], "" });
+                    BookColumnSetting.Rows.Add(new object[] { BookCSV.Titles[i], BookCSV.Fields[i], "" });
                 }
                 if (BookCSV.Titles.Length > 0)
                 {
@@ -69,7 +69,7 @@ namespace BookSearcher
                 ScrapingColumnSetting.Rows.Clear();
                 for (int i = 0; i < ScrapingCSV.Titles.Length; ++i)
                 {
-                    ScrapingColumnSetting.Rows.Add(new object[] { i + 1, ScrapingCSV.Titles[i], ScrapingCSV.Fields[i], "" });
+                    ScrapingColumnSetting.Rows.Add(new object[] { ScrapingCSV.Titles[i], ScrapingCSV.Fields[i], "" });
                 }
                 if (ScrapingCSV.Titles.Length > 0)
                 {
@@ -102,62 +102,32 @@ namespace BookSearcher
 
         private void RadioButtonFileType_CheckedChanged(object sender, EventArgs e)
         {
-            string fileType;
-            if (RadioButtonFileTypeExcel.Checked)
-            {
-                fileType = "出力Excelファイル";
-            }
-            else
-            {
-                fileType = RadioButtonFileTypeCSV1.Checked ? "出力CSVファイル(パターン1)" : "出力CSVファイル(パターン2)";
-            }
-            TextBoxOutput1.Text = TextBoxOutput2.Text = TextBoxOutput3.Text = "";
-            TextBoxOutput2.Enabled = TextBoxOutput3.Enabled = LabelOutput2.Enabled = LabelOutput3.Enabled = !RadioButtonFileTypeExcel.Checked;
-            LabelOutput1.Text = fileType;
+            string fileType = RadioButtonFileTypeCSV1.Checked ? "出力CSVファイル(パターン1)" : "出力CSVファイル(パターン2)";
+            TextBoxOutputExcel.Text = TextBoxOutputCSV.Text = TextBoxOutputCSV1.Text = "";
+            LabelOutputCSV.Text = fileType;
         }
 
         private void ButtonOutput1_Click(object sender, EventArgs e)
         {
-            if (RadioButtonFileTypeExcel.Checked)
+            var dialog = new OpenFileDialog
             {
-                var dialog = new OpenFileDialog
-                {
-                    Title = LabelOutput1.Text,
-                    Filter = "Excelファイル|*.xlsx;*.xlsm"
-                };
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    TextBoxOutput1.Text = dialog.FileName;
-                }
-            }
-            else
+                Title = "ファイル出力フォルダー",
+                FileName = "フォルダー選択",
+                Filter = "ファイル出力フォルダー|.",
+                CheckFileExists = false
+            };
+            if (dialog.ShowDialog() == DialogResult.OK)
             {
-                var dialog = new OpenFileDialog
-                {
-                    Title = "CSVファイル出力フォルダー",
-                    FileName = "フォルダー選択",
-                    Filter = "CSVファイル出力フォルダー|.",
-                    CheckFileExists = false
-                };
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    var folderName = Path.GetDirectoryName(dialog.FileName);
-                    var fileName = Path.GetFileName(folderName);
-                    if (RadioButtonFileTypeCSV1.Checked)
-                    {
-                        TextBoxOutput1.Text = $"{folderName}\\{fileName}_パターン1.csv";
-                    }
-                    else
-                    {
-                        TextBoxOutput1.Text = $"{folderName}\\{fileName}_パターン2.csv";
-                    }
-                    TextBoxOutput2.Text = $"{folderName}\\{fileName}_共通出力1.csv";
-                    TextBoxOutput3.Text = $"{folderName}\\{fileName}_共通出力2.csv";
-                }
+                var folderName = Path.GetDirectoryName(dialog.FileName);
+                var fileName = Path.GetFileName(folderName);
+                TextBoxOutputExcel.Text = $"{folderName}\\{fileName}.xlsx";
+                TextBoxOutputCSV.Text = RadioButtonFileTypeCSV1.Checked ? $"{folderName}\\{fileName}_パターン1.csv" : $"{folderName}\\{fileName}_パターン2.csv";
+                TextBoxOutputCSV.Text = $"{folderName}\\{fileName}_共通出力1.csv";
+                TextBoxOutputCSV1.Text = $"{folderName}\\{fileName}_共通出力2.csv";
             }
         }
 
-        private void Button4_Click(object sender, EventArgs e)
+        private void ButtonExecute_Click(object sender, EventArgs e)
         {
             if (!InvokeMatching())
             {

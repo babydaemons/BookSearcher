@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace BookSearcher
 {
-    enum ColumnIndex { Number, Name, Value, Type };
+    enum ColumnIndex { Name, Value, Type };
     enum ColumnType { None, BookTitle, Author, Publisher, Year, ISBN, URL };
     enum MatchType { CompleteMatch, BeginningMatch, PartialMatch };
     enum SpaceMatch { All, Ignore };

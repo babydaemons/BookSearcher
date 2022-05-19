@@ -57,42 +57,45 @@
             this.RadioButtonSearchType01 = new System.Windows.Forms.RadioButton();
             this.GroupBoxDatabase = new System.Windows.Forms.GroupBox();
             this.BookColumnSetting = new System.Windows.Forms.DataGridView();
-            this.BookColumnNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BookColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BookColumnValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BookColumnType = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.GroupBoxScraping = new System.Windows.Forms.GroupBox();
             this.ScrapingColumnSetting = new System.Windows.Forms.DataGridView();
-            this.ScrapingColumnNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ScrapingColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ScrapingColumnValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ScrapingColumnType = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.GroupBoxOutput = new System.Windows.Forms.GroupBox();
             this.RadioButtonFileTypeCSV2 = new System.Windows.Forms.RadioButton();
             this.RadioButtonFileTypeCSV1 = new System.Windows.Forms.RadioButton();
-            this.RadioButtonFileTypeExcel = new System.Windows.Forms.RadioButton();
             this.GroupBoxPartMatch = new System.Windows.Forms.GroupBox();
             this.NumericUpDownLength = new System.Windows.Forms.NumericUpDown();
             this.Label4 = new System.Windows.Forms.Label();
             this.GroupBoxExecute = new System.Windows.Forms.GroupBox();
             this.ButtonExecute = new System.Windows.Forms.Button();
             this.GroupBoxFiles = new System.Windows.Forms.GroupBox();
-            this.LabelOutput3 = new System.Windows.Forms.Label();
-            this.LabelOutput2 = new System.Windows.Forms.Label();
-            this.TextBoxOutput3 = new System.Windows.Forms.TextBox();
-            this.TextBoxOutput2 = new System.Windows.Forms.TextBox();
+            this.LabelOutputCSV2 = new System.Windows.Forms.Label();
+            this.LabelOutputCSV1 = new System.Windows.Forms.Label();
+            this.TextBoxOutputCSV1 = new System.Windows.Forms.TextBox();
+            this.TextBoxOutputCSV = new System.Windows.Forms.TextBox();
             this.ButtonOutput1 = new System.Windows.Forms.Button();
             this.ButtonInput2 = new System.Windows.Forms.Button();
             this.ButtonInput1 = new System.Windows.Forms.Button();
-            this.TextBoxOutput1 = new System.Windows.Forms.TextBox();
+            this.TextBoxOutputExcel = new System.Windows.Forms.TextBox();
             this.TextBoxInput2 = new System.Windows.Forms.TextBox();
             this.TextBoxInput1 = new System.Windows.Forms.TextBox();
-            this.LabelOutput1 = new System.Windows.Forms.Label();
+            this.LabelOutputExcel = new System.Windows.Forms.Label();
             this.LabelInput2 = new System.Windows.Forms.Label();
             this.LabelInput1 = new System.Windows.Forms.Label();
             this.GroupBoxAllMatch = new System.Windows.Forms.GroupBox();
             this.RadioButtonSpaceIgnore = new System.Windows.Forms.RadioButton();
             this.RadioButtonSpaceContains = new System.Windows.Forms.RadioButton();
+            this.ProgressBarExecute = new System.Windows.Forms.ProgressBar();
+            this.TextBoxOutputCSV2 = new System.Windows.Forms.TextBox();
+            this.LabelOutputCSV = new System.Windows.Forms.Label();
+            this.ScrapingColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ScrapingColumnValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ScrapingColumnType = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.BookColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BookColumnValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BookColumnType = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.ProgressBarInput1 = new System.Windows.Forms.ProgressBar();
+            this.ProgressBarInput2 = new System.Windows.Forms.ProgressBar();
+            this.ProgressBarOutputExcel = new System.Windows.Forms.ProgressBar();
             this.StatusStrip1.SuspendLayout();
             this.GroupBoxMatchType.SuspendLayout();
             this.GroupBoxDatabase.SuspendLayout();
@@ -134,7 +137,7 @@
             this.StatusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ToolStripStatusLabel1,
             this.ToolStripStatusLabel2});
-            this.StatusStrip1.Location = new System.Drawing.Point(0, 798);
+            this.StatusStrip1.Location = new System.Drawing.Point(0, 805);
             this.StatusStrip1.Name = "StatusStrip1";
             this.StatusStrip1.Size = new System.Drawing.Size(1295, 22);
             this.StatusStrip1.TabIndex = 29;
@@ -172,7 +175,7 @@
             this.GroupBoxMatchType.Controls.Add(this.RadioButtonSearchType02);
             this.GroupBoxMatchType.Controls.Add(this.RadioButtonSearchType01);
             this.GroupBoxMatchType.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.GroupBoxMatchType.Location = new System.Drawing.Point(12, 285);
+            this.GroupBoxMatchType.Location = new System.Drawing.Point(12, 291);
             this.GroupBoxMatchType.Name = "GroupBoxMatchType";
             this.GroupBoxMatchType.Size = new System.Drawing.Size(747, 501);
             this.GroupBoxMatchType.TabIndex = 4;
@@ -381,9 +384,9 @@
             // 
             this.GroupBoxDatabase.Controls.Add(this.BookColumnSetting);
             this.GroupBoxDatabase.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.GroupBoxDatabase.Location = new System.Drawing.Point(768, 285);
+            this.GroupBoxDatabase.Location = new System.Drawing.Point(765, 291);
             this.GroupBoxDatabase.Name = "GroupBoxDatabase";
-            this.GroupBoxDatabase.Size = new System.Drawing.Size(497, 150);
+            this.GroupBoxDatabase.Size = new System.Drawing.Size(518, 150);
             this.GroupBoxDatabase.TabIndex = 5;
             this.GroupBoxDatabase.TabStop = false;
             this.GroupBoxDatabase.Text = "書籍データベースカラム(テーブルをダブルクリックして詳細表示)";
@@ -394,7 +397,6 @@
             this.BookColumnSetting.AllowUserToDeleteRows = false;
             this.BookColumnSetting.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.BookColumnSetting.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.BookColumnNumber,
             this.BookColumnName,
             this.BookColumnValue,
             this.BookColumnType});
@@ -402,54 +404,18 @@
             this.BookColumnSetting.Location = new System.Drawing.Point(3, 19);
             this.BookColumnSetting.Name = "BookColumnSetting";
             this.BookColumnSetting.RowTemplate.Height = 21;
-            this.BookColumnSetting.Size = new System.Drawing.Size(491, 128);
+            this.BookColumnSetting.Size = new System.Drawing.Size(512, 128);
             this.BookColumnSetting.TabIndex = 0;
             this.BookColumnSetting.Tag = "書籍データベースカラム";
             this.BookColumnSetting.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellDoubleClick);
-            // 
-            // BookColumnNumber
-            // 
-            this.BookColumnNumber.HeaderText = "列番号";
-            this.BookColumnNumber.Name = "BookColumnNumber";
-            this.BookColumnNumber.ReadOnly = true;
-            this.BookColumnNumber.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.BookColumnNumber.Width = 70;
-            // 
-            // BookColumnName
-            // 
-            this.BookColumnName.HeaderText = "列名";
-            this.BookColumnName.Name = "BookColumnName";
-            this.BookColumnName.ReadOnly = true;
-            this.BookColumnName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // BookColumnValue
-            // 
-            this.BookColumnValue.HeaderText = "列データ";
-            this.BookColumnValue.Name = "BookColumnValue";
-            this.BookColumnValue.ReadOnly = true;
-            this.BookColumnValue.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.BookColumnValue.Width = 150;
-            // 
-            // BookColumnType
-            // 
-            this.BookColumnType.HeaderText = "比較データ種別";
-            this.BookColumnType.Items.AddRange(new object[] {
-            "",
-            "書籍名",
-            "著者名",
-            "出版社名",
-            "出版年",
-            "ISBN",
-            "URL"});
-            this.BookColumnType.Name = "BookColumnType";
             // 
             // GroupBoxScraping
             // 
             this.GroupBoxScraping.Controls.Add(this.ScrapingColumnSetting);
             this.GroupBoxScraping.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.GroupBoxScraping.Location = new System.Drawing.Point(774, 452);
+            this.GroupBoxScraping.Location = new System.Drawing.Point(765, 447);
             this.GroupBoxScraping.Name = "GroupBoxScraping";
-            this.GroupBoxScraping.Size = new System.Drawing.Size(491, 334);
+            this.GroupBoxScraping.Size = new System.Drawing.Size(518, 345);
             this.GroupBoxScraping.TabIndex = 6;
             this.GroupBoxScraping.TabStop = false;
             this.GroupBoxScraping.Text = "スクレイピングデータカラム(テーブルをダブルクリックして詳細表示)";
@@ -460,7 +426,6 @@
             this.ScrapingColumnSetting.AllowUserToDeleteRows = false;
             this.ScrapingColumnSetting.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.ScrapingColumnSetting.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ScrapingColumnNumber,
             this.ScrapingColumnName,
             this.ScrapingColumnValue,
             this.ScrapingColumnType});
@@ -468,64 +433,27 @@
             this.ScrapingColumnSetting.Location = new System.Drawing.Point(3, 19);
             this.ScrapingColumnSetting.Name = "ScrapingColumnSetting";
             this.ScrapingColumnSetting.RowTemplate.Height = 21;
-            this.ScrapingColumnSetting.Size = new System.Drawing.Size(485, 312);
+            this.ScrapingColumnSetting.Size = new System.Drawing.Size(512, 323);
             this.ScrapingColumnSetting.TabIndex = 0;
             this.ScrapingColumnSetting.Tag = "スクレイピングデータカラム";
             this.ScrapingColumnSetting.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellDoubleClick);
-            // 
-            // ScrapingColumnNumber
-            // 
-            this.ScrapingColumnNumber.HeaderText = "列番号";
-            this.ScrapingColumnNumber.Name = "ScrapingColumnNumber";
-            this.ScrapingColumnNumber.ReadOnly = true;
-            this.ScrapingColumnNumber.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ScrapingColumnNumber.Width = 70;
-            // 
-            // ScrapingColumnName
-            // 
-            this.ScrapingColumnName.HeaderText = "列名";
-            this.ScrapingColumnName.Name = "ScrapingColumnName";
-            this.ScrapingColumnName.ReadOnly = true;
-            this.ScrapingColumnName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // ScrapingColumnValue
-            // 
-            this.ScrapingColumnValue.HeaderText = "列データ";
-            this.ScrapingColumnValue.Name = "ScrapingColumnValue";
-            this.ScrapingColumnValue.ReadOnly = true;
-            this.ScrapingColumnValue.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ScrapingColumnValue.Width = 150;
-            // 
-            // ScrapingColumnType
-            // 
-            this.ScrapingColumnType.HeaderText = "比較データ種別";
-            this.ScrapingColumnType.Items.AddRange(new object[] {
-            "",
-            "書籍名",
-            "著者名",
-            "出版社名",
-            "出版年",
-            "ISBN",
-            "URL"});
-            this.ScrapingColumnType.Name = "ScrapingColumnType";
             // 
             // GroupBoxOutput
             // 
             this.GroupBoxOutput.Controls.Add(this.RadioButtonFileTypeCSV2);
             this.GroupBoxOutput.Controls.Add(this.RadioButtonFileTypeCSV1);
-            this.GroupBoxOutput.Controls.Add(this.RadioButtonFileTypeExcel);
             this.GroupBoxOutput.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.GroupBoxOutput.Location = new System.Drawing.Point(12, 211);
+            this.GroupBoxOutput.Location = new System.Drawing.Point(12, 228);
             this.GroupBoxOutput.Name = "GroupBoxOutput";
-            this.GroupBoxOutput.Size = new System.Drawing.Size(459, 57);
+            this.GroupBoxOutput.Size = new System.Drawing.Size(347, 57);
             this.GroupBoxOutput.TabIndex = 1;
             this.GroupBoxOutput.TabStop = false;
-            this.GroupBoxOutput.Text = "出力データファイル種類";
+            this.GroupBoxOutput.Text = "出力CSVファイルパターン";
             // 
             // RadioButtonFileTypeCSV2
             // 
             this.RadioButtonFileTypeCSV2.AutoSize = true;
-            this.RadioButtonFileTypeCSV2.Location = new System.Drawing.Point(300, 24);
+            this.RadioButtonFileTypeCSV2.Location = new System.Drawing.Point(179, 24);
             this.RadioButtonFileTypeCSV2.Name = "RadioButtonFileTypeCSV2";
             this.RadioButtonFileTypeCSV2.Size = new System.Drawing.Size(137, 19);
             this.RadioButtonFileTypeCSV2.TabIndex = 2;
@@ -536,42 +464,31 @@
             // RadioButtonFileTypeCSV1
             // 
             this.RadioButtonFileTypeCSV1.AutoSize = true;
-            this.RadioButtonFileTypeCSV1.Location = new System.Drawing.Point(136, 24);
+            this.RadioButtonFileTypeCSV1.Checked = true;
+            this.RadioButtonFileTypeCSV1.Location = new System.Drawing.Point(34, 24);
             this.RadioButtonFileTypeCSV1.Name = "RadioButtonFileTypeCSV1";
             this.RadioButtonFileTypeCSV1.Size = new System.Drawing.Size(137, 19);
             this.RadioButtonFileTypeCSV1.TabIndex = 1;
+            this.RadioButtonFileTypeCSV1.TabStop = true;
             this.RadioButtonFileTypeCSV1.Text = "CSVファイル(パターン1)";
             this.RadioButtonFileTypeCSV1.UseVisualStyleBackColor = true;
             this.RadioButtonFileTypeCSV1.CheckedChanged += new System.EventHandler(this.RadioButtonFileType_CheckedChanged);
-            // 
-            // RadioButtonFileTypeExcel
-            // 
-            this.RadioButtonFileTypeExcel.AutoSize = true;
-            this.RadioButtonFileTypeExcel.Checked = true;
-            this.RadioButtonFileTypeExcel.Location = new System.Drawing.Point(20, 24);
-            this.RadioButtonFileTypeExcel.Name = "RadioButtonFileTypeExcel";
-            this.RadioButtonFileTypeExcel.Size = new System.Drawing.Size(89, 19);
-            this.RadioButtonFileTypeExcel.TabIndex = 0;
-            this.RadioButtonFileTypeExcel.TabStop = true;
-            this.RadioButtonFileTypeExcel.Text = "Excelファイル";
-            this.RadioButtonFileTypeExcel.UseVisualStyleBackColor = true;
-            this.RadioButtonFileTypeExcel.CheckedChanged += new System.EventHandler(this.RadioButtonFileType_CheckedChanged);
             // 
             // GroupBoxPartMatch
             // 
             this.GroupBoxPartMatch.Controls.Add(this.NumericUpDownLength);
             this.GroupBoxPartMatch.Controls.Add(this.Label4);
             this.GroupBoxPartMatch.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.GroupBoxPartMatch.Location = new System.Drawing.Point(806, 211);
+            this.GroupBoxPartMatch.Location = new System.Drawing.Point(673, 228);
             this.GroupBoxPartMatch.Name = "GroupBoxPartMatch";
-            this.GroupBoxPartMatch.Size = new System.Drawing.Size(281, 57);
+            this.GroupBoxPartMatch.Size = new System.Drawing.Size(251, 57);
             this.GroupBoxPartMatch.TabIndex = 3;
             this.GroupBoxPartMatch.TabStop = false;
             this.GroupBoxPartMatch.Text = "前方一致・部分一致比較条件";
             // 
             // NumericUpDownLength
             // 
-            this.NumericUpDownLength.Location = new System.Drawing.Point(180, 20);
+            this.NumericUpDownLength.Location = new System.Drawing.Point(162, 20);
             this.NumericUpDownLength.Maximum = new decimal(new int[] {
             20,
             0,
@@ -596,7 +513,7 @@
             // 
             this.Label4.AutoSize = true;
             this.Label4.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.Label4.Location = new System.Drawing.Point(49, 24);
+            this.Label4.Location = new System.Drawing.Point(31, 24);
             this.Label4.Name = "Label4";
             this.Label4.Size = new System.Drawing.Size(125, 15);
             this.Label4.TabIndex = 0;
@@ -604,12 +521,13 @@
             // 
             // GroupBoxExecute
             // 
+            this.GroupBoxExecute.Controls.Add(this.ProgressBarExecute);
             this.GroupBoxExecute.Controls.Add(this.ButtonExecute);
             this.GroupBoxExecute.Enabled = false;
             this.GroupBoxExecute.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.GroupBoxExecute.Location = new System.Drawing.Point(1103, 211);
+            this.GroupBoxExecute.Location = new System.Drawing.Point(930, 228);
             this.GroupBoxExecute.Name = "GroupBoxExecute";
-            this.GroupBoxExecute.Size = new System.Drawing.Size(162, 57);
+            this.GroupBoxExecute.Size = new System.Drawing.Size(353, 57);
             this.GroupBoxExecute.TabIndex = 7;
             this.GroupBoxExecute.TabStop = false;
             this.GroupBoxExecute.Text = "突き合わせ処理";
@@ -618,81 +536,82 @@
             // 
             this.ButtonExecute.Enabled = false;
             this.ButtonExecute.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.ButtonExecute.Location = new System.Drawing.Point(46, 22);
+            this.ButtonExecute.Location = new System.Drawing.Point(28, 22);
             this.ButtonExecute.Name = "ButtonExecute";
             this.ButtonExecute.Size = new System.Drawing.Size(75, 23);
             this.ButtonExecute.TabIndex = 0;
             this.ButtonExecute.Text = "実行";
             this.ButtonExecute.UseVisualStyleBackColor = true;
-            this.ButtonExecute.Click += new System.EventHandler(this.Button4_Click);
+            this.ButtonExecute.Click += new System.EventHandler(this.ButtonExecute_Click);
             // 
             // GroupBoxFiles
             // 
-            this.GroupBoxFiles.Controls.Add(this.LabelOutput3);
-            this.GroupBoxFiles.Controls.Add(this.LabelOutput2);
-            this.GroupBoxFiles.Controls.Add(this.TextBoxOutput3);
-            this.GroupBoxFiles.Controls.Add(this.TextBoxOutput2);
+            this.GroupBoxFiles.Controls.Add(this.ProgressBarOutputExcel);
+            this.GroupBoxFiles.Controls.Add(this.ProgressBarInput2);
+            this.GroupBoxFiles.Controls.Add(this.ProgressBarInput1);
+            this.GroupBoxFiles.Controls.Add(this.LabelOutputCSV);
+            this.GroupBoxFiles.Controls.Add(this.TextBoxOutputCSV2);
+            this.GroupBoxFiles.Controls.Add(this.LabelOutputCSV2);
+            this.GroupBoxFiles.Controls.Add(this.LabelOutputCSV1);
+            this.GroupBoxFiles.Controls.Add(this.TextBoxOutputCSV1);
+            this.GroupBoxFiles.Controls.Add(this.TextBoxOutputCSV);
             this.GroupBoxFiles.Controls.Add(this.ButtonOutput1);
             this.GroupBoxFiles.Controls.Add(this.ButtonInput2);
             this.GroupBoxFiles.Controls.Add(this.ButtonInput1);
-            this.GroupBoxFiles.Controls.Add(this.TextBoxOutput1);
+            this.GroupBoxFiles.Controls.Add(this.TextBoxOutputExcel);
             this.GroupBoxFiles.Controls.Add(this.TextBoxInput2);
             this.GroupBoxFiles.Controls.Add(this.TextBoxInput1);
-            this.GroupBoxFiles.Controls.Add(this.LabelOutput1);
+            this.GroupBoxFiles.Controls.Add(this.LabelOutputExcel);
             this.GroupBoxFiles.Controls.Add(this.LabelInput2);
             this.GroupBoxFiles.Controls.Add(this.LabelInput1);
             this.GroupBoxFiles.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.GroupBoxFiles.Location = new System.Drawing.Point(12, 12);
             this.GroupBoxFiles.Name = "GroupBoxFiles";
-            this.GroupBoxFiles.Size = new System.Drawing.Size(1253, 183);
+            this.GroupBoxFiles.Size = new System.Drawing.Size(1271, 210);
             this.GroupBoxFiles.TabIndex = 0;
             this.GroupBoxFiles.TabStop = false;
             this.GroupBoxFiles.Text = "入力・出力データファイル指定";
             // 
-            // LabelOutput3
+            // LabelOutputCSV2
             // 
-            this.LabelOutput3.AutoSize = true;
-            this.LabelOutput3.Enabled = false;
-            this.LabelOutput3.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.LabelOutput3.Location = new System.Drawing.Point(31, 144);
-            this.LabelOutput3.Name = "LabelOutput3";
-            this.LabelOutput3.Size = new System.Drawing.Size(120, 15);
-            this.LabelOutput3.TabIndex = 12;
-            this.LabelOutput3.Text = "共通出力CSVファイル2";
+            this.LabelOutputCSV2.AutoSize = true;
+            this.LabelOutputCSV2.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.LabelOutputCSV2.Location = new System.Drawing.Point(31, 173);
+            this.LabelOutputCSV2.Name = "LabelOutputCSV2";
+            this.LabelOutputCSV2.Size = new System.Drawing.Size(120, 15);
+            this.LabelOutputCSV2.TabIndex = 13;
+            this.LabelOutputCSV2.Text = "共通出力CSVファイル2";
             // 
-            // LabelOutput2
+            // LabelOutputCSV1
             // 
-            this.LabelOutput2.AutoSize = true;
-            this.LabelOutput2.Enabled = false;
-            this.LabelOutput2.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.LabelOutput2.Location = new System.Drawing.Point(31, 115);
-            this.LabelOutput2.Name = "LabelOutput2";
-            this.LabelOutput2.Size = new System.Drawing.Size(120, 15);
-            this.LabelOutput2.TabIndex = 11;
-            this.LabelOutput2.Text = "共通出力CSVファイル1";
+            this.LabelOutputCSV1.AutoSize = true;
+            this.LabelOutputCSV1.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.LabelOutputCSV1.Location = new System.Drawing.Point(31, 144);
+            this.LabelOutputCSV1.Name = "LabelOutputCSV1";
+            this.LabelOutputCSV1.Size = new System.Drawing.Size(120, 15);
+            this.LabelOutputCSV1.TabIndex = 11;
+            this.LabelOutputCSV1.Text = "共通出力CSVファイル1";
             // 
-            // TextBoxOutput3
+            // TextBoxOutputCSV1
             // 
-            this.TextBoxOutput3.Enabled = false;
-            this.TextBoxOutput3.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.TextBoxOutput3.Location = new System.Drawing.Point(179, 141);
-            this.TextBoxOutput3.Name = "TextBoxOutput3";
-            this.TextBoxOutput3.Size = new System.Drawing.Size(952, 23);
-            this.TextBoxOutput3.TabIndex = 10;
+            this.TextBoxOutputCSV1.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.TextBoxOutputCSV1.Location = new System.Drawing.Point(179, 141);
+            this.TextBoxOutputCSV1.Name = "TextBoxOutputCSV1";
+            this.TextBoxOutputCSV1.Size = new System.Drawing.Size(761, 23);
+            this.TextBoxOutputCSV1.TabIndex = 12;
             // 
-            // TextBoxOutput2
+            // TextBoxOutputCSV
             // 
-            this.TextBoxOutput2.Enabled = false;
-            this.TextBoxOutput2.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.TextBoxOutput2.Location = new System.Drawing.Point(179, 112);
-            this.TextBoxOutput2.Name = "TextBoxOutput2";
-            this.TextBoxOutput2.Size = new System.Drawing.Size(952, 23);
-            this.TextBoxOutput2.TabIndex = 9;
+            this.TextBoxOutputCSV.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.TextBoxOutputCSV.Location = new System.Drawing.Point(179, 112);
+            this.TextBoxOutputCSV.Name = "TextBoxOutputCSV";
+            this.TextBoxOutputCSV.Size = new System.Drawing.Size(761, 23);
+            this.TextBoxOutputCSV.TabIndex = 10;
             // 
             // ButtonOutput1
             // 
             this.ButtonOutput1.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.ButtonOutput1.Location = new System.Drawing.Point(1137, 83);
+            this.ButtonOutput1.Location = new System.Drawing.Point(946, 82);
             this.ButtonOutput1.Name = "ButtonOutput1";
             this.ButtonOutput1.Size = new System.Drawing.Size(75, 23);
             this.ButtonOutput1.TabIndex = 8;
@@ -703,7 +622,7 @@
             // ButtonInput2
             // 
             this.ButtonInput2.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.ButtonInput2.Location = new System.Drawing.Point(1137, 53);
+            this.ButtonInput2.Location = new System.Drawing.Point(946, 54);
             this.ButtonInput2.Name = "ButtonInput2";
             this.ButtonInput2.Size = new System.Drawing.Size(75, 23);
             this.ButtonInput2.TabIndex = 5;
@@ -714,7 +633,7 @@
             // ButtonInput1
             // 
             this.ButtonInput1.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.ButtonInput1.Location = new System.Drawing.Point(1137, 25);
+            this.ButtonInput1.Location = new System.Drawing.Point(946, 25);
             this.ButtonInput1.Name = "ButtonInput1";
             this.ButtonInput1.Size = new System.Drawing.Size(75, 23);
             this.ButtonInput1.TabIndex = 2;
@@ -722,20 +641,20 @@
             this.ButtonInput1.UseVisualStyleBackColor = true;
             this.ButtonInput1.Click += new System.EventHandler(this.ButtonInput1_Click);
             // 
-            // TextBoxOutput1
+            // TextBoxOutputExcel
             // 
-            this.TextBoxOutput1.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.TextBoxOutput1.Location = new System.Drawing.Point(179, 83);
-            this.TextBoxOutput1.Name = "TextBoxOutput1";
-            this.TextBoxOutput1.Size = new System.Drawing.Size(952, 23);
-            this.TextBoxOutput1.TabIndex = 7;
+            this.TextBoxOutputExcel.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.TextBoxOutputExcel.Location = new System.Drawing.Point(179, 83);
+            this.TextBoxOutputExcel.Name = "TextBoxOutputExcel";
+            this.TextBoxOutputExcel.Size = new System.Drawing.Size(761, 23);
+            this.TextBoxOutputExcel.TabIndex = 7;
             // 
             // TextBoxInput2
             // 
             this.TextBoxInput2.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.TextBoxInput2.Location = new System.Drawing.Point(179, 54);
             this.TextBoxInput2.Name = "TextBoxInput2";
-            this.TextBoxInput2.Size = new System.Drawing.Size(952, 23);
+            this.TextBoxInput2.Size = new System.Drawing.Size(761, 23);
             this.TextBoxInput2.TabIndex = 4;
             // 
             // TextBoxInput1
@@ -743,18 +662,18 @@
             this.TextBoxInput1.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.TextBoxInput1.Location = new System.Drawing.Point(179, 25);
             this.TextBoxInput1.Name = "TextBoxInput1";
-            this.TextBoxInput1.Size = new System.Drawing.Size(952, 23);
+            this.TextBoxInput1.Size = new System.Drawing.Size(761, 23);
             this.TextBoxInput1.TabIndex = 1;
             // 
-            // LabelOutput1
+            // LabelOutputExcel
             // 
-            this.LabelOutput1.AutoSize = true;
-            this.LabelOutput1.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.LabelOutput1.Location = new System.Drawing.Point(31, 86);
-            this.LabelOutput1.Name = "LabelOutput1";
-            this.LabelOutput1.Size = new System.Drawing.Size(95, 15);
-            this.LabelOutput1.TabIndex = 6;
-            this.LabelOutput1.Text = "出力Excelファイル";
+            this.LabelOutputExcel.AutoSize = true;
+            this.LabelOutputExcel.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.LabelOutputExcel.Location = new System.Drawing.Point(31, 86);
+            this.LabelOutputExcel.Name = "LabelOutputExcel";
+            this.LabelOutputExcel.Size = new System.Drawing.Size(95, 15);
+            this.LabelOutputExcel.TabIndex = 6;
+            this.LabelOutputExcel.Text = "出力Excelファイル";
             // 
             // LabelInput2
             // 
@@ -770,7 +689,7 @@
             // 
             this.LabelInput1.AutoSize = true;
             this.LabelInput1.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.LabelInput1.Location = new System.Drawing.Point(33, 28);
+            this.LabelInput1.Location = new System.Drawing.Point(31, 29);
             this.LabelInput1.Name = "LabelInput1";
             this.LabelInput1.Size = new System.Drawing.Size(122, 15);
             this.LabelInput1.TabIndex = 0;
@@ -781,7 +700,7 @@
             this.GroupBoxAllMatch.Controls.Add(this.RadioButtonSpaceIgnore);
             this.GroupBoxAllMatch.Controls.Add(this.RadioButtonSpaceContains);
             this.GroupBoxAllMatch.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.GroupBoxAllMatch.Location = new System.Drawing.Point(488, 211);
+            this.GroupBoxAllMatch.Location = new System.Drawing.Point(365, 228);
             this.GroupBoxAllMatch.Name = "GroupBoxAllMatch";
             this.GroupBoxAllMatch.Size = new System.Drawing.Size(302, 57);
             this.GroupBoxAllMatch.TabIndex = 2;
@@ -810,12 +729,118 @@
             this.RadioButtonSpaceContains.Text = "空白文字含む";
             this.RadioButtonSpaceContains.UseVisualStyleBackColor = true;
             // 
+            // ProgressBarExecute
+            // 
+            this.ProgressBarExecute.Location = new System.Drawing.Point(109, 24);
+            this.ProgressBarExecute.Name = "ProgressBarExecute";
+            this.ProgressBarExecute.Size = new System.Drawing.Size(222, 20);
+            this.ProgressBarExecute.TabIndex = 1;
+            // 
+            // TextBoxOutputCSV2
+            // 
+            this.TextBoxOutputCSV2.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.TextBoxOutputCSV2.Location = new System.Drawing.Point(179, 170);
+            this.TextBoxOutputCSV2.Name = "TextBoxOutputCSV2";
+            this.TextBoxOutputCSV2.Size = new System.Drawing.Size(761, 23);
+            this.TextBoxOutputCSV2.TabIndex = 14;
+            // 
+            // LabelOutputCSV
+            // 
+            this.LabelOutputCSV.AutoSize = true;
+            this.LabelOutputCSV.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.LabelOutputCSV.Location = new System.Drawing.Point(31, 115);
+            this.LabelOutputCSV.Name = "LabelOutputCSV";
+            this.LabelOutputCSV.Size = new System.Drawing.Size(143, 15);
+            this.LabelOutputCSV.TabIndex = 9;
+            this.LabelOutputCSV.Text = "出力CSVファイル(パターン1)";
+            // 
+            // ScrapingColumnName
+            // 
+            this.ScrapingColumnName.HeaderText = "列名";
+            this.ScrapingColumnName.Name = "ScrapingColumnName";
+            this.ScrapingColumnName.ReadOnly = true;
+            this.ScrapingColumnName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.ScrapingColumnName.Width = 150;
+            // 
+            // ScrapingColumnValue
+            // 
+            this.ScrapingColumnValue.HeaderText = "列データ";
+            this.ScrapingColumnValue.Name = "ScrapingColumnValue";
+            this.ScrapingColumnValue.ReadOnly = true;
+            this.ScrapingColumnValue.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.ScrapingColumnValue.Width = 200;
+            // 
+            // ScrapingColumnType
+            // 
+            this.ScrapingColumnType.HeaderText = "比較データ種別";
+            this.ScrapingColumnType.Items.AddRange(new object[] {
+            "",
+            "書籍名",
+            "著者名",
+            "出版社名",
+            "出版年",
+            "ISBN",
+            "URL"});
+            this.ScrapingColumnType.Name = "ScrapingColumnType";
+            this.ScrapingColumnType.Width = 90;
+            // 
+            // BookColumnName
+            // 
+            this.BookColumnName.HeaderText = "列名";
+            this.BookColumnName.Name = "BookColumnName";
+            this.BookColumnName.ReadOnly = true;
+            this.BookColumnName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.BookColumnName.Width = 150;
+            // 
+            // BookColumnValue
+            // 
+            this.BookColumnValue.HeaderText = "列データ";
+            this.BookColumnValue.Name = "BookColumnValue";
+            this.BookColumnValue.ReadOnly = true;
+            this.BookColumnValue.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.BookColumnValue.Width = 200;
+            // 
+            // BookColumnType
+            // 
+            this.BookColumnType.HeaderText = "比較データ種別";
+            this.BookColumnType.Items.AddRange(new object[] {
+            "",
+            "書籍名",
+            "著者名",
+            "出版社名",
+            "出版年",
+            "ISBN",
+            "URL"});
+            this.BookColumnType.Name = "BookColumnType";
+            this.BookColumnType.Width = 90;
+            // 
+            // ProgressBarInput1
+            // 
+            this.ProgressBarInput1.Location = new System.Drawing.Point(1027, 25);
+            this.ProgressBarInput1.Name = "ProgressBarInput1";
+            this.ProgressBarInput1.Size = new System.Drawing.Size(222, 20);
+            this.ProgressBarInput1.TabIndex = 15;
+            // 
+            // ProgressBarInput2
+            // 
+            this.ProgressBarInput2.Location = new System.Drawing.Point(1027, 54);
+            this.ProgressBarInput2.Name = "ProgressBarInput2";
+            this.ProgressBarInput2.Size = new System.Drawing.Size(222, 20);
+            this.ProgressBarInput2.TabIndex = 16;
+            // 
+            // ProgressBarOutputExcel
+            // 
+            this.ProgressBarOutputExcel.Location = new System.Drawing.Point(1027, 83);
+            this.ProgressBarOutputExcel.Name = "ProgressBarOutputExcel";
+            this.ProgressBarOutputExcel.Size = new System.Drawing.Size(222, 20);
+            this.ProgressBarOutputExcel.TabIndex = 17;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(1295, 820);
+            this.ClientSize = new System.Drawing.Size(1295, 827);
             this.Controls.Add(this.GroupBoxAllMatch);
             this.Controls.Add(this.GroupBoxFiles);
             this.Controls.Add(this.GroupBoxExecute);
@@ -884,15 +909,14 @@
         private System.Windows.Forms.DataGridView ScrapingColumnSetting;
         private System.Windows.Forms.GroupBox GroupBoxOutput;
         private System.Windows.Forms.RadioButton RadioButtonFileTypeCSV1;
-        private System.Windows.Forms.RadioButton RadioButtonFileTypeExcel;
         private System.Windows.Forms.GroupBox GroupBoxPartMatch;
         private System.Windows.Forms.Label Label4;
         private System.Windows.Forms.GroupBox GroupBoxExecute;
         private System.Windows.Forms.Button ButtonExecute;
         private System.Windows.Forms.GroupBox GroupBoxFiles;
         private System.Windows.Forms.Button ButtonOutput1;
-        private System.Windows.Forms.TextBox TextBoxOutput1;
-        private System.Windows.Forms.Label LabelOutput1;
+        private System.Windows.Forms.TextBox TextBoxOutputExcel;
+        private System.Windows.Forms.Label LabelOutputExcel;
         private System.Windows.Forms.Button ButtonInput2;
         private System.Windows.Forms.Button ButtonInput1;
         private System.Windows.Forms.TextBox TextBoxInput2;
@@ -900,22 +924,26 @@
         private System.Windows.Forms.Label LabelInput2;
         private System.Windows.Forms.Label LabelInput1;
         private System.Windows.Forms.RadioButton RadioButtonFileTypeCSV2;
-        private System.Windows.Forms.TextBox TextBoxOutput3;
-        private System.Windows.Forms.TextBox TextBoxOutput2;
-        private System.Windows.Forms.Label LabelOutput2;
-        private System.Windows.Forms.Label LabelOutput3;
+        private System.Windows.Forms.TextBox TextBoxOutputCSV1;
+        private System.Windows.Forms.TextBox TextBoxOutputCSV;
+        private System.Windows.Forms.Label LabelOutputCSV1;
+        private System.Windows.Forms.Label LabelOutputCSV2;
         private System.Windows.Forms.NumericUpDown NumericUpDownLength;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BookColumnNumber;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BookColumnName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BookColumnValue;
-        private System.Windows.Forms.DataGridViewComboBoxColumn BookColumnType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ScrapingColumnNumber;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ScrapingColumnName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ScrapingColumnValue;
-        private System.Windows.Forms.DataGridViewComboBoxColumn ScrapingColumnType;
         private System.Windows.Forms.GroupBox GroupBoxAllMatch;
         private System.Windows.Forms.RadioButton RadioButtonSpaceIgnore;
         private System.Windows.Forms.RadioButton RadioButtonSpaceContains;
+        private System.Windows.Forms.ProgressBar ProgressBarExecute;
+        private System.Windows.Forms.Label LabelOutputCSV;
+        private System.Windows.Forms.TextBox TextBoxOutputCSV2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BookColumnName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BookColumnValue;
+        private System.Windows.Forms.DataGridViewComboBoxColumn BookColumnType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ScrapingColumnName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ScrapingColumnValue;
+        private System.Windows.Forms.DataGridViewComboBoxColumn ScrapingColumnType;
+        private System.Windows.Forms.ProgressBar ProgressBarOutputExcel;
+        private System.Windows.Forms.ProgressBar ProgressBarInput2;
+        private System.Windows.Forms.ProgressBar ProgressBarInput1;
     }
 }
 
