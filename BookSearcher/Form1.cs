@@ -164,6 +164,9 @@ namespace BookSearcher
             {
                 if (RadioButtonSearchType01.Checked)
                 {
+                    searcher = new BookSearcher01(BookCSV, ScrapingCSV);
+                    columnInfo.Add(ColumnType.BookTitle, new ColumnInfo(MatchType.CompleteMatch, spaceMatch, BookSearcher.SelectColumnIndex(BookColumnSetting, ColumnType.BookTitle), BookSearcher.SelectColumnIndex(ScrapingColumnSetting, ColumnType.BookTitle)));
+                    columnInfo.Add(ColumnType.Year, new ColumnInfo(MatchType.CompleteMatch, SpaceMatch.All, BookSearcher.SelectColumnIndex(BookColumnSetting, ColumnType.Year), BookSearcher.SelectColumnIndex(ScrapingColumnSetting, ColumnType.Year)));
                     searchTypeName = RadioButtonSearchType01.Text;
                 }
                 if (RadioButtonSearchType02.Checked)

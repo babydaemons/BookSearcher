@@ -39,6 +39,13 @@ namespace BookSearcher
         public string Value;
     }
 
+    struct Column2
+    {
+        public int Index;
+        public string Value1;
+        public string Value2;
+    }
+
     internal abstract class BookSearcher
     {
         protected CSVFile bookCSV;
@@ -79,13 +86,13 @@ namespace BookSearcher
             var bookRows = bookCSV.Table.AsEnumerable().Where(row => ((string)row[bookColumnName]).Length > 0);
             var scrapingRows = scrapingCSV.Table.AsEnumerable().Where(row => ((string)row[scrapingColumnName]).Length > 0);
 
-            var bookValues = CreateColumnList1(bookRows, bookColumnName, columnInfo.SpaceMatch);
-            var scrapingValues = CreateColumnList1(scrapingRows, scrapingColumnName, columnInfo.SpaceMatch);
+            var bookValues = CreateColumnList(bookRows, bookColumnName, columnInfo.SpaceMatch);
+            var scrapingValues = CreateColumnList(scrapingRows, scrapingColumnName, columnInfo.SpaceMatch);
             var results = from bookRow in bookValues
-                            join scrapingRow in scrapingValues
-                            on bookRow.Value equals scrapingRow.Value
-                            select new { BookRowIndex = bookRow.Index, ScrapingRowIndex = scrapingRow.Index };
- 
+                          join scrapingRow in scrapingValues
+                          on bookRow.Value equals scrapingRow.Value
+                          select new { BookRowIndex = bookRow.Index, ScrapingRowIndex = scrapingRow.Index };
+
             var resultRows = new List<RowIndexPair>();
             foreach (var result in results)
             {
@@ -94,7 +101,32 @@ namespace BookSearcher
             SaveTable(resultRows);
         }
 
-        private List<Column1> CreateColumnList1(EnumerableRowCollection<DataRow> rows, string columnName, SpaceMatch spaceMatch)
+        protected void Search(ColumnInfo columnInfo1, ColumnInfo columnInfo2)
+        {
+            var bookColumnName1 = bookCSV.Titles[columnInfo1.BookColumnIndex];
+            var bookColumnName2 = bookCSV.Titles[columnInfo2.BookColumnIndex];
+            var scrapingColumnName1 = scrapingCSV.Titles[columnInfo1.ScrapingColumnIndex];
+            var scrapingColumnName2 = scrapingCSV.Titles[columnInfo2.ScrapingColumnIndex];
+
+            var bookRows = bookCSV.Table.AsEnumerable().Where(row => ((string)row[bookColumnName1]).Length > 0 && ((string)row[bookColumnName2]).Length > 0);
+            var scrapingRows = scrapingCSV.Table.AsEnumerable().Where(row => ((string)row[scrapingColumnName1]).Length > 0 && ((string)row[scrapingColumnName2]).Length > 0);
+
+            var bookValues = CreateColumnList(bookRows, bookColumnName1, columnInfo1.SpaceMatch, bookColumnName2, columnInfo2.SpaceMatch);
+            var scrapingValues = CreateColumnList(scrapingRows, scrapingColumnName1, columnInfo1.SpaceMatch, scrapingColumnName2, columnInfo2.SpaceMatch);
+            var results = from bookRow in bookValues
+                          join scrapingRow in scrapingValues
+                          on new { bookRow.Value1, bookRow.Value2 } equals new { scrapingRow.Value1, scrapingRow.Value2 }
+                          select new { BookRowIndex = bookRow.Index, ScrapingRowIndex = scrapingRow.Index };
+
+            var resultRows = new List<RowIndexPair>();
+            foreach (var result in results)
+            {
+                resultRows.Add(new RowIndexPair { BookRowIndex = result.BookRowIndex, ScrapingRowIndex = result.ScrapingRowIndex });
+            }
+            SaveTable(resultRows);
+        }
+
+        private List<Column1> CreateColumnList(EnumerableRowCollection<DataRow> rows, string columnName, SpaceMatch spaceMatch)
         {
             var values = new List<Column1>();
             ConvertValue convertValue = spaceMatch == SpaceMatch.All ? ConvertNone : (ConvertValue)ConvertRemoveSpace;
@@ -104,6 +136,23 @@ namespace BookSearcher
                 {
                     Index = row.Field<int>("RowIndex"),
                     Value = convertValue(row.Field<string>(columnName))
+                });
+            }
+            return values;
+        }
+
+        private List<Column2> CreateColumnList(EnumerableRowCollection<DataRow> rows, string columnName1, SpaceMatch spaceMatch1, string columnName2, SpaceMatch spaceMatch2)
+        {
+            var values = new List<Column2>();
+            ConvertValue convertValue1 = spaceMatch1 == SpaceMatch.All ? ConvertNone : (ConvertValue)ConvertRemoveSpace;
+            ConvertValue convertValue2 = spaceMatch2 == SpaceMatch.All ? ConvertNone : (ConvertValue)ConvertRemoveSpace;
+            foreach (var row in rows)
+            {
+                values.Add(new Column2
+                {
+                    Index = row.Field<int>("RowIndex"),
+                    Value1 = convertValue1(row.Field<string>(columnName1)),
+                    Value2 = convertValue2(row.Field<string>(columnName2))
                 });
             }
             return values;
