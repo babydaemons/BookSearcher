@@ -144,7 +144,15 @@ namespace BookSearcher
 
             foreach (var title in Titles)
             {
-                table.Columns.Add(title, typeof(string));
+                try
+                {
+                    table.Columns.Add(title, typeof(string));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    Environment.Exit(1);
+                }
             }
         }
 
@@ -164,7 +172,7 @@ namespace BookSearcher
 
         protected void AddTableRow(string[] fields)
         {
-            if (fields.Length > table.Columns.Count)
+            if (fields.Length > table.Columns.Count - 1)
             {
                 return;
             }

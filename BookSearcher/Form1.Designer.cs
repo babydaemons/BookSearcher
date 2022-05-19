@@ -393,6 +393,7 @@
             this.BookColumnSetting.RowTemplate.Height = 21;
             this.BookColumnSetting.Size = new System.Drawing.Size(491, 128);
             this.BookColumnSetting.TabIndex = 0;
+            this.BookColumnSetting.Tag = "書籍データベースカラム";
             this.BookColumnSetting.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellDoubleClick);
             // 
             // BookColumnNumber
@@ -424,11 +425,11 @@
             this.BookColumnType.Items.AddRange(new object[] {
             "",
             "書籍名",
-            "出版年",
-            "出版社名",
             "著者名",
-            "URL",
-            "ISBN"});
+            "出版社名",
+            "出版年",
+            "ISBN",
+            "URL"});
             this.BookColumnType.Name = "BookColumnType";
             // 
             // GroupBox6
@@ -460,6 +461,7 @@
             this.ScrapingColumnSetting.RowTemplate.Height = 21;
             this.ScrapingColumnSetting.Size = new System.Drawing.Size(485, 312);
             this.ScrapingColumnSetting.TabIndex = 0;
+            this.ScrapingColumnSetting.Tag = "スクレイピングデータカラム";
             this.ScrapingColumnSetting.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellDoubleClick);
             // 
             // ScrapingColumnNumber
@@ -491,13 +493,11 @@
             this.ScrapingColumnType.Items.AddRange(new object[] {
             "",
             "書籍名",
-            "出版年",
-            "出版社名",
             "著者名",
-            "URL",
+            "出版社名",
+            "出版年",
             "ISBN",
-            "(メルカリ)",
-            "(日本の古書屋)"});
+            "URL"});
             this.ScrapingColumnType.Name = "ScrapingColumnType";
             // 
             // GroupBox2
@@ -631,14 +631,13 @@
             // GroupBox7
             // 
             this.GroupBox7.Controls.Add(this.Button4);
-            this.GroupBox7.Enabled = false;
             this.GroupBox7.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.GroupBox7.Location = new System.Drawing.Point(1103, 211);
             this.GroupBox7.Name = "GroupBox7";
             this.GroupBox7.Size = new System.Drawing.Size(162, 57);
             this.GroupBox7.TabIndex = 6;
             this.GroupBox7.TabStop = false;
-            this.GroupBox7.Text = "突き合わせ処理【開発中】";
+            this.GroupBox7.Text = "突き合わせ処理";
             // 
             // Button4
             // 

@@ -70,6 +70,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BookSearcher.cs" />
+    <Compile Include="BookSearcher15.cs" />
+    <Compile Include="BookSearcher14.cs" />
     <Compile Include="CSVFileSplitInfo.cs" />
     <Compile Include="CSVFileSplitInfoMultiLine.cs" />
     <Compile Include="CSVFileSplitInfoSingleLine.cs" />

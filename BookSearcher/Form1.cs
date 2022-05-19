@@ -155,6 +155,96 @@ namespace BookSearcher
 
         private void BackgroundWorker4_DoWork(object sender, DoWorkEventArgs e)
         {
+            BookSearcher searcher = null;
+            Dictionary<ColumnType, ColumnInfo> columnInfo = new Dictionary<ColumnType, ColumnInfo>();
+            string searchTypeName = "";
+            try
+            {
+                if (RadioButtonSearchType01.Checked)
+                {
+                    searchTypeName = RadioButtonSearchType01.Text;
+                }
+                if (RadioButtonSearchType02.Checked)
+                {
+                    searchTypeName = RadioButtonSearchType02.Text;
+                }
+                if (RadioButtonSearchType03.Checked)
+                {
+                    searchTypeName = RadioButtonSearchType03.Text;
+                }
+                if (RadioButtonSearchType04.Checked)
+                {
+                    searchTypeName = RadioButtonSearchType04.Text;
+                }
+                if (RadioButtonSearchType05.Checked)
+                {
+                    searchTypeName = RadioButtonSearchType05.Text;
+                }
+                if (RadioButtonSearchType06.Checked)
+                {
+                    searchTypeName = RadioButtonSearchType06.Text;
+                }
+                if (RadioButtonSearchType07.Checked)
+                {
+                    searchTypeName = RadioButtonSearchType07.Text;
+                }
+                if (RadioButtonSearchType08.Checked)
+                {
+                    searchTypeName = RadioButtonSearchType08.Text;
+                }
+                if (RadioButtonSearchType09.Checked)
+                {
+                    searchTypeName = RadioButtonSearchType09.Text;
+                }
+                if (RadioButtonSearchType10.Checked)
+                {
+                    searchTypeName = RadioButtonSearchType10.Text;
+                }
+                if (RadioButtonSearchType11.Checked)
+                {
+                    searchTypeName = RadioButtonSearchType11.Text;
+                }
+                if (RadioButtonSearchType12.Checked)
+                {
+                    searchTypeName = RadioButtonSearchType12.Text;
+                }
+                if (RadioButtonSearchType13.Checked)
+                {
+                    searchTypeName = RadioButtonSearchType13.Text;
+                }
+                if (RadioButtonSearchType14.Checked)
+                {
+                    searcher = new BookSearcher14(BookCSV, ScrapingCSV);
+                    columnInfo.Add(ColumnType.ISBN, new ColumnInfo(MatchType.CompleteMatch, BookSearcher.SelectColumnIndex(BookColumnSetting, ColumnType.ISBN), BookSearcher.SelectColumnIndex(ScrapingColumnSetting, ColumnType.ISBN)));
+                    searchTypeName = RadioButtonSearchType14.Text;
+                }
+                if (RadioButtonSearchType15.Checked)
+                {
+                    searcher = new BookSearcher15(BookCSV, ScrapingCSV);
+                    columnInfo.Add(ColumnType.BookTitle, new ColumnInfo(MatchType.CompleteMatch, BookSearcher.SelectColumnIndex(BookColumnSetting, ColumnType.BookTitle), BookSearcher.SelectColumnIndex(ScrapingColumnSetting, ColumnType.BookTitle)));
+                    searchTypeName = RadioButtonSearchType15.Text;
+                }
+                if (RadioButtonSearchType16.Checked)
+                {
+                    searchTypeName = RadioButtonSearchType16.Text;
+                }
+                if (RadioButtonSearchType17.Checked)
+                {
+                    searchTypeName = RadioButtonSearchType17.Text;
+                }
+                if (searcher != null)
+                {
+                    searcher.Search(columnInfo);
+                }
+                else
+                {
+                    MessageBox.Show("未サポートの検索パターンです。\n" + searchTypeName);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void BackgroundWorker4_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
