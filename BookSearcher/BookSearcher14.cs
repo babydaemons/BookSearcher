@@ -10,7 +10,7 @@ namespace BookSearcher
 
         public override void Search(Dictionary<ColumnType, ColumnInfo> columnInfo)
         {
-            Search(columnInfo, ColumnType.ISBN);
+            Search(columnInfo[ColumnType.ISBN]);
         }
     }
 }

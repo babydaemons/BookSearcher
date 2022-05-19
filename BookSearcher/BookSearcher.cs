@@ -9,16 +9,19 @@ namespace BookSearcher
     enum ColumnIndex { Number, Name, Value, Type };
     enum ColumnType { None, BookTitle, Author, Publisher, Year, ISBN, URL };
     enum MatchType { CompleteMatch, BeginningMatch, PartialMatch };
+    enum SpaceMatch { All, Ignore };
 
     struct ColumnInfo
     {
         public MatchType MatchType { get; }
+        public SpaceMatch SpaceMatch { get; }
         public int BookColumnIndex { get; }
         public int ScrapingColumnIndex { get; }
 
-        public ColumnInfo(MatchType matchType, int bookColumnIndex, int scrapingColumnIndex)
+        public ColumnInfo(MatchType matchType, SpaceMatch spaceMatch, int bookColumnIndex, int scrapingColumnIndex)
         {
             MatchType = matchType;
+            SpaceMatch = spaceMatch;
             BookColumnIndex = bookColumnIndex;
             ScrapingColumnIndex = scrapingColumnIndex;
         }
@@ -28,6 +31,12 @@ namespace BookSearcher
     {
         public int BookRowIndex;
         public int ScrapingRowIndex;
+    }
+
+    struct Column1
+    {
+        public int Index;
+        public string Value;
     }
 
     internal abstract class BookSearcher
@@ -42,6 +51,7 @@ namespace BookSearcher
             this.bookCSV = bookCSV;
             this.scrapingCSV = scrapingCSV;
         }
+        private delegate string ConvertValue(string value);
 
         public abstract void Search(Dictionary<ColumnType, ColumnInfo> columnInfo);
 
@@ -61,29 +71,45 @@ namespace BookSearcher
             throw new Exception($"「{tableName}」の「{columnTypeName}」が選択されていません。");
         }
 
-        protected void Search(Dictionary<ColumnType, ColumnInfo> columnInfo, ColumnType columnType)
+        protected void Search(ColumnInfo columnInfo)
         {
-            var bookColumnName = bookCSV.Titles[columnInfo[columnType].BookColumnIndex];
-            var scrapingColumnName = scrapingCSV.Titles[columnInfo[columnType].ScrapingColumnIndex];
+            var bookColumnName = bookCSV.Titles[columnInfo.BookColumnIndex];
+            var scrapingColumnName = scrapingCSV.Titles[columnInfo.ScrapingColumnIndex];
 
-            var bookTable = bookCSV.Table;
-            var scrapingTable = scrapingCSV.Table;
+            var bookRows = bookCSV.Table.AsEnumerable().Where(row => ((string)row[bookColumnName]).Length > 0);
+            var scrapingRows = scrapingCSV.Table.AsEnumerable().Where(row => ((string)row[scrapingColumnName]).Length > 0);
 
-            var results = from bookRow in bookTable.AsEnumerable()
-                          join scrapingRow in scrapingTable.AsEnumerable()
-                          on bookRow.Field<string>(bookColumnName) equals scrapingRow.Field<string>(scrapingColumnName)
-                          select new { BookRowIndex = bookRow.Field<int>("RowIndex"), ScrapingRowIndex = scrapingRow.Field<int>("RowIndex") };
-
+            var bookValues = CreateColumnList1(bookRows, bookColumnName, columnInfo.SpaceMatch);
+            var scrapingValues = CreateColumnList1(scrapingRows, scrapingColumnName, columnInfo.SpaceMatch);
+            var results = from bookRow in bookValues
+                            join scrapingRow in scrapingValues
+                            on bookRow.Value equals scrapingRow.Value
+                            select new { BookRowIndex = bookRow.Index, ScrapingRowIndex = scrapingRow.Index };
+ 
             var resultRows = new List<RowIndexPair>();
             foreach (var result in results)
             {
                 resultRows.Add(new RowIndexPair { BookRowIndex = result.BookRowIndex, ScrapingRowIndex = result.ScrapingRowIndex });
             }
-
             SaveTable(resultRows);
         }
 
-        protected void SaveTable(List<RowIndexPair> resultRows)
+        private List<Column1> CreateColumnList1(EnumerableRowCollection<DataRow> rows, string columnName, SpaceMatch spaceMatch)
+        {
+            var values = new List<Column1>();
+            ConvertValue convertValue = spaceMatch == SpaceMatch.All ? ConvertNone : (ConvertValue)ConvertRemoveSpace;
+            foreach (var row in rows)
+            {
+                values.Add(new Column1
+                {
+                    Index = row.Field<int>("RowIndex"),
+                    Value = convertValue(row.Field<string>(columnName))
+                });
+            }
+            return values;
+        }
+
+        private void SaveTable(List<RowIndexPair> resultRows)
         {
             resultTable = new DataTable();
             foreach (var column in bookCSV.Titles)
@@ -109,6 +135,16 @@ namespace BookSearcher
                 }
                 resultTable.Rows.Add(row);
             }
+        }
+
+        private string ConvertNone(string value)
+        {
+            return value;
+        }
+
+        private string ConvertRemoveSpace(string value)
+        {
+            return value.Replace(" ", "").Replace("　", "");
         }
     }
 }

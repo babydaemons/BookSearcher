@@ -2,15 +2,15 @@
 
 namespace BookSearcher
 {
-    internal class BookSearcher15 : BookSearcher
+    internal class BookSearcher13 : BookSearcher
     {
-        public BookSearcher15(CSVFile bookCSV, CSVFile scrapingCSV) : base(bookCSV, scrapingCSV)
+        public BookSearcher13(CSVFile bookCSV, CSVFile scrapingCSV) : base(bookCSV, scrapingCSV)
         {
         }
 
         public override void Search(Dictionary<ColumnType, ColumnInfo> columnInfo)
         {
-            Search(columnInfo[ColumnType.BookTitle]);
+            Search(columnInfo[ColumnType.URL]);
         }
     }
 }

@@ -12,6 +12,7 @@ namespace BookSearcher
         private CSVFile ScrapingCSV;
         private DateTime start;
         private DateTime finish;
+        private string searchTypeName = "";
 
         public Form1()
         {
@@ -157,7 +158,8 @@ namespace BookSearcher
         {
             BookSearcher searcher = null;
             Dictionary<ColumnType, ColumnInfo> columnInfo = new Dictionary<ColumnType, ColumnInfo>();
-            string searchTypeName = "";
+            SpaceMatch spaceMatch = RadioButtonSpaceContains.Checked ? SpaceMatch.All : SpaceMatch.Ignore;
+            searchTypeName = "";
             try
             {
                 if (RadioButtonSearchType01.Checked)
@@ -210,18 +212,20 @@ namespace BookSearcher
                 }
                 if (RadioButtonSearchType13.Checked)
                 {
+                    searcher = new BookSearcher13(BookCSV, ScrapingCSV);
+                    columnInfo.Add(ColumnType.URL, new ColumnInfo(MatchType.CompleteMatch, spaceMatch, BookSearcher.SelectColumnIndex(BookColumnSetting, ColumnType.URL), BookSearcher.SelectColumnIndex(ScrapingColumnSetting, ColumnType.URL)));
                     searchTypeName = RadioButtonSearchType13.Text;
                 }
                 if (RadioButtonSearchType14.Checked)
                 {
                     searcher = new BookSearcher14(BookCSV, ScrapingCSV);
-                    columnInfo.Add(ColumnType.ISBN, new ColumnInfo(MatchType.CompleteMatch, BookSearcher.SelectColumnIndex(BookColumnSetting, ColumnType.ISBN), BookSearcher.SelectColumnIndex(ScrapingColumnSetting, ColumnType.ISBN)));
+                    columnInfo.Add(ColumnType.ISBN, new ColumnInfo(MatchType.CompleteMatch, spaceMatch, BookSearcher.SelectColumnIndex(BookColumnSetting, ColumnType.ISBN), BookSearcher.SelectColumnIndex(ScrapingColumnSetting, ColumnType.ISBN)));
                     searchTypeName = RadioButtonSearchType14.Text;
                 }
                 if (RadioButtonSearchType15.Checked)
                 {
                     searcher = new BookSearcher15(BookCSV, ScrapingCSV);
-                    columnInfo.Add(ColumnType.BookTitle, new ColumnInfo(MatchType.CompleteMatch, BookSearcher.SelectColumnIndex(BookColumnSetting, ColumnType.BookTitle), BookSearcher.SelectColumnIndex(ScrapingColumnSetting, ColumnType.BookTitle)));
+                    columnInfo.Add(ColumnType.BookTitle, new ColumnInfo(MatchType.CompleteMatch, spaceMatch, BookSearcher.SelectColumnIndex(BookColumnSetting, ColumnType.BookTitle), BookSearcher.SelectColumnIndex(ScrapingColumnSetting, ColumnType.BookTitle)));
                     searchTypeName = RadioButtonSearchType15.Text;
                 }
                 if (RadioButtonSearchType16.Checked)
@@ -256,6 +260,9 @@ namespace BookSearcher
             Timer1.Enabled = false;
             ToolStripStatusLabel1.Text = time.ToString(@"hh\:mm\:ss");
             ToolStripStatusLabel2.Text = "検索処理が完了しました．";
+
+            var form = new Form2(BookSearcher.ResultTable, searchTypeName);
+            form.ShowDialog();
         }
 
         private void Timer1_Tick(object sender, EventArgs e)

@@ -1,34 +1,45 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BookSearcher
 {
     public partial class Form2 : Form
     {
-        private readonly CSVFile csvFile;
+        private readonly DataTable table;
+        private readonly bool hideFirstColumn;
 
         public Form2(CSVFile csvFile)
         {
-            this.csvFile = csvFile;
+            table = csvFile.Table;
+            hideFirstColumn = true;
+
             InitializeComponent();
 
             // 画面タイトルの設定
             Text = $"BookSearcher - {csvFile.Path}";
         }
 
+        public Form2(DataTable result, string searchType)
+        {
+            table = result;
+            hideFirstColumn = false;
+
+            InitializeComponent();
+
+            // 画面タイトルの設定
+            Text = $"BookSearcher - {searchType}";
+        }
+
         private void Form2_Load(object sender, EventArgs e)
         {
-            DataGridPreView.DataSource = csvFile.Table;
+            DataGridPreView.DataSource = table;
 
-            // DataGridPreViewのはじめの列を非表示にする
-            DataGridPreView.Columns[0].Visible = false;
+            if (hideFirstColumn)
+            {
+                // DataGridPreViewのはじめの列を非表示にする
+                DataGridPreView.Columns[0].Visible = false;
+            }
         }
     }
 }
