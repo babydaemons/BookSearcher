@@ -355,7 +355,6 @@
             // RadioButtonSearchType02
             // 
             this.RadioButtonSearchType02.AutoSize = true;
-            this.RadioButtonSearchType02.Enabled = false;
             this.RadioButtonSearchType02.Location = new System.Drawing.Point(20, 47);
             this.RadioButtonSearchType02.Name = "RadioButtonSearchType02";
             this.RadioButtonSearchType02.Size = new System.Drawing.Size(582, 19);

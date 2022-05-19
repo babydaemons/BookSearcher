@@ -12,6 +12,8 @@ namespace BookSearcher
         private CSVFile ScrapingCSV;
         private DateTime start;
         private DateTime finish;
+        private BookSearcher searcher = null;
+        private Dictionary<ColumnType, ColumnInfo> columnInfo;
         private string searchTypeName = "";
 
         public Form1()
@@ -146,6 +148,11 @@ namespace BookSearcher
 
         private void Button4_Click(object sender, EventArgs e)
         {
+            if (!InvokeMatching())
+            {
+                return;
+            }
+
             start = DateTime.Now;
             SetSearchContolsEnabled(false);
             ToolStripStatusLabel1.Text = "00:00:00";
@@ -154,11 +161,11 @@ namespace BookSearcher
             BackgroundWorker4.RunWorkerAsync();
         }
 
-        private void BackgroundWorker4_DoWork(object sender, DoWorkEventArgs e)
+        private bool InvokeMatching()
         {
-            BookSearcher searcher = null;
-            Dictionary<ColumnType, ColumnInfo> columnInfo = new Dictionary<ColumnType, ColumnInfo>();
             SpaceMatch spaceMatch = RadioButtonSpaceContains.Checked ? SpaceMatch.All : SpaceMatch.Ignore;
+            searcher = null;
+            columnInfo = new Dictionary<ColumnType, ColumnInfo>();
             searchTypeName = "";
             try
             {
@@ -171,6 +178,9 @@ namespace BookSearcher
                 }
                 if (RadioButtonSearchType02.Checked)
                 {
+                    searcher = new BookSearcher02(BookCSV, ScrapingCSV, (int)NumericUpDownLength.Value);
+                    columnInfo.Add(ColumnType.BookTitle, new ColumnInfo(MatchType.BeginningMatch, spaceMatch, BookSearcher.SelectColumnIndex(BookColumnSetting, ColumnType.BookTitle), BookSearcher.SelectColumnIndex(ScrapingColumnSetting, ColumnType.BookTitle)));
+                    columnInfo.Add(ColumnType.Year, new ColumnInfo(MatchType.CompleteMatch, SpaceMatch.Ignore, BookSearcher.SelectColumnIndex(BookColumnSetting, ColumnType.Year), BookSearcher.SelectColumnIndex(ScrapingColumnSetting, ColumnType.Year)));
                     searchTypeName = RadioButtonSearchType02.Text;
                 }
                 if (RadioButtonSearchType03.Checked)
@@ -242,10 +252,6 @@ namespace BookSearcher
                 {
                     searchTypeName = RadioButtonSearchType17.Text;
                 }
-                if (searcher != null)
-                {
-                    searcher.Search(columnInfo);
-                }
                 else
                 {
                     MessageBox.Show("未サポートの検索パターンです。\n" + searchTypeName);
@@ -254,6 +260,17 @@ namespace BookSearcher
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                return false;
+            }
+
+            return searcher != null;
+        }
+
+        private void BackgroundWorker4_DoWork(object sender, DoWorkEventArgs e)
+        {
+            if (searcher != null)
+            {
+                searcher.Search(columnInfo);
             }
         }
 
