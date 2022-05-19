@@ -37,7 +37,7 @@
             this.StatusStrip1 = new System.Windows.Forms.StatusStrip();
             this.ToolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.ToolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.GroupBox4 = new System.Windows.Forms.GroupBox();
+            this.GroupBoxMatchType = new System.Windows.Forms.GroupBox();
             this.RadioButtonSearchType17 = new System.Windows.Forms.RadioButton();
             this.RadioButtonSearchType16 = new System.Windows.Forms.RadioButton();
             this.RadioButtonSearchType15 = new System.Windows.Forms.RadioButton();
@@ -55,31 +55,28 @@
             this.RadioButtonSearchType03 = new System.Windows.Forms.RadioButton();
             this.RadioButtonSearchType02 = new System.Windows.Forms.RadioButton();
             this.RadioButtonSearchType01 = new System.Windows.Forms.RadioButton();
-            this.GroupBox5 = new System.Windows.Forms.GroupBox();
+            this.GroupBoxDatabase = new System.Windows.Forms.GroupBox();
             this.BookColumnSetting = new System.Windows.Forms.DataGridView();
             this.BookColumnNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BookColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BookColumnValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BookColumnType = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.GroupBox6 = new System.Windows.Forms.GroupBox();
+            this.GroupBoxScraping = new System.Windows.Forms.GroupBox();
             this.ScrapingColumnSetting = new System.Windows.Forms.DataGridView();
             this.ScrapingColumnNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ScrapingColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ScrapingColumnValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ScrapingColumnType = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.GroupBox2 = new System.Windows.Forms.GroupBox();
+            this.GroupBoxOutput = new System.Windows.Forms.GroupBox();
             this.RadioButtonFileTypeCSV2 = new System.Windows.Forms.RadioButton();
             this.RadioButtonFileTypeCSV1 = new System.Windows.Forms.RadioButton();
             this.RadioButtonFileTypeExcel = new System.Windows.Forms.RadioButton();
-            this.GroupBox3 = new System.Windows.Forms.GroupBox();
+            this.GroupBoxPartMatch = new System.Windows.Forms.GroupBox();
             this.NumericUpDownLength = new System.Windows.Forms.NumericUpDown();
-            this.RadioButtonSpaceContains = new System.Windows.Forms.RadioButton();
-            this.RadioButtonSpaceIgnore = new System.Windows.Forms.RadioButton();
-            this.Label5 = new System.Windows.Forms.Label();
             this.Label4 = new System.Windows.Forms.Label();
-            this.GroupBox7 = new System.Windows.Forms.GroupBox();
+            this.GroupBoxExecute = new System.Windows.Forms.GroupBox();
             this.Button4 = new System.Windows.Forms.Button();
-            this.GroupBox1 = new System.Windows.Forms.GroupBox();
+            this.GroupBoxFiles = new System.Windows.Forms.GroupBox();
             this.LabelOutput3 = new System.Windows.Forms.Label();
             this.LabelOutput2 = new System.Windows.Forms.Label();
             this.TextBoxOutput3 = new System.Windows.Forms.TextBox();
@@ -93,17 +90,21 @@
             this.LabelOutput1 = new System.Windows.Forms.Label();
             this.LabelInput2 = new System.Windows.Forms.Label();
             this.LabelInput1 = new System.Windows.Forms.Label();
+            this.GroupBoxAllMatch = new System.Windows.Forms.GroupBox();
+            this.RadioButtonSpaceIgnore = new System.Windows.Forms.RadioButton();
+            this.RadioButtonSpaceContains = new System.Windows.Forms.RadioButton();
             this.StatusStrip1.SuspendLayout();
-            this.GroupBox4.SuspendLayout();
-            this.GroupBox5.SuspendLayout();
+            this.GroupBoxMatchType.SuspendLayout();
+            this.GroupBoxDatabase.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BookColumnSetting)).BeginInit();
-            this.GroupBox6.SuspendLayout();
+            this.GroupBoxScraping.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ScrapingColumnSetting)).BeginInit();
-            this.GroupBox2.SuspendLayout();
-            this.GroupBox3.SuspendLayout();
+            this.GroupBoxOutput.SuspendLayout();
+            this.GroupBoxPartMatch.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownLength)).BeginInit();
-            this.GroupBox7.SuspendLayout();
-            this.GroupBox1.SuspendLayout();
+            this.GroupBoxExecute.SuspendLayout();
+            this.GroupBoxFiles.SuspendLayout();
+            this.GroupBoxAllMatch.SuspendLayout();
             this.SuspendLayout();
             // 
             // Timer1
@@ -150,36 +151,37 @@
             this.ToolStripStatusLabel2.Size = new System.Drawing.Size(175, 17);
             this.ToolStripStatusLabel2.Text = "検索条件を指定してください．．．";
             // 
-            // GroupBox4
+            // GroupBoxMatchType
             // 
-            this.GroupBox4.Controls.Add(this.RadioButtonSearchType17);
-            this.GroupBox4.Controls.Add(this.RadioButtonSearchType16);
-            this.GroupBox4.Controls.Add(this.RadioButtonSearchType15);
-            this.GroupBox4.Controls.Add(this.RadioButtonSearchType14);
-            this.GroupBox4.Controls.Add(this.RadioButtonSearchType13);
-            this.GroupBox4.Controls.Add(this.RadioButtonSearchType12);
-            this.GroupBox4.Controls.Add(this.RadioButtonSearchType11);
-            this.GroupBox4.Controls.Add(this.RadioButtonSearchType10);
-            this.GroupBox4.Controls.Add(this.RadioButtonSearchType09);
-            this.GroupBox4.Controls.Add(this.RadioButtonSearchType08);
-            this.GroupBox4.Controls.Add(this.RadioButtonSearchType07);
-            this.GroupBox4.Controls.Add(this.RadioButtonSearchType06);
-            this.GroupBox4.Controls.Add(this.RadioButtonSearchType05);
-            this.GroupBox4.Controls.Add(this.RadioButtonSearchType04);
-            this.GroupBox4.Controls.Add(this.RadioButtonSearchType03);
-            this.GroupBox4.Controls.Add(this.RadioButtonSearchType02);
-            this.GroupBox4.Controls.Add(this.RadioButtonSearchType01);
-            this.GroupBox4.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.GroupBox4.Location = new System.Drawing.Point(12, 285);
-            this.GroupBox4.Name = "GroupBox4";
-            this.GroupBox4.Size = new System.Drawing.Size(747, 501);
-            this.GroupBox4.TabIndex = 3;
-            this.GroupBox4.TabStop = false;
-            this.GroupBox4.Text = "検索パターン";
+            this.GroupBoxMatchType.Controls.Add(this.RadioButtonSearchType17);
+            this.GroupBoxMatchType.Controls.Add(this.RadioButtonSearchType16);
+            this.GroupBoxMatchType.Controls.Add(this.RadioButtonSearchType15);
+            this.GroupBoxMatchType.Controls.Add(this.RadioButtonSearchType14);
+            this.GroupBoxMatchType.Controls.Add(this.RadioButtonSearchType13);
+            this.GroupBoxMatchType.Controls.Add(this.RadioButtonSearchType12);
+            this.GroupBoxMatchType.Controls.Add(this.RadioButtonSearchType11);
+            this.GroupBoxMatchType.Controls.Add(this.RadioButtonSearchType10);
+            this.GroupBoxMatchType.Controls.Add(this.RadioButtonSearchType09);
+            this.GroupBoxMatchType.Controls.Add(this.RadioButtonSearchType08);
+            this.GroupBoxMatchType.Controls.Add(this.RadioButtonSearchType07);
+            this.GroupBoxMatchType.Controls.Add(this.RadioButtonSearchType06);
+            this.GroupBoxMatchType.Controls.Add(this.RadioButtonSearchType05);
+            this.GroupBoxMatchType.Controls.Add(this.RadioButtonSearchType04);
+            this.GroupBoxMatchType.Controls.Add(this.RadioButtonSearchType03);
+            this.GroupBoxMatchType.Controls.Add(this.RadioButtonSearchType02);
+            this.GroupBoxMatchType.Controls.Add(this.RadioButtonSearchType01);
+            this.GroupBoxMatchType.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.GroupBoxMatchType.Location = new System.Drawing.Point(12, 285);
+            this.GroupBoxMatchType.Name = "GroupBoxMatchType";
+            this.GroupBoxMatchType.Size = new System.Drawing.Size(747, 501);
+            this.GroupBoxMatchType.TabIndex = 4;
+            this.GroupBoxMatchType.TabStop = false;
+            this.GroupBoxMatchType.Text = "検索パターン";
             // 
             // RadioButtonSearchType17
             // 
             this.RadioButtonSearchType17.AutoSize = true;
+            this.RadioButtonSearchType17.Enabled = false;
             this.RadioButtonSearchType17.Location = new System.Drawing.Point(20, 468);
             this.RadioButtonSearchType17.Name = "RadioButtonSearchType17";
             this.RadioButtonSearchType17.Size = new System.Drawing.Size(710, 19);
@@ -190,6 +192,7 @@
             // RadioButtonSearchType16
             // 
             this.RadioButtonSearchType16.AutoSize = true;
+            this.RadioButtonSearchType16.Enabled = false;
             this.RadioButtonSearchType16.Location = new System.Drawing.Point(20, 443);
             this.RadioButtonSearchType16.Name = "RadioButtonSearchType16";
             this.RadioButtonSearchType16.Size = new System.Drawing.Size(710, 19);
@@ -233,6 +236,7 @@
             // RadioButtonSearchType12
             // 
             this.RadioButtonSearchType12.AutoSize = true;
+            this.RadioButtonSearchType12.Enabled = false;
             this.RadioButtonSearchType12.Location = new System.Drawing.Point(20, 325);
             this.RadioButtonSearchType12.Name = "RadioButtonSearchType12";
             this.RadioButtonSearchType12.Size = new System.Drawing.Size(582, 19);
@@ -244,6 +248,7 @@
             // RadioButtonSearchType11
             // 
             this.RadioButtonSearchType11.AutoSize = true;
+            this.RadioButtonSearchType11.Enabled = false;
             this.RadioButtonSearchType11.Location = new System.Drawing.Point(20, 300);
             this.RadioButtonSearchType11.Name = "RadioButtonSearchType11";
             this.RadioButtonSearchType11.Size = new System.Drawing.Size(594, 19);
@@ -255,6 +260,7 @@
             // RadioButtonSearchType10
             // 
             this.RadioButtonSearchType10.AutoSize = true;
+            this.RadioButtonSearchType10.Enabled = false;
             this.RadioButtonSearchType10.Location = new System.Drawing.Point(20, 275);
             this.RadioButtonSearchType10.Name = "RadioButtonSearchType10";
             this.RadioButtonSearchType10.Size = new System.Drawing.Size(582, 19);
@@ -266,6 +272,7 @@
             // RadioButtonSearchType09
             // 
             this.RadioButtonSearchType09.AutoSize = true;
+            this.RadioButtonSearchType09.Enabled = false;
             this.RadioButtonSearchType09.Location = new System.Drawing.Point(20, 241);
             this.RadioButtonSearchType09.Name = "RadioButtonSearchType09";
             this.RadioButtonSearchType09.Size = new System.Drawing.Size(582, 19);
@@ -277,6 +284,7 @@
             // RadioButtonSearchType08
             // 
             this.RadioButtonSearchType08.AutoSize = true;
+            this.RadioButtonSearchType08.Enabled = false;
             this.RadioButtonSearchType08.Location = new System.Drawing.Point(20, 216);
             this.RadioButtonSearchType08.Name = "RadioButtonSearchType08";
             this.RadioButtonSearchType08.Size = new System.Drawing.Size(582, 19);
@@ -288,6 +296,7 @@
             // RadioButtonSearchType07
             // 
             this.RadioButtonSearchType07.AutoSize = true;
+            this.RadioButtonSearchType07.Enabled = false;
             this.RadioButtonSearchType07.Location = new System.Drawing.Point(20, 191);
             this.RadioButtonSearchType07.Name = "RadioButtonSearchType07";
             this.RadioButtonSearchType07.Size = new System.Drawing.Size(582, 19);
@@ -299,6 +308,7 @@
             // RadioButtonSearchType06
             // 
             this.RadioButtonSearchType06.AutoSize = true;
+            this.RadioButtonSearchType06.Enabled = false;
             this.RadioButtonSearchType06.Location = new System.Drawing.Point(20, 156);
             this.RadioButtonSearchType06.Name = "RadioButtonSearchType06";
             this.RadioButtonSearchType06.Size = new System.Drawing.Size(594, 19);
@@ -310,6 +320,7 @@
             // RadioButtonSearchType05
             // 
             this.RadioButtonSearchType05.AutoSize = true;
+            this.RadioButtonSearchType05.Enabled = false;
             this.RadioButtonSearchType05.Location = new System.Drawing.Point(20, 131);
             this.RadioButtonSearchType05.Name = "RadioButtonSearchType05";
             this.RadioButtonSearchType05.Size = new System.Drawing.Size(594, 19);
@@ -332,6 +343,7 @@
             // RadioButtonSearchType03
             // 
             this.RadioButtonSearchType03.AutoSize = true;
+            this.RadioButtonSearchType03.Enabled = false;
             this.RadioButtonSearchType03.Location = new System.Drawing.Point(20, 72);
             this.RadioButtonSearchType03.Name = "RadioButtonSearchType03";
             this.RadioButtonSearchType03.Size = new System.Drawing.Size(582, 19);
@@ -343,6 +355,7 @@
             // RadioButtonSearchType02
             // 
             this.RadioButtonSearchType02.AutoSize = true;
+            this.RadioButtonSearchType02.Enabled = false;
             this.RadioButtonSearchType02.Location = new System.Drawing.Point(20, 47);
             this.RadioButtonSearchType02.Name = "RadioButtonSearchType02";
             this.RadioButtonSearchType02.Size = new System.Drawing.Size(582, 19);
@@ -364,17 +377,17 @@
             this.RadioButtonSearchType01.UseVisualStyleBackColor = true;
             this.RadioButtonSearchType01.CheckedChanged += new System.EventHandler(this.RadioButtonSearchType_CheckedChanged);
             // 
-            // GroupBox5
+            // GroupBoxDatabase
             // 
-            this.GroupBox5.Controls.Add(this.BookColumnSetting);
-            this.GroupBox5.Enabled = false;
-            this.GroupBox5.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.GroupBox5.Location = new System.Drawing.Point(771, 285);
-            this.GroupBox5.Name = "GroupBox5";
-            this.GroupBox5.Size = new System.Drawing.Size(497, 150);
-            this.GroupBox5.TabIndex = 4;
-            this.GroupBox5.TabStop = false;
-            this.GroupBox5.Text = "書籍データベースカラム(テーブルをダブルクリックして詳細表示)";
+            this.GroupBoxDatabase.Controls.Add(this.BookColumnSetting);
+            this.GroupBoxDatabase.Enabled = false;
+            this.GroupBoxDatabase.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.GroupBoxDatabase.Location = new System.Drawing.Point(771, 285);
+            this.GroupBoxDatabase.Name = "GroupBoxDatabase";
+            this.GroupBoxDatabase.Size = new System.Drawing.Size(497, 150);
+            this.GroupBoxDatabase.TabIndex = 5;
+            this.GroupBoxDatabase.TabStop = false;
+            this.GroupBoxDatabase.Text = "書籍データベースカラム(テーブルをダブルクリックして詳細表示)";
             // 
             // BookColumnSetting
             // 
@@ -432,17 +445,17 @@
             "URL"});
             this.BookColumnType.Name = "BookColumnType";
             // 
-            // GroupBox6
+            // GroupBoxScraping
             // 
-            this.GroupBox6.Controls.Add(this.ScrapingColumnSetting);
-            this.GroupBox6.Enabled = false;
-            this.GroupBox6.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.GroupBox6.Location = new System.Drawing.Point(774, 452);
-            this.GroupBox6.Name = "GroupBox6";
-            this.GroupBox6.Size = new System.Drawing.Size(491, 334);
-            this.GroupBox6.TabIndex = 5;
-            this.GroupBox6.TabStop = false;
-            this.GroupBox6.Text = "スクレイピングデータカラム(テーブルをダブルクリックして詳細表示)";
+            this.GroupBoxScraping.Controls.Add(this.ScrapingColumnSetting);
+            this.GroupBoxScraping.Enabled = false;
+            this.GroupBoxScraping.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.GroupBoxScraping.Location = new System.Drawing.Point(774, 452);
+            this.GroupBoxScraping.Name = "GroupBoxScraping";
+            this.GroupBoxScraping.Size = new System.Drawing.Size(491, 334);
+            this.GroupBoxScraping.TabIndex = 6;
+            this.GroupBoxScraping.TabStop = false;
+            this.GroupBoxScraping.Text = "スクレイピングデータカラム(テーブルをダブルクリックして詳細表示)";
             // 
             // ScrapingColumnSetting
             // 
@@ -500,18 +513,18 @@
             "URL"});
             this.ScrapingColumnType.Name = "ScrapingColumnType";
             // 
-            // GroupBox2
+            // GroupBoxOutput
             // 
-            this.GroupBox2.Controls.Add(this.RadioButtonFileTypeCSV2);
-            this.GroupBox2.Controls.Add(this.RadioButtonFileTypeCSV1);
-            this.GroupBox2.Controls.Add(this.RadioButtonFileTypeExcel);
-            this.GroupBox2.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.GroupBox2.Location = new System.Drawing.Point(12, 211);
-            this.GroupBox2.Name = "GroupBox2";
-            this.GroupBox2.Size = new System.Drawing.Size(459, 57);
-            this.GroupBox2.TabIndex = 1;
-            this.GroupBox2.TabStop = false;
-            this.GroupBox2.Text = "出力データファイル種類";
+            this.GroupBoxOutput.Controls.Add(this.RadioButtonFileTypeCSV2);
+            this.GroupBoxOutput.Controls.Add(this.RadioButtonFileTypeCSV1);
+            this.GroupBoxOutput.Controls.Add(this.RadioButtonFileTypeExcel);
+            this.GroupBoxOutput.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.GroupBoxOutput.Location = new System.Drawing.Point(12, 211);
+            this.GroupBoxOutput.Name = "GroupBoxOutput";
+            this.GroupBoxOutput.Size = new System.Drawing.Size(459, 57);
+            this.GroupBoxOutput.TabIndex = 1;
+            this.GroupBoxOutput.TabStop = false;
+            this.GroupBoxOutput.Text = "出力データファイル種類";
             // 
             // RadioButtonFileTypeCSV2
             // 
@@ -548,24 +561,21 @@
             this.RadioButtonFileTypeExcel.UseVisualStyleBackColor = true;
             this.RadioButtonFileTypeExcel.CheckedChanged += new System.EventHandler(this.RadioButtonFileType_CheckedChanged);
             // 
-            // GroupBox3
+            // GroupBoxPartMatch
             // 
-            this.GroupBox3.Controls.Add(this.NumericUpDownLength);
-            this.GroupBox3.Controls.Add(this.RadioButtonSpaceContains);
-            this.GroupBox3.Controls.Add(this.RadioButtonSpaceIgnore);
-            this.GroupBox3.Controls.Add(this.Label5);
-            this.GroupBox3.Controls.Add(this.Label4);
-            this.GroupBox3.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.GroupBox3.Location = new System.Drawing.Point(491, 211);
-            this.GroupBox3.Name = "GroupBox3";
-            this.GroupBox3.Size = new System.Drawing.Size(598, 57);
-            this.GroupBox3.TabIndex = 2;
-            this.GroupBox3.TabStop = false;
-            this.GroupBox3.Text = "比較条件";
+            this.GroupBoxPartMatch.Controls.Add(this.NumericUpDownLength);
+            this.GroupBoxPartMatch.Controls.Add(this.Label4);
+            this.GroupBoxPartMatch.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.GroupBoxPartMatch.Location = new System.Drawing.Point(806, 211);
+            this.GroupBoxPartMatch.Name = "GroupBoxPartMatch";
+            this.GroupBoxPartMatch.Size = new System.Drawing.Size(281, 57);
+            this.GroupBoxPartMatch.TabIndex = 3;
+            this.GroupBoxPartMatch.TabStop = false;
+            this.GroupBoxPartMatch.Text = "前方一致・部分一致比較条件";
             // 
             // NumericUpDownLength
             // 
-            this.NumericUpDownLength.Location = new System.Drawing.Point(183, 20);
+            this.NumericUpDownLength.Location = new System.Drawing.Point(180, 20);
             this.NumericUpDownLength.Maximum = new decimal(new int[] {
             20,
             0,
@@ -586,58 +596,26 @@
             0,
             0});
             // 
-            // RadioButtonSpaceContains
-            // 
-            this.RadioButtonSpaceContains.AutoSize = true;
-            this.RadioButtonSpaceContains.Location = new System.Drawing.Point(478, 22);
-            this.RadioButtonSpaceContains.Name = "RadioButtonSpaceContains";
-            this.RadioButtonSpaceContains.Size = new System.Drawing.Size(95, 19);
-            this.RadioButtonSpaceContains.TabIndex = 4;
-            this.RadioButtonSpaceContains.Text = "空白文字含む";
-            this.RadioButtonSpaceContains.UseVisualStyleBackColor = true;
-            // 
-            // RadioButtonSpaceIgnore
-            // 
-            this.RadioButtonSpaceIgnore.AutoSize = true;
-            this.RadioButtonSpaceIgnore.Checked = true;
-            this.RadioButtonSpaceIgnore.Location = new System.Drawing.Point(365, 22);
-            this.RadioButtonSpaceIgnore.Name = "RadioButtonSpaceIgnore";
-            this.RadioButtonSpaceIgnore.Size = new System.Drawing.Size(97, 19);
-            this.RadioButtonSpaceIgnore.TabIndex = 3;
-            this.RadioButtonSpaceIgnore.TabStop = true;
-            this.RadioButtonSpaceIgnore.Text = "空白文字無視";
-            this.RadioButtonSpaceIgnore.UseVisualStyleBackColor = true;
-            // 
-            // Label5
-            // 
-            this.Label5.AutoSize = true;
-            this.Label5.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.Label5.Location = new System.Drawing.Point(242, 24);
-            this.Label5.Name = "Label5";
-            this.Label5.Size = new System.Drawing.Size(97, 15);
-            this.Label5.TabIndex = 2;
-            this.Label5.Text = "文字　(空白無視)";
-            // 
             // Label4
             // 
             this.Label4.AutoSize = true;
             this.Label4.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.Label4.Location = new System.Drawing.Point(32, 24);
+            this.Label4.Location = new System.Drawing.Point(49, 24);
             this.Label4.Name = "Label4";
-            this.Label4.Size = new System.Drawing.Size(145, 15);
+            this.Label4.Size = new System.Drawing.Size(125, 15);
             this.Label4.TabIndex = 0;
-            this.Label4.Text = "前方一致・部分一致文字数";
+            this.Label4.Text = "一致文字数(空白無視)";
             // 
-            // GroupBox7
+            // GroupBoxExecute
             // 
-            this.GroupBox7.Controls.Add(this.Button4);
-            this.GroupBox7.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.GroupBox7.Location = new System.Drawing.Point(1103, 211);
-            this.GroupBox7.Name = "GroupBox7";
-            this.GroupBox7.Size = new System.Drawing.Size(162, 57);
-            this.GroupBox7.TabIndex = 6;
-            this.GroupBox7.TabStop = false;
-            this.GroupBox7.Text = "突き合わせ処理";
+            this.GroupBoxExecute.Controls.Add(this.Button4);
+            this.GroupBoxExecute.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.GroupBoxExecute.Location = new System.Drawing.Point(1103, 211);
+            this.GroupBoxExecute.Name = "GroupBoxExecute";
+            this.GroupBoxExecute.Size = new System.Drawing.Size(162, 57);
+            this.GroupBoxExecute.TabIndex = 7;
+            this.GroupBoxExecute.TabStop = false;
+            this.GroupBoxExecute.Text = "突き合わせ処理";
             // 
             // Button4
             // 
@@ -650,28 +628,28 @@
             this.Button4.UseVisualStyleBackColor = true;
             this.Button4.Click += new System.EventHandler(this.Button4_Click);
             // 
-            // GroupBox1
+            // GroupBoxFiles
             // 
-            this.GroupBox1.Controls.Add(this.LabelOutput3);
-            this.GroupBox1.Controls.Add(this.LabelOutput2);
-            this.GroupBox1.Controls.Add(this.TextBoxOutput3);
-            this.GroupBox1.Controls.Add(this.TextBoxOutput2);
-            this.GroupBox1.Controls.Add(this.Button3);
-            this.GroupBox1.Controls.Add(this.Button2);
-            this.GroupBox1.Controls.Add(this.Button1);
-            this.GroupBox1.Controls.Add(this.TextBoxOutput1);
-            this.GroupBox1.Controls.Add(this.TextBoxInput2);
-            this.GroupBox1.Controls.Add(this.TextBoxInput1);
-            this.GroupBox1.Controls.Add(this.LabelOutput1);
-            this.GroupBox1.Controls.Add(this.LabelInput2);
-            this.GroupBox1.Controls.Add(this.LabelInput1);
-            this.GroupBox1.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.GroupBox1.Location = new System.Drawing.Point(12, 12);
-            this.GroupBox1.Name = "GroupBox1";
-            this.GroupBox1.Size = new System.Drawing.Size(1253, 183);
-            this.GroupBox1.TabIndex = 0;
-            this.GroupBox1.TabStop = false;
-            this.GroupBox1.Text = "入力・出力データファイル指定";
+            this.GroupBoxFiles.Controls.Add(this.LabelOutput3);
+            this.GroupBoxFiles.Controls.Add(this.LabelOutput2);
+            this.GroupBoxFiles.Controls.Add(this.TextBoxOutput3);
+            this.GroupBoxFiles.Controls.Add(this.TextBoxOutput2);
+            this.GroupBoxFiles.Controls.Add(this.Button3);
+            this.GroupBoxFiles.Controls.Add(this.Button2);
+            this.GroupBoxFiles.Controls.Add(this.Button1);
+            this.GroupBoxFiles.Controls.Add(this.TextBoxOutput1);
+            this.GroupBoxFiles.Controls.Add(this.TextBoxInput2);
+            this.GroupBoxFiles.Controls.Add(this.TextBoxInput1);
+            this.GroupBoxFiles.Controls.Add(this.LabelOutput1);
+            this.GroupBoxFiles.Controls.Add(this.LabelInput2);
+            this.GroupBoxFiles.Controls.Add(this.LabelInput1);
+            this.GroupBoxFiles.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.GroupBoxFiles.Location = new System.Drawing.Point(12, 12);
+            this.GroupBoxFiles.Name = "GroupBoxFiles";
+            this.GroupBoxFiles.Size = new System.Drawing.Size(1253, 183);
+            this.GroupBoxFiles.TabIndex = 0;
+            this.GroupBoxFiles.TabStop = false;
+            this.GroupBoxFiles.Text = "入力・出力データファイル指定";
             // 
             // LabelOutput3
             // 
@@ -800,40 +778,77 @@
             this.LabelInput1.TabIndex = 0;
             this.LabelInput1.Text = "書籍データベースファイル";
             // 
+            // GroupBoxAllMatch
+            // 
+            this.GroupBoxAllMatch.Controls.Add(this.RadioButtonSpaceIgnore);
+            this.GroupBoxAllMatch.Controls.Add(this.RadioButtonSpaceContains);
+            this.GroupBoxAllMatch.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.GroupBoxAllMatch.Location = new System.Drawing.Point(488, 211);
+            this.GroupBoxAllMatch.Name = "GroupBoxAllMatch";
+            this.GroupBoxAllMatch.Size = new System.Drawing.Size(302, 57);
+            this.GroupBoxAllMatch.TabIndex = 2;
+            this.GroupBoxAllMatch.TabStop = false;
+            this.GroupBoxAllMatch.Text = "完全一致照合条件";
+            // 
+            // RadioButtonSpaceIgnore
+            // 
+            this.RadioButtonSpaceIgnore.AutoSize = true;
+            this.RadioButtonSpaceIgnore.Checked = true;
+            this.RadioButtonSpaceIgnore.Location = new System.Drawing.Point(168, 24);
+            this.RadioButtonSpaceIgnore.Name = "RadioButtonSpaceIgnore";
+            this.RadioButtonSpaceIgnore.Size = new System.Drawing.Size(97, 19);
+            this.RadioButtonSpaceIgnore.TabIndex = 6;
+            this.RadioButtonSpaceIgnore.TabStop = true;
+            this.RadioButtonSpaceIgnore.Text = "空白文字無視";
+            this.RadioButtonSpaceIgnore.UseVisualStyleBackColor = true;
+            // 
+            // RadioButtonSpaceContains
+            // 
+            this.RadioButtonSpaceContains.AutoSize = true;
+            this.RadioButtonSpaceContains.Location = new System.Drawing.Point(42, 24);
+            this.RadioButtonSpaceContains.Name = "RadioButtonSpaceContains";
+            this.RadioButtonSpaceContains.Size = new System.Drawing.Size(95, 19);
+            this.RadioButtonSpaceContains.TabIndex = 5;
+            this.RadioButtonSpaceContains.Text = "空白文字含む";
+            this.RadioButtonSpaceContains.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1295, 820);
-            this.Controls.Add(this.GroupBox1);
-            this.Controls.Add(this.GroupBox7);
-            this.Controls.Add(this.GroupBox3);
-            this.Controls.Add(this.GroupBox2);
+            this.Controls.Add(this.GroupBoxAllMatch);
+            this.Controls.Add(this.GroupBoxFiles);
+            this.Controls.Add(this.GroupBoxExecute);
+            this.Controls.Add(this.GroupBoxPartMatch);
+            this.Controls.Add(this.GroupBoxOutput);
             this.Controls.Add(this.StatusStrip1);
-            this.Controls.Add(this.GroupBox6);
-            this.Controls.Add(this.GroupBox5);
-            this.Controls.Add(this.GroupBox4);
+            this.Controls.Add(this.GroupBoxScraping);
+            this.Controls.Add(this.GroupBoxDatabase);
+            this.Controls.Add(this.GroupBoxMatchType);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "BookSearcher";
             this.StatusStrip1.ResumeLayout(false);
             this.StatusStrip1.PerformLayout();
-            this.GroupBox4.ResumeLayout(false);
-            this.GroupBox4.PerformLayout();
-            this.GroupBox5.ResumeLayout(false);
+            this.GroupBoxMatchType.ResumeLayout(false);
+            this.GroupBoxMatchType.PerformLayout();
+            this.GroupBoxDatabase.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.BookColumnSetting)).EndInit();
-            this.GroupBox6.ResumeLayout(false);
+            this.GroupBoxScraping.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ScrapingColumnSetting)).EndInit();
-            this.GroupBox2.ResumeLayout(false);
-            this.GroupBox2.PerformLayout();
-            this.GroupBox3.ResumeLayout(false);
-            this.GroupBox3.PerformLayout();
+            this.GroupBoxOutput.ResumeLayout(false);
+            this.GroupBoxOutput.PerformLayout();
+            this.GroupBoxPartMatch.ResumeLayout(false);
+            this.GroupBoxPartMatch.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownLength)).EndInit();
-            this.GroupBox7.ResumeLayout(false);
-            this.GroupBox1.ResumeLayout(false);
-            this.GroupBox1.PerformLayout();
+            this.GroupBoxExecute.ResumeLayout(false);
+            this.GroupBoxFiles.ResumeLayout(false);
+            this.GroupBoxFiles.PerformLayout();
+            this.GroupBoxAllMatch.ResumeLayout(false);
+            this.GroupBoxAllMatch.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -847,7 +862,7 @@
         private System.Windows.Forms.StatusStrip StatusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel ToolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel ToolStripStatusLabel2;
-        private System.Windows.Forms.GroupBox GroupBox4;
+        private System.Windows.Forms.GroupBox GroupBoxMatchType;
         private System.Windows.Forms.RadioButton RadioButtonSearchType16;
         private System.Windows.Forms.RadioButton RadioButtonSearchType17;
         private System.Windows.Forms.RadioButton RadioButtonSearchType15;
@@ -865,19 +880,18 @@
         private System.Windows.Forms.RadioButton RadioButtonSearchType03;
         private System.Windows.Forms.RadioButton RadioButtonSearchType02;
         private System.Windows.Forms.RadioButton RadioButtonSearchType01;
-        private System.Windows.Forms.GroupBox GroupBox5;
+        private System.Windows.Forms.GroupBox GroupBoxDatabase;
         private System.Windows.Forms.DataGridView BookColumnSetting;
-        private System.Windows.Forms.GroupBox GroupBox6;
+        private System.Windows.Forms.GroupBox GroupBoxScraping;
         private System.Windows.Forms.DataGridView ScrapingColumnSetting;
-        private System.Windows.Forms.GroupBox GroupBox2;
+        private System.Windows.Forms.GroupBox GroupBoxOutput;
         private System.Windows.Forms.RadioButton RadioButtonFileTypeCSV1;
         private System.Windows.Forms.RadioButton RadioButtonFileTypeExcel;
-        private System.Windows.Forms.GroupBox GroupBox3;
-        private System.Windows.Forms.Label Label5;
+        private System.Windows.Forms.GroupBox GroupBoxPartMatch;
         private System.Windows.Forms.Label Label4;
-        private System.Windows.Forms.GroupBox GroupBox7;
+        private System.Windows.Forms.GroupBox GroupBoxExecute;
         private System.Windows.Forms.Button Button4;
-        private System.Windows.Forms.GroupBox GroupBox1;
+        private System.Windows.Forms.GroupBox GroupBoxFiles;
         private System.Windows.Forms.Button Button3;
         private System.Windows.Forms.TextBox TextBoxOutput1;
         private System.Windows.Forms.Label LabelOutput1;
@@ -887,8 +901,6 @@
         private System.Windows.Forms.TextBox TextBoxInput1;
         private System.Windows.Forms.Label LabelInput2;
         private System.Windows.Forms.Label LabelInput1;
-        private System.Windows.Forms.RadioButton RadioButtonSpaceContains;
-        private System.Windows.Forms.RadioButton RadioButtonSpaceIgnore;
         private System.Windows.Forms.RadioButton RadioButtonFileTypeCSV2;
         private System.Windows.Forms.TextBox TextBoxOutput3;
         private System.Windows.Forms.TextBox TextBoxOutput2;
@@ -903,6 +915,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ScrapingColumnName;
         private System.Windows.Forms.DataGridViewTextBoxColumn ScrapingColumnValue;
         private System.Windows.Forms.DataGridViewComboBoxColumn ScrapingColumnType;
+        private System.Windows.Forms.GroupBox GroupBoxAllMatch;
+        private System.Windows.Forms.RadioButton RadioButtonSpaceIgnore;
+        private System.Windows.Forms.RadioButton RadioButtonSpaceContains;
     }
 }
 
