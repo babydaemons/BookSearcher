@@ -57,8 +57,14 @@
             this.RadioButtonSearchType01 = new System.Windows.Forms.RadioButton();
             this.GroupBoxDatabase = new System.Windows.Forms.GroupBox();
             this.BookColumnSetting = new System.Windows.Forms.DataGridView();
+            this.BookColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BookColumnValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BookColumnType = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.GroupBoxScraping = new System.Windows.Forms.GroupBox();
             this.ScrapingColumnSetting = new System.Windows.Forms.DataGridView();
+            this.ScrapingColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ScrapingColumnValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ScrapingColumnType = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.GroupBoxOutput = new System.Windows.Forms.GroupBox();
             this.RadioButtonFileTypeCSV2 = new System.Windows.Forms.RadioButton();
             this.RadioButtonFileTypeCSV1 = new System.Windows.Forms.RadioButton();
@@ -66,8 +72,14 @@
             this.NumericUpDownLength = new System.Windows.Forms.NumericUpDown();
             this.Label4 = new System.Windows.Forms.Label();
             this.GroupBoxExecute = new System.Windows.Forms.GroupBox();
+            this.ProgressBarExecute = new System.Windows.Forms.ProgressBar();
             this.ButtonExecute = new System.Windows.Forms.Button();
             this.GroupBoxFiles = new System.Windows.Forms.GroupBox();
+            this.ProgressBarOutputExcel = new System.Windows.Forms.ProgressBar();
+            this.ProgressBarInput2 = new System.Windows.Forms.ProgressBar();
+            this.ProgressBarInput1 = new System.Windows.Forms.ProgressBar();
+            this.LabelOutputCSV = new System.Windows.Forms.Label();
+            this.TextBoxOutputCSV2 = new System.Windows.Forms.TextBox();
             this.LabelOutputCSV2 = new System.Windows.Forms.Label();
             this.LabelOutputCSV1 = new System.Windows.Forms.Label();
             this.TextBoxOutputCSV1 = new System.Windows.Forms.TextBox();
@@ -84,18 +96,6 @@
             this.GroupBoxAllMatch = new System.Windows.Forms.GroupBox();
             this.RadioButtonSpaceIgnore = new System.Windows.Forms.RadioButton();
             this.RadioButtonSpaceContains = new System.Windows.Forms.RadioButton();
-            this.ProgressBarExecute = new System.Windows.Forms.ProgressBar();
-            this.TextBoxOutputCSV2 = new System.Windows.Forms.TextBox();
-            this.LabelOutputCSV = new System.Windows.Forms.Label();
-            this.ScrapingColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ScrapingColumnValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ScrapingColumnType = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.BookColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BookColumnValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BookColumnType = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.ProgressBarInput1 = new System.Windows.Forms.ProgressBar();
-            this.ProgressBarInput2 = new System.Windows.Forms.ProgressBar();
-            this.ProgressBarOutputExcel = new System.Windows.Forms.ProgressBar();
             this.StatusStrip1.SuspendLayout();
             this.GroupBoxMatchType.SuspendLayout();
             this.GroupBoxDatabase.SuspendLayout();
@@ -123,12 +123,16 @@
             // 
             // BackgroundWorker2
             // 
+            this.BackgroundWorker2.WorkerReportsProgress = true;
             this.BackgroundWorker2.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker2_DoWork);
+            this.BackgroundWorker2.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.BackgroundWorker2_ProgressChanged);
             this.BackgroundWorker2.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorker2_RunWorkerCompleted);
             // 
             // BackgroundWorker1
             // 
+            this.BackgroundWorker1.WorkerReportsProgress = true;
             this.BackgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker1_DoWork);
+            this.BackgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.BackgroundWorker1_ProgressChanged);
             this.BackgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorker1_RunWorkerCompleted);
             // 
             // StatusStrip1
@@ -409,6 +413,36 @@
             this.BookColumnSetting.Tag = "書籍データベースカラム";
             this.BookColumnSetting.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellDoubleClick);
             // 
+            // BookColumnName
+            // 
+            this.BookColumnName.HeaderText = "列名";
+            this.BookColumnName.Name = "BookColumnName";
+            this.BookColumnName.ReadOnly = true;
+            this.BookColumnName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.BookColumnName.Width = 150;
+            // 
+            // BookColumnValue
+            // 
+            this.BookColumnValue.HeaderText = "列データ";
+            this.BookColumnValue.Name = "BookColumnValue";
+            this.BookColumnValue.ReadOnly = true;
+            this.BookColumnValue.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.BookColumnValue.Width = 200;
+            // 
+            // BookColumnType
+            // 
+            this.BookColumnType.HeaderText = "比較データ種別";
+            this.BookColumnType.Items.AddRange(new object[] {
+            "",
+            "書籍名",
+            "著者名",
+            "出版社名",
+            "出版年",
+            "ISBN",
+            "URL"});
+            this.BookColumnType.Name = "BookColumnType";
+            this.BookColumnType.Width = 90;
+            // 
             // GroupBoxScraping
             // 
             this.GroupBoxScraping.Controls.Add(this.ScrapingColumnSetting);
@@ -437,6 +471,36 @@
             this.ScrapingColumnSetting.TabIndex = 0;
             this.ScrapingColumnSetting.Tag = "スクレイピングデータカラム";
             this.ScrapingColumnSetting.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellDoubleClick);
+            // 
+            // ScrapingColumnName
+            // 
+            this.ScrapingColumnName.HeaderText = "列名";
+            this.ScrapingColumnName.Name = "ScrapingColumnName";
+            this.ScrapingColumnName.ReadOnly = true;
+            this.ScrapingColumnName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.ScrapingColumnName.Width = 150;
+            // 
+            // ScrapingColumnValue
+            // 
+            this.ScrapingColumnValue.HeaderText = "列データ";
+            this.ScrapingColumnValue.Name = "ScrapingColumnValue";
+            this.ScrapingColumnValue.ReadOnly = true;
+            this.ScrapingColumnValue.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.ScrapingColumnValue.Width = 200;
+            // 
+            // ScrapingColumnType
+            // 
+            this.ScrapingColumnType.HeaderText = "比較データ種別";
+            this.ScrapingColumnType.Items.AddRange(new object[] {
+            "",
+            "書籍名",
+            "著者名",
+            "出版社名",
+            "出版年",
+            "ISBN",
+            "URL"});
+            this.ScrapingColumnType.Name = "ScrapingColumnType";
+            this.ScrapingColumnType.Width = 90;
             // 
             // GroupBoxOutput
             // 
@@ -532,6 +596,13 @@
             this.GroupBoxExecute.TabStop = false;
             this.GroupBoxExecute.Text = "突き合わせ処理";
             // 
+            // ProgressBarExecute
+            // 
+            this.ProgressBarExecute.Location = new System.Drawing.Point(109, 24);
+            this.ProgressBarExecute.Name = "ProgressBarExecute";
+            this.ProgressBarExecute.Size = new System.Drawing.Size(222, 20);
+            this.ProgressBarExecute.TabIndex = 1;
+            // 
             // ButtonExecute
             // 
             this.ButtonExecute.Enabled = false;
@@ -571,6 +642,45 @@
             this.GroupBoxFiles.TabIndex = 0;
             this.GroupBoxFiles.TabStop = false;
             this.GroupBoxFiles.Text = "入力・出力データファイル指定";
+            // 
+            // ProgressBarOutputExcel
+            // 
+            this.ProgressBarOutputExcel.Location = new System.Drawing.Point(1027, 83);
+            this.ProgressBarOutputExcel.Name = "ProgressBarOutputExcel";
+            this.ProgressBarOutputExcel.Size = new System.Drawing.Size(222, 20);
+            this.ProgressBarOutputExcel.TabIndex = 17;
+            // 
+            // ProgressBarInput2
+            // 
+            this.ProgressBarInput2.Location = new System.Drawing.Point(1027, 54);
+            this.ProgressBarInput2.Name = "ProgressBarInput2";
+            this.ProgressBarInput2.Size = new System.Drawing.Size(222, 20);
+            this.ProgressBarInput2.TabIndex = 16;
+            // 
+            // ProgressBarInput1
+            // 
+            this.ProgressBarInput1.Location = new System.Drawing.Point(1027, 25);
+            this.ProgressBarInput1.Name = "ProgressBarInput1";
+            this.ProgressBarInput1.Size = new System.Drawing.Size(222, 20);
+            this.ProgressBarInput1.TabIndex = 15;
+            // 
+            // LabelOutputCSV
+            // 
+            this.LabelOutputCSV.AutoSize = true;
+            this.LabelOutputCSV.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.LabelOutputCSV.Location = new System.Drawing.Point(31, 115);
+            this.LabelOutputCSV.Name = "LabelOutputCSV";
+            this.LabelOutputCSV.Size = new System.Drawing.Size(143, 15);
+            this.LabelOutputCSV.TabIndex = 9;
+            this.LabelOutputCSV.Text = "出力CSVファイル(パターン1)";
+            // 
+            // TextBoxOutputCSV2
+            // 
+            this.TextBoxOutputCSV2.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.TextBoxOutputCSV2.Location = new System.Drawing.Point(179, 170);
+            this.TextBoxOutputCSV2.Name = "TextBoxOutputCSV2";
+            this.TextBoxOutputCSV2.Size = new System.Drawing.Size(761, 23);
+            this.TextBoxOutputCSV2.TabIndex = 14;
             // 
             // LabelOutputCSV2
             // 
@@ -728,112 +838,6 @@
             this.RadioButtonSpaceContains.TabIndex = 5;
             this.RadioButtonSpaceContains.Text = "空白文字含む";
             this.RadioButtonSpaceContains.UseVisualStyleBackColor = true;
-            // 
-            // ProgressBarExecute
-            // 
-            this.ProgressBarExecute.Location = new System.Drawing.Point(109, 24);
-            this.ProgressBarExecute.Name = "ProgressBarExecute";
-            this.ProgressBarExecute.Size = new System.Drawing.Size(222, 20);
-            this.ProgressBarExecute.TabIndex = 1;
-            // 
-            // TextBoxOutputCSV2
-            // 
-            this.TextBoxOutputCSV2.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.TextBoxOutputCSV2.Location = new System.Drawing.Point(179, 170);
-            this.TextBoxOutputCSV2.Name = "TextBoxOutputCSV2";
-            this.TextBoxOutputCSV2.Size = new System.Drawing.Size(761, 23);
-            this.TextBoxOutputCSV2.TabIndex = 14;
-            // 
-            // LabelOutputCSV
-            // 
-            this.LabelOutputCSV.AutoSize = true;
-            this.LabelOutputCSV.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.LabelOutputCSV.Location = new System.Drawing.Point(31, 115);
-            this.LabelOutputCSV.Name = "LabelOutputCSV";
-            this.LabelOutputCSV.Size = new System.Drawing.Size(143, 15);
-            this.LabelOutputCSV.TabIndex = 9;
-            this.LabelOutputCSV.Text = "出力CSVファイル(パターン1)";
-            // 
-            // ScrapingColumnName
-            // 
-            this.ScrapingColumnName.HeaderText = "列名";
-            this.ScrapingColumnName.Name = "ScrapingColumnName";
-            this.ScrapingColumnName.ReadOnly = true;
-            this.ScrapingColumnName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ScrapingColumnName.Width = 150;
-            // 
-            // ScrapingColumnValue
-            // 
-            this.ScrapingColumnValue.HeaderText = "列データ";
-            this.ScrapingColumnValue.Name = "ScrapingColumnValue";
-            this.ScrapingColumnValue.ReadOnly = true;
-            this.ScrapingColumnValue.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ScrapingColumnValue.Width = 200;
-            // 
-            // ScrapingColumnType
-            // 
-            this.ScrapingColumnType.HeaderText = "比較データ種別";
-            this.ScrapingColumnType.Items.AddRange(new object[] {
-            "",
-            "書籍名",
-            "著者名",
-            "出版社名",
-            "出版年",
-            "ISBN",
-            "URL"});
-            this.ScrapingColumnType.Name = "ScrapingColumnType";
-            this.ScrapingColumnType.Width = 90;
-            // 
-            // BookColumnName
-            // 
-            this.BookColumnName.HeaderText = "列名";
-            this.BookColumnName.Name = "BookColumnName";
-            this.BookColumnName.ReadOnly = true;
-            this.BookColumnName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.BookColumnName.Width = 150;
-            // 
-            // BookColumnValue
-            // 
-            this.BookColumnValue.HeaderText = "列データ";
-            this.BookColumnValue.Name = "BookColumnValue";
-            this.BookColumnValue.ReadOnly = true;
-            this.BookColumnValue.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.BookColumnValue.Width = 200;
-            // 
-            // BookColumnType
-            // 
-            this.BookColumnType.HeaderText = "比較データ種別";
-            this.BookColumnType.Items.AddRange(new object[] {
-            "",
-            "書籍名",
-            "著者名",
-            "出版社名",
-            "出版年",
-            "ISBN",
-            "URL"});
-            this.BookColumnType.Name = "BookColumnType";
-            this.BookColumnType.Width = 90;
-            // 
-            // ProgressBarInput1
-            // 
-            this.ProgressBarInput1.Location = new System.Drawing.Point(1027, 25);
-            this.ProgressBarInput1.Name = "ProgressBarInput1";
-            this.ProgressBarInput1.Size = new System.Drawing.Size(222, 20);
-            this.ProgressBarInput1.TabIndex = 15;
-            // 
-            // ProgressBarInput2
-            // 
-            this.ProgressBarInput2.Location = new System.Drawing.Point(1027, 54);
-            this.ProgressBarInput2.Name = "ProgressBarInput2";
-            this.ProgressBarInput2.Size = new System.Drawing.Size(222, 20);
-            this.ProgressBarInput2.TabIndex = 16;
-            // 
-            // ProgressBarOutputExcel
-            // 
-            this.ProgressBarOutputExcel.Location = new System.Drawing.Point(1027, 83);
-            this.ProgressBarOutputExcel.Name = "ProgressBarOutputExcel";
-            this.ProgressBarOutputExcel.Size = new System.Drawing.Size(222, 20);
-            this.ProgressBarOutputExcel.TabIndex = 17;
             // 
             // Form1
             // 

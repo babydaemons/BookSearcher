@@ -47,12 +47,13 @@ namespace BookSearcher
 
         private void BackgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
-            BookCSV.ReadAll();
+            BookCSV.ReadAll(BackgroundWorker1);
         }
 
         private void BackgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             LabelInput1.Enabled = TextBoxInput1.Enabled = ButtonInput1.Enabled = true;
+            ProgressBarInput1.Value = 100;
         }
 
         private void ButtonInput2_Click(object sender, EventArgs e)
@@ -81,12 +82,13 @@ namespace BookSearcher
 
         private void BackgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
         {
-            ScrapingCSV.ReadAll();
+            ScrapingCSV.ReadAll(BackgroundWorker2);
         }
 
         private void BackgroundWorker2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             LabelInput2.Enabled = TextBoxInput2.Enabled = ButtonInput2.Enabled = true;
+            ProgressBarInput2.Value = 100;
         }
 
         private void DataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -122,8 +124,8 @@ namespace BookSearcher
                 var fileName = Path.GetFileName(folderName);
                 TextBoxOutputExcel.Text = $"{folderName}\\{fileName}.xlsx";
                 TextBoxOutputCSV.Text = RadioButtonFileTypeCSV1.Checked ? $"{folderName}\\{fileName}_パターン1.csv" : $"{folderName}\\{fileName}_パターン2.csv";
-                TextBoxOutputCSV.Text = $"{folderName}\\{fileName}_共通出力1.csv";
-                TextBoxOutputCSV1.Text = $"{folderName}\\{fileName}_共通出力2.csv";
+                TextBoxOutputCSV1.Text = $"{folderName}\\{fileName}_共通出力1.csv";
+                TextBoxOutputCSV2.Text = $"{folderName}\\{fileName}_共通出力2.csv";
             }
         }
 
@@ -287,6 +289,16 @@ namespace BookSearcher
         private void RadioButtonSearchType_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void BackgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            ProgressBarInput1.Value = e.ProgressPercentage;
+        }
+
+        private void BackgroundWorker2_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            ProgressBarInput2.Value = e.ProgressPercentage;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.IO;
 using System.Text;
@@ -17,35 +18,39 @@ namespace BookSearcher
         public bool Loaded { get; private set; } = false;
         protected DataTable table = new DataTable();
         public DataTable Table => table;
+        private BackgroundWorker backgoundworker;
         private int rowIndex = 0;
+        private int rowCount = 0;
+        private int progressPercent = 0;
 
         protected CSVFile(string path)
         {
             Path = path;
-            var bytes = new List<byte>();
+            var bytes = new byte[1024 * 1024];
             using (var file = File.OpenRead(path))
             {
                 while (file.Position < file.Length)
                 {
-                    int c = file.ReadByte();
-                    if (c == -1)
+                    int count = file.Read(bytes, 0, bytes.Length);
+                    if (rowCount == 0)
                     {
-                        break;
+                        FileEncoding = DetectEncoding(bytes, count);
                     }
-                    if (c == '\n')
+                    for (int i = 0; i < count; ++i)
                     {
-                        break;
+                        if (bytes[i] == (byte)'\n')
+                        {
+                            ++rowCount;
+                        }
                     }
-                    bytes.Add((byte)c);
                 }
             }
-            FileEncoding = DetectEncoding(bytes.ToArray());
         }
 
-        private Encoding DetectEncoding(byte[] bytes)
+        private Encoding DetectEncoding(byte[] bytes, int count)
         {
             var sjis = Encoding.GetEncoding(932);
-            if (bytes.Length < 2)
+            if (count < 2)
             {
                 return sjis;
             }
@@ -65,7 +70,7 @@ namespace BookSearcher
                 // UTF-16 LE
                 return new UnicodeEncoding(false, true);
             }
-            if (bytes.Length < 3)
+            if (count < 3)
             {
                 return sjis;
             }
@@ -74,7 +79,7 @@ namespace BookSearcher
                 // UTF-8
                 return new UTF8Encoding(true, true);
             }
-            if (bytes.Length < 4)
+            if (count < 4)
             {
                 return sjis;
             }
@@ -157,8 +162,9 @@ namespace BookSearcher
             }
         }
 
-        public void ReadAll()
+        public void ReadAll(BackgroundWorker backgoundworker)
         {
+            this.backgoundworker = backgoundworker;
             Loaded = false;
 
             try
@@ -189,6 +195,13 @@ namespace BookSearcher
                 row[i++] = field;
             }
             table.Rows.Add(row);
+
+            int percent = 100 * rowIndex / rowCount;
+            if (progressPercent != percent)
+            {
+                backgoundworker.ReportProgress(percent);
+                progressPercent = percent;
+            }
         }
     }
 }
