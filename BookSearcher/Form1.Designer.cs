@@ -564,7 +564,7 @@
             this.NumericUpDownLength.TabIndex = 5;
             this.NumericUpDownLength.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.NumericUpDownLength.Value = new decimal(new int[] {
-            4,
+            20,
             0,
             0,
             0});

@@ -18,12 +18,12 @@ namespace BookSearcher
         public int BookColumnIndex { get; }
         public int ScrapingColumnIndex { get; }
 
-        public ColumnInfo(MatchType matchType, SpaceMatch spaceMatch, int bookColumnIndex, int scrapingColumnIndex)
+        public ColumnInfo(MatchType matchType, SpaceMatch spaceMatch, ColumnType columnType)
         {
             MatchType = matchType;
             SpaceMatch = spaceMatch;
-            BookColumnIndex = bookColumnIndex;
-            ScrapingColumnIndex = scrapingColumnIndex;
+            BookColumnIndex = BookSearcher.SelectBookColumnIndex(columnType);
+            ScrapingColumnIndex = BookSearcher.SelectScrapingColumnIndex(columnType);
         }
     }
 
@@ -68,22 +68,31 @@ namespace BookSearcher
     {
         private readonly CSVFile bookCSV;
         private readonly CSVFile scrapingCSV;
-        private readonly int prefixLength;
+        private int prefixLength;
         private static readonly string[] columnTypeNames = new string[] { "", "書籍名", "著者名", "出版社名", "出版年", "ISBN", "URL" };
         private static DataTable resultTable = new DataTable();
         public static DataTable ResultTable => resultTable;
         private delegate string ConvertValue(string value);
+        private static DataGridView BookColumnSetting;
+        private static DataGridView ScrapingColumnSetting;
 
-        protected BookSearcher(CSVFile bookCSV, CSVFile scrapingCSV, int prefixLength = 0)
+        public static void InitColumnSettings(DataGridView bookColumnSetting, DataGridView scrapingColumnSetting)
         {
-            this.bookCSV = bookCSV;
-            this.scrapingCSV = scrapingCSV;
-            this.prefixLength = prefixLength;
+            BookColumnSetting = bookColumnSetting;
+            ScrapingColumnSetting = scrapingColumnSetting;
         }
 
-        public abstract void Search(Dictionary<ColumnType, ColumnInfo> columnInfo);
+        public static int SelectBookColumnIndex(ColumnType columnType)
+        {
+            return SelectColumnIndex(BookColumnSetting, columnType);
+        }
 
-        public static int SelectColumnIndex(DataGridView columnSetting, ColumnType columnType)
+        public static int SelectScrapingColumnIndex(ColumnType columnType)
+        {
+            return SelectColumnIndex(ScrapingColumnSetting, columnType);
+        }
+
+        private static int SelectColumnIndex(DataGridView columnSetting, ColumnType columnType)
         {
             var columnTypeName = columnTypeNames[(int)columnType];
             for (int columnIndex = 0; columnIndex < columnSetting.RowCount; ++columnIndex)
@@ -99,8 +108,17 @@ namespace BookSearcher
             throw new Exception($"「{tableName}」の「{columnTypeName}」が選択されていません。");
         }
 
-        protected void Search(ColumnInfo columnInfo)
+        protected BookSearcher(CSVFile bookCSV, CSVFile scrapingCSV)
         {
+            this.bookCSV = bookCSV;
+            this.scrapingCSV = scrapingCSV;
+        }
+
+        public abstract void Search(SpaceMatch spaceMatch, int prefixLength);
+
+        protected void Search(ColumnInfo columnInfo, int prefixLength)
+        {
+            this.prefixLength = prefixLength;
             var bookValues = CreateColumnList(bookCSV.Table, columnInfo, true);
             var scrapingValues = CreateColumnList(scrapingCSV.Table, columnInfo, false);
             var results = from bookRow in bookValues
@@ -116,8 +134,9 @@ namespace BookSearcher
             SaveTable(resultRows);
         }
 
-        protected void Search(ColumnInfo columnInfo1, ColumnInfo columnInfo2)
+        protected void Search(ColumnInfo columnInfo1, ColumnInfo columnInfo2, int prefixLength)
         {
+            this.prefixLength = prefixLength;
             var bookValues = CreateColumnList(bookCSV.Table, columnInfo1, columnInfo2, true);
             var scrapingValues = CreateColumnList(scrapingCSV.Table, columnInfo1, columnInfo2, false);
             var results = from bookRow in bookValues
@@ -133,10 +152,10 @@ namespace BookSearcher
             SaveTable(resultRows);
         }
 
-        protected void SearchPartial1(ColumnInfo columnInfo1, ColumnInfo columnInfo2)
+        protected void SearchPartial1(ColumnInfo columnPartial, ColumnInfo columnComplete)
         {
-            var bookValues = CreateColumnList(bookCSV.Table, columnInfo1, columnInfo2, true);
-            var scrapingValues = CreateColumnList(scrapingCSV.Table, columnInfo1, columnInfo2, false);
+            var bookValues = CreateColumnList(bookCSV.Table, columnPartial, columnComplete, true);
+            var scrapingValues = CreateColumnList(scrapingCSV.Table, columnPartial, columnComplete, false);
             var results = from bookRow in bookValues
                           join scrapingRow in scrapingValues
                           on new ValuePairPartial1 { Value1 = bookRow.Value2, Value2 = bookRow.Value1 } equals new ValuePairPartial1 { Value1 = scrapingRow.Value2, Value2 = scrapingRow.Value1 }

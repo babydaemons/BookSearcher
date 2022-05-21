@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace BookSearcher
+﻿namespace BookSearcher
 {
     internal class BookSearcher14 : BookSearcher
     {
@@ -8,9 +6,10 @@ namespace BookSearcher
         {
         }
 
-        public override void Search(Dictionary<ColumnType, ColumnInfo> columnInfo)
+        public override void Search(SpaceMatch spaceMatch, int prefixLength)
         {
-            Search(columnInfo[ColumnType.ISBN]);
+            var ISBN = new ColumnInfo(MatchType.CompleteMatch, SpaceMatch.Ignore, ColumnType.ISBN);
+            Search(ISBN, prefixLength);
         }
     }
 }

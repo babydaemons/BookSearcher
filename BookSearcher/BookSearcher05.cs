@@ -1,16 +1,16 @@
-﻿using System.Collections.Generic;
-
-namespace BookSearcher
+﻿namespace BookSearcher
 {
     internal class BookSearcher05 : BookSearcher
     {
-        public BookSearcher05(CSVFile bookCSV, CSVFile scrapingCSV, int prefixLength) : base(bookCSV, scrapingCSV, prefixLength)
+        public BookSearcher05(CSVFile bookCSV, CSVFile scrapingCSV) : base(bookCSV, scrapingCSV)
         {
         }
 
-        public override void Search(Dictionary<ColumnType, ColumnInfo> columnInfo)
+        public override void Search(SpaceMatch spaceMatch, int prefixLength)
         {
-            Search(columnInfo[ColumnType.BookTitle], columnInfo[ColumnType.Publisher]);
+            var bookTitle = new ColumnInfo(MatchType.BeginningMatch, spaceMatch, ColumnType.BookTitle);
+            var publisher = new ColumnInfo(MatchType.CompleteMatch, SpaceMatch.Ignore, ColumnType.Publisher);
+            Search(bookTitle, publisher, prefixLength);
         }
     }
 }
