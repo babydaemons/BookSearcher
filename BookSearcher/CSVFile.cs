@@ -13,17 +13,18 @@ namespace BookSearcher
 {
     public abstract class CSVFile
     {
-        private FileStream fileStream;
+        private readonly FileStream fileStream;
+        private readonly long fileSize;
         private MemoryMappedFile memoryMappedFile;
-        private long fileSize;
+
+        public MemoryTable MemoryTable { get; private set; }
         public string Path { get; }
         public Encoding FileEncoding { get; protected set; }
         public int Columns { get; protected set; }
         public string[] Titles { get; protected set; }
         public string[] Fields { get; protected set; }
         public bool Loaded { get; private set; } = false;
-        protected DataTable table = new DataTable();
-        public DataTable Table => table;
+        public DataTable Table => MemoryTable.DataTable;
         private BackgroundWorker backgoundworker;
         private int rowIndex = 0;
         private int rowCount = 0;
@@ -148,24 +149,6 @@ namespace BookSearcher
             return null;
         }
 
-        protected void CreateTable()
-        {
-            table.Columns.Add("RowIndex", typeof(int));
-
-            foreach (var title in Titles)
-            {
-                try
-                {
-                    table.Columns.Add(title, typeof(string));
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    Environment.Exit(1);
-                }
-            }
-        }
-
         public void ReadAll(BackgroundWorker backgoundworker)
         {
             Loaded = false;
@@ -220,24 +203,15 @@ namespace BookSearcher
                     }
                 }
             }
+
+            MemoryTable = new MemoryTable(Titles, rowCount);
         }
 
         protected abstract void DoReadAll();
 
         protected void AddTableRow(string[] fields)
         {
-            if (fields.Length > table.Columns.Count - 1)
-            {
-                return;
-            }
-            var row = table.NewRow();
-            var i = 0;
-            row[i++] = rowIndex++;
-            foreach (var field in fields)
-            {
-                row[i++] = field;
-            }
-            table.Rows.Add(row);
+            MemoryTable.AddRow(rowIndex++, fields);
 
             int percent = 100 * rowIndex / rowCount;
             if (progressPercent != percent)

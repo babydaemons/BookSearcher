@@ -30,7 +30,6 @@ namespace BookSearcher
                 if (Fields.Length == Titles.Length)
                 {
                     Columns = Titles.Length;
-                    CreateTable();
                     return true;
                 }
             }

@@ -119,8 +119,8 @@ namespace BookSearcher
         protected void Search(ColumnInfo columnInfo, int prefixLength)
         {
             this.prefixLength = prefixLength;
-            var bookValues = CreateColumnList(bookCSV.Table, columnInfo, true);
-            var scrapingValues = CreateColumnList(scrapingCSV.Table, columnInfo, false);
+            var bookValues = CreateColumnList(bookCSV.MemoryTable, columnInfo, true);
+            var scrapingValues = CreateColumnList(scrapingCSV.MemoryTable, columnInfo, false);
             var results = from bookRow in bookValues
                           join scrapingRow in scrapingValues
                           on bookRow.Value equals scrapingRow.Value
@@ -137,8 +137,8 @@ namespace BookSearcher
         protected void Search(ColumnInfo columnInfo1, ColumnInfo columnInfo2, int prefixLength)
         {
             this.prefixLength = prefixLength;
-            var bookValues = CreateColumnList(bookCSV.Table, columnInfo1, columnInfo2, true);
-            var scrapingValues = CreateColumnList(scrapingCSV.Table, columnInfo1, columnInfo2, false);
+            var bookValues = CreateColumnList(bookCSV.MemoryTable, columnInfo1, columnInfo2, true);
+            var scrapingValues = CreateColumnList(scrapingCSV.MemoryTable, columnInfo1, columnInfo2, false);
             var results = from bookRow in bookValues
                           join scrapingRow in scrapingValues
                           on new { bookRow.Value1, bookRow.Value2 } equals new { scrapingRow.Value1, scrapingRow.Value2 }
@@ -154,8 +154,8 @@ namespace BookSearcher
 
         protected void SearchPartial1(ColumnInfo columnPartial, ColumnInfo columnComplete)
         {
-            var bookValues = CreateColumnList(bookCSV.Table, columnPartial, columnComplete, true);
-            var scrapingValues = CreateColumnList(scrapingCSV.Table, columnPartial, columnComplete, false);
+            var bookValues = CreateColumnList(bookCSV.MemoryTable, columnPartial, columnComplete, true);
+            var scrapingValues = CreateColumnList(scrapingCSV.MemoryTable, columnPartial, columnComplete, false);
             var results = from bookRow in bookValues
                           join scrapingRow in scrapingValues
                           on new ValuePairPartial1 { Value1 = bookRow.Value2, Value2 = bookRow.Value1 } equals new ValuePairPartial1 { Value1 = scrapingRow.Value2, Value2 = scrapingRow.Value1 }
@@ -169,31 +169,31 @@ namespace BookSearcher
             SaveTable(resultRows);
         }
 
-        private List<Column1> CreateColumnList(DataTable table, ColumnInfo columnInfo, bool isBookDB)
+        private List<Column1> CreateColumnList(MemoryTable table, ColumnInfo columnInfo, bool isBookDB)
         {
-            var columnName = table.Columns[(isBookDB ? columnInfo.BookColumnIndex : columnInfo.ScrapingColumnIndex) + 1].Caption;
+            var columnName = table.ColumnNames[isBookDB ? columnInfo.BookColumnIndex : columnInfo.ScrapingColumnIndex];
             var spaceMatch = columnInfo.SpaceMatch;
 
-            var rows = table.AsEnumerable().Where(row => ((string)row[columnName]).Length > 0);
+            var rows = table.Where(row => row.Value[columnName].Length > 0);
             var values = new List<Column1>();
             ConvertValue convertValue = spaceMatch == SpaceMatch.All ? ConvertNone : (ConvertValue)ConvertRemoveSpace;
             foreach (var row in rows)
             {
                 values.Add(new Column1
                 {
-                    Index = row.Field<int>("RowIndex"),
-                    Value = convertValue(row.Field<string>(columnName))
+                    Index = row.Key,
+                    Value = convertValue(row.Value[columnName])
                 });
             }
             return values;
         }
 
-        private List<Column2> CreateColumnList(DataTable table, ColumnInfo columnInfo1, ColumnInfo columnInfo2, bool isBookDB)
+        private List<Column2> CreateColumnList(MemoryTable table, ColumnInfo columnInfo1, ColumnInfo columnInfo2, bool isBookDB)
         {
-            var columnName1 = table.Columns[(isBookDB ? columnInfo1.BookColumnIndex : columnInfo1.ScrapingColumnIndex) + 1].Caption;
-            var columnName2 = table.Columns[(isBookDB ? columnInfo2.BookColumnIndex : columnInfo2.ScrapingColumnIndex) + 1].Caption;
+            var columnName1 = table.ColumnNames[isBookDB ? columnInfo1.BookColumnIndex : columnInfo1.ScrapingColumnIndex];
+            var columnName2 = table.ColumnNames[isBookDB ? columnInfo2.BookColumnIndex : columnInfo2.ScrapingColumnIndex];
 
-            var rows = table.AsEnumerable().Where(row => ((string)row[columnName1]).Length > 0 && ((string)row[columnName2]).Length > 0);
+            var rows = table.AsEnumerable().Where(row => row.Value[columnName1].Length > 0 && row.Value[columnName2].Length > 0);
             var values = new List<Column2>();
             ConvertValue convertValue1 = GetConvertValue(columnInfo1);
             ConvertValue convertValue2 = GetConvertValue(columnInfo2);
@@ -201,9 +201,9 @@ namespace BookSearcher
             {
                 values.Add(new Column2
                 {
-                    Index = row.Field<int>("RowIndex"),
-                    Value1 = convertValue1(row.Field<string>(columnName1)),
-                    Value2 = convertValue2(row.Field<string>(columnName2))
+                    Index = row.Key,
+                    Value1 = convertValue1(row.Value[columnName1]),
+                    Value2 = convertValue2(row.Value[columnName2])
                 });
             }
             return values;
@@ -253,13 +253,13 @@ namespace BookSearcher
             {
                 var row = resultTable.NewRow();
                 int i = 0;
-                for (var j = 1; j < bookCSV.Table.Columns.Count; j++)
+                foreach (var columnName in bookCSV.MemoryTable.ColumnNames)
                 {
-                    row[i++] = bookCSV.Table.Rows[resultRow.BookRowIndex][j];
+                    row[i++] = bookCSV.MemoryTable[resultRow.BookRowIndex][columnName];
                 }
-                for (var j = 1; j < scrapingCSV.Table.Columns.Count; j++)
+                foreach (var columnName in scrapingCSV.MemoryTable.ColumnNames)
                 {
-                    row[i++] = scrapingCSV.Table.Rows[resultRow.ScrapingRowIndex][j];
+                    row[i++] = scrapingCSV.MemoryTable[resultRow.ScrapingRowIndex][columnName];
                 }
                 resultTable.Rows.Add(row);
             }
