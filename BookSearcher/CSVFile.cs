@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.IO.MemoryMappedFiles;
 using System.Linq;
@@ -170,6 +171,10 @@ namespace BookSearcher
             Loaded = false;
             this.backgoundworker = backgoundworker;
             backgoundworker.ReportProgress(0);
+
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
+
             CountLines();
 
             try
@@ -180,6 +185,9 @@ namespace BookSearcher
             {
                 MessageBox.Show(ex.Message);
             }
+
+            stopWatch.Stop();
+            Debug.WriteLine($"{Path} - {stopWatch.Elapsed}");
 
             Loaded = true;
             memoryMappedFile.Dispose();
