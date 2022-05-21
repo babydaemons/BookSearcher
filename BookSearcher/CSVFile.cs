@@ -186,14 +186,14 @@ namespace BookSearcher
             {
                 while (memoryMappedViewStream.Position < memoryMappedViewStream.Length)
                 {
-                    int count = memoryMappedViewStream.Read(bytes, 0, bytes.Length);
+                    int count = memoryMappedViewStream.Read(bytes, 0, size);
                     if (count == size)
                     {
-                        rowCount += bytes.Where(b => b == (byte)'\n').Count();
+                        rowCount += bytes.AsParallel().Where(b => b == (byte)'\n').Count();
                     }
                     else
                     {
-                        for (int i = 0; i < count; i++)
+                        foreach (var i in Enumerable.Range(0, count).AsParallel())
                         {
                             if (bytes[i] == (byte)'\n')
                             {
@@ -209,16 +209,21 @@ namespace BookSearcher
 
         protected abstract void DoReadAll();
 
-        protected void AddTableRow(string[] fields)
+        protected void AddTableRow(int k, string[] fields)
         {
-            MemoryTable.AddRow(rowIndex++, fields);
+            MemoryTable.AddRow(k, fields);
 
-            int percent = 100 * rowIndex / rowCount;
+            int percent = 100 * MemoryTable.Count / rowCount;
             if (progressPercent != percent)
             {
                 backgoundworker.ReportProgress(percent);
                 progressPercent = percent;
             }
+        }
+
+        protected void AddTableRow(string[] fields)
+        {
+            AddTableRow(rowIndex++, fields);
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace BookSearcher
 {
@@ -35,15 +36,38 @@ namespace BookSearcher
 
         protected override void DoReadAll()
         {
+            var N = Environment.ProcessorCount;
+            var M = 4096;
+            var linesCount = N * M;
+            var lines = new string[linesCount];
             using (var memoryMappedViewStream = GetMemoryMappedViewStream())
             using (var reader = new StreamReader(memoryMappedViewStream, FileEncoding))
             {
                 var line = reader.ReadLine();
-                while ((line = reader.ReadLine()) != null)
+                var iteration = 0;
+                while (!reader.EndOfStream)
                 {
-                    line = RegexSuffix.Replace(line, "");
-                    var fields = ReadFields(line);
-                    AddTableRow(fields);
+                    var count = 0;
+                    while ((lines[count] = reader.ReadLine()) != null && count < N)
+                    {
+                        count++;
+                    }
+                    _ = Parallel.For(0, N, n =>
+                    {
+                        for (int i = 0; i < M; ++i)
+                        {
+                            var k = n * M + i;
+                            var rowIndex = iteration * linesCount + k;
+                            if (k >= count)
+                            {
+                                break;
+                            }
+                            lines[k] = RegexSuffix.Replace(lines[k], "");
+                            var fields = ReadFields(lines[k]);
+                            AddTableRow(rowIndex, fields);
+                        }
+                    });
+                    ++iteration;
                 }
             }
         }
