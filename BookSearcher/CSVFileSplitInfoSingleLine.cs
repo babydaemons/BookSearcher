@@ -22,7 +22,8 @@ namespace BookSearcher
                 return false;
             }
 
-            using (var reader = new StreamReader(Path, FileEncoding))
+            using (var memoryMappedViewStream = GetMemoryMappedViewStream())
+            using (var reader = new StreamReader(memoryMappedViewStream, FileEncoding))
             {
                 var line = RegexSuffix.Replace(reader.ReadLine(), "");
                 var titles = new List<string>(CSVSingleLineFile.ReadFields(line));

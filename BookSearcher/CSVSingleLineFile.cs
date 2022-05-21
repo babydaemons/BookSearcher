@@ -17,7 +17,8 @@ namespace BookSearcher
 
         public override bool ParseTitle()
         {
-            using (var reader = new StreamReader(Path, FileEncoding))
+            using (var memoryMappedViewStream = GetMemoryMappedViewStream())
+            using (var reader = new StreamReader(memoryMappedViewStream, FileEncoding))
             {
                 var line = RegexSuffix.Replace(reader.ReadLine(), "");
                 Titles = ReadFields(line);
@@ -35,7 +36,8 @@ namespace BookSearcher
 
         protected override void DoReadAll()
         {
-            using (var reader = new StreamReader(Path, FileEncoding))
+            using (var memoryMappedViewStream = GetMemoryMappedViewStream())
+            using (var reader = new StreamReader(memoryMappedViewStream, FileEncoding))
             {
                 var line = reader.ReadLine();
                 while ((line = reader.ReadLine()) != null)

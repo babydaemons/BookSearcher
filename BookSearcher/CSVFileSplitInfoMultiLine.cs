@@ -1,6 +1,4 @@
-﻿using System.IO;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
+﻿using System.Collections.Generic;
 using Microsoft.VisualBasic.FileIO;
 
 namespace BookSearcher
@@ -18,7 +16,8 @@ namespace BookSearcher
                 return false;
             }
 
-            using (var reader = new TextFieldParser(Path, FileEncoding))
+            using (var memoryMappedViewStream = GetMemoryMappedViewStream())
+            using (var reader = new TextFieldParser(memoryMappedViewStream, FileEncoding))
             {
                 reader.SetDelimiters(",");
                 var titles = new List<string>(reader.ReadFields());

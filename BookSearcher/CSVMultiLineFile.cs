@@ -10,7 +10,8 @@ namespace BookSearcher
 
         public override bool ParseTitle()
         {
-            using (var reader = new TextFieldParser(Path, FileEncoding))
+            using (var memoryMappedViewStream = GetMemoryMappedViewStream())
+            using (var reader = new TextFieldParser(memoryMappedViewStream, FileEncoding))
             {
                 reader.SetDelimiters(",");
                 Titles = reader.ReadFields();

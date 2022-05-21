@@ -21,7 +21,8 @@ namespace BookSearcher
 
         protected bool IsMatchUrl()
         {
-            using (var reader = new StreamReader(Path, FileEncoding))
+            using (var memoryMappedViewStream = GetMemoryMappedViewStream())
+            using (var reader = new StreamReader(memoryMappedViewStream, FileEncoding))
             {
                 var line = reader.ReadLine();
                 for (int i = 0; i < CHECK_LINES; i++)
