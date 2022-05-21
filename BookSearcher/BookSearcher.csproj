@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookSearcher.cs" />
+    <Compile Include="BookSearcher07.cs" />
     <Compile Include="BookSearcher06.cs" />
     <Compile Include="BookSearcher03.cs" />
     <Compile Include="BookSearcher05.cs" />

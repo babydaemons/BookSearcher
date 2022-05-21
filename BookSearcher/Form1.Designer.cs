@@ -303,7 +303,6 @@
             // RadioButtonSearchType07
             // 
             this.RadioButtonSearchType07.AutoSize = true;
-            this.RadioButtonSearchType07.Enabled = false;
             this.RadioButtonSearchType07.Location = new System.Drawing.Point(20, 191);
             this.RadioButtonSearchType07.Name = "RadioButtonSearchType07";
             this.RadioButtonSearchType07.Size = new System.Drawing.Size(582, 19);
