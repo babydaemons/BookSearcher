@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
@@ -25,25 +26,14 @@ namespace BookSearcher
 
         protected CSVFile(string path)
         {
+            Loaded = false;
             Path = path;
-            var bytes = new byte[1024 * 1024];
+            const int size = 4 * 1024;
+            var bytes = new byte[size];
             using (var file = File.OpenRead(path))
             {
-                while (file.Position < file.Length)
-                {
-                    int count = file.Read(bytes, 0, bytes.Length);
-                    if (rowCount == 0)
-                    {
-                        FileEncoding = DetectEncoding(bytes, count);
-                    }
-                    for (int i = 0; i < count; ++i)
-                    {
-                        if (bytes[i] == (byte)'\n')
-                        {
-                            ++rowCount;
-                        }
-                    }
-                }
+                int count = file.Read(bytes, 0, bytes.Length);
+                FileEncoding = DetectEncoding(bytes, count);
             }
         }
 
@@ -164,8 +154,10 @@ namespace BookSearcher
 
         public void ReadAll(BackgroundWorker backgoundworker)
         {
-            this.backgoundworker = backgoundworker;
             Loaded = false;
+            this.backgoundworker = backgoundworker;
+            backgoundworker.ReportProgress(0);
+            CountLines();
 
             try
             {
@@ -177,6 +169,34 @@ namespace BookSearcher
             }
 
             Loaded = true;
+        }
+
+        private void CountLines()
+        {
+            const int size = 10 * 1024 * 1024;
+            var bytes = new byte[size];
+            rowCount = 0;
+            using (var file = File.OpenRead(Path))
+            {
+                while (file.Position < file.Length)
+                {
+                    int count = file.Read(bytes, 0, bytes.Length);
+                    if (count == size)
+                    {
+                        rowCount += bytes.Where(b => b == (byte)'\n').Count();
+                    }
+                    else
+                    {
+                        for (int i = 0; i < count; i++)
+                        {
+                            if (bytes[i] == (byte)'\n')
+                            {
+                                ++rowCount;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         protected abstract void DoReadAll();

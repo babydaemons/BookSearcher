@@ -112,7 +112,6 @@
             // 
             // Timer1
             // 
-            this.Timer1.Enabled = true;
             this.Timer1.Interval = 10;
             this.Timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 

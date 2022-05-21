@@ -40,6 +40,7 @@ namespace BookSearcher
                 if (BookCSV.Titles.Length > 0)
                 {
                     LabelInput1.Enabled = TextBoxInput1.Enabled = ButtonInput1.Enabled = false;
+                    SetExecuteControlsEnabled(false);
                     BackgroundWorker1.RunWorkerAsync();
                 }
             }
@@ -53,6 +54,7 @@ namespace BookSearcher
         private void BackgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             LabelInput1.Enabled = TextBoxInput1.Enabled = ButtonInput1.Enabled = true;
+            SetExecuteControlsEnabled();
             ProgressBarInput1.Value = 100;
         }
 
@@ -75,6 +77,7 @@ namespace BookSearcher
                 if (ScrapingCSV.Titles.Length > 0)
                 {
                     LabelInput2.Enabled = TextBoxInput2.Enabled = ButtonInput2.Enabled = false;
+                    SetExecuteControlsEnabled(false);
                     BackgroundWorker2.RunWorkerAsync();
                 }
             }
@@ -88,6 +91,7 @@ namespace BookSearcher
         private void BackgroundWorker2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             LabelInput2.Enabled = TextBoxInput2.Enabled = ButtonInput2.Enabled = true;
+            SetExecuteControlsEnabled();
             ProgressBarInput2.Value = 100;
         }
 
@@ -283,7 +287,16 @@ namespace BookSearcher
 
         private void Timer1_Tick(object sender, EventArgs e)
         {
-            GroupBoxExecute.Enabled = ButtonExecute.Enabled = (BookCSV != null && BookCSV.Loaded) && (ScrapingCSV != null && ScrapingCSV.Loaded);
+        }
+
+        private void SetExecuteControlsEnabled()
+        {
+            bool enabled = (BookCSV != null && BookCSV.Loaded) && (ScrapingCSV != null && ScrapingCSV.Loaded);
+            SetExecuteControlsEnabled(enabled);
+        }
+        private void SetExecuteControlsEnabled(bool enabled)
+        {
+            GroupBoxExecute.Enabled = ButtonExecute.Enabled = enabled;
         }
 
         private void SetSearchContolsEnabled(bool enabled)
