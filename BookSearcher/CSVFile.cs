@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.IO;
+using System.IO.MemoryMappedFiles;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -11,6 +12,9 @@ namespace BookSearcher
 {
     public abstract class CSVFile
     {
+        private FileStream fileStream;
+        private MemoryMappedFile memoryMappedFile;
+        private long fileSize;
         public string Path { get; }
         public Encoding FileEncoding { get; protected set; }
         public int Columns { get; protected set; }
@@ -28,11 +32,15 @@ namespace BookSearcher
         {
             Loaded = false;
             Path = path;
+            var fileInfo = new FileInfo(Path);
+            fileSize = fileInfo.Length;
+            fileStream = new FileStream(Path, FileMode.Open, FileAccess.Read, FileShare.Read);
+            memoryMappedFile = MemoryMappedFile.CreateFromFile(fileStream, null, fileSize, MemoryMappedFileAccess.Read, null, HandleInheritability.Inheritable, true);
             const int size = 4 * 1024;
             var bytes = new byte[size];
-            using (var file = File.OpenRead(path))
+            using (var memoryMappedViewStream = GetMemoryMappedViewStream())
             {
-                int count = file.Read(bytes, 0, bytes.Length);
+                int count = memoryMappedViewStream.Read(bytes, 0, bytes.Length);
                 FileEncoding = DetectEncoding(bytes, count);
             }
         }
@@ -83,6 +91,11 @@ namespace BookSearcher
             return sjis;
         }
 
+        protected MemoryMappedViewStream GetMemoryMappedViewStream()
+        {
+            return memoryMappedFile.CreateViewStream(0, fileSize, MemoryMappedFileAccess.Read);
+        }
+ 
         public abstract bool ParseTitle();
 
         public static CSVFile ParseTitle(string path)
@@ -169,6 +182,8 @@ namespace BookSearcher
             }
 
             Loaded = true;
+            memoryMappedFile.Dispose();
+            memoryMappedFile = null;
         }
 
         private void CountLines()
@@ -176,11 +191,11 @@ namespace BookSearcher
             const int size = 10 * 1024 * 1024;
             var bytes = new byte[size];
             rowCount = 0;
-            using (var file = File.OpenRead(Path))
+            using (var memoryMappedViewStream = GetMemoryMappedViewStream())
             {
-                while (file.Position < file.Length)
+                while (memoryMappedViewStream.Position < memoryMappedViewStream.Length)
                 {
-                    int count = file.Read(bytes, 0, bytes.Length);
+                    int count = memoryMappedViewStream.Read(bytes, 0, bytes.Length);
                     if (count == size)
                     {
                         rowCount += bytes.Where(b => b == (byte)'\n').Count();
