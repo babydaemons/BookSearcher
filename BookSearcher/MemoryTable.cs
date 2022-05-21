@@ -1,18 +1,18 @@
 ﻿using System;
-using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
 
 namespace BookSearcher
 {
-    public class MemoryTable : ConcurrentDictionary<int, MemoryRow>
+    public class MemoryTable : Dictionary<int, MemoryRow>
     {
         public string[] ColumnNames { get; }
         public int ColumnCount { get; }
         public DataTable DataTable => WriteDataTable();
-        private DataTable table = new DataTable();
+        private readonly DataTable table = new DataTable();
 
-        public MemoryTable(string[] columnNames, int capacity) : base(Environment.ProcessorCount, capacity)
+        public MemoryTable(string[] columnNames, int capacity) : base(capacity)
         {
             ColumnNames = columnNames;
             ColumnCount = columnNames.Length;
@@ -49,7 +49,7 @@ namespace BookSearcher
                 row[ColumnNames[i]] = i < values.Length ? values[i] : "";
             }
 
-            _ = TryAdd(rowIndex, row);
+            Add(rowIndex, row);
         }
 
         private DataTable WriteDataTable()

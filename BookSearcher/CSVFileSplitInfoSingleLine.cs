@@ -45,7 +45,8 @@ namespace BookSearcher
 
         protected override void DoReadAll()
         {
-            using (var reader = new StreamReader(Path, FileEncoding))
+            using (var memoryMappedViewStream = GetMemoryMappedViewStream())
+            using (var reader = new StreamReader(memoryMappedViewStream, FileEncoding))
             {
                 var line = reader.ReadLine();
                 while ((line = reader.ReadLine()) != null)
