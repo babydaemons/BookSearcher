@@ -191,6 +191,7 @@ namespace BookSearcher
                 }
                 if (RadioButtonSearchType08.Checked)
                 {
+                    searcher = new BookSearcher08(BookCSV, ScrapingCSV);
                     searchTypeName = RadioButtonSearchType08.Text;
                 }
                 if (RadioButtonSearchType09.Checked)
