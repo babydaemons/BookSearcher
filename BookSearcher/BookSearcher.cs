@@ -27,6 +27,24 @@ namespace BookSearcher
         }
     }
 
+    struct ValuePairPartial1
+    {
+        public string Value1;
+        public string Value2;
+        public static bool operator ==(ValuePairPartial1 a, ValuePairPartial1 b) => a.Value1 == b.Value1 && a.Value2.Contains(b.Value2);
+        public static bool operator !=(ValuePairPartial1 a, ValuePairPartial1 b) => a.Value1 != b.Value1 || !b.Value2.Contains(a.Value2);
+        public override bool Equals(object obj)
+        {
+            ValuePairPartial1 a = this;
+            ValuePairPartial1 b = (ValuePairPartial1)obj;
+            return a == b;
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+    }
+
     struct RowIndexPair
     {
         public int BookRowIndex;
@@ -115,6 +133,23 @@ namespace BookSearcher
             SaveTable(resultRows);
         }
 
+        protected void SearchPartial1(ColumnInfo columnInfo1, ColumnInfo columnInfo2)
+        {
+            var bookValues = CreateColumnList(bookCSV.Table, columnInfo1, columnInfo2, true);
+            var scrapingValues = CreateColumnList(scrapingCSV.Table, columnInfo1, columnInfo2, false);
+            var results = from bookRow in bookValues
+                          join scrapingRow in scrapingValues
+                          on new ValuePairPartial1 { Value1 = bookRow.Value2, Value2 = bookRow.Value1 } equals new ValuePairPartial1 { Value1 = scrapingRow.Value2, Value2 = scrapingRow.Value1 }
+                          select new { BookRowIndex = bookRow.Index, ScrapingRowIndex = scrapingRow.Index };
+
+            var resultRows = new List<RowIndexPair>();
+            foreach (var result in results)
+            {
+                resultRows.Add(new RowIndexPair { BookRowIndex = result.BookRowIndex, ScrapingRowIndex = result.ScrapingRowIndex });
+            }
+            SaveTable(resultRows);
+        }
+
         private List<Column1> CreateColumnList(DataTable table, ColumnInfo columnInfo, bool isBookDB)
         {
             var columnName = table.Columns[(isBookDB ? columnInfo.BookColumnIndex : columnInfo.ScrapingColumnIndex) + 1].Caption;
@@ -169,9 +204,17 @@ namespace BookSearcher
             {
                 return ConvertExtractPrefix;
             }
-            else
+            else if (columnInfo.MatchType == MatchType.BeginningMatch && columnInfo.SpaceMatch == SpaceMatch.Ignore)
             {
                 return ConvertRemoveSpaceExtractPrefix;
+            }
+            else if (columnInfo.MatchType == MatchType.PartialMatch)
+            {
+                return ConvertRemoveSpace;
+            }
+            else
+            {
+                throw new Exception("セル値の変換指定が不正です。");
             }
         }
 
