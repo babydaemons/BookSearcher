@@ -66,6 +66,7 @@ namespace BookSearcher
                 {
                     line = RegexSuffix.Replace(line, "");
                     var fields = new List<string>(CSVSingleLineFile.ReadFields(line));
+                    InsertInfoColumn(fields);
                     AddTableRow(rowIndex++, fields.ToArray());
                 }
             }

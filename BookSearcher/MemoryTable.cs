@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Data;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace BookSearcher
@@ -8,6 +9,7 @@ namespace BookSearcher
     public class MemoryTable : ConcurrentDictionary<int, MemoryRow>
     {
         public string[] ColumnNames { get; }
+        public ConcurrentDictionary<string, int> ColumnIndexes { get; } = new ConcurrentDictionary<string, int>();
         public int ColumnCount { get; }
         public DataTable DataTable => WriteDataTable();
         private readonly DataTable table = new DataTable();
@@ -17,7 +19,10 @@ namespace BookSearcher
             ColumnNames = columnNames;
             ColumnCount = columnNames.Length;
 
-            table.Columns.Add("RowIndex", typeof(int));
+            foreach (var i in Enumerable.Range(0, ColumnNames.Length))
+            {
+                ColumnIndexes.TryAdd(columnNames[i], i);
+            }
 
             foreach (var columName in ColumnNames)
             {
@@ -40,14 +45,7 @@ namespace BookSearcher
                 return; // throw new Exception($"{rowIndex}行目の列数が不正です：${string.Join("/", values)}");
             }
 
-            var row = new MemoryRow
-            {
-                RowIndex = rowIndex
-            };
-            for (int i = 0; i < ColumnCount; i++)
-            {
-                row[ColumnNames[i]] = i < values.Length ? values[i] : "";
-            }
+            var row = new MemoryRow(this, rowIndex, values);
 
             _ = TryAdd(rowIndex, row);
         }
@@ -57,7 +55,7 @@ namespace BookSearcher
             foreach (var key in Keys)
             {
                 var row = table.NewRow();
-                table.Rows.Add(this[key].WriteDataRow(key, row));
+                table.Rows.Add(this[key].WriteDataRow(row));
             }
             return table;
         }

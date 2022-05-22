@@ -172,9 +172,10 @@ namespace BookSearcher
         private List<Column1> CreateColumnList(MemoryTable table, ColumnInfo columnInfo, bool isBookDB)
         {
             var columnName = table.ColumnNames[isBookDB ? columnInfo.BookColumnIndex : columnInfo.ScrapingColumnIndex];
+            var columnIndex = table.ColumnIndexes[columnName];
             var spaceMatch = columnInfo.SpaceMatch;
 
-            var rows = table.Where(row => row.Value[columnName].Length > 0);
+            var rows = table.Where(row => row.Value[columnIndex].Length > 0);
             var values = new List<Column1>();
             ConvertValue convertValue = spaceMatch == SpaceMatch.All ? ConvertNone : (ConvertValue)ConvertRemoveSpace;
             foreach (var row in rows)
@@ -182,7 +183,7 @@ namespace BookSearcher
                 values.Add(new Column1
                 {
                     Index = row.Key,
-                    Value = convertValue(row.Value[columnName])
+                    Value = convertValue(row.Value[columnIndex])
                 });
             }
             return values;
@@ -192,8 +193,10 @@ namespace BookSearcher
         {
             var columnName1 = table.ColumnNames[isBookDB ? columnInfo1.BookColumnIndex : columnInfo1.ScrapingColumnIndex];
             var columnName2 = table.ColumnNames[isBookDB ? columnInfo2.BookColumnIndex : columnInfo2.ScrapingColumnIndex];
+            var columnIndex1 = table.ColumnIndexes[columnName1];
+            var columnIndex2 = table.ColumnIndexes[columnName2];
 
-            var rows = table.AsEnumerable().Where(row => row.Value[columnName1].Length > 0 && row.Value[columnName2].Length > 0);
+            var rows = table.AsEnumerable().Where(row => row.Value[columnIndex1].Length > 0 && row.Value[columnIndex2].Length > 0);
             var values = new List<Column2>();
             ConvertValue convertValue1 = GetConvertValue(columnInfo1);
             ConvertValue convertValue2 = GetConvertValue(columnInfo2);
@@ -202,8 +205,8 @@ namespace BookSearcher
                 values.Add(new Column2
                 {
                     Index = row.Key,
-                    Value1 = convertValue1(row.Value[columnName1]),
-                    Value2 = convertValue2(row.Value[columnName2])
+                    Value1 = convertValue1(row.Value[columnIndex1]),
+                    Value2 = convertValue2(row.Value[columnIndex2])
                 });
             }
             return values;
@@ -253,13 +256,13 @@ namespace BookSearcher
             {
                 var row = resultTable.NewRow();
                 int i = 0;
-                foreach (var columnName in bookCSV.MemoryTable.ColumnNames)
+                foreach (var columnIndex in Enumerable.Range(0, bookCSV.MemoryTable.ColumnCount))
                 {
-                    row[i++] = bookCSV.MemoryTable[resultRow.BookRowIndex][columnName];
+                    row[i++] = bookCSV.MemoryTable[resultRow.BookRowIndex][columnIndex];
                 }
-                foreach (var columnName in scrapingCSV.MemoryTable.ColumnNames)
+                foreach (var columnIndex in Enumerable.Range(0, scrapingCSV.MemoryTable.ColumnCount))
                 {
-                    row[i++] = scrapingCSV.MemoryTable[resultRow.ScrapingRowIndex][columnName];
+                    row[i++] = scrapingCSV.MemoryTable[resultRow.ScrapingRowIndex][columnIndex];
                 }
                 resultTable.Rows.Add(row);
             }

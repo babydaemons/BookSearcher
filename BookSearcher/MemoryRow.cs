@@ -1,38 +1,37 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 namespace BookSearcher
 {
-    public class MemoryRow : Dictionary<string, string>
+    public class MemoryRow
     {
-        const string primaryKey = "RowIndex";
+        private readonly MemoryTable table;
+        private string[] values;
+        public int RowIndex { get; }
 
-        public int RowIndex
+        public MemoryRow(MemoryTable table, int rowIndex, string[] values)
         {
-            get
+            this.table = table;
+            RowIndex = rowIndex;
+            this.values = new string[table.ColumnCount];
+            foreach (var i in Enumerable.Range(0, table.ColumnCount))
             {
-                _ = int.TryParse(this[primaryKey], out int value);
-                return value;
-            }
-            set
-            {
-                this[primaryKey] = value.ToString("D10");
+                this.values[i] = i < values.Length ? values[i] : "";
             }
         }
 
-        public DataRow WriteDataRow(int rowIndex, DataRow row)
+        public string this[int columnIndex]
         {
-            int i = 0;
-            foreach (var columName in Keys)
+            get { return values[columnIndex]; }
+            set { values[columnIndex] = value; }
+        }
+
+        public DataRow WriteDataRow(DataRow row)
+        {
+            foreach (var i in Enumerable.Range(0, values.Length))
             {
-                if (columName == primaryKey)
-                {
-                    row[i++] = rowIndex;
-                }
-                else
-                {
-                    row[i++] = this[columName];
-                }
+                row[i] = values[i];
             }
             return row;
         }
