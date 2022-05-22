@@ -55,16 +55,6 @@
             this.RadioButtonSearchType03 = new System.Windows.Forms.RadioButton();
             this.RadioButtonSearchType02 = new System.Windows.Forms.RadioButton();
             this.RadioButtonSearchType01 = new System.Windows.Forms.RadioButton();
-            this.GroupBoxDatabase = new System.Windows.Forms.GroupBox();
-            this.BookColumnSetting = new System.Windows.Forms.DataGridView();
-            this.BookColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BookColumnValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BookColumnType = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.GroupBoxScraping = new System.Windows.Forms.GroupBox();
-            this.ScrapingColumnSetting = new System.Windows.Forms.DataGridView();
-            this.ScrapingColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ScrapingColumnValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ScrapingColumnType = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.GroupBoxOutput = new System.Windows.Forms.GroupBox();
             this.RadioButtonFileTypeCSV2 = new System.Windows.Forms.RadioButton();
             this.RadioButtonFileTypeCSV1 = new System.Windows.Forms.RadioButton();
@@ -96,18 +86,33 @@
             this.GroupBoxAllMatch = new System.Windows.Forms.GroupBox();
             this.RadioButtonSpaceIgnore = new System.Windows.Forms.RadioButton();
             this.RadioButtonSpaceContains = new System.Windows.Forms.RadioButton();
+            this.TabControlOutputSetting = new System.Windows.Forms.TabControl();
+            this.TabPageDatabaseColumn = new System.Windows.Forms.TabPage();
+            this.TabPageScrapingColumn = new System.Windows.Forms.TabPage();
+            this.TabPageOutputColumn = new System.Windows.Forms.TabPage();
+            this.ButtonPreviewDatabase = new System.Windows.Forms.Button();
+            this.ButtonPreviewScraping = new System.Windows.Forms.Button();
+            this.BookColumnSetting = new System.Windows.Forms.DataGridView();
+            this.BookColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BookColumnValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BookColumnType = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.ScrapingColumnSetting = new System.Windows.Forms.DataGridView();
+            this.ScrapingColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ScrapingColumnValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ScrapingColumnType = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.StatusStrip1.SuspendLayout();
             this.GroupBoxMatchType.SuspendLayout();
-            this.GroupBoxDatabase.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.BookColumnSetting)).BeginInit();
-            this.GroupBoxScraping.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ScrapingColumnSetting)).BeginInit();
             this.GroupBoxOutput.SuspendLayout();
             this.GroupBoxPartMatch.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownLength)).BeginInit();
             this.GroupBoxExecute.SuspendLayout();
             this.GroupBoxFiles.SuspendLayout();
             this.GroupBoxAllMatch.SuspendLayout();
+            this.TabControlOutputSetting.SuspendLayout();
+            this.TabPageDatabaseColumn.SuspendLayout();
+            this.TabPageScrapingColumn.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.BookColumnSetting)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ScrapingColumnSetting)).BeginInit();
             this.SuspendLayout();
             // 
             // Timer1
@@ -140,9 +145,9 @@
             this.StatusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ToolStripStatusLabel1,
             this.ToolStripStatusLabel2});
-            this.StatusStrip1.Location = new System.Drawing.Point(0, 805);
+            this.StatusStrip1.Location = new System.Drawing.Point(0, 801);
             this.StatusStrip1.Name = "StatusStrip1";
-            this.StatusStrip1.Size = new System.Drawing.Size(1295, 22);
+            this.StatusStrip1.Size = new System.Drawing.Size(1290, 22);
             this.StatusStrip1.TabIndex = 29;
             this.StatusStrip1.Text = "StatusStrip1";
             // 
@@ -377,124 +382,6 @@
             this.RadioButtonSearchType01.Text = "①「書籍名(完全一致)」+「出版年(完全一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル2つ】";
             this.RadioButtonSearchType01.UseVisualStyleBackColor = true;
             this.RadioButtonSearchType01.CheckedChanged += new System.EventHandler(this.RadioButtonSearchType_CheckedChanged);
-            // 
-            // GroupBoxDatabase
-            // 
-            this.GroupBoxDatabase.Controls.Add(this.BookColumnSetting);
-            this.GroupBoxDatabase.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.GroupBoxDatabase.Location = new System.Drawing.Point(765, 291);
-            this.GroupBoxDatabase.Name = "GroupBoxDatabase";
-            this.GroupBoxDatabase.Size = new System.Drawing.Size(518, 150);
-            this.GroupBoxDatabase.TabIndex = 5;
-            this.GroupBoxDatabase.TabStop = false;
-            this.GroupBoxDatabase.Text = "書籍データベースカラム(テーブルをダブルクリックして詳細表示)";
-            // 
-            // BookColumnSetting
-            // 
-            this.BookColumnSetting.AllowUserToAddRows = false;
-            this.BookColumnSetting.AllowUserToDeleteRows = false;
-            this.BookColumnSetting.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.BookColumnSetting.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.BookColumnName,
-            this.BookColumnValue,
-            this.BookColumnType});
-            this.BookColumnSetting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.BookColumnSetting.Location = new System.Drawing.Point(3, 19);
-            this.BookColumnSetting.Name = "BookColumnSetting";
-            this.BookColumnSetting.RowTemplate.Height = 21;
-            this.BookColumnSetting.Size = new System.Drawing.Size(512, 128);
-            this.BookColumnSetting.TabIndex = 0;
-            this.BookColumnSetting.Tag = "書籍データベースカラム";
-            this.BookColumnSetting.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellDoubleClick);
-            // 
-            // BookColumnName
-            // 
-            this.BookColumnName.HeaderText = "列名";
-            this.BookColumnName.Name = "BookColumnName";
-            this.BookColumnName.ReadOnly = true;
-            this.BookColumnName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.BookColumnName.Width = 150;
-            // 
-            // BookColumnValue
-            // 
-            this.BookColumnValue.HeaderText = "列データ";
-            this.BookColumnValue.Name = "BookColumnValue";
-            this.BookColumnValue.ReadOnly = true;
-            this.BookColumnValue.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.BookColumnValue.Width = 200;
-            // 
-            // BookColumnType
-            // 
-            this.BookColumnType.HeaderText = "比較データ種別";
-            this.BookColumnType.Items.AddRange(new object[] {
-            "",
-            "書籍名",
-            "著者名",
-            "出版社名",
-            "出版年",
-            "ISBN",
-            "URL"});
-            this.BookColumnType.Name = "BookColumnType";
-            this.BookColumnType.Width = 90;
-            // 
-            // GroupBoxScraping
-            // 
-            this.GroupBoxScraping.Controls.Add(this.ScrapingColumnSetting);
-            this.GroupBoxScraping.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.GroupBoxScraping.Location = new System.Drawing.Point(765, 447);
-            this.GroupBoxScraping.Name = "GroupBoxScraping";
-            this.GroupBoxScraping.Size = new System.Drawing.Size(518, 345);
-            this.GroupBoxScraping.TabIndex = 6;
-            this.GroupBoxScraping.TabStop = false;
-            this.GroupBoxScraping.Text = "スクレイピングデータカラム(テーブルをダブルクリックして詳細表示)";
-            // 
-            // ScrapingColumnSetting
-            // 
-            this.ScrapingColumnSetting.AllowUserToAddRows = false;
-            this.ScrapingColumnSetting.AllowUserToDeleteRows = false;
-            this.ScrapingColumnSetting.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.ScrapingColumnSetting.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ScrapingColumnName,
-            this.ScrapingColumnValue,
-            this.ScrapingColumnType});
-            this.ScrapingColumnSetting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ScrapingColumnSetting.Location = new System.Drawing.Point(3, 19);
-            this.ScrapingColumnSetting.Name = "ScrapingColumnSetting";
-            this.ScrapingColumnSetting.RowTemplate.Height = 21;
-            this.ScrapingColumnSetting.Size = new System.Drawing.Size(512, 323);
-            this.ScrapingColumnSetting.TabIndex = 0;
-            this.ScrapingColumnSetting.Tag = "スクレイピングデータカラム";
-            this.ScrapingColumnSetting.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellDoubleClick);
-            // 
-            // ScrapingColumnName
-            // 
-            this.ScrapingColumnName.HeaderText = "列名";
-            this.ScrapingColumnName.Name = "ScrapingColumnName";
-            this.ScrapingColumnName.ReadOnly = true;
-            this.ScrapingColumnName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ScrapingColumnName.Width = 150;
-            // 
-            // ScrapingColumnValue
-            // 
-            this.ScrapingColumnValue.HeaderText = "列データ";
-            this.ScrapingColumnValue.Name = "ScrapingColumnValue";
-            this.ScrapingColumnValue.ReadOnly = true;
-            this.ScrapingColumnValue.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ScrapingColumnValue.Width = 200;
-            // 
-            // ScrapingColumnType
-            // 
-            this.ScrapingColumnType.HeaderText = "比較データ種別";
-            this.ScrapingColumnType.Items.AddRange(new object[] {
-            "",
-            "書籍名",
-            "著者名",
-            "出版社名",
-            "出版年",
-            "ISBN",
-            "URL"});
-            this.ScrapingColumnType.Name = "ScrapingColumnType";
-            this.ScrapingColumnType.Width = 90;
             // 
             // GroupBoxOutput
             // 
@@ -833,20 +720,181 @@
             this.RadioButtonSpaceContains.Text = "空白文字含む";
             this.RadioButtonSpaceContains.UseVisualStyleBackColor = true;
             // 
+            // TabControlOutputSetting
+            // 
+            this.TabControlOutputSetting.Controls.Add(this.TabPageDatabaseColumn);
+            this.TabControlOutputSetting.Controls.Add(this.TabPageScrapingColumn);
+            this.TabControlOutputSetting.Controls.Add(this.TabPageOutputColumn);
+            this.TabControlOutputSetting.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.TabControlOutputSetting.Location = new System.Drawing.Point(765, 291);
+            this.TabControlOutputSetting.Name = "TabControlOutputSetting";
+            this.TabControlOutputSetting.SelectedIndex = 0;
+            this.TabControlOutputSetting.Size = new System.Drawing.Size(518, 501);
+            this.TabControlOutputSetting.TabIndex = 30;
+            // 
+            // TabPageDatabaseColumn
+            // 
+            this.TabPageDatabaseColumn.Controls.Add(this.BookColumnSetting);
+            this.TabPageDatabaseColumn.Controls.Add(this.ButtonPreviewDatabase);
+            this.TabPageDatabaseColumn.Location = new System.Drawing.Point(4, 24);
+            this.TabPageDatabaseColumn.Name = "TabPageDatabaseColumn";
+            this.TabPageDatabaseColumn.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.TabPageDatabaseColumn.Size = new System.Drawing.Size(510, 473);
+            this.TabPageDatabaseColumn.TabIndex = 0;
+            this.TabPageDatabaseColumn.Text = "書籍データベース列指定";
+            this.TabPageDatabaseColumn.UseVisualStyleBackColor = true;
+            // 
+            // TabPageScrapingColumn
+            // 
+            this.TabPageScrapingColumn.Controls.Add(this.ScrapingColumnSetting);
+            this.TabPageScrapingColumn.Controls.Add(this.ButtonPreviewScraping);
+            this.TabPageScrapingColumn.Location = new System.Drawing.Point(4, 24);
+            this.TabPageScrapingColumn.Name = "TabPageScrapingColumn";
+            this.TabPageScrapingColumn.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.TabPageScrapingColumn.Size = new System.Drawing.Size(510, 473);
+            this.TabPageScrapingColumn.TabIndex = 1;
+            this.TabPageScrapingColumn.Text = "スクレイピング列指定";
+            this.TabPageScrapingColumn.UseVisualStyleBackColor = true;
+            // 
+            // TabPageOutputColumn
+            // 
+            this.TabPageOutputColumn.Location = new System.Drawing.Point(4, 24);
+            this.TabPageOutputColumn.Name = "TabPageOutputColumn";
+            this.TabPageOutputColumn.Size = new System.Drawing.Size(510, 473);
+            this.TabPageOutputColumn.TabIndex = 2;
+            this.TabPageOutputColumn.Text = "出力CSVファイル列指定";
+            this.TabPageOutputColumn.UseVisualStyleBackColor = true;
+            // 
+            // ButtonPreviewDatabase
+            // 
+            this.ButtonPreviewDatabase.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ButtonPreviewDatabase.Location = new System.Drawing.Point(3, 447);
+            this.ButtonPreviewDatabase.Name = "ButtonPreviewDatabase";
+            this.ButtonPreviewDatabase.Size = new System.Drawing.Size(504, 23);
+            this.ButtonPreviewDatabase.TabIndex = 0;
+            this.ButtonPreviewDatabase.Text = "詳細確認";
+            this.ButtonPreviewDatabase.UseVisualStyleBackColor = true;
+            this.ButtonPreviewDatabase.Click += new System.EventHandler(this.ButtonPreview_Click);
+            // 
+            // ButtonPreviewScraping
+            // 
+            this.ButtonPreviewScraping.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ButtonPreviewScraping.Enabled = false;
+            this.ButtonPreviewScraping.Location = new System.Drawing.Point(3, 447);
+            this.ButtonPreviewScraping.Name = "ButtonPreviewScraping";
+            this.ButtonPreviewScraping.Size = new System.Drawing.Size(504, 23);
+            this.ButtonPreviewScraping.TabIndex = 1;
+            this.ButtonPreviewScraping.Text = "詳細確認";
+            this.ButtonPreviewScraping.UseVisualStyleBackColor = true;
+            this.ButtonPreviewScraping.Click += new System.EventHandler(this.ButtonPreview_Click);
+            // 
+            // BookColumnSetting
+            // 
+            this.BookColumnSetting.AllowUserToAddRows = false;
+            this.BookColumnSetting.AllowUserToDeleteRows = false;
+            this.BookColumnSetting.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.BookColumnSetting.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.BookColumnName,
+            this.BookColumnValue,
+            this.BookColumnType});
+            this.BookColumnSetting.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BookColumnSetting.Location = new System.Drawing.Point(3, 3);
+            this.BookColumnSetting.Name = "BookColumnSetting";
+            this.BookColumnSetting.RowTemplate.Height = 21;
+            this.BookColumnSetting.Size = new System.Drawing.Size(504, 444);
+            this.BookColumnSetting.TabIndex = 1;
+            this.BookColumnSetting.Tag = "書籍データベースカラム";
+            // 
+            // BookColumnName
+            // 
+            this.BookColumnName.HeaderText = "列名";
+            this.BookColumnName.Name = "BookColumnName";
+            this.BookColumnName.ReadOnly = true;
+            this.BookColumnName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.BookColumnName.Width = 150;
+            // 
+            // BookColumnValue
+            // 
+            this.BookColumnValue.HeaderText = "列データ";
+            this.BookColumnValue.Name = "BookColumnValue";
+            this.BookColumnValue.ReadOnly = true;
+            this.BookColumnValue.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.BookColumnValue.Width = 200;
+            // 
+            // BookColumnType
+            // 
+            this.BookColumnType.HeaderText = "比較データ種別";
+            this.BookColumnType.Items.AddRange(new object[] {
+            "",
+            "書籍名",
+            "著者名",
+            "出版社名",
+            "出版年",
+            "ISBN",
+            "URL"});
+            this.BookColumnType.Name = "BookColumnType";
+            this.BookColumnType.Width = 90;
+            // 
+            // ScrapingColumnSetting
+            // 
+            this.ScrapingColumnSetting.AllowUserToAddRows = false;
+            this.ScrapingColumnSetting.AllowUserToDeleteRows = false;
+            this.ScrapingColumnSetting.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ScrapingColumnSetting.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ScrapingColumnName,
+            this.ScrapingColumnValue,
+            this.ScrapingColumnType});
+            this.ScrapingColumnSetting.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ScrapingColumnSetting.Location = new System.Drawing.Point(3, 3);
+            this.ScrapingColumnSetting.Name = "ScrapingColumnSetting";
+            this.ScrapingColumnSetting.RowTemplate.Height = 21;
+            this.ScrapingColumnSetting.Size = new System.Drawing.Size(504, 444);
+            this.ScrapingColumnSetting.TabIndex = 2;
+            this.ScrapingColumnSetting.Tag = "スクレイピングデータカラム";
+            // 
+            // ScrapingColumnName
+            // 
+            this.ScrapingColumnName.HeaderText = "列名";
+            this.ScrapingColumnName.Name = "ScrapingColumnName";
+            this.ScrapingColumnName.ReadOnly = true;
+            this.ScrapingColumnName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.ScrapingColumnName.Width = 150;
+            // 
+            // ScrapingColumnValue
+            // 
+            this.ScrapingColumnValue.HeaderText = "列データ";
+            this.ScrapingColumnValue.Name = "ScrapingColumnValue";
+            this.ScrapingColumnValue.ReadOnly = true;
+            this.ScrapingColumnValue.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.ScrapingColumnValue.Width = 200;
+            // 
+            // ScrapingColumnType
+            // 
+            this.ScrapingColumnType.HeaderText = "比較データ種別";
+            this.ScrapingColumnType.Items.AddRange(new object[] {
+            "",
+            "書籍名",
+            "著者名",
+            "出版社名",
+            "出版年",
+            "ISBN",
+            "URL"});
+            this.ScrapingColumnType.Name = "ScrapingColumnType";
+            this.ScrapingColumnType.Width = 90;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(1295, 827);
+            this.ClientSize = new System.Drawing.Size(1290, 823);
+            this.Controls.Add(this.TabControlOutputSetting);
             this.Controls.Add(this.GroupBoxAllMatch);
             this.Controls.Add(this.GroupBoxFiles);
             this.Controls.Add(this.GroupBoxExecute);
             this.Controls.Add(this.GroupBoxPartMatch);
             this.Controls.Add(this.GroupBoxOutput);
             this.Controls.Add(this.StatusStrip1);
-            this.Controls.Add(this.GroupBoxScraping);
-            this.Controls.Add(this.GroupBoxDatabase);
             this.Controls.Add(this.GroupBoxMatchType);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -856,10 +904,6 @@
             this.StatusStrip1.PerformLayout();
             this.GroupBoxMatchType.ResumeLayout(false);
             this.GroupBoxMatchType.PerformLayout();
-            this.GroupBoxDatabase.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.BookColumnSetting)).EndInit();
-            this.GroupBoxScraping.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.ScrapingColumnSetting)).EndInit();
             this.GroupBoxOutput.ResumeLayout(false);
             this.GroupBoxOutput.PerformLayout();
             this.GroupBoxPartMatch.ResumeLayout(false);
@@ -870,6 +914,11 @@
             this.GroupBoxFiles.PerformLayout();
             this.GroupBoxAllMatch.ResumeLayout(false);
             this.GroupBoxAllMatch.PerformLayout();
+            this.TabControlOutputSetting.ResumeLayout(false);
+            this.TabPageDatabaseColumn.ResumeLayout(false);
+            this.TabPageScrapingColumn.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.BookColumnSetting)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ScrapingColumnSetting)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -901,10 +950,6 @@
         private System.Windows.Forms.RadioButton RadioButtonSearchType03;
         private System.Windows.Forms.RadioButton RadioButtonSearchType02;
         private System.Windows.Forms.RadioButton RadioButtonSearchType01;
-        private System.Windows.Forms.GroupBox GroupBoxDatabase;
-        private System.Windows.Forms.DataGridView BookColumnSetting;
-        private System.Windows.Forms.GroupBox GroupBoxScraping;
-        private System.Windows.Forms.DataGridView ScrapingColumnSetting;
         private System.Windows.Forms.GroupBox GroupBoxOutput;
         private System.Windows.Forms.RadioButton RadioButtonFileTypeCSV1;
         private System.Windows.Forms.GroupBox GroupBoxPartMatch;
@@ -933,15 +978,23 @@
         private System.Windows.Forms.ProgressBar ProgressBarExecute;
         private System.Windows.Forms.Label LabelOutputCSV;
         private System.Windows.Forms.TextBox TextBoxOutputCSV2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BookColumnName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BookColumnValue;
-        private System.Windows.Forms.DataGridViewComboBoxColumn BookColumnType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ScrapingColumnName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ScrapingColumnValue;
-        private System.Windows.Forms.DataGridViewComboBoxColumn ScrapingColumnType;
         private System.Windows.Forms.ProgressBar ProgressBarOutputExcel;
         private System.Windows.Forms.ProgressBar ProgressBarInput2;
         private System.Windows.Forms.ProgressBar ProgressBarInput1;
+        private System.Windows.Forms.TabControl TabControlOutputSetting;
+        private System.Windows.Forms.TabPage TabPageDatabaseColumn;
+        private System.Windows.Forms.TabPage TabPageScrapingColumn;
+        private System.Windows.Forms.TabPage TabPageOutputColumn;
+        private System.Windows.Forms.DataGridView BookColumnSetting;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BookColumnName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BookColumnValue;
+        private System.Windows.Forms.DataGridViewComboBoxColumn BookColumnType;
+        private System.Windows.Forms.Button ButtonPreviewDatabase;
+        private System.Windows.Forms.DataGridView ScrapingColumnSetting;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ScrapingColumnName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ScrapingColumnValue;
+        private System.Windows.Forms.DataGridViewComboBoxColumn ScrapingColumnType;
+        private System.Windows.Forms.Button ButtonPreviewScraping;
     }
 }
 

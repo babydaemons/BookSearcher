@@ -39,7 +39,7 @@ namespace BookSearcher
                 }
                 if (BookCSV.Titles.Length > 0)
                 {
-                    LabelInput1.Enabled = TextBoxInput1.Enabled = ButtonInput1.Enabled = false;
+                    LabelInput1.Enabled = TextBoxInput1.Enabled = ButtonInput1.Enabled = ButtonPreviewDatabase.Enabled = false;
                     SetExecuteControlsEnabled(false);
                     BackgroundWorker1.RunWorkerAsync();
                 }
@@ -53,7 +53,7 @@ namespace BookSearcher
 
         private void BackgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            LabelInput1.Enabled = TextBoxInput1.Enabled = ButtonInput1.Enabled = true;
+            LabelInput1.Enabled = TextBoxInput1.Enabled = ButtonInput1.Enabled = ButtonPreviewDatabase.Enabled = true;
             SetExecuteControlsEnabled();
             ProgressBarInput1.Value = 100;
         }
@@ -76,7 +76,7 @@ namespace BookSearcher
                 }
                 if (ScrapingCSV.Titles.Length > 0)
                 {
-                    LabelInput2.Enabled = TextBoxInput2.Enabled = ButtonInput2.Enabled = false;
+                    LabelInput2.Enabled = TextBoxInput2.Enabled = ButtonInput2.Enabled = ButtonPreviewScraping.Enabled = false;
                     SetExecuteControlsEnabled(false);
                     BackgroundWorker2.RunWorkerAsync();
                 }
@@ -90,15 +90,15 @@ namespace BookSearcher
 
         private void BackgroundWorker2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            LabelInput2.Enabled = TextBoxInput2.Enabled = ButtonInput2.Enabled = true;
+            LabelInput2.Enabled = TextBoxInput2.Enabled = ButtonInput2.Enabled = ButtonPreviewScraping.Enabled = true;
             SetExecuteControlsEnabled();
             ProgressBarInput2.Value = 100;
         }
 
-        private void DataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void ButtonPreview_Click(object sender, EventArgs e)
         {
-            var dataGridView = (DataGridView)sender;
-            var csvFile = (dataGridView == BookColumnSetting) ? BookCSV : ScrapingCSV;
+            var buttonPreview = (Button)sender;
+            var csvFile = (buttonPreview == ButtonPreviewDatabase) ? BookCSV : ScrapingCSV;
             if (csvFile.Loaded)
             {
                 var form = new Form2(csvFile);
@@ -295,7 +295,7 @@ namespace BookSearcher
 
         private void SetSearchControlsEnabled(bool enabled)
         {
-            GroupBoxFiles.Enabled = GroupBoxOutput.Enabled = GroupBoxPartMatch.Enabled = GroupBoxMatchType.Enabled = GroupBoxDatabase.Enabled = GroupBoxScraping.Enabled = GroupBoxExecute.Enabled = enabled;
+            GroupBoxFiles.Enabled = GroupBoxOutput.Enabled = GroupBoxPartMatch.Enabled = GroupBoxMatchType.Enabled = GroupBoxExecute.Enabled = enabled;
             BookColumnSetting.Enabled = ScrapingColumnSetting.Enabled = enabled;
         }
 
