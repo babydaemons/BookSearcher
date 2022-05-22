@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
+using System.IO.MemoryMappedFiles;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -11,14 +14,20 @@ namespace BookSearcher
 {
     public abstract class CSVFile
     {
+        private readonly FileStream fileStream;
+        protected readonly long fileSize;
+        private MemoryMappedFile memoryMappedFile;
+        protected readonly ConcurrentBag<long> lineOffsets = new ConcurrentBag<long>();
+        protected long[] LineOffsets { get; private set; }
+
+        public MemoryTable MemoryTable { get; private set; }
         public string Path { get; }
         public Encoding FileEncoding { get; protected set; }
         public int Columns { get; protected set; }
         public string[] Titles { get; protected set; }
         public string[] Fields { get; protected set; }
         public bool Loaded { get; private set; } = false;
-        protected DataTable table = new DataTable();
-        public DataTable Table => table;
+        public DataTable Table => MemoryTable.DataTable;
         private BackgroundWorker backgoundworker;
         private int rowIndex = 0;
         private int rowCount = 0;
@@ -28,11 +37,15 @@ namespace BookSearcher
         {
             Loaded = false;
             Path = path;
+            var fileInfo = new FileInfo(Path);
+            fileSize = fileInfo.Length;
+            fileStream = new FileStream(Path, FileMode.Open, FileAccess.Read, FileShare.Read);
+            memoryMappedFile = MemoryMappedFile.CreateFromFile(fileStream, null, fileSize, MemoryMappedFileAccess.Read, null, HandleInheritability.Inheritable, true);
             const int size = 4 * 1024;
             var bytes = new byte[size];
-            using (var file = File.OpenRead(path))
+            using (var memoryMappedViewStream = GetMemoryMappedViewStream())
             {
-                int count = file.Read(bytes, 0, bytes.Length);
+                int count = memoryMappedViewStream.Read(bytes, 0, bytes.Length);
                 FileEncoding = DetectEncoding(bytes, count);
             }
         }
@@ -83,6 +96,16 @@ namespace BookSearcher
             return sjis;
         }
 
+        protected MemoryMappedViewStream GetMemoryMappedViewStream()
+        {
+            return memoryMappedFile.CreateViewStream(0, fileSize, MemoryMappedFileAccess.Read);
+        }
+
+        protected MemoryMappedViewStream GetMemoryMappedViewStream(long start, long size)
+        {
+            return memoryMappedFile.CreateViewStream(start, size, MemoryMappedFileAccess.Read);
+        }
+
         public abstract bool ParseTitle();
 
         public static CSVFile ParseTitle(string path)
@@ -113,6 +136,12 @@ namespace BookSearcher
                     return rakutenBooksFile;
                 }
 
+                CSVYamahaFile yamahaFile = new CSVYamahaFile(path);
+                if (yamahaFile.ParseTitle())
+                {
+                    return yamahaFile;
+                }
+
                 CSVSingleLineFile singleLineFile = new CSVSingleLineFile(path);
                 if (singleLineFile.ParseTitle())
                 {
@@ -134,29 +163,15 @@ namespace BookSearcher
             return null;
         }
 
-        protected void CreateTable()
-        {
-            table.Columns.Add("RowIndex", typeof(int));
-
-            foreach (var title in Titles)
-            {
-                try
-                {
-                    table.Columns.Add(title, typeof(string));
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    Environment.Exit(1);
-                }
-            }
-        }
-
         public void ReadAll(BackgroundWorker backgoundworker)
         {
             Loaded = false;
             this.backgoundworker = backgoundworker;
             backgoundworker.ReportProgress(0);
+
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
+
             CountLines();
 
             try
@@ -168,60 +183,58 @@ namespace BookSearcher
                 MessageBox.Show(ex.Message);
             }
 
+            stopWatch.Stop();
+            Debug.WriteLine($"{Path} - {stopWatch.Elapsed}");
+
             Loaded = true;
+            memoryMappedFile.Dispose();
+            memoryMappedFile = null;
         }
 
         private void CountLines()
         {
             const int size = 10 * 1024 * 1024;
             var bytes = new byte[size];
-            rowCount = 0;
-            using (var file = File.OpenRead(Path))
+            var startOffset = 0L;
+            using (var memoryMappedViewStream = GetMemoryMappedViewStream())
             {
-                while (file.Position < file.Length)
+                while (memoryMappedViewStream.Position < memoryMappedViewStream.Length)
                 {
-                    int count = file.Read(bytes, 0, bytes.Length);
-                    if (count == size)
+                    int count = memoryMappedViewStream.Read(bytes, 0, size);
+                    foreach (var i in Enumerable.Range(0, count).AsParallel())
                     {
-                        rowCount += bytes.Where(b => b == (byte)'\n').Count();
-                    }
-                    else
-                    {
-                        for (int i = 0; i < count; i++)
+                        if (bytes[i] == (byte)'\n')
                         {
-                            if (bytes[i] == (byte)'\n')
-                            {
-                                ++rowCount;
-                            }
+                            lineOffsets.Add(startOffset + i + 1);
                         }
                     }
+                    startOffset += count;
                 }
             }
+
+            rowCount = lineOffsets.Count;
+            LineOffsets = lineOffsets.ToArray();
+            Array.Sort(LineOffsets);
+            MemoryTable = new MemoryTable(Titles, rowCount);
         }
 
         protected abstract void DoReadAll();
 
-        protected void AddTableRow(string[] fields)
+        protected void AddTableRow(int k, string[] fields)
         {
-            if (fields.Length > table.Columns.Count - 1)
-            {
-                return;
-            }
-            var row = table.NewRow();
-            var i = 0;
-            row[i++] = rowIndex++;
-            foreach (var field in fields)
-            {
-                row[i++] = field;
-            }
-            table.Rows.Add(row);
+            MemoryTable.AddRow(k, fields);
 
-            int percent = 100 * rowIndex / rowCount;
+            int percent = 100 * MemoryTable.Count / rowCount;
             if (progressPercent != percent)
             {
                 backgoundworker.ReportProgress(percent);
                 progressPercent = percent;
             }
+        }
+
+        protected void AddTableRow(string[] fields)
+        {
+            AddTableRow(rowIndex++, fields);
         }
     }
 }

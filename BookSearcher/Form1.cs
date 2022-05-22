@@ -250,11 +250,18 @@ namespace BookSearcher
 
         private void BackgroundWorker4_DoWork(object sender, DoWorkEventArgs e)
         {
-            if (searcher != null)
+            try
             {
-                SpaceMatch spaceMatch = RadioButtonSpaceContains.Checked ? SpaceMatch.All : SpaceMatch.Ignore;
-                int prefixLength = (int)NumericUpDownLength.Value;
-                searcher.Search(spaceMatch, prefixLength);
+                if (searcher != null)
+                {
+                    SpaceMatch spaceMatch = RadioButtonSpaceContains.Checked ? SpaceMatch.All : SpaceMatch.Ignore;
+                    int prefixLength = (int)NumericUpDownLength.Value;
+                    searcher.Search(spaceMatch, prefixLength);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 

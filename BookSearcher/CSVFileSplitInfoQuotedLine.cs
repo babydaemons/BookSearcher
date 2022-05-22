@@ -1,18 +1,14 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.VisualBasic.FileIO;
 
 namespace BookSearcher
 {
-    internal abstract class CSVFileSplitInfoSingleLine : CSVFileSplitInfo
+    internal abstract class CSVFileSplitInfoQuotedLine : CSVFileSplitInfo
     {
-        // https://www.ipentec.com/document/csharp-read-csv-file-by-regex
-        protected static readonly Regex RegexDelimiter = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-        protected static readonly Regex RegexSuffix = new Regex("(?<suffix>,+\\s*)$");
-
-        public CSVFileSplitInfoSingleLine(string path) : base(path)
+        public CSVFileSplitInfoQuotedLine(string path) : base(path)
         {
         }
 
@@ -24,12 +20,11 @@ namespace BookSearcher
             }
 
             using (var memoryMappedViewStream = GetMemoryMappedViewStream())
-            using (var reader = new StreamReader(memoryMappedViewStream, FileEncoding))
+            using (var reader = new TextFieldParser(memoryMappedViewStream, FileEncoding))
             {
-                var line = RegexSuffix.Replace(reader.ReadLine(), "");
-                var titles = new List<string>(CSVSingleLineFile.ReadFields(line));
-                line = RegexSuffix.Replace(reader.ReadLine(), "");
-                var fields = new List<string>(CSVSingleLineFile.ReadFields(line));
+                reader.SetDelimiters(",");
+                var titles = new List<string>(reader.ReadFields());
+                var fields = new List<string>(reader.ReadFields());
                 DetectInfoColumn(fields);
                 InsertTitleColums(titles);
                 InsertInfoColumn(fields);
@@ -59,15 +54,19 @@ namespace BookSearcher
             long size = end - start;
             int rowIndex = n * partLines;
             using (var memoryMappedViewStream = GetMemoryMappedViewStream(start, size))
-            using (var reader = new StreamReader(memoryMappedViewStream, FileEncoding))
+            using (var reader = new TextFieldParser(memoryMappedViewStream, FileEncoding))
             {
-                string line;
-                while ((line = reader.ReadLine()) != null)
+                reader.SetDelimiters(",");
+                while (!reader.EndOfData)
                 {
-                    line = RegexSuffix.Replace(line, "");
-                    var fields = new List<string>(CSVSingleLineFile.ReadFields(line));
-                    InsertInfoColumn(fields);
-                    AddTableRow(rowIndex++, fields.ToArray());
+                    var fields = new List<string>(reader.ReadFields());
+                    bool matched = fields.Any(field => { var match = Url.Match(field); return match.Success; });
+                    if (matched)
+                    {
+                        DeleteTailFields(fields);
+                        InsertInfoColumn(fields);
+                        AddTableRow(rowIndex++, fields.ToArray());
+                    }
                 }
             }
         }

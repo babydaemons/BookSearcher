@@ -10,7 +10,8 @@ namespace BookSearcher
 
         public override bool ParseTitle()
         {
-            using (var reader = new TextFieldParser(Path, FileEncoding))
+            using (var memoryMappedViewStream = GetMemoryMappedViewStream())
+            using (var reader = new TextFieldParser(memoryMappedViewStream, FileEncoding))
             {
                 reader.SetDelimiters(",");
                 Titles = reader.ReadFields();
@@ -18,7 +19,6 @@ namespace BookSearcher
                 Fields = reader.ReadFields();
                 if (Fields.Length == Titles.Length)
                 {
-                    CreateTable();
                     return true;
                 }
             }
@@ -27,7 +27,8 @@ namespace BookSearcher
 
         protected override void DoReadAll()
         {
-            using (var reader = new TextFieldParser(Path, FileEncoding))
+            using (var memoryMappedViewStream = GetMemoryMappedViewStream())
+            using (var reader = new TextFieldParser(memoryMappedViewStream, FileEncoding))
             {
                 reader.SetDelimiters(",");
                 _ = reader.ReadFields();

@@ -2,6 +2,7 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace BookSearcher
 {
@@ -17,7 +18,8 @@ namespace BookSearcher
 
         public override bool ParseTitle()
         {
-            using (var reader = new StreamReader(Path, FileEncoding))
+            using (var memoryMappedViewStream = GetMemoryMappedViewStream())
+            using (var reader = new StreamReader(memoryMappedViewStream, FileEncoding))
             {
                 var line = RegexSuffix.Replace(reader.ReadLine(), "");
                 Titles = ReadFields(line);
@@ -26,7 +28,6 @@ namespace BookSearcher
                 Fields = ReadFields(line);
                 if (Fields.Length == Titles.Length)
                 {
-                    CreateTable();
                     return true;
                 }
             }
@@ -35,14 +36,27 @@ namespace BookSearcher
 
         protected override void DoReadAll()
         {
-            using (var reader = new StreamReader(Path, FileEncoding))
+            var N = Environment.ProcessorCount;
+            _ = Parallel.For(0, N, n => DoReadPart(n));
+        }
+
+        private void DoReadPart(int n)
+        {
+            int N = Environment.ProcessorCount;
+            int partLines = LineOffsets.Length / N;
+            long start = LineOffsets[n * partLines];
+            long end = n < N - 1 ? LineOffsets[(n + 1) * partLines] : fileSize;
+            long size = end - start;
+            int rowIndex = n * partLines;
+            using (var memoryMappedViewStream = GetMemoryMappedViewStream(start, size))
+            using (var reader = new StreamReader(memoryMappedViewStream, FileEncoding))
             {
-                var line = reader.ReadLine();
+                string line;
                 while ((line = reader.ReadLine()) != null)
                 {
                     line = RegexSuffix.Replace(line, "");
                     var fields = ReadFields(line);
-                    AddTableRow(fields);
+                    AddTableRow(rowIndex++, fields);
                 }
             }
         }

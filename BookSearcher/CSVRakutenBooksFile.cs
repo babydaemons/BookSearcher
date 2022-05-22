@@ -7,6 +7,7 @@ namespace BookSearcher
     {
         protected override Regex Url => new Regex("https://(product|books).rakuten.co.jp/");
         protected override Regex RegexInfoDelimiter => new Regex(@" ／ ");
+        protected override bool DoDeleteTailFields => false;
         private static readonly Regex RegexISBN = new Regex(@"^(ISBN：|インストアコード：|UPC/JAN：)");
 
         public CSVRakutenBooksFile(string path) : base(path)

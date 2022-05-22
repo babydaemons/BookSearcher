@@ -7,6 +7,7 @@ namespace BookSearcher
     {
         protected override Regex Url => new Regex("https://item.rakuten.co.jp/");
         protected override Regex RegexInfoDelimiter => new Regex(@"\s*/\s*");
+        protected override bool DoDeleteTailFields => false;
         private static readonly Regex RegexUsed = new Regex(@"^【中古】\s*");
         private static readonly Regex RegexBookType = new Regex(@"\s*[\[\(](単行本|新書|ハードカバー|ソフトカバー)[^\]\)]*[\]\)].*");
 
