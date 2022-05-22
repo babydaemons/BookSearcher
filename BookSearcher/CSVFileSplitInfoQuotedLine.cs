@@ -60,7 +60,7 @@ namespace BookSearcher
                 while (!reader.EndOfData)
                 {
                     var fields = new List<string>(reader.ReadFields());
-                    bool matched = fields.Any(field => { var match = Url.Match(field); return match.Success; });
+                    bool matched = fields.Any(field => { var match = Url[0].Match(field); return match.Success; });
                     if (matched)
                     {
                         DeleteTailFields(fields);

@@ -6,7 +6,7 @@ namespace BookSearcher
 {
     internal class CSVYamahaFile : CSVFileSplitInfoQuotedLine
     {
-        protected override Regex Url => new Regex("https://webshop.yamahamusic.jp/domestic/products/");
+        protected override Regex[] Url => new Regex[] { new Regex("https://webshop.yamahamusic.jp/domestic/products/") };
         protected override Regex RegexInfoDelimiter => null;
         protected override bool DoDeleteTailFields => true;
 

@@ -1,13 +1,14 @@
 ﻿using System.IO;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace BookSearcher
 {
     internal abstract class CSVFileSplitInfo : CSVFile
     {
-        const int CHECK_LINES = 10;
-        protected abstract Regex Url { get; }
+        const int CHECK_LINES = 20;
+        protected abstract Regex[] Url { get; }
         protected abstract Regex RegexInfoDelimiter { get; }
         protected abstract bool DoDeleteTailFields { get; }
         protected int infoIndex = -1;
@@ -21,25 +22,35 @@ namespace BookSearcher
 
         protected bool IsMatchUrl()
         {
+            var matched = new bool[Url.Length];
+
             using (var memoryMappedViewStream = GetMemoryMappedViewStream())
             using (var reader = new StreamReader(memoryMappedViewStream, FileEncoding))
             {
                 var line = reader.ReadLine();
-                for (int i = 0; i < CHECK_LINES; i++)
+                for (int k = 0; k < CHECK_LINES; k++)
                 {
                     line = reader.ReadLine();
                     if (line == null)
                     {
                         break;
                     }
-                    var match = Url.Match(line);
-                    if (match.Success)
+
+                    foreach (var i in Enumerable.Range(0, Url.Length))
                     {
-                        return true;
+                        if (matched[i])
+                        { 
+                            continue; 
+                        }
+                        var match = Url[i].Match(line);
+                        if (match.Success)
+                        {
+                            matched[i] = true;
+                        }
                     }
                 }
             }
-            return false;
+            return matched.All(match => match);
         }
 
         protected void DetectInfoColumn(List<string> fields)

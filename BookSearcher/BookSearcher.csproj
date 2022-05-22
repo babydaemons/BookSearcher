@@ -54,7 +54,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>BookSearcher.ico</ApplicationIcon>
+    <ApplicationIcon>App.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
@@ -87,6 +87,7 @@
     <Compile Include="CSVFileSplitInfoQuotedLine.cs" />
     <Compile Include="CSVFileSplitInfoMultiLine.cs" />
     <Compile Include="CSVFileSplitInfoSingleLine.cs" />
+    <Compile Include="CSVHontoWebFile.cs" />
     <Compile Include="CSVYamahaFile.cs" />
     <Compile Include="CSVRakutenBooksFile.cs" />
     <Compile Include="CSVRakutenIchibaFile.cs" />
@@ -141,7 +142,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BookSearcher.ico" />
+    <Content Include="App.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

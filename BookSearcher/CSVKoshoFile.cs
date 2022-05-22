@@ -8,7 +8,7 @@ namespace BookSearcher
     internal class CSVKoshoFile : CSVFileSplitInfoSingleLine
     {
         private readonly CultureInfo culture;
-        protected override Regex Url => new Regex(@"https://www.kosho.or.jp/products/");
+        protected override Regex[] Url => new Regex[] { new Regex(@"https://www.kosho.or.jp/products/") };
         protected override Regex RegexInfoDelimiter => new Regex(@"\s+、");
         protected override bool DoDeleteTailFields => false;
         private static readonly Regex RegexYear = new Regex(@"^(?<year>([1１][9９]|[2２][0０])[0-9０-９][0-9０-９])");
@@ -77,20 +77,6 @@ namespace BookSearcher
                 }
             }
             return "";
-        }
-
-        private static void ConertWideDigits(ref string digits)
-        {
-            digits = digits.Replace("０", "0");
-            digits = digits.Replace("１", "1");
-            digits = digits.Replace("２", "2");
-            digits = digits.Replace("３", "3");
-            digits = digits.Replace("４", "4");
-            digits = digits.Replace("５", "5");
-            digits = digits.Replace("６", "6");
-            digits = digits.Replace("７", "7");
-            digits = digits.Replace("８", "8");
-            digits = digits.Replace("９", "9");
         }
     }
 }

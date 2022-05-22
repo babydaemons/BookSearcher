@@ -5,7 +5,7 @@ namespace BookSearcher
 {
     internal class CSVRakutenIchibaFile : CSVFileSplitInfoSingleLine
     {
-        protected override Regex Url => new Regex("https://item.rakuten.co.jp/");
+        protected override Regex[] Url => new Regex[] { new Regex("https://item.rakuten.co.jp/") };
         protected override Regex RegexInfoDelimiter => new Regex(@"\s*/\s*");
         protected override bool DoDeleteTailFields => false;
         private static readonly Regex RegexUsed = new Regex(@"^【中古】\s*");

@@ -9,6 +9,7 @@ using System.IO.MemoryMappedFiles;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace BookSearcher
 {
@@ -136,6 +137,12 @@ namespace BookSearcher
                     return rakutenBooksFile;
                 }
 
+                CSVHontoWebFile hontoWebFile = new CSVHontoWebFile(path);
+                if (hontoWebFile.ParseTitle())
+                {
+                    return hontoWebFile;
+                }
+
                 CSVYamahaFile yamahaFile = new CSVYamahaFile(path);
                 if (yamahaFile.ParseTitle())
                 {
@@ -235,6 +242,32 @@ namespace BookSearcher
         protected void AddTableRow(string[] fields)
         {
             AddTableRow(rowIndex++, fields);
+        }
+
+        protected static void ConertWideDigits(ref string digits)
+        {
+            digits = digits.Replace("０", "0");
+            digits = digits.Replace("１", "1");
+            digits = digits.Replace("２", "2");
+            digits = digits.Replace("３", "3");
+            digits = digits.Replace("４", "4");
+            digits = digits.Replace("５", "5");
+            digits = digits.Replace("６", "6");
+            digits = digits.Replace("７", "7");
+            digits = digits.Replace("８", "8");
+            digits = digits.Replace("９", "9");
+        }
+
+        protected static string MatchedValue(Regex regex, string[] infos)
+        {
+            foreach (var info in infos)
+            {
+                if (regex.Match(info).Success)
+                {
+                    return regex.Replace(info, "");
+                }
+            }
+            return "";
         }
     }
 }
