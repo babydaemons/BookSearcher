@@ -37,37 +37,26 @@ namespace BookSearcher
         protected override void DoReadAll()
         {
             var N = Environment.ProcessorCount;
-            var M = 4096;
-            var linesCount = N * M;
-            var lines = new string[linesCount];
-            using (var memoryMappedViewStream = GetMemoryMappedViewStream())
+            _ = Parallel.For(0, N, n => DoReadPart(n));
+        }
+
+        private void DoReadPart(int n)
+        {
+            int N = Environment.ProcessorCount;
+            int partLines = LineOffsets.Length / N;
+            long start = LineOffsets[n * partLines];
+            long end = n < N - 1 ? LineOffsets[(n + 1) * partLines] : fileSize;
+            long size = end - start;
+            int rowIndex = n * partLines;
+            using (var memoryMappedViewStream = GetMemoryMappedViewStream(start, size))
             using (var reader = new StreamReader(memoryMappedViewStream, FileEncoding))
             {
-                var line = reader.ReadLine();
-                var iteration = 0;
-                while (!reader.EndOfStream)
+                string line;
+                while ((line = reader.ReadLine()) != null)
                 {
-                    var count = 0;
-                    while ((lines[count] = reader.ReadLine()) != null && count < N)
-                    {
-                        count++;
-                    }
-                    _ = Parallel.For(0, N, n =>
-                    {
-                        for (int i = 0; i < M; ++i)
-                        {
-                            var k = n * M + i;
-                            var rowIndex = iteration * linesCount + k;
-                            if (k >= count)
-                            {
-                                break;
-                            }
-                            lines[k] = RegexSuffix.Replace(lines[k], "");
-                            var fields = ReadFields(lines[k]);
-                            AddTableRow(rowIndex, fields);
-                        }
-                    });
-                    ++iteration;
+                    line = RegexSuffix.Replace(line, "");
+                    var fields = ReadFields(line);
+                    AddTableRow(rowIndex++, fields);
                 }
             }
         }

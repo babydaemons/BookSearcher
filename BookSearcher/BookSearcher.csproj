@@ -84,8 +84,10 @@
     <Compile Include="BookSearcher15.cs" />
     <Compile Include="BookSearcher14.cs" />
     <Compile Include="CSVFileSplitInfo.cs" />
+    <Compile Include="CSVFileSplitInfoQuotedLine.cs" />
     <Compile Include="CSVFileSplitInfoMultiLine.cs" />
     <Compile Include="CSVFileSplitInfoSingleLine.cs" />
+    <Compile Include="CSVYamahaFile.cs" />
     <Compile Include="CSVRakutenBooksFile.cs" />
     <Compile Include="CSVRakutenIchibaFile.cs" />
     <Compile Include="CSVKoshoFile.cs" />

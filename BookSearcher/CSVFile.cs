@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
@@ -14,8 +15,10 @@ namespace BookSearcher
     public abstract class CSVFile
     {
         private readonly FileStream fileStream;
-        private readonly long fileSize;
+        protected readonly long fileSize;
         private MemoryMappedFile memoryMappedFile;
+        protected readonly ConcurrentBag<long> lineOffsets = new ConcurrentBag<long>();
+        protected long[] LineOffsets { get; private set; }
 
         public MemoryTable MemoryTable { get; private set; }
         public string Path { get; }
@@ -97,7 +100,12 @@ namespace BookSearcher
         {
             return memoryMappedFile.CreateViewStream(0, fileSize, MemoryMappedFileAccess.Read);
         }
- 
+
+        protected MemoryMappedViewStream GetMemoryMappedViewStream(long start, long size)
+        {
+            return memoryMappedFile.CreateViewStream(start, size, MemoryMappedFileAccess.Read);
+        }
+
         public abstract bool ParseTitle();
 
         public static CSVFile ParseTitle(string path)
@@ -126,6 +134,12 @@ namespace BookSearcher
                 if (rakutenBooksFile.ParseTitle())
                 {
                     return rakutenBooksFile;
+                }
+
+                CSVYamahaFile yamahaFile = new CSVYamahaFile(path);
+                if (yamahaFile.ParseTitle())
+                {
+                    return yamahaFile;
                 }
 
                 CSVSingleLineFile singleLineFile = new CSVSingleLineFile(path);
@@ -181,29 +195,26 @@ namespace BookSearcher
         {
             const int size = 10 * 1024 * 1024;
             var bytes = new byte[size];
-            rowCount = 0;
+            var startOffset = 0L;
             using (var memoryMappedViewStream = GetMemoryMappedViewStream())
             {
                 while (memoryMappedViewStream.Position < memoryMappedViewStream.Length)
                 {
                     int count = memoryMappedViewStream.Read(bytes, 0, size);
-                    if (count == size)
+                    foreach (var i in Enumerable.Range(0, count).AsParallel())
                     {
-                        rowCount += bytes.AsParallel().Where(b => b == (byte)'\n').Count();
-                    }
-                    else
-                    {
-                        foreach (var i in Enumerable.Range(0, count).AsParallel())
+                        if (bytes[i] == (byte)'\n')
                         {
-                            if (bytes[i] == (byte)'\n')
-                            {
-                                ++rowCount;
-                            }
+                            lineOffsets.Add(startOffset + i + 1);
                         }
                     }
+                    startOffset += count;
                 }
             }
 
+            rowCount = lineOffsets.Count;
+            LineOffsets = lineOffsets.ToArray();
+            Array.Sort(LineOffsets);
             MemoryTable = new MemoryTable(Titles, rowCount);
         }
 
