@@ -14,6 +14,9 @@ namespace BookSearcher
         private BookSearcher searcher = null;
         private string searchTypeName = "";
         private string folderPath = "";
+        private SpaceMatch spaceMatch;
+        private int prefixLength;
+        private bool searchInitFailed = false;
 
         public Form1()
         {
@@ -270,6 +273,9 @@ namespace BookSearcher
                 return;
             }
 
+            spaceMatch = RadioButtonSpaceContains.Checked ? SpaceMatch.All : SpaceMatch.Ignore;
+            prefixLength = (int)NumericUpDownLength.Value;
+
             start = DateTime.Now;
             SetSearchControlsEnabled(false);
             Timer1.Enabled = true;
@@ -282,44 +288,46 @@ namespace BookSearcher
             searchTypeName = "";
             try
             {
+                BookSearcher.InitSearchSettings(BookCSV, ScrapingCSV, spaceMatch, prefixLength);
+
                 if (RadioButtonSearchType01.Checked)
                 {
-                    searcher = new BookSearcher01(BookCSV, ScrapingCSV);
+                    searcher = new BookSearcher01();
                     searchTypeName = RadioButtonSearchType01.Text;
                 }
                 if (RadioButtonSearchType02.Checked)
                 {
-                    searcher = new BookSearcher02(BookCSV, ScrapingCSV);
+                    searcher = new BookSearcher02();
                     searchTypeName = RadioButtonSearchType02.Text;
                 }
                 if (RadioButtonSearchType03.Checked)
                 {
-                    searcher = new BookSearcher03(BookCSV, ScrapingCSV);
+                    searcher = new BookSearcher03();
                     searchTypeName = RadioButtonSearchType03.Text;
                 }
                 if (RadioButtonSearchType04.Checked)
                 {
-                    searcher = new BookSearcher04(BookCSV, ScrapingCSV);
+                    searcher = new BookSearcher04();
                     searchTypeName = RadioButtonSearchType04.Text;
                 }
                 if (RadioButtonSearchType05.Checked)
                 {
-                    searcher = new BookSearcher05(BookCSV, ScrapingCSV);
+                    searcher = new BookSearcher05();
                     searchTypeName = RadioButtonSearchType05.Text;
                 }
                 if (RadioButtonSearchType06.Checked)
                 {
-                    searcher = new BookSearcher06(BookCSV, ScrapingCSV);
+                    searcher = new BookSearcher06();
                     searchTypeName = RadioButtonSearchType06.Text;
                 }
                 if (RadioButtonSearchType07.Checked)
                 {
-                    searcher = new BookSearcher07(BookCSV, ScrapingCSV);
+                    searcher = new BookSearcher07();
                     searchTypeName = RadioButtonSearchType07.Text;
                 }
                 if (RadioButtonSearchType08.Checked)
                 {
-                    searcher = new BookSearcher08(BookCSV, ScrapingCSV);
+                    searcher = new BookSearcher08();
                     searchTypeName = RadioButtonSearchType08.Text;
                 }
                 if (RadioButtonSearchType09.Checked)
@@ -340,17 +348,17 @@ namespace BookSearcher
                 }
                 if (RadioButtonSearchType13.Checked)
                 {
-                    searcher = new BookSearcher13(BookCSV, ScrapingCSV);
+                    searcher = new BookSearcher13();
                     searchTypeName = RadioButtonSearchType13.Text;
                 }
                 if (RadioButtonSearchType14.Checked)
                 {
-                    searcher = new BookSearcher14(BookCSV, ScrapingCSV);
+                    searcher = new BookSearcher14();
                     searchTypeName = RadioButtonSearchType14.Text;
                 }
                 if (RadioButtonSearchType15.Checked)
                 {
-                    searcher = new BookSearcher15(BookCSV, ScrapingCSV);
+                    searcher = new BookSearcher15();
                     searchTypeName = RadioButtonSearchType15.Text;
                 }
                 if (RadioButtonSearchType16.Checked)
@@ -382,27 +390,30 @@ namespace BookSearcher
             {
                 if (searcher != null)
                 {
-                    SpaceMatch spaceMatch = RadioButtonSpaceContains.Checked ? SpaceMatch.All : SpaceMatch.Ignore;
-                    int prefixLength = (int)NumericUpDownLength.Value;
-                    searcher.Search(spaceMatch, prefixLength);
+                    searcher.Search();
+                    searchInitFailed = false;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                searchInitFailed = true;
             }
         }
 
         private void BackgroundWorker4_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            finish = DateTime.Now;
-            var time = finish - start;
-            MessageBox.Show(time.ToString());
-            SetSearchControlsEnabled(true);
-            Timer1.Enabled = false;
+            if (!searchInitFailed)
+            {
+                finish = DateTime.Now;
+                var time = finish - start;
+                Timer1.Enabled = false;
+                MessageBox.Show(time.ToString());
 
-            var form = new Form2(BookSearcher.ResultTable, searchTypeName);
-            form.ShowDialog();
+                var form = new Form2(BookSearcher.ResultTable, searchTypeName);
+                form.ShowDialog();
+            }
+            SetSearchControlsEnabled(true);
         }
 
         private void Timer1_Tick(object sender, EventArgs e)

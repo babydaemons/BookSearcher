@@ -66,9 +66,10 @@ namespace BookSearcher
 
     internal abstract class BookSearcher
     {
-        private readonly CSVFile bookCSV;
-        private readonly CSVFile scrapingCSV;
-        private int prefixLength;
+        protected static CSVFile BookCSV;
+        protected static CSVFile ScrapingCSV;
+        protected static SpaceMatch SpaceMatch;
+        protected static int PrefixLength;
         private static readonly string[] columnTypeNames = new string[] { "", "書籍名", "著者名", "出版社名", "出版年", "ISBN", "URL" };
         private static DataTable resultTable = new DataTable();
         public static DataTable ResultTable => resultTable;
@@ -92,6 +93,14 @@ namespace BookSearcher
             return SelectColumnIndex(ScrapingColumnSetting, columnType);
         }
 
+        public static void InitSearchSettings(CSVFile bookCSV, CSVFile scrapingCSV, SpaceMatch spaceMatch, int prefixLength)
+        {
+            BookCSV = bookCSV;
+            ScrapingCSV = scrapingCSV;
+            SpaceMatch = spaceMatch;
+            PrefixLength = prefixLength;
+        }
+
         private static int SelectColumnIndex(DataGridView columnSetting, ColumnType columnType)
         {
             var columnTypeName = columnTypeNames[(int)columnType];
@@ -108,19 +117,16 @@ namespace BookSearcher
             throw new Exception($"「{tableName}」の「{columnTypeName}」が選択されていません。");
         }
 
-        protected BookSearcher(CSVFile bookCSV, CSVFile scrapingCSV)
+        protected BookSearcher()
         {
-            this.bookCSV = bookCSV;
-            this.scrapingCSV = scrapingCSV;
         }
 
-        public abstract void Search(SpaceMatch spaceMatch, int prefixLength);
+        public abstract void Search();
 
-        protected void Search(ColumnInfo columnInfo, int prefixLength)
+        protected void Search(ColumnInfo columnInfo)
         {
-            this.prefixLength = prefixLength;
-            var bookValues = CreateColumnList(bookCSV.MemoryTable, columnInfo, true);
-            var scrapingValues = CreateColumnList(scrapingCSV.MemoryTable, columnInfo, false);
+            var bookValues = CreateColumnList(BookCSV.MemoryTable, columnInfo, true);
+            var scrapingValues = CreateColumnList(ScrapingCSV.MemoryTable, columnInfo, false);
             var results = from bookRow in bookValues
                           join scrapingRow in scrapingValues
                           on bookRow.Value equals scrapingRow.Value
@@ -134,11 +140,10 @@ namespace BookSearcher
             SaveTable(resultRows);
         }
 
-        protected void Search(ColumnInfo columnInfo1, ColumnInfo columnInfo2, int prefixLength)
+        protected void Search(ColumnInfo columnInfo1, ColumnInfo columnInfo2)
         {
-            this.prefixLength = prefixLength;
-            var bookValues = CreateColumnList(bookCSV.MemoryTable, columnInfo1, columnInfo2, true);
-            var scrapingValues = CreateColumnList(scrapingCSV.MemoryTable, columnInfo1, columnInfo2, false);
+            var bookValues = CreateColumnList(BookCSV.MemoryTable, columnInfo1, columnInfo2, true);
+            var scrapingValues = CreateColumnList(ScrapingCSV.MemoryTable, columnInfo1, columnInfo2, false);
             var results = from bookRow in bookValues
                           join scrapingRow in scrapingValues
                           on new { bookRow.Value1, bookRow.Value2 } equals new { scrapingRow.Value1, scrapingRow.Value2 }
@@ -154,8 +159,8 @@ namespace BookSearcher
 
         protected void SearchPartial1(ColumnInfo columnPartial, ColumnInfo columnComplete)
         {
-            var bookValues = CreateColumnList(bookCSV.MemoryTable, columnPartial, columnComplete, true);
-            var scrapingValues = CreateColumnList(scrapingCSV.MemoryTable, columnPartial, columnComplete, false);
+            var bookValues = CreateColumnList(BookCSV.MemoryTable, columnPartial, columnComplete, true);
+            var scrapingValues = CreateColumnList(ScrapingCSV.MemoryTable, columnPartial, columnComplete, false);
             var results = from bookRow in bookValues
                           join scrapingRow in scrapingValues
                           on new ValuePairPartial1 { Value1 = bookRow.Value2, Value2 = bookRow.Value1 } equals new ValuePairPartial1 { Value1 = scrapingRow.Value2, Value2 = scrapingRow.Value1 }
@@ -243,11 +248,11 @@ namespace BookSearcher
         private void SaveTable(List<RowIndexPair> resultRows)
         {
             resultTable = new DataTable();
-            foreach (var column in bookCSV.Titles)
+            foreach (var column in BookCSV.Titles)
             {
                 resultTable.Columns.Add("データベースファイル\n" + column);
             }
-            foreach (var column in scrapingCSV.Titles)
+            foreach (var column in ScrapingCSV.Titles)
             {
                 resultTable.Columns.Add("スクレイピングデータファイル\n" + column);
             }
@@ -256,13 +261,13 @@ namespace BookSearcher
             {
                 var row = resultTable.NewRow();
                 int i = 0;
-                foreach (var columnIndex in Enumerable.Range(0, bookCSV.MemoryTable.ColumnCount))
+                foreach (var columnIndex in Enumerable.Range(0, BookCSV.MemoryTable.ColumnCount))
                 {
-                    row[i++] = bookCSV.MemoryTable[resultRow.BookRowIndex][columnIndex];
+                    row[i++] = BookCSV.MemoryTable[resultRow.BookRowIndex][columnIndex];
                 }
-                foreach (var columnIndex in Enumerable.Range(0, scrapingCSV.MemoryTable.ColumnCount))
+                foreach (var columnIndex in Enumerable.Range(0, ScrapingCSV.MemoryTable.ColumnCount))
                 {
-                    row[i++] = scrapingCSV.MemoryTable[resultRow.ScrapingRowIndex][columnIndex];
+                    row[i++] = ScrapingCSV.MemoryTable[resultRow.ScrapingRowIndex][columnIndex];
                 }
                 resultTable.Rows.Add(row);
             }
@@ -280,13 +285,13 @@ namespace BookSearcher
 
         private string ConvertExtractPrefix(string value)
         {
-            return value.Length > prefixLength ? value.Substring(0, prefixLength) : value;
+            return value.Length > PrefixLength ? value.Substring(0, PrefixLength) : value;
         }
 
         private string ConvertRemoveSpaceExtractPrefix(string value)
         {
             value = value.Replace(" ", "").Replace("　", "");
-            return value.Length > prefixLength ? value.Substring(0, prefixLength) : value;
+            return value.Length > PrefixLength ? value.Substring(0, PrefixLength) : value;
         }
     }
 }

@@ -2,14 +2,15 @@
 {
     internal class BookSearcher13 : BookSearcher
     {
-        public BookSearcher13(CSVFile bookCSV, CSVFile scrapingCSV) : base(bookCSV, scrapingCSV)
+        private readonly ColumnInfo URL = new ColumnInfo(MatchType.CompleteMatch, SpaceMatch.Ignore, ColumnType.URL);
+
+        public BookSearcher13() : base()
         {
         }
 
-        public override void Search(SpaceMatch spaceMatch, int prefixLength)
+        public override void Search()
         {
-            var URL = new ColumnInfo(MatchType.CompleteMatch, SpaceMatch.Ignore, ColumnType.URL);
-            Search(URL, prefixLength);
+            Search(URL);
         }
     }
 }
