@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
@@ -14,11 +13,39 @@ namespace BookSearcher
         private DateTime finish;
         private BookSearcher searcher = null;
         private string searchTypeName = "";
+        private string folderPath = "";
 
         public Form1()
         {
             InitializeComponent();
             BookSearcher.InitColumnSettings(BookColumnSetting, ScrapingColumnSetting);
+
+            DataGridViewOutputPattern1.Rows.Add(new object[] { "商品管理番号(真ん中2文字)", "sku", "" });
+            DataGridViewOutputPattern1.Rows.Add(new object[] { "商品コードのタイプ", "product-id-type", "" });
+            DataGridViewOutputPattern1.Rows.Add(new object[] { "配送パターン", "merchant_shipping_group_name", "" });
+            DataGridViewOutputPattern1.Rows.Add(new object[] { "ポイントパーセント", "standard-price-points-percent", "" });
+            DataGridViewOutputPattern1.Rows.Add(new object[] { "商品のコンディション", "item-condition", "" });
+            DataGridViewOutputPattern1.Rows.Add(new object[] { "在庫数", "quantity", "" });
+            DataGridViewOutputPattern1.Rows.Add(new object[] { "商品メモ", "item-note", "" });
+
+            DataGridViewOutputPattern2.Rows.Add(new object[] { "商品管理番号(真ん中2文字)", "sku", "" });
+            DataGridViewOutputPattern2.Rows.Add(new object[] { "商品コードのタイプ", "product-id-type", "" });
+            DataGridViewOutputPattern2.Rows.Add(new object[] { "配送パターン", "merchant_shipping_group_name", "" });
+            DataGridViewOutputPattern2.Rows.Add(new object[] { "ポイントパーセント", "standard-price-points-percent", "" });
+            DataGridViewOutputPattern2.Rows.Add(new object[] { "商品のコンディション", "item-condition", "" });
+            DataGridViewOutputPattern2.Rows.Add(new object[] { "在庫数", "quantity", "" });
+            DataGridViewOutputPattern2.Rows.Add(new object[] { "商品メモ", "item-note", "" });
+
+            DataGridViewCommonOutput1.Rows.Add(new object[] { "商品管理番号(真ん中2文字)", "sku", "" });
+            DataGridViewCommonOutput1.Rows.Add(new object[] { "数量", "quantity", "" });
+            DataGridViewCommonOutput1.Rows.Add(new object[] { "リードタイム", "leadtime", "" });
+            DataGridViewCommonOutput1.Rows.Add(new object[] { "自動価格モードID", "autoprice_template_mode", "" });
+            DataGridViewCommonOutput1.Rows.Add(new object[] { "自動価格テンプレートID", "autoprice_template_id", "" });
+            DataGridViewCommonOutput1.Rows.Add(new object[] { "下限ストッパー", "autoprice_stopper", "" });
+            DataGridViewCommonOutput1.Rows.Add(new object[] { "上限ストッパー", "autoprice_stopper_upper", "" });
+
+            DataGridViewCommonOutput2.Rows.Add(new object[] { "商品管理番号(真ん中2文字)", "sku", "" });
+            DataGridViewCommonOutput2.Rows.Add(new object[] { "登録/削除", "add-delete", "" });
         }
 
         private void ButtonInput1_Click(object sender, EventArgs e)
@@ -109,8 +136,8 @@ namespace BookSearcher
         private void RadioButtonFileType_CheckedChanged(object sender, EventArgs e)
         {
             string fileType = RadioButtonFileTypeCSV1.Checked ? "出力CSVファイル(パターン1)" : "出力CSVファイル(パターン2)";
-            TextBoxOutputExcel.Text = TextBoxOutputCSV.Text = TextBoxOutputCSV1.Text = "";
             LabelOutputCSV.Text = fileType;
+            SetOutputFileNames();
         }
 
         private void ButtonOutput1_Click(object sender, EventArgs e)
@@ -124,14 +151,117 @@ namespace BookSearcher
             };
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                var folderName = Path.GetDirectoryName(dialog.FileName);
-                var fileName = Path.GetFileName(folderName);
-                TextBoxOutputExcel.Text = $"{folderName}\\{fileName}.xlsx";
-                TextBoxOutputCSV.Text = RadioButtonFileTypeCSV1.Checked ? $"{folderName}\\{fileName}_パターン1.csv" : $"{folderName}\\{fileName}_パターン2.csv";
-                TextBoxOutputCSV1.Text = $"{folderName}\\{fileName}_共通出力1.csv";
-                TextBoxOutputCSV2.Text = $"{folderName}\\{fileName}_共通出力2.csv";
+                folderPath = dialog.FileName;
+                SetOutputFileNames();
             }
         }
+
+        private void RadioButtonSearchType_CheckedChanged(object sender, EventArgs e) => SetOutputFileNames();
+
+        private void SetOutputFileNames()
+        {
+            if (folderPath == null || folderPath == "")
+            {
+                return;
+            }
+            var folderName = Path.GetDirectoryName(folderPath);
+            var fileName = Path.GetFileName(folderName);
+            var matchingPatternName = GetMatchingPatternName();
+            TextBoxOutputExcel.Text = $"{folderName}\\{fileName}_{matchingPatternName}.xlsx";
+            TextBoxOutputCSV.Text = RadioButtonFileTypeCSV1.Checked ? $"{folderName}\\{fileName}_{matchingPatternName}_パターン1.csv" : $"{folderName}\\{fileName}_{matchingPatternName}_パターン2.csv";
+            TextBoxOutputCSV1.Text = $"{folderName}\\{fileName}_{matchingPatternName}_共通出力1.csv";
+            TextBoxOutputCSV2.Text = $"{folderName}\\{fileName}_{matchingPatternName}_共通出力2.csv";
+            SetExecuteControlsEnabled();
+        }
+
+        private string GetMatchingPatternName()
+        {
+            var matchingPatternName = "";
+            try
+            {
+                if (RadioButtonSearchType01.Checked)
+                {
+                    matchingPatternName = RadioButtonSearchType01.Text;
+                }
+                if (RadioButtonSearchType02.Checked)
+                {
+                    matchingPatternName = RadioButtonSearchType02.Text;
+                }
+                if (RadioButtonSearchType03.Checked)
+                {
+                    matchingPatternName = RadioButtonSearchType03.Text;
+                }
+                if (RadioButtonSearchType04.Checked)
+                {
+                    matchingPatternName = RadioButtonSearchType04.Text;
+                }
+                if (RadioButtonSearchType05.Checked)
+                {
+                    matchingPatternName = RadioButtonSearchType05.Text;
+                }
+                if (RadioButtonSearchType06.Checked)
+                {
+                    matchingPatternName = RadioButtonSearchType06.Text;
+                }
+                if (RadioButtonSearchType07.Checked)
+                {
+                    matchingPatternName = RadioButtonSearchType07.Text;
+                }
+                if (RadioButtonSearchType08.Checked)
+                {
+                    matchingPatternName = RadioButtonSearchType08.Text;
+                }
+                if (RadioButtonSearchType09.Checked)
+                {
+                    matchingPatternName = RadioButtonSearchType09.Text;
+                }
+                if (RadioButtonSearchType10.Checked)
+                {
+                    matchingPatternName = RadioButtonSearchType10.Text;
+                }
+                if (RadioButtonSearchType11.Checked)
+                {
+                    matchingPatternName = RadioButtonSearchType11.Text;
+                }
+                if (RadioButtonSearchType12.Checked)
+                {
+                    matchingPatternName = RadioButtonSearchType12.Text;
+                }
+                if (RadioButtonSearchType13.Checked)
+                {
+                    matchingPatternName = RadioButtonSearchType13.Text;
+                }
+                if (RadioButtonSearchType14.Checked)
+                {
+                    matchingPatternName = RadioButtonSearchType14.Text;
+                }
+                if (RadioButtonSearchType15.Checked)
+                {
+                    matchingPatternName = RadioButtonSearchType15.Text;
+                }
+                if (RadioButtonSearchType16.Checked)
+                {
+                    matchingPatternName = RadioButtonSearchType16.Text;
+                }
+                if (RadioButtonSearchType17.Checked)
+                {
+                    matchingPatternName = RadioButtonSearchType17.Text;
+                }
+                else if (matchingPatternName == "")
+                {
+                    MessageBox.Show("未サポートの検索パターンです。\n" + matchingPatternName);
+                    return "未サポート";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return "未サポート";
+            }
+
+            return "照合パターン" + matchingPatternName.Substring(0, 1);
+        }
+
 
         private void ButtonExecute_Click(object sender, EventArgs e)
         {
@@ -142,8 +272,6 @@ namespace BookSearcher
 
             start = DateTime.Now;
             SetSearchControlsEnabled(false);
-            ToolStripStatusLabel1.Text = "00:00:00";
-            ToolStripStatusLabel2.Text = "検索処理を実行中です．．．";
             Timer1.Enabled = true;
             BackgroundWorker4.RunWorkerAsync();
         }
@@ -272,8 +400,6 @@ namespace BookSearcher
             MessageBox.Show(time.ToString());
             SetSearchControlsEnabled(true);
             Timer1.Enabled = false;
-            ToolStripStatusLabel1.Text = time.ToString(@"hh\:mm\:ss");
-            ToolStripStatusLabel2.Text = "検索処理が完了しました．";
 
             var form = new Form2(BookSearcher.ResultTable, searchTypeName);
             form.ShowDialog();
@@ -285,33 +411,25 @@ namespace BookSearcher
 
         private void SetExecuteControlsEnabled()
         {
-            bool enabled = (BookCSV != null && BookCSV.Loaded) && (ScrapingCSV != null && ScrapingCSV.Loaded);
+            bool enabled = (BookCSV != null && BookCSV.Loaded) && (ScrapingCSV != null && ScrapingCSV.Loaded) &&
+                            TextBoxInput1.Text.Length > 0 && TextBoxInput2.Text.Length > 0 &&
+                            TextBoxOutputExcel.Text.Length > 0 && TextBoxOutputCSV.Text.Length > 0 && TextBoxOutputCSV1.Text.Length > 0 && TextBoxOutputCSV2.Text.Length > 0;
             SetExecuteControlsEnabled(enabled);
         }
-        private void SetExecuteControlsEnabled(bool enabled)
-        {
-            GroupBoxExecute.Enabled = ButtonExecute.Enabled = enabled;
-        }
+
+        private void SetExecuteControlsEnabled(bool enabled) => GroupBoxExecute.Enabled = ButtonExecute.Enabled = enabled;
+
+        private void TextBoxFileName_TextChanged(object sender, EventArgs e) => SetExecuteControlsEnabled();
+
 
         private void SetSearchControlsEnabled(bool enabled)
         {
-            GroupBoxFiles.Enabled = GroupBoxOutput.Enabled = GroupBoxPartMatch.Enabled = GroupBoxMatchType.Enabled = GroupBoxExecute.Enabled = enabled;
+            GroupBoxFiles.Enabled = GroupBoxOutput.Enabled = GroupBoxPartMatch.Enabled = GroupBoxExecute.Enabled = enabled;
             BookColumnSetting.Enabled = ScrapingColumnSetting.Enabled = enabled;
         }
 
-        private void RadioButtonSearchType_CheckedChanged(object sender, EventArgs e)
-        {
+        private void BackgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e) => ProgressBarInput1.Value = e.ProgressPercentage;
 
-        }
-
-        private void BackgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            ProgressBarInput1.Value = e.ProgressPercentage;
-        }
-
-        private void BackgroundWorker2_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            ProgressBarInput2.Value = e.ProgressPercentage;
-        }
+        private void BackgroundWorker2_ProgressChanged(object sender, ProgressChangedEventArgs e) => ProgressBarInput2.Value = e.ProgressPercentage;
     }
 }
