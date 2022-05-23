@@ -7,7 +7,7 @@ using System.Windows.Forms;
 namespace BookSearcher
 {
     enum ColumnIndex { Name, Value, Type };
-    enum ColumnType { None, BookTitle, Author, Publisher, Year, ISBN, URL };
+    enum ColumnType { None, BookTitle, Author, Publisher, Year, ISBN, URL, Price };
     enum MatchType { CompleteMatch, BeginningMatch, PartialMatch };
     enum SpaceMatch { All, Ignore };
 
@@ -70,7 +70,7 @@ namespace BookSearcher
         protected static CSVFile ScrapingCSV;
         protected static SpaceMatch SpaceMatch;
         protected static int PrefixLength;
-        private static readonly string[] columnTypeNames = new string[] { "", "書籍名", "著者名", "出版社名", "出版年", "ISBN", "URL" };
+        private static readonly string[] columnTypeNames = new string[] { "", "書籍名", "著者名", "出版社名", "出版年", "ISBN", "URL", "価格" };
         private static DataTable resultTable = new DataTable();
         public static DataTable ResultTable => resultTable;
         private delegate string ConvertValue(string value);

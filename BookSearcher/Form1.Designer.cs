@@ -549,7 +549,7 @@
             this.BookColumnSetting.RowTemplate.Height = 21;
             this.BookColumnSetting.Size = new System.Drawing.Size(504, 462);
             this.BookColumnSetting.TabIndex = 1;
-            this.BookColumnSetting.Tag = "書籍データベースカラム";
+            this.BookColumnSetting.Tag = "書籍データベース列指定";
             // 
             // BookColumnName
             // 
@@ -603,7 +603,7 @@
             this.TabPageScrapingColumn.Padding = new System.Windows.Forms.Padding(3);
             this.TabPageScrapingColumn.Size = new System.Drawing.Size(510, 491);
             this.TabPageScrapingColumn.TabIndex = 1;
-            this.TabPageScrapingColumn.Text = "スクレイピング列指定";
+            this.TabPageScrapingColumn.Text = "スクレイピングデータ列指定";
             // 
             // ScrapingColumnSetting
             // 
@@ -620,7 +620,7 @@
             this.ScrapingColumnSetting.RowTemplate.Height = 21;
             this.ScrapingColumnSetting.Size = new System.Drawing.Size(504, 462);
             this.ScrapingColumnSetting.TabIndex = 2;
-            this.ScrapingColumnSetting.Tag = "スクレイピングデータカラム";
+            this.ScrapingColumnSetting.Tag = "スクレイピングデータ列指定";
             // 
             // ScrapingColumnName
             // 
