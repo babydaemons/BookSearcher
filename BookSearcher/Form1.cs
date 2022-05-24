@@ -60,18 +60,22 @@ namespace BookSearcher
             };
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                TextBoxInput1.Text = dialog.FileName;
-                BookCSV = CSVFile.ParseTitle(TextBoxInput1.Text);
+                var path = dialog.FileName;
+                BookCSV = CSVFile.ParseTitle(path);
                 BookColumnSetting.Rows.Clear();
-                for (int i = 0; i < BookCSV.Titles.Length; ++i)
+                if (BookCSV != null)
                 {
-                    BookColumnSetting.Rows.Add(new object[] { BookCSV.Titles[i], BookCSV.Fields[i], "" });
-                }
-                if (BookCSV.Titles.Length > 0)
-                {
-                    LabelInput1.Enabled = TextBoxInput1.Enabled = ButtonInput1.Enabled = ButtonPreviewDatabase.Enabled = false;
-                    SetExecuteControlsEnabled(false);
-                    BackgroundWorker1.RunWorkerAsync();
+                    for (int i = 0; i < BookCSV.Titles.Length; ++i)
+                    {
+                        BookColumnSetting.Rows.Add(new object[] { BookCSV.Titles[i], BookCSV.Fields[i], "" });
+                    }
+                    if (BookCSV.Titles.Length > 0)
+                    {
+                        LabelInput1.Enabled = TextBoxInput1.Enabled = ButtonInput1.Enabled = ButtonPreviewDatabase.Enabled = false;
+                        SetExecuteControlsEnabled(false);
+                        BackgroundWorker1.RunWorkerAsync();
+                    }
+                    TextBoxInput1.Text = path;
                 }
             }
         }
@@ -97,18 +101,22 @@ namespace BookSearcher
             };
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                TextBoxInput2.Text = dialog.FileName;
-                ScrapingCSV = CSVFile.ParseTitle(TextBoxInput2.Text);
+                var path = dialog.FileName;
+                ScrapingCSV = CSVFile.ParseTitle(path);
                 ScrapingColumnSetting.Rows.Clear();
-                for (int i = 0; i < ScrapingCSV.Titles.Length; ++i)
+                if (ScrapingCSV != null)
                 {
-                    ScrapingColumnSetting.Rows.Add(new object[] { ScrapingCSV.Titles[i], ScrapingCSV.Fields[i], "" });
-                }
-                if (ScrapingCSV.Titles.Length > 0)
-                {
-                    LabelInput2.Enabled = TextBoxInput2.Enabled = ButtonInput2.Enabled = ButtonPreviewScraping.Enabled = false;
-                    SetExecuteControlsEnabled(false);
-                    BackgroundWorker2.RunWorkerAsync();
+                    for (int i = 0; i < ScrapingCSV.Titles.Length; ++i)
+                    {
+                        ScrapingColumnSetting.Rows.Add(new object[] { ScrapingCSV.Titles[i], ScrapingCSV.Fields[i], "" });
+                    }
+                    if (ScrapingCSV.Titles.Length > 0)
+                    {
+                        LabelInput2.Enabled = TextBoxInput2.Enabled = ButtonInput2.Enabled = ButtonPreviewScraping.Enabled = false;
+                        SetExecuteControlsEnabled(false);
+                        BackgroundWorker2.RunWorkerAsync();
+                    }
+                    TextBoxInput2.Text = path;
                 }
             }
         }
