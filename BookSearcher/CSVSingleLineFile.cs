@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -72,6 +71,7 @@ namespace BookSearcher
                     fields[i] = fields[i].Substring(1, fields[i].Length - 2);
                     fields[i] = fields[i].Replace("\"\"", "");
                 }
+                fields[i] = fields[i].Trim();
             }
             return fields;
         }
