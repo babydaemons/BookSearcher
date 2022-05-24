@@ -791,7 +791,6 @@
             // RadioButtonSearchType09
             // 
             this.RadioButtonSearchType09.AutoSize = true;
-            this.RadioButtonSearchType09.Enabled = false;
             this.RadioButtonSearchType09.Location = new System.Drawing.Point(30, 231);
             this.RadioButtonSearchType09.Name = "RadioButtonSearchType09";
             this.RadioButtonSearchType09.Size = new System.Drawing.Size(582, 19);

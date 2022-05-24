@@ -45,6 +45,24 @@ namespace BookSearcher
         }
     }
 
+    struct ValuePairPartial2
+    {
+        public string Value1;
+        public string Value2;
+        public static bool operator ==(ValuePairPartial2 a, ValuePairPartial2 b) => a.Value1.Contains(b.Value1) && a.Value2.Contains(b.Value2);
+        public static bool operator !=(ValuePairPartial2 a, ValuePairPartial2 b) => !a.Value1.Contains(b.Value1) || !b.Value2.Contains(a.Value2);
+        public override bool Equals(object obj)
+        {
+            ValuePairPartial2 a = this;
+            ValuePairPartial2 b = (ValuePairPartial2)obj;
+            return a == b;
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+    }
+
     struct RowIndexPair
     {
         public int BookRowIndex;
@@ -164,6 +182,23 @@ namespace BookSearcher
             var results = from bookRow in bookValues
                           join scrapingRow in scrapingValues
                           on new ValuePairPartial1 { Value1 = bookRow.Value2, Value2 = bookRow.Value1 } equals new ValuePairPartial1 { Value1 = scrapingRow.Value2, Value2 = scrapingRow.Value1 }
+                          select new { BookRowIndex = bookRow.Index, ScrapingRowIndex = scrapingRow.Index };
+
+            var resultRows = new List<RowIndexPair>();
+            foreach (var result in results)
+            {
+                resultRows.Add(new RowIndexPair { BookRowIndex = result.BookRowIndex, ScrapingRowIndex = result.ScrapingRowIndex });
+            }
+            SaveTable(resultRows);
+        }
+
+        protected void SearchPartial2(ColumnInfo columnPartial, ColumnInfo columnComplete)
+        {
+            var bookValues = CreateColumnList(BookCSV.MemoryTable, columnPartial, columnComplete, true);
+            var scrapingValues = CreateColumnList(ScrapingCSV.MemoryTable, columnPartial, columnComplete, false);
+            var results = from bookRow in bookValues
+                          join scrapingRow in scrapingValues
+                          on new ValuePairPartial2 { Value1 = bookRow.Value1, Value2 = bookRow.Value2 } equals new ValuePairPartial2 { Value1 = scrapingRow.Value1, Value2 = scrapingRow.Value2 }
                           select new { BookRowIndex = bookRow.Index, ScrapingRowIndex = scrapingRow.Index };
 
             var resultRows = new List<RowIndexPair>();
