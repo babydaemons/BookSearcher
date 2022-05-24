@@ -72,6 +72,7 @@ namespace BookSearcher
                     fields[i] = fields[i].Substring(1, fields[i].Length - 2);
                     fields[i] = fields[i].Replace("\"\"", "");
                 }
+                fields[i] = fields[i].Trim();
             }
             return fields;
         }
