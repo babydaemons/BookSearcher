@@ -713,17 +713,18 @@
             this.RadioButtonSearchType17.TabIndex = 33;
             this.RadioButtonSearchType17.Text = "⑰「書籍名(前方一致)」+「出版年(部分一致)」+「出版社名(部分一致)」　【データベース側参照セル3つ⇔スクレイピングデータ側参照セル3つ】";
             this.RadioButtonSearchType17.UseVisualStyleBackColor = true;
+            this.RadioButtonSearchType17.CheckedChanged += new System.EventHandler(this.RadioButtonSearchType_CheckedChanged);
             // 
             // RadioButtonSearchType16
             // 
             this.RadioButtonSearchType16.AutoSize = true;
-            this.RadioButtonSearchType16.Enabled = false;
             this.RadioButtonSearchType16.Location = new System.Drawing.Point(30, 433);
             this.RadioButtonSearchType16.Name = "RadioButtonSearchType16";
             this.RadioButtonSearchType16.Size = new System.Drawing.Size(710, 19);
             this.RadioButtonSearchType16.TabIndex = 32;
             this.RadioButtonSearchType16.Text = "⑯「書籍名(部分一致)」+「出版年(部分一致)」+「出版社名(部分一致)」　【データベース側参照セル3つ⇔スクレイピングデータ側参照セル3つ】";
             this.RadioButtonSearchType16.UseVisualStyleBackColor = true;
+            this.RadioButtonSearchType16.CheckedChanged += new System.EventHandler(this.RadioButtonSearchType_CheckedChanged);
             // 
             // RadioButtonSearchType15
             // 
@@ -734,6 +735,7 @@
             this.RadioButtonSearchType15.TabIndex = 31;
             this.RadioButtonSearchType15.Text = "⑮「書籍名(完全一致)」　【データベース側参照セル1つ⇔スクレイピングデータ側参照セル1つ】";
             this.RadioButtonSearchType15.UseVisualStyleBackColor = true;
+            this.RadioButtonSearchType15.CheckedChanged += new System.EventHandler(this.RadioButtonSearchType_CheckedChanged);
             // 
             // RadioButtonSearchType14
             // 
@@ -744,6 +746,7 @@
             this.RadioButtonSearchType14.TabIndex = 30;
             this.RadioButtonSearchType14.Text = "⑭「ISBN(完全一致)」　【データベース側参照セル1つ⇔スクレイピングデータ側参照セル1つ】";
             this.RadioButtonSearchType14.UseVisualStyleBackColor = true;
+            this.RadioButtonSearchType14.CheckedChanged += new System.EventHandler(this.RadioButtonSearchType_CheckedChanged);
             // 
             // RadioButtonSearchType13
             // 
@@ -754,6 +757,7 @@
             this.RadioButtonSearchType13.TabIndex = 29;
             this.RadioButtonSearchType13.Text = "⑬「URL(完全一致)」　【データベース側参照セル1つ⇔スクレイピングデータ側参照セル1つ】";
             this.RadioButtonSearchType13.UseVisualStyleBackColor = true;
+            this.RadioButtonSearchType13.CheckedChanged += new System.EventHandler(this.RadioButtonSearchType_CheckedChanged);
             // 
             // RadioButtonSearchType12
             // 
@@ -765,6 +769,7 @@
             this.RadioButtonSearchType12.TabIndex = 28;
             this.RadioButtonSearchType12.Text = "⑫「書籍名(部分一致)」+「著者名(部分一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル1つ】";
             this.RadioButtonSearchType12.UseVisualStyleBackColor = true;
+            this.RadioButtonSearchType12.CheckedChanged += new System.EventHandler(this.RadioButtonSearchType_CheckedChanged);
             // 
             // RadioButtonSearchType11
             // 
@@ -776,6 +781,7 @@
             this.RadioButtonSearchType11.TabIndex = 27;
             this.RadioButtonSearchType11.Text = "⑪「書籍名(部分一致)」+「出版社名(完全一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル1つ】";
             this.RadioButtonSearchType11.UseVisualStyleBackColor = true;
+            this.RadioButtonSearchType11.CheckedChanged += new System.EventHandler(this.RadioButtonSearchType_CheckedChanged);
             // 
             // RadioButtonSearchType10
             // 
@@ -787,6 +793,7 @@
             this.RadioButtonSearchType10.TabIndex = 26;
             this.RadioButtonSearchType10.Text = "⑩「書籍名(部分一致)」+「出版年(完全一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル1つ】";
             this.RadioButtonSearchType10.UseVisualStyleBackColor = true;
+            this.RadioButtonSearchType10.CheckedChanged += new System.EventHandler(this.RadioButtonSearchType_CheckedChanged);
             // 
             // RadioButtonSearchType09
             // 
@@ -797,6 +804,7 @@
             this.RadioButtonSearchType09.TabIndex = 25;
             this.RadioButtonSearchType09.Text = "⑨「書籍名(部分一致)」+「著者名(部分一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル2つ】";
             this.RadioButtonSearchType09.UseVisualStyleBackColor = true;
+            this.RadioButtonSearchType09.CheckedChanged += new System.EventHandler(this.RadioButtonSearchType_CheckedChanged);
             // 
             // RadioButtonSearchType08
             // 
@@ -807,6 +815,7 @@
             this.RadioButtonSearchType08.TabIndex = 24;
             this.RadioButtonSearchType08.Text = "⑧「書籍名(前方一致)」+「著者名(部分一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル2つ】";
             this.RadioButtonSearchType08.UseVisualStyleBackColor = true;
+            this.RadioButtonSearchType08.CheckedChanged += new System.EventHandler(this.RadioButtonSearchType_CheckedChanged);
             // 
             // RadioButtonSearchType07
             // 
@@ -817,6 +826,7 @@
             this.RadioButtonSearchType07.TabIndex = 23;
             this.RadioButtonSearchType07.Text = "⑦「書籍名(完全一致)」+「著者名(部分一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル2つ】";
             this.RadioButtonSearchType07.UseVisualStyleBackColor = true;
+            this.RadioButtonSearchType07.CheckedChanged += new System.EventHandler(this.RadioButtonSearchType_CheckedChanged);
             // 
             // RadioButtonSearchType06
             // 
@@ -827,6 +837,7 @@
             this.RadioButtonSearchType06.TabIndex = 22;
             this.RadioButtonSearchType06.Text = "⑥「書籍名(部分一致)」+「出版社名(完全一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル2つ】";
             this.RadioButtonSearchType06.UseVisualStyleBackColor = true;
+            this.RadioButtonSearchType06.CheckedChanged += new System.EventHandler(this.RadioButtonSearchType_CheckedChanged);
             // 
             // RadioButtonSearchType05
             // 
@@ -837,6 +848,7 @@
             this.RadioButtonSearchType05.TabIndex = 21;
             this.RadioButtonSearchType05.Text = "⑤「書籍名(前方一致)」+「出版社名(完全一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル2つ】";
             this.RadioButtonSearchType05.UseVisualStyleBackColor = true;
+            this.RadioButtonSearchType05.CheckedChanged += new System.EventHandler(this.RadioButtonSearchType_CheckedChanged);
             // 
             // RadioButtonSearchType04
             // 
@@ -847,6 +859,7 @@
             this.RadioButtonSearchType04.TabIndex = 20;
             this.RadioButtonSearchType04.Text = "④「書籍名(完全一致)」+「出版社名(完全一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル2つ】";
             this.RadioButtonSearchType04.UseVisualStyleBackColor = true;
+            this.RadioButtonSearchType04.CheckedChanged += new System.EventHandler(this.RadioButtonSearchType_CheckedChanged);
             // 
             // RadioButtonSearchType03
             // 
@@ -857,6 +870,7 @@
             this.RadioButtonSearchType03.TabIndex = 19;
             this.RadioButtonSearchType03.Text = "③「書籍名(部分一致)」+「出版年(完全一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル2つ】";
             this.RadioButtonSearchType03.UseVisualStyleBackColor = true;
+            this.RadioButtonSearchType03.CheckedChanged += new System.EventHandler(this.RadioButtonSearchType_CheckedChanged);
             // 
             // RadioButtonSearchType02
             // 
@@ -867,6 +881,7 @@
             this.RadioButtonSearchType02.TabIndex = 18;
             this.RadioButtonSearchType02.Text = "②「書籍名(前方一致)」+「出版年(完全一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル2つ】";
             this.RadioButtonSearchType02.UseVisualStyleBackColor = true;
+            this.RadioButtonSearchType02.CheckedChanged += new System.EventHandler(this.RadioButtonSearchType_CheckedChanged);
             // 
             // RadioButtonSearchType01
             // 
@@ -879,6 +894,7 @@
             this.RadioButtonSearchType01.TabStop = true;
             this.RadioButtonSearchType01.Text = "①「書籍名(完全一致)」+「出版年(完全一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル2つ】";
             this.RadioButtonSearchType01.UseVisualStyleBackColor = true;
+            this.RadioButtonSearchType01.CheckedChanged += new System.EventHandler(this.RadioButtonSearchType_CheckedChanged);
             // 
             // TabPageOutputSetting
             // 

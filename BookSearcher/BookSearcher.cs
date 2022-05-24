@@ -63,6 +63,25 @@ namespace BookSearcher
         }
     }
 
+    struct ValuePairPartial33
+    {
+        public string Value1;
+        public string Value2;
+        public string Value3;
+        public static bool operator ==(ValuePairPartial33 a, ValuePairPartial33 b) => a.Value1.Contains(b.Value1) && a.Value2.Contains(b.Value2) && a.Value3.Contains(b.Value3);
+        public static bool operator !=(ValuePairPartial33 a, ValuePairPartial33 b) => !a.Value1.Contains(b.Value1) || !b.Value2.Contains(a.Value2) || !b.Value3.Contains(a.Value3);
+        public override bool Equals(object obj)
+        {
+            ValuePairPartial33 a = this;
+            ValuePairPartial33 b = (ValuePairPartial33)obj;
+            return a == b;
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+    }
+
     struct RowIndexPair
     {
         public int BookRowIndex;
@@ -80,6 +99,14 @@ namespace BookSearcher
         public int Index;
         public string Value1;
         public string Value2;
+    }
+
+    struct Column3
+    {
+        public int Index;
+        public string Value1;
+        public string Value2;
+        public string Value3;
     }
 
     internal abstract class BookSearcher
@@ -192,13 +219,31 @@ namespace BookSearcher
             SaveTable(resultRows);
         }
 
-        protected void SearchPartial2(ColumnInfo columnPartial, ColumnInfo columnComplete)
+        protected void SearchPartial2(ColumnInfo columnPartial1, ColumnInfo columnPartial2)
         {
-            var bookValues = CreateColumnList(BookCSV.MemoryTable, columnPartial, columnComplete, true);
-            var scrapingValues = CreateColumnList(ScrapingCSV.MemoryTable, columnPartial, columnComplete, false);
+            var bookValues = CreateColumnList(BookCSV.MemoryTable, columnPartial1, columnPartial2, true);
+            var scrapingValues = CreateColumnList(ScrapingCSV.MemoryTable, columnPartial1, columnPartial2, false);
             var results = from bookRow in bookValues
                           join scrapingRow in scrapingValues
                           on new ValuePairPartial2 { Value1 = bookRow.Value1, Value2 = bookRow.Value2 } equals new ValuePairPartial2 { Value1 = scrapingRow.Value1, Value2 = scrapingRow.Value2 }
+                          select new { BookRowIndex = bookRow.Index, ScrapingRowIndex = scrapingRow.Index };
+
+            var resultRows = new List<RowIndexPair>();
+            foreach (var result in results)
+            {
+                resultRows.Add(new RowIndexPair { BookRowIndex = result.BookRowIndex, ScrapingRowIndex = result.ScrapingRowIndex });
+            }
+            SaveTable(resultRows);
+        }
+
+        protected void SearchPartial33(ColumnInfo columnPartial1, ColumnInfo columnPartial2, ColumnInfo columnPartial3)
+        {
+            var bookValues = CreateColumnList(BookCSV.MemoryTable, columnPartial1, columnPartial2, columnPartial3, true);
+            var scrapingValues = CreateColumnList(ScrapingCSV.MemoryTable, columnPartial1, columnPartial2, columnPartial3, false);
+            var results = from bookRow in bookValues
+                          join scrapingRow in scrapingValues
+                          on new ValuePairPartial33 { Value1 = bookRow.Value1, Value2 = bookRow.Value2, Value3 = bookRow.Value3 }
+                          equals new ValuePairPartial33 { Value1 = scrapingRow.Value1, Value2 = scrapingRow.Value2, Value3 = scrapingRow.Value3 }
                           select new { BookRowIndex = bookRow.Index, ScrapingRowIndex = scrapingRow.Index };
 
             var resultRows = new List<RowIndexPair>();
@@ -247,6 +292,33 @@ namespace BookSearcher
                     Index = row.Key,
                     Value1 = convertValue1(row.Value[columnIndex1]),
                     Value2 = convertValue2(row.Value[columnIndex2])
+                });
+            }
+            return values;
+        }
+
+        private List<Column3> CreateColumnList(MemoryTable table, ColumnInfo columnInfo1, ColumnInfo columnInfo2, ColumnInfo columnInfo3, bool isBookDB)
+        {
+            var columnName1 = table.ColumnNames[isBookDB ? columnInfo1.BookColumnIndex : columnInfo1.ScrapingColumnIndex];
+            var columnName2 = table.ColumnNames[isBookDB ? columnInfo2.BookColumnIndex : columnInfo2.ScrapingColumnIndex];
+            var columnName3 = table.ColumnNames[isBookDB ? columnInfo3.BookColumnIndex : columnInfo3.ScrapingColumnIndex];
+            var columnIndex1 = table.ColumnIndexes[columnName1];
+            var columnIndex2 = table.ColumnIndexes[columnName2];
+            var columnIndex3 = table.ColumnIndexes[columnName3];
+
+            var rows = table.AsEnumerable().Where(row => row.Value[columnIndex1].Length > 0 && row.Value[columnIndex2].Length > 0 && row.Value[columnIndex3].Length > 0);
+            var values = new List<Column3>();
+            ConvertValue convertValue1 = GetConvertValue(columnInfo1);
+            ConvertValue convertValue2 = GetConvertValue(columnInfo2);
+            ConvertValue convertValue3 = GetConvertValue(columnInfo3);
+            foreach (var row in rows)
+            {
+                values.Add(new Column3
+                {
+                    Index = row.Key,
+                    Value1 = convertValue1(row.Value[columnIndex1]),
+                    Value2 = convertValue2(row.Value[columnIndex2]),
+                    Value3 = convertValue3(row.Value[columnIndex3])
                 });
             }
             return values;
