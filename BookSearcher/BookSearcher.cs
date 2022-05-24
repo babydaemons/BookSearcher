@@ -63,6 +63,25 @@ namespace BookSearcher
         }
     }
 
+    struct ValuePairPartial32
+    {
+        public string Value1;
+        public string Value2;
+        public string Value3;
+        public static bool operator ==(ValuePairPartial32 a, ValuePairPartial32 b) => a.Value1 == b.Value1 && a.Value2.Contains(b.Value2) && a.Value3.Contains(b.Value3);
+        public static bool operator !=(ValuePairPartial32 a, ValuePairPartial32 b) => a.Value1 != b.Value1 || !b.Value2.Contains(a.Value2) || !b.Value3.Contains(a.Value3);
+        public override bool Equals(object obj)
+        {
+            ValuePairPartial32 a = this;
+            ValuePairPartial32 b = (ValuePairPartial32)obj;
+            return a == b;
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+    }
+
     struct ValuePairPartial33
     {
         public string Value1;
@@ -226,6 +245,24 @@ namespace BookSearcher
             var results = from bookRow in bookValues
                           join scrapingRow in scrapingValues
                           on new ValuePairPartial2 { Value1 = bookRow.Value1, Value2 = bookRow.Value2 } equals new ValuePairPartial2 { Value1 = scrapingRow.Value1, Value2 = scrapingRow.Value2 }
+                          select new { BookRowIndex = bookRow.Index, ScrapingRowIndex = scrapingRow.Index };
+
+            var resultRows = new List<RowIndexPair>();
+            foreach (var result in results)
+            {
+                resultRows.Add(new RowIndexPair { BookRowIndex = result.BookRowIndex, ScrapingRowIndex = result.ScrapingRowIndex });
+            }
+            SaveTable(resultRows);
+        }
+
+        protected void SearchPartial32(ColumnInfo columnPartial1, ColumnInfo columnPartial2, ColumnInfo columnPartial3)
+        {
+            var bookValues = CreateColumnList(BookCSV.MemoryTable, columnPartial1, columnPartial2, columnPartial3, true);
+            var scrapingValues = CreateColumnList(ScrapingCSV.MemoryTable, columnPartial1, columnPartial2, columnPartial3, false);
+            var results = from bookRow in bookValues
+                          join scrapingRow in scrapingValues
+                          on new ValuePairPartial32 { Value1 = bookRow.Value1, Value2 = bookRow.Value2, Value3 = bookRow.Value3 }
+                          equals new ValuePairPartial32 { Value1 = scrapingRow.Value1, Value2 = scrapingRow.Value2, Value3 = scrapingRow.Value3 }
                           select new { BookRowIndex = bookRow.Index, ScrapingRowIndex = scrapingRow.Index };
 
             var resultRows = new List<RowIndexPair>();

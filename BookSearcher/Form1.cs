@@ -377,6 +377,7 @@ namespace BookSearcher
                 }
                 if (RadioButtonSearchType17.Checked)
                 {
+                    searcher = new BookSearcher17();
                     searchTypeName = RadioButtonSearchType17.Text;
                 }
                 else if (searcher == null)
