@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace BookSearcher
@@ -14,6 +15,9 @@ namespace BookSearcher
         private static readonly Regex RegexYear = new Regex(@"^(?<year>([1１][9９]|[2２][0０])[0-9０-９][0-9０-９])");
         private static readonly Regex RegexJYear = new Regex(@"^(?<year>(明治|大正|昭和|平成|令和)[1-9１-９][0-9０-９]?)");
         private static readonly Regex RegexJYear2 = new Regex(@"^(?<era>[明大昭平令])(?<year>[1-9１-９][0-9０-９]?)");
+        private static readonly string search_published_year_min = "search_published_year_min=";
+        private static readonly string search_published_year_max = "&search_published_year_max";
+        private int urlIndex = -1;
 
         public CSVKoshoFile(string path) : base(path)
         {
@@ -24,16 +28,25 @@ namespace BookSearcher
         protected override void InsertTitleColums(List<string> titles)
         {
             var titleBase = titles[infoIndex];
-            titles[infoIndex] += "/出版年";
-            titles.Insert(infoIndex, $"{titleBase}/出版社");
-            titles.Insert(infoIndex, $"{titleBase}/著者");
+            titles.Insert(infoIndex + 1, $"{titleBase}/出版年");
+            titles.Insert(infoIndex + 1, $"{titleBase}/出版社");
+            titles.Insert(infoIndex + 1, $"{titleBase}/著者");
+
+            urlIndex = Enumerable.Range(0, titles.Count).Where(i => titles[i] == "ページURL").First();
+            var urlBase = titles[urlIndex];
+            titles.Insert(urlIndex + 1, $"{urlBase}/出版年");
         }
 
         protected override void InsertInfoColumn(List<string> fields, string[] infos)
         {
-            fields[infoIndex] = ParseYear(infos);
-            fields.Insert(infoIndex, infos.Length > 1 ? infos[1] : "");
-            fields.Insert(infoIndex, infos[0]);
+            fields.Insert(infoIndex + 1, ParseYear(infos));
+            fields.Insert(infoIndex + 1, infos.Length > 1 ? infos[1] : "");
+            fields.Insert(infoIndex + 1, infos[0]);
+
+            var url = fields[urlIndex];
+            var yearStart = url.IndexOf(search_published_year_min) + search_published_year_min.Length;
+            var year = url.Substring(yearStart, url.IndexOf(search_published_year_max) - yearStart);
+            fields.Insert(urlIndex + 1, year);
         }
 
         private string ParseYear(string[] infos)
