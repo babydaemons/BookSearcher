@@ -649,7 +649,8 @@
             "出版年",
             "ISBN",
             "URL",
-            "価格"});
+            "価格",
+            "2種類の複合データ"});
             this.ScrapingColumnType.Name = "ScrapingColumnType";
             this.ScrapingColumnType.Width = 90;
             // 
@@ -761,7 +762,6 @@
             // RadioButtonSearchType12
             // 
             this.RadioButtonSearchType12.AutoSize = true;
-            this.RadioButtonSearchType12.Enabled = false;
             this.RadioButtonSearchType12.Location = new System.Drawing.Point(30, 315);
             this.RadioButtonSearchType12.Name = "RadioButtonSearchType12";
             this.RadioButtonSearchType12.Size = new System.Drawing.Size(582, 19);

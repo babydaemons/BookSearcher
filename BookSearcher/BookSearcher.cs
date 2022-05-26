@@ -8,7 +8,7 @@ using System.Windows.Forms;
 namespace BookSearcher
 {
     enum ColumnIndex { Name, Value, Type };
-    enum ColumnType { None, BookTitle, Author, Publisher, Year, ISBN, URL, Price };
+    enum ColumnType { None, BookTitle, Author, Publisher, Year, ISBN, URL, Price, Complex };
     enum MatchType { CompleteMatch, BeginningMatch, PartialMatch };
     enum SpaceMatch { All, Ignore };
 
@@ -19,12 +19,12 @@ namespace BookSearcher
         public int BookColumnIndex { get; }
         public int ScrapingColumnIndex { get; }
 
-        public ColumnInfo(MatchType matchType, SpaceMatch spaceMatch, ColumnType columnType)
+        public ColumnInfo(MatchType matchType, SpaceMatch spaceMatch, ColumnType columnType, bool isComplexMatching = false)
         {
             MatchType = matchType;
             SpaceMatch = spaceMatch;
-            BookColumnIndex = BookSearcher.SelectBookColumnIndex(columnType);
-            ScrapingColumnIndex = BookSearcher.SelectScrapingColumnIndex(columnType);
+            BookColumnIndex = matchType == MatchType.CompleteMatch ? -1 : BookSearcher.SelectBookColumnIndex(columnType);
+            ScrapingColumnIndex = isComplexMatching ? -1 : BookSearcher.SelectScrapingColumnIndex(columnType);
         }
     }
 
@@ -132,7 +132,7 @@ namespace BookSearcher
         protected static CSVFile ScrapingCSV;
         protected static SpaceMatch SpaceMatch;
         protected static int PrefixLength;
-        private static readonly string[] columnTypeNames = new string[] { "", "書籍名", "著者名", "出版社名", "出版年", "ISBN", "URL", "価格" };
+        private static readonly string[] columnTypeNames = new string[] { "", "書籍名", "著者名", "出版社名", "出版年", "ISBN", "URL", "価格", "2種類の複合データ" };
         private static DataTable resultTable = new DataTable();
         public static DataTable ResultTable => resultTable;
         private delegate string ConvertValue(string value);
@@ -231,6 +231,26 @@ namespace BookSearcher
             SaveTable(results);
         }
 
+        protected void SearchComplex2(ColumnInfo columnPartial1, ColumnInfo columnPartial2, ColumnInfo columnComplex3)
+        {
+            var bookValues = CreateBookColumnList(columnPartial1, columnPartial2);
+            var scrapingValues = CreateScrapingColumnList(columnComplex3);
+            var resultRows = new ConcurrentBag<RowIndexPair>();
+            bookValues.Keys.AsParallel().ForAll(i =>
+            {
+                var bookRow = bookValues[i];
+                scrapingValues.Keys.AsParallel().ForAll(j =>
+                {
+                    var scrapingRow = scrapingValues[j];
+                    if (scrapingRow.Value1.Contains(bookRow.Value1) && scrapingRow.Value1.Contains(bookRow.Value2))
+                    {
+                        resultRows.Add(new RowIndexPair { BookRowIndex = i, ScrapingRowIndex = j });
+                    }
+                });
+            });
+            SaveTable(resultRows.ToList());
+        }
+
         protected void SearchPartial32(ColumnInfo columnPartial1, ColumnInfo columnPartial2, ColumnInfo columnPartial3)
         {
             var bookValues = CreateColumnList(BookCSV.MemoryTable, columnPartial1, columnPartial2, columnPartial3, true);
@@ -318,6 +338,53 @@ namespace BookSearcher
                         Value1 = convertValue1(row.Value[columnIndex1]),
                         Value2 = convertValue2(row.Value[columnIndex2]),
                         Value3 = convertValue3(row.Value[columnIndex3])
+                    });
+            }
+            return values;
+        }
+
+        private ConcurrentDictionary<int, Column2> CreateBookColumnList(ColumnInfo columnInfo1, ColumnInfo columnInfo2)
+        {
+            var table = BookCSV.MemoryTable;
+            var columnName1 = table.ColumnNames[columnInfo1.BookColumnIndex];
+            var columnName2 = table.ColumnNames[columnInfo2.BookColumnIndex];
+            var columnIndex1 = table.ColumnIndexes[columnName1];
+            var columnIndex2 = table.ColumnIndexes[columnName2];
+
+            var rows = table.Where(row => row.Value[columnIndex1].Length > 0 && row.Value[columnIndex2].Length > 0);
+            var values = new ConcurrentDictionary<int, Column2>(Environment.ProcessorCount, table.Count);
+            ConvertValue convertValue1 = GetConvertValue(columnInfo1);
+            ConvertValue convertValue2 = GetConvertValue(columnInfo2);
+            foreach (var row in rows)
+            {
+                _ = values.TryAdd(
+                    row.Key,
+                    new Column2
+                    {
+                        Value1 = convertValue1(row.Value[columnIndex1]),
+                        Value2 = convertValue2(row.Value[columnIndex2])
+                    });
+            }
+            return values;
+        }
+
+        private ConcurrentDictionary<int, Column2> CreateScrapingColumnList(ColumnInfo columnInfo)
+        {
+            var table = ScrapingCSV.MemoryTable;
+            var columnName = table.ColumnNames[columnInfo.ScrapingColumnIndex];
+            var columnIndex = table.ColumnIndexes[columnName];
+
+            var rows = table.Where(row => row.Value[columnIndex].Length > 0);
+            var values = new ConcurrentDictionary<int, Column2> ();
+            ConvertValue convertValue = GetConvertValue(columnInfo);
+            foreach (var row in rows)
+            {
+                _ = values.TryAdd(
+                    row.Key,
+                    new Column2
+                    {
+                        Value1 = convertValue(row.Value[columnIndex]),
+                        Value2 = ""
                     });
             }
             return values;

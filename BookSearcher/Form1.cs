@@ -276,13 +276,13 @@ namespace BookSearcher
 
         private void ButtonExecute_Click(object sender, EventArgs e)
         {
+            spaceMatch = RadioButtonSpaceContains.Checked ? SpaceMatch.All : SpaceMatch.Ignore;
+            prefixLength = (int)NumericUpDownLength.Value;
+
             if (!InvokeMatching())
             {
                 return;
             }
-
-            spaceMatch = RadioButtonSpaceContains.Checked ? SpaceMatch.All : SpaceMatch.Ignore;
-            prefixLength = (int)NumericUpDownLength.Value;
 
             start = DateTime.Now;
             SetSearchControlsEnabled(false);
@@ -353,6 +353,7 @@ namespace BookSearcher
                 }
                 if (RadioButtonSearchType12.Checked)
                 {
+                    searcher = new BookSearcher12();
                     searchTypeName = RadioButtonSearchType12.Text;
                 }
                 if (RadioButtonSearchType13.Checked)
