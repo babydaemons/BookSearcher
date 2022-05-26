@@ -236,19 +236,69 @@ namespace BookSearcher
             var bookValues = CreateBookColumnList(columnPartial1, columnPartial2);
             var scrapingValues = CreateScrapingColumnList(columnComplex3);
             var resultRows = new ConcurrentBag<RowIndexPair>();
-            bookValues.Keys.AsParallel().ForAll(i =>
+
+            var bookKeys = bookValues.Keys;
+            var scrapingKeys = scrapingValues.Keys;
+
+            bookKeys.AsParallel().ForAll(i =>
             {
                 var bookRow = bookValues[i];
-                scrapingValues.Keys.AsParallel().ForAll(j =>
+                var value1 = bookRow.Value1;
+                var value2 = bookRow.Value2;
+
+                scrapingKeys.AsParallel().ForAll(j =>
                 {
-                    var scrapingRow = scrapingValues[j];
-                    if (scrapingRow.Value1.Contains(bookRow.Value1) && scrapingRow.Value1.Contains(bookRow.Value2))
+                    var scrapingComplexValue = scrapingValues[j].Value1;
+                    if (IsComplexMatch(value1, value2, scrapingComplexValue))
                     {
                         resultRows.Add(new RowIndexPair { BookRowIndex = i, ScrapingRowIndex = j });
                     }
                 });
             });
             SaveTable(resultRows.ToList());
+        }
+
+        private static bool IsComplexMatch(string value1, string value2, string scrapingComplexValue)
+        {
+            var char1 = value1[0];
+            var index1 = scrapingComplexValue.IndexOf(char1);
+            if (index1 == -1) 
+            { 
+                return false;
+            }
+
+            var length1 = value1.Length;
+            var left1 = scrapingComplexValue.Length - index1;
+            if (left1 < length1)
+            {
+                return false;
+            }
+
+            var char2 = value2[0];
+            var index2 = scrapingComplexValue.IndexOf(char2);
+            if (index2 == -1)
+            {
+                return false;
+            }
+
+            var length2 = value2.Length;
+            var left2 = scrapingComplexValue.Length - index2;
+            if (left2 < length2)
+            {
+                return false;
+            }
+
+            if (!scrapingComplexValue.Contains(value1))
+            {
+                return false;
+            }
+
+            if (!scrapingComplexValue.Contains(value2))
+            {
+                return false;
+            }
+
+            return true;
         }
 
         protected void SearchPartial32(ColumnInfo columnPartial1, ColumnInfo columnPartial2, ColumnInfo columnPartial3)
