@@ -23,7 +23,7 @@ namespace BookSearcher
         {
             MatchType = matchType;
             SpaceMatch = spaceMatch;
-            BookColumnIndex = matchType == MatchType.CompleteMatch ? -1 : BookSearcher.SelectBookColumnIndex(columnType);
+            BookColumnIndex = isComplexMatching ? -1 : BookSearcher.SelectBookColumnIndex(columnType);
             ScrapingColumnIndex = isComplexMatching ? -1 : BookSearcher.SelectScrapingColumnIndex(columnType);
         }
     }
@@ -193,7 +193,7 @@ namespace BookSearcher
                           join scrapingRow in scrapingValues.AsParallel()
                           on bookRow.Value.Value equals scrapingRow.Value.Value
                           select new RowIndexPair { BookRowIndex = bookRow.Key, ScrapingRowIndex = scrapingRow.Key };
-            SaveTable(results);
+            SaveTable(new List<RowIndexPair>(results));
         }
 
         protected void Search(ColumnInfo columnInfo1, ColumnInfo columnInfo2)
@@ -204,7 +204,7 @@ namespace BookSearcher
                           join scrapingRow in scrapingValues.AsParallel()
                           on new { bookRow.Value.Value1, bookRow.Value.Value2 } equals new { scrapingRow.Value.Value1, scrapingRow.Value.Value2 }
                           select new RowIndexPair { BookRowIndex = bookRow.Key, ScrapingRowIndex = scrapingRow.Key };
-            SaveTable(results);
+            SaveTable(new List<RowIndexPair>(results));
         }
 
         protected void SearchPartial1(ColumnInfo columnPartial, ColumnInfo columnComplete)
@@ -216,7 +216,7 @@ namespace BookSearcher
                           on new ValuePairPartial1 { Value1 = bookRow.Value.Value2, Value2 = bookRow.Value.Value1 }
                           equals new ValuePairPartial1 { Value1 = scrapingRow.Value.Value2, Value2 = scrapingRow.Value.Value1 }
                           select new RowIndexPair { BookRowIndex = bookRow.Key, ScrapingRowIndex = scrapingRow.Key };
-            SaveTable(results);
+            SaveTable(new List<RowIndexPair>(results));
         }
 
         protected void SearchPartial2(ColumnInfo columnPartial1, ColumnInfo columnPartial2)
@@ -228,7 +228,7 @@ namespace BookSearcher
                           on new ValuePairPartial2 { Value1 = bookRow.Value.Value1, Value2 = bookRow.Value.Value2 }
                           equals new ValuePairPartial2 { Value1 = scrapingRow.Value.Value1, Value2 = scrapingRow.Value.Value2 }
                           select new RowIndexPair { BookRowIndex = bookRow.Key, ScrapingRowIndex = scrapingRow.Key };
-            SaveTable(results);
+            SaveTable(new List<RowIndexPair>(results));
         }
 
         protected void SearchComplex2(ColumnInfo columnPartial1, ColumnInfo columnPartial2, ColumnInfo columnComplex3)
@@ -310,7 +310,7 @@ namespace BookSearcher
                           on new ValuePairPartial32 { Value1 = bookRow.Value.Value1, Value2 = bookRow.Value.Value2, Value3 = bookRow.Value.Value3 }
                           equals new ValuePairPartial32 { Value1 = scrapingRow.Value.Value1, Value2 = scrapingRow.Value.Value2, Value3 = scrapingRow.Value.Value3 }
                           select new RowIndexPair { BookRowIndex = bookRow.Key, ScrapingRowIndex = scrapingRow.Key };
-            SaveTable(results);
+            SaveTable(new List<RowIndexPair>(results));
         }
 
         protected void SearchPartial33(ColumnInfo columnPartial1, ColumnInfo columnPartial2, ColumnInfo columnPartial3)
@@ -322,7 +322,7 @@ namespace BookSearcher
                           on new ValuePairPartial33 { Value1 = bookRow.Value.Value1, Value2 = bookRow.Value.Value2, Value3 = bookRow.Value.Value3 }
                           equals new ValuePairPartial33 { Value1 = scrapingRow.Value.Value1, Value2 = scrapingRow.Value.Value2, Value3 = scrapingRow.Value.Value3 }
                           select new RowIndexPair { BookRowIndex = bookRow.Key, ScrapingRowIndex = scrapingRow.Key };
-            SaveTable(results);
+            SaveTable(new List<RowIndexPair>(results));
         }
 
         private ConcurrentDictionary<int, Column1> CreateColumnList(MemoryTable table, ColumnInfo columnInfo, bool isBookDB)
@@ -468,7 +468,7 @@ namespace BookSearcher
             }
         }
 
-        private void SaveTable(IEnumerable<RowIndexPair> resultRows)
+        private void SaveTable(List<RowIndexPair> resultRows)
         {
             resultTable = new DataTable();
             foreach (var column in BookCSV.Titles)
