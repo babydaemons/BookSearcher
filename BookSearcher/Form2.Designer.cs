@@ -1,4 +1,4 @@
-﻿namespace BookSearcher
+﻿namespace BookSearcherApp
 {
     partial class Form2
     {

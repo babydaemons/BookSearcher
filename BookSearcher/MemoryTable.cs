@@ -4,7 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace BookSearcher
+namespace BookSearcherApp
 {
     public class MemoryTable : ConcurrentDictionary<int, MemoryRow>
     {

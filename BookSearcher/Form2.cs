@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows.Forms;
 
-namespace BookSearcher
+namespace BookSearcherApp
 {
     public partial class Form2 : Form
     {

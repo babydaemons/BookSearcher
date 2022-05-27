@@ -1,4 +1,4 @@
-﻿namespace BookSearcher
+﻿namespace BookSearcherApp
 {
     internal class BookSearcher09 : BookSearcher
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.VisualBasic.FileIO;
 
-namespace BookSearcher
+namespace BookSearcherApp
 {
     internal abstract class CSVFileSplitInfoMultiLine : CSVFileSplitInfo
     {

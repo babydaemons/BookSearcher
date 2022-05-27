@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Linq;
 
-namespace BookSearcher
+namespace BookSearcherApp
 {
     internal abstract class CSVFileSplitInfo : CSVFile
     {

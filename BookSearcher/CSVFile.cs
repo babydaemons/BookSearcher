@@ -11,7 +11,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 
-namespace BookSearcher
+namespace BookSearcherApp
 {
     public abstract class CSVFile
     {

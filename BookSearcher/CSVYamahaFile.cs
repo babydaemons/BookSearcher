@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace BookSearcher
+namespace BookSearcherApp
 {
     internal class CSVYamahaFile : CSVFileSplitInfoQuotedLine
     {

@@ -2,7 +2,7 @@
 using System.Data;
 using System.Linq;
 
-namespace BookSearcher
+namespace BookSearcherApp
 {
     public class MemoryRow
     {

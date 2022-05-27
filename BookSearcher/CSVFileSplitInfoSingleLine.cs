@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace BookSearcher
+namespace BookSearcherApp
 {
     internal abstract class CSVFileSplitInfoSingleLine : CSVFileSplitInfo
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualBasic.FileIO;
 
-namespace BookSearcher
+namespace BookSearcherApp
 {
     internal class CSVMercariFile : CSVFile
     {

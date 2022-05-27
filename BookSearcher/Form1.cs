@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
 
-namespace BookSearcher
+namespace BookSearcherApp
 {
     public partial class Form1 : Form
     {

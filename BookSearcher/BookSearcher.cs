@@ -5,7 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace BookSearcher
+namespace BookSearcherApp
 {
     enum ColumnIndex { Name, Value, Type };
     enum ColumnType { None, BookTitle, Author, Publisher, Year, ISBN, URL, Price, Complex };
