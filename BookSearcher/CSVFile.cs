@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.IO.MemoryMappedFiles;
@@ -13,7 +11,7 @@ using System.Text.RegularExpressions;
 
 namespace BookSearcherApp
 {
-    public abstract class CSVFile
+    public abstract class CSVFile : CSVData
     {
         private readonly FileStream fileStream;
         protected readonly long fileSize;
@@ -21,14 +19,9 @@ namespace BookSearcherApp
         protected readonly ConcurrentBag<long> lineOffsets = new ConcurrentBag<long>();
         protected long[] LineOffsets { get; private set; }
 
-        public MemoryTable MemoryTable { get; private set; }
         public string Path { get; }
         public Encoding FileEncoding { get; protected set; }
-        public int Columns { get; protected set; }
-        public string[] Titles { get; protected set; }
-        public string[] Fields { get; protected set; }
         public bool Loaded { get; private set; } = false;
-        public DataTable Table => MemoryTable.DataTable;
         private BackgroundWorker backgoundworker;
         private int rowIndex = 0;
         private int rowCount = 0;
@@ -222,7 +215,7 @@ namespace BookSearcherApp
             rowCount = lineOffsets.Count;
             LineOffsets = lineOffsets.ToArray();
             Array.Sort(LineOffsets);
-            MemoryTable = new MemoryTable(Titles, rowCount);
+            AllocateTable(rowCount);
         }
 
         protected abstract void DoReadAll();

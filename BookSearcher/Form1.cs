@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 
@@ -7,16 +8,15 @@ namespace BookSearcherApp
 {
     public partial class Form1 : Form
     {
-        private CSVFile BookCSV;
-        private CSVFile ScrapingCSV;
-        private DateTime start;
-        private DateTime finish;
-        private BookSearcher searcher = null;
+        protected CSVFile BookCSV;
+        protected CSVFile ScrapingCSV;
+        protected SpaceMatch spaceMatch;
+        protected int prefixLength;
+        protected BookSearcher searcher = null;
         private string searchTypeName = "";
         private string folderPath = "";
-        private SpaceMatch spaceMatch;
-        private int prefixLength;
         private bool searchInitFailed = false;
+        private TimeSpan searchTime;
 
         public Form1()
         {
@@ -284,7 +284,6 @@ namespace BookSearcherApp
                 return;
             }
 
-            start = DateTime.Now;
             SetSearchControlsEnabled(false);
             Timer1.Enabled = true;
             BackgroundWorker4.RunWorkerAsync();
@@ -402,7 +401,7 @@ namespace BookSearcherApp
             {
                 if (searcher != null)
                 {
-                    searcher.Search();
+                    searchTime = searcher.Search();
                     searchInitFailed = false;
                 }
             }
@@ -417,10 +416,8 @@ namespace BookSearcherApp
         {
             if (!searchInitFailed)
             {
-                finish = DateTime.Now;
-                var time = finish - start;
                 Timer1.Enabled = false;
-                MessageBox.Show(time.ToString());
+                MessageBox.Show(searchTime.ToString());
 
                 var form = new Form2(BookSearcher.ResultTable, searchTypeName);
                 form.ShowDialog();

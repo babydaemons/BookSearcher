@@ -1,16 +1,18 @@
-﻿namespace BookSearcherApp
+﻿using System;
+
+namespace BookSearcherApp
 {
-    internal class BookSearcher13 : BookSearcher
+    public class BookSearcher13 : BookSearcher
     {
-        private readonly ColumnInfo URL = new ColumnInfo(MatchType.CompleteMatch, SpaceMatch.Ignore, ColumnType.URL);
+        private readonly ColumnInfo URL = new ColumnInfo(MatchType.CompleteMatch, SpaceMatch.All, ColumnType.URL);
 
         public BookSearcher13() : base()
         {
         }
 
-        public override void Search()
+        public override TimeSpan Search()
         {
-            Search(URL);
+            return Search(URL);
         }
     }
 }

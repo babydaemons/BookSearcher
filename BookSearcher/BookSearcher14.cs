@@ -1,4 +1,6 @@
-﻿namespace BookSearcherApp
+﻿using System;
+
+namespace BookSearcherApp
 {
     internal class BookSearcher14 : BookSearcher
     {
@@ -8,9 +10,9 @@
         {
         }
 
-        public override void Search()
+        public override TimeSpan Search()
         {
-            Search(ISBN);
+            return Search(ISBN);
         }
     }
 }

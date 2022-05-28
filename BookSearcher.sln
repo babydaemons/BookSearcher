@@ -5,6 +5,8 @@ VisualStudioVersion = 17.1.32407.343
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookSearcher", "BookSearcher\BookSearcher.csproj", "{E77286FC-F050-4470-84F7-F2F167D9BE2B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookSearcherTest", "BookSearcherTest\BookSearcherTest.csproj", "{5C37DF87-3FF7-4726-871F-E256AB9798C8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -15,6 +17,10 @@ Global
 		{E77286FC-F050-4470-84F7-F2F167D9BE2B}.Debug|x64.Build.0 = Debug|x64
 		{E77286FC-F050-4470-84F7-F2F167D9BE2B}.Release|x64.ActiveCfg = Release|x64
 		{E77286FC-F050-4470-84F7-F2F167D9BE2B}.Release|x64.Build.0 = Release|x64
+		{5C37DF87-3FF7-4726-871F-E256AB9798C8}.Debug|x64.ActiveCfg = Debug|x64
+		{5C37DF87-3FF7-4726-871F-E256AB9798C8}.Debug|x64.Build.0 = Debug|x64
+		{5C37DF87-3FF7-4726-871F-E256AB9798C8}.Release|x64.ActiveCfg = Release|x64
+		{5C37DF87-3FF7-4726-871F-E256AB9798C8}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
