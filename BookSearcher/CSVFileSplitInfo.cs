@@ -94,7 +94,7 @@ namespace BookSearcherApp
 
         protected void DeleteTailFields(List<string> fields)
         {
-            fields.RemoveRange(Columns, fields.Count - Columns);
+            fields.RemoveRange(ColumnCount, fields.Count - ColumnCount);
         }
     }
 }

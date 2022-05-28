@@ -16,10 +16,10 @@ namespace BookSearcherApp
 
         protected override void InsertTitleColums(List<string> titles)
         {
-            Columns = 0;
-            while (titles[Columns].Length > 0)
+            ColumnCount = 0;
+            while (titles[ColumnCount].Length > 0)
             {
-                ++Columns;
+                ++ColumnCount;
             }
             DeleteTailFields(titles);
         }

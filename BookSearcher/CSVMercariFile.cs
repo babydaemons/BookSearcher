@@ -25,7 +25,7 @@ namespace BookSearcherApp
                     {
                         Titles = ReadFields(fields[0], 0);
                         Fields = ReadFields(fields[0], 1);
-                        Columns = Titles.Length;
+                        ColumnCount = Titles.Length;
                         return true;
                     }
                 }

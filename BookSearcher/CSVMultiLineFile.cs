@@ -15,7 +15,7 @@ namespace BookSearcherApp
             {
                 reader.SetDelimiters(",");
                 Titles = reader.ReadFields();
-                Columns = Titles.Length;
+                ColumnCount = Titles.Length;
                 Fields = reader.ReadFields();
                 if (Fields.Length == Titles.Length)
                 {

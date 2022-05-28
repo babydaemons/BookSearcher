@@ -29,7 +29,7 @@ namespace BookSearcherApp
                 Fields = fields.ToArray();
                 if (Fields.Length == Titles.Length)
                 {
-                    Columns = Titles.Length;
+                    ColumnCount = Titles.Length;
                     return true;
                 }
             }

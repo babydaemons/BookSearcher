@@ -50,6 +50,11 @@ namespace BookSearcherApp
             _ = TryAdd(rowIndex, row);
         }
 
+        public void AddRow(string[] values)
+        {
+            AddRow(Count, values);
+        }
+
         private DataTable WriteDataTable()
         {
             foreach (var key in Keys)

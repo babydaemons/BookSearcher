@@ -11,7 +11,8 @@ namespace BookSearcherApp
     {
         public MemoryTable MemoryTable { get; private set; }
         public DataTable Table => MemoryTable.DataTable;
-        public int Columns { get; protected set; }
+        public int RowCount => MemoryTable.Count;
+        public int ColumnCount { get; protected set; }
         public string[] Titles { get; protected set; }
         public string[] Fields { get; protected set; }
 
@@ -23,7 +24,9 @@ namespace BookSearcherApp
         public void SetTitles(string[] titles)
         {
             Titles = titles;
-            Columns = titles.Length;
+            ColumnCount = titles.Length;
         }
+ 
+        public void AddRow(string[] fields) => MemoryTable.AddRow(fields);
     }
 }

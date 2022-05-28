@@ -22,7 +22,7 @@ namespace BookSearcherApp
             {
                 var line = RegexSuffix.Replace(reader.ReadLine(), "");
                 Titles = ReadFields(line);
-                Columns = Titles.Length;
+                ColumnCount = Titles.Length;
                 line = RegexSuffix.Replace(reader.ReadLine(), "");
                 Fields = ReadFields(line);
                 if (Fields.Length == Titles.Length)

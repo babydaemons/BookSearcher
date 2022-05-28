@@ -101,9 +101,7 @@ namespace BookSearcherTest
         {
             var books = dataAscA;
             var scrapings = CreateDataAsc(ROW_COUNT, BookTitle, Year, valueFormat1b, valueFormat2);
-            var i = scrapings.MemoryTable.Count;
-            var row = new MemoryRow(scrapings.MemoryTable, i, new string[] { i.ToString(valueFormat1b + "!"), i.ToString(valueFormat2) });
-            scrapings.MemoryTable.TryAdd(i, row);
+            scrapings.AddRow(new string[] { string.Format(valueFormat1b + "!", scrapings.RowCount), string.Format(valueFormat2, scrapings.RowCount) });
             BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.All, PrefixLength);
             searcher = new BookSearcher02();
             searcher.Search();
@@ -115,9 +113,7 @@ namespace BookSearcherTest
         {
             var books = dataAscB;
             var scrapings = CreateDataAsc(ROW_COUNT, BookTitle, Year, valueFormat1b, valueFormat2);
-            var i = scrapings.MemoryTable.Count;
-            var row = new MemoryRow(scrapings.MemoryTable, i, new string[] { i.ToString(valueFormat1b), i.ToString(valueFormat2 + "!") });
-            scrapings.MemoryTable.TryAdd(i, row);
+            scrapings.AddRow(new string[] { string.Format(valueFormat1b, scrapings.RowCount), string.Format(valueFormat2, scrapings.RowCount) });
             BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.All, PrefixLength);
             searcher = new BookSearcher02();
             searcher.Search();
@@ -128,23 +124,19 @@ namespace BookSearcherTest
         public void TestMatchingDiffColumn21()
         {
             var books = CreateDataAsc(ROW_COUNT, BookTitle, Year, valueFormat1a, valueFormat2);
-            var i = books.MemoryTable.Count;
-            var row = new MemoryRow(books.MemoryTable, i, new string[] { i.ToString(valueFormat1a + "!"), i.ToString(valueFormat2) });
-            books.MemoryTable.TryAdd(i, row);
+            books.AddRow(new string[] { string.Format(valueFormat1a + "!", books.RowCount), string.Format(valueFormat2, books.RowCount) });
             var scrapings = dataDiff1B;
             BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.All, PrefixLength);
             searcher = new BookSearcher02();
             searcher.Search();
-            Assert.AreEqual(ROW_COUNT, BookSearcher.ResultTable.Rows.Count);
+            Assert.AreEqual(ROW_COUNT + 1, BookSearcher.ResultTable.Rows.Count);
         }
 
         [TestMethod]
         public void TestMatchingDiffColumn22()
         {
             var books = CreateDataAsc(ROW_COUNT, BookTitle, Year, valueFormat1b, valueFormat2);
-            var i = books.MemoryTable.Count;
-            var row = new MemoryRow(books.MemoryTable, i, new string[] { i.ToString(valueFormat1b), i.ToString(valueFormat2 + "!") });
-            books.MemoryTable.TryAdd(i, row);
+            books.AddRow(new string[] { string.Format(valueFormat1b, books.RowCount), string.Format(valueFormat2 + "!", books.RowCount) });
             var scrapings = dataDiff1B;
             BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.All, PrefixLength);
             searcher = new BookSearcher02();
