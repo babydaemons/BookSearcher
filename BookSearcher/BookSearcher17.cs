@@ -2,7 +2,7 @@
 
 namespace BookSearcherApp
 {
-    internal class BookSearcher17 : BookSearcher
+    public class BookSearcher17 : BookSearcher
     {
         private readonly ColumnInfo bookTitle = new ColumnInfo(MatchType.BeginningMatch, SpaceMatch, ColumnType.BookTitle);
         private readonly ColumnInfo year = new ColumnInfo(MatchType.PartialMatch, SpaceMatch, ColumnType.Year);
