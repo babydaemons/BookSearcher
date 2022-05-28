@@ -14,14 +14,14 @@ namespace BookSearcherTest
         public TestBookSearcher15()
         {
             const string BookTitle = "書籍タイトル";
-            const string valuePrefix = "書籍タイトル通巻";
-            BookColumnSetting.Rows.Add(BookTitle, valuePrefix, "書籍名");
-            ScrapingColumnSetting.Rows.Add(BookTitle, valuePrefix, "書籍名");
+            const string valueFormat = "書籍タイトル通巻{0:D8}";
+            BookColumnSetting.Rows.Add(BookTitle, valueFormat, "書籍名");
+            ScrapingColumnSetting.Rows.Add(BookTitle, valueFormat, "書籍名");
 
-            dataAsc = CreateDataAsc(ROW_COUNT, BookTitle, valuePrefix);
-            dataDesc = CreateDataDesc(ROW_COUNT, BookTitle, valuePrefix);
-            dataDiff1 = CreateDataAsc(ROW_COUNT  + 1, BookTitle, valuePrefix);
-            dataDiff2 = CreateDataDesc(ROW_COUNT + 1, BookTitle, valuePrefix);
+            dataAsc = CreateDataAsc(ROW_COUNT, BookTitle, valueFormat);
+            dataDesc = CreateDataDesc(ROW_COUNT, BookTitle, valueFormat);
+            dataDiff1 = CreateDataAsc(ROW_COUNT  + 1, BookTitle, valueFormat);
+            dataDiff2 = CreateDataDesc(ROW_COUNT + 1, BookTitle, valueFormat);
         }
 
         [TestMethod]

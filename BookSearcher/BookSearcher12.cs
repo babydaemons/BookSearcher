@@ -2,11 +2,11 @@
 
 namespace BookSearcherApp
 {
-    internal class BookSearcher12 : BookSearcher
+    public class BookSearcher12 : BookSearcher
     {
-        private readonly ColumnInfo bookTitle = new ColumnInfo(MatchType.PartialMatch, SpaceMatch.Ignore, ColumnType.BookTitle, true);
-        private readonly ColumnInfo author = new ColumnInfo(MatchType.PartialMatch, SpaceMatch.Ignore, ColumnType.Author, true);
-        private readonly ColumnInfo complex = new ColumnInfo(MatchType.CompleteMatch, SpaceMatch.Ignore, ColumnType.Complex);
+        private readonly ColumnInfo bookTitle = new ColumnInfo(MatchType.ComplexMatch, SpaceMatch.Ignore, ColumnType.BookTitle);
+        private readonly ColumnInfo author = new ColumnInfo(MatchType.ComplexMatch, SpaceMatch.Ignore, ColumnType.Author);
+        private readonly ColumnInfo complex = new ColumnInfo(MatchType.ComplexMatch, SpaceMatch.Ignore, ColumnType.Complex);
 
         public BookSearcher12() : base()
         {

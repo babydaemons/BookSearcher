@@ -14,14 +14,14 @@ namespace BookSearcherTest
         public TestBookSearcher13()
         {
             const string URL = "ページURL";
-            const string valuePrefix = "https://www.example.com/";
-            BookColumnSetting.Rows.Add(URL, valuePrefix, "URL");
-            ScrapingColumnSetting.Rows.Add(URL, valuePrefix, "URL");
+            const string valueFormat = "https://www.example.com/{0:D8}";
+            BookColumnSetting.Rows.Add(URL, valueFormat, "URL");
+            ScrapingColumnSetting.Rows.Add(URL, valueFormat, "URL");
 
-            dataAsc = CreateDataAsc(ROW_COUNT, URL, valuePrefix);
-            dataDesc = CreateDataDesc(ROW_COUNT, URL, valuePrefix);
-            dataDiff1 = CreateDataAsc(ROW_COUNT + 1, URL, valuePrefix);
-            dataDiff2 = CreateDataDesc(ROW_COUNT + 1, URL, valuePrefix);
+            dataAsc = CreateDataAsc(ROW_COUNT, URL, valueFormat);
+            dataDesc = CreateDataDesc(ROW_COUNT, URL, valueFormat);
+            dataDiff1 = CreateDataAsc(ROW_COUNT + 1, URL, valueFormat);
+            dataDiff2 = CreateDataDesc(ROW_COUNT + 1, URL, valueFormat);
         }
 
         [TestMethod]

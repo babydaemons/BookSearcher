@@ -10,7 +10,7 @@ namespace BookSearcherApp
 {
     public enum ColumnIndex { Name, Value, Type };
     public enum ColumnType { None, BookTitle, Author, Publisher, Year, ISBN, URL, Price, Complex };
-    public enum MatchType { CompleteMatch, BeginningMatch, PartialMatch };
+    public enum MatchType { CompleteMatch, BeginningMatch, PartialMatch, ComplexMatch };
     public enum SpaceMatch { All, Ignore };
 
     public struct ColumnInfo
@@ -20,12 +20,12 @@ namespace BookSearcherApp
         public int BookColumnIndex { get; }
         public int ScrapingColumnIndex { get; }
 
-        public ColumnInfo(MatchType matchType, SpaceMatch spaceMatch, ColumnType columnType, bool isComplexMatching = false)
+        public ColumnInfo(MatchType matchType, SpaceMatch spaceMatch, ColumnType columnType)
         {
             MatchType = matchType;
             SpaceMatch = spaceMatch;
-            BookColumnIndex = isComplexMatching ? -1 : BookSearcher.SelectBookColumnIndex(columnType);
-            ScrapingColumnIndex = isComplexMatching ? -1 : BookSearcher.SelectScrapingColumnIndex(columnType);
+            BookColumnIndex = columnType == ColumnType.Complex ? -1 : BookSearcher.SelectBookColumnIndex(columnType);
+            ScrapingColumnIndex = matchType == MatchType.ComplexMatch && columnType != ColumnType.Complex ? -1 : BookSearcher.SelectScrapingColumnIndex(columnType);
         }
     }
 
@@ -115,7 +115,7 @@ namespace BookSearcherApp
         protected static CSVData ScrapingCSV;
         protected static SpaceMatch SpaceMatch;
         protected static int PrefixLength;
-        private static readonly string[] columnTypeNames = new string[] { "", "書籍名", "著者名", "出版社名", "出版年", "ISBN", "URL", "価格", "2種類の複合データ" };
+        private static readonly string[] columnTypeNames = new string[] { "", "書籍名", "著者名", "出版社名", "出版年", "ISBN", "URL", "価格", "複合データ" };
         private static DataTable resultTable = new DataTable();
         public static DataTable ResultTable => resultTable;
         private delegate string ConvertValue(string value);
@@ -519,6 +519,10 @@ namespace BookSearcherApp
                 return ConvertRemoveSpaceExtractPrefix;
             }
             else if (columnInfo.MatchType == MatchType.PartialMatch)
+            {
+                return ConvertRemoveSpace;
+            }
+            else if (columnInfo.MatchType == MatchType.ComplexMatch)
             {
                 return ConvertRemoveSpace;
             }

@@ -650,7 +650,7 @@
             "ISBN",
             "URL",
             "価格",
-            "2種類の複合データ"});
+            "複合データ"});
             this.ScrapingColumnType.Name = "ScrapingColumnType";
             this.ScrapingColumnType.Width = 90;
             // 

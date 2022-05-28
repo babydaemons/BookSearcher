@@ -7,29 +7,27 @@ namespace BookSearcherTest
     {
         protected const int ROW_COUNT = 100;
 
-        protected CSVData CreateDataAsc(int count, string columnName, string valuePrefix, int paddingLength = 8)
+        protected CSVData CreateDataAsc(int count, string columnName, string valueFormat)
         {
             var rows = new CSVData();
             rows.SetTitles(new string[] { columnName });
             rows.AllocateTable(count);
-            var format = $"D{paddingLength}";
             Enumerable.Range(0, count).AsParallel().ForAll(i =>
             {
-                var row = new MemoryRow(rows.MemoryTable, i, new string[] { valuePrefix + i.ToString(format) });
+                var row = new MemoryRow(rows.MemoryTable, i, new string[] { string.Format(valueFormat, i) });
                 rows.MemoryTable.TryAdd(i, row);
             });
             return rows;
         }
 
-        protected CSVData CreateDataDesc(int count, string columnName, string valuePrefix, int paddingLength = 8)
+        protected CSVData CreateDataDesc(int count, string columnName, string valueFormat)
         {
             var rows = new CSVData();
             rows.SetTitles(new string[] { columnName });
             rows.AllocateTable(count);
-            var format = $"D{paddingLength}";
             Enumerable.Range(0, count).AsParallel().ForAll(i =>
             {
-                var row = new MemoryRow(rows.MemoryTable, i, new string[] { valuePrefix + i.ToString(format) });
+                var row = new MemoryRow(rows.MemoryTable, i, new string[] { string.Format(valueFormat, i) });
                 rows.MemoryTable.TryAdd(count - i - 1, row);
             });
             return rows;
