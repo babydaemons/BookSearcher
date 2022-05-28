@@ -95,27 +95,31 @@
             this.RadioButtonSearchType02 = new System.Windows.Forms.RadioButton();
             this.RadioButtonSearchType01 = new System.Windows.Forms.RadioButton();
             this.TabPageOutputSetting = new System.Windows.Forms.TabPage();
+            this.ButtonPreviewOutputs = new System.Windows.Forms.Button();
             this.TabControlOutputFileSetting = new System.Windows.Forms.TabControl();
             this.TabPageOutputPattern1 = new System.Windows.Forms.TabPage();
             this.DataGridViewOutputPattern1 = new System.Windows.Forms.DataGridView();
+            this.TabPageOutputPattern2 = new System.Windows.Forms.TabPage();
+            this.DataGridViewOutputPattern2 = new System.Windows.Forms.DataGridView();
+            this.TabPageCommonOutput1 = new System.Windows.Forms.TabPage();
+            this.DataGridViewCommonOutput1 = new System.Windows.Forms.DataGridView();
+            this.TabPageCommonOutput2 = new System.Windows.Forms.TabPage();
+            this.DataGridViewCommonOutput2 = new System.Windows.Forms.DataGridView();
             this.ColumnJapaneseName1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnEnglishName1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnSettingValue1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TabPageOutputPattern2 = new System.Windows.Forms.TabPage();
-            this.DataGridViewOutputPattern2 = new System.Windows.Forms.DataGridView();
             this.ColumnJapaneseName2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnEnglishName2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnSettingValue2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TabPageCommonOutput1 = new System.Windows.Forms.TabPage();
-            this.DataGridViewCommonOutput1 = new System.Windows.Forms.DataGridView();
             this.ColumnJapaneseName3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnEnglishName3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnSettingValue3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TabPageCommonOutput2 = new System.Windows.Forms.TabPage();
-            this.DataGridViewCommonOutput2 = new System.Windows.Forms.DataGridView();
             this.ColumnJapaneseName4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnEnglishName4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnSettingValue4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProgressBarOutputPatternCSV = new System.Windows.Forms.ProgressBar();
+            this.ProgressBarOutputCommonCSV1 = new System.Windows.Forms.ProgressBar();
+            this.ProgressBarOutputCommonCSV2 = new System.Windows.Forms.ProgressBar();
             this.GroupBoxOutput.SuspendLayout();
             this.GroupBoxPartMatch.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownLength)).BeginInit();
@@ -259,7 +263,7 @@
             this.GroupBoxExecute.Size = new System.Drawing.Size(373, 57);
             this.GroupBoxExecute.TabIndex = 7;
             this.GroupBoxExecute.TabStop = false;
-            this.GroupBoxExecute.Text = "突き合わせ処理";
+            this.GroupBoxExecute.Text = "照合処理";
             // 
             // LabelResultRows
             // 
@@ -293,6 +297,9 @@
             // 
             // GroupBoxFiles
             // 
+            this.GroupBoxFiles.Controls.Add(this.ProgressBarOutputCommonCSV2);
+            this.GroupBoxFiles.Controls.Add(this.ProgressBarOutputCommonCSV1);
+            this.GroupBoxFiles.Controls.Add(this.ProgressBarOutputPatternCSV);
             this.GroupBoxFiles.Controls.Add(this.ProgressBarOutputExcel);
             this.GroupBoxFiles.Controls.Add(this.ProgressBarInput2);
             this.GroupBoxFiles.Controls.Add(this.ProgressBarInput1);
@@ -899,6 +906,7 @@
             // 
             this.TabPageOutputSetting.BackColor = System.Drawing.SystemColors.Control;
             this.TabPageOutputSetting.Controls.Add(this.TabControlOutputFileSetting);
+            this.TabPageOutputSetting.Controls.Add(this.ButtonPreviewOutputs);
             this.TabPageOutputSetting.Location = new System.Drawing.Point(4, 24);
             this.TabPageOutputSetting.Name = "TabPageOutputSetting";
             this.TabPageOutputSetting.Padding = new System.Windows.Forms.Padding(3);
@@ -906,18 +914,29 @@
             this.TabPageOutputSetting.TabIndex = 1;
             this.TabPageOutputSetting.Text = "出力CSVファイル列指定";
             // 
+            // ButtonPreviewOutputs
+            // 
+            this.ButtonPreviewOutputs.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ButtonPreviewOutputs.Location = new System.Drawing.Point(3, 465);
+            this.ButtonPreviewOutputs.Name = "ButtonPreviewOutputs";
+            this.ButtonPreviewOutputs.Size = new System.Drawing.Size(761, 23);
+            this.ButtonPreviewOutputs.TabIndex = 0;
+            this.ButtonPreviewOutputs.Text = "詳細確認";
+            this.ButtonPreviewOutputs.UseVisualStyleBackColor = true;
+            // 
             // TabControlOutputFileSetting
             // 
             this.TabControlOutputFileSetting.Controls.Add(this.TabPageOutputPattern1);
             this.TabControlOutputFileSetting.Controls.Add(this.TabPageOutputPattern2);
             this.TabControlOutputFileSetting.Controls.Add(this.TabPageCommonOutput1);
             this.TabControlOutputFileSetting.Controls.Add(this.TabPageCommonOutput2);
-            this.TabControlOutputFileSetting.Location = new System.Drawing.Point(15, 15);
+            this.TabControlOutputFileSetting.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TabControlOutputFileSetting.Location = new System.Drawing.Point(3, 3);
             this.TabControlOutputFileSetting.Margin = new System.Windows.Forms.Padding(12);
             this.TabControlOutputFileSetting.Name = "TabControlOutputFileSetting";
             this.TabControlOutputFileSetting.SelectedIndex = 0;
-            this.TabControlOutputFileSetting.Size = new System.Drawing.Size(740, 461);
-            this.TabControlOutputFileSetting.TabIndex = 1;
+            this.TabControlOutputFileSetting.Size = new System.Drawing.Size(761, 462);
+            this.TabControlOutputFileSetting.TabIndex = 2;
             // 
             // TabPageOutputPattern1
             // 
@@ -926,7 +945,7 @@
             this.TabPageOutputPattern1.Location = new System.Drawing.Point(4, 24);
             this.TabPageOutputPattern1.Name = "TabPageOutputPattern1";
             this.TabPageOutputPattern1.Padding = new System.Windows.Forms.Padding(3);
-            this.TabPageOutputPattern1.Size = new System.Drawing.Size(732, 433);
+            this.TabPageOutputPattern1.Size = new System.Drawing.Size(753, 434);
             this.TabPageOutputPattern1.TabIndex = 0;
             this.TabPageOutputPattern1.Text = "出力CSVパターン1";
             // 
@@ -943,8 +962,89 @@
             this.DataGridViewOutputPattern1.Location = new System.Drawing.Point(3, 3);
             this.DataGridViewOutputPattern1.Name = "DataGridViewOutputPattern1";
             this.DataGridViewOutputPattern1.RowTemplate.Height = 21;
-            this.DataGridViewOutputPattern1.Size = new System.Drawing.Size(726, 427);
+            this.DataGridViewOutputPattern1.Size = new System.Drawing.Size(747, 428);
             this.DataGridViewOutputPattern1.TabIndex = 1;
+            // 
+            // TabPageOutputPattern2
+            // 
+            this.TabPageOutputPattern2.BackColor = System.Drawing.SystemColors.Control;
+            this.TabPageOutputPattern2.Controls.Add(this.DataGridViewOutputPattern2);
+            this.TabPageOutputPattern2.Location = new System.Drawing.Point(4, 24);
+            this.TabPageOutputPattern2.Name = "TabPageOutputPattern2";
+            this.TabPageOutputPattern2.Padding = new System.Windows.Forms.Padding(3);
+            this.TabPageOutputPattern2.Size = new System.Drawing.Size(753, 434);
+            this.TabPageOutputPattern2.TabIndex = 1;
+            this.TabPageOutputPattern2.Text = "出力CSVパターン2";
+            // 
+            // DataGridViewOutputPattern2
+            // 
+            this.DataGridViewOutputPattern2.AllowUserToAddRows = false;
+            this.DataGridViewOutputPattern2.AllowUserToDeleteRows = false;
+            this.DataGridViewOutputPattern2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataGridViewOutputPattern2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ColumnJapaneseName2,
+            this.ColumnEnglishName2,
+            this.ColumnSettingValue2});
+            this.DataGridViewOutputPattern2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DataGridViewOutputPattern2.Location = new System.Drawing.Point(3, 3);
+            this.DataGridViewOutputPattern2.Name = "DataGridViewOutputPattern2";
+            this.DataGridViewOutputPattern2.RowTemplate.Height = 21;
+            this.DataGridViewOutputPattern2.Size = new System.Drawing.Size(747, 428);
+            this.DataGridViewOutputPattern2.TabIndex = 2;
+            // 
+            // TabPageCommonOutput1
+            // 
+            this.TabPageCommonOutput1.BackColor = System.Drawing.SystemColors.Control;
+            this.TabPageCommonOutput1.Controls.Add(this.DataGridViewCommonOutput1);
+            this.TabPageCommonOutput1.Location = new System.Drawing.Point(4, 24);
+            this.TabPageCommonOutput1.Name = "TabPageCommonOutput1";
+            this.TabPageCommonOutput1.Padding = new System.Windows.Forms.Padding(3);
+            this.TabPageCommonOutput1.Size = new System.Drawing.Size(753, 434);
+            this.TabPageCommonOutput1.TabIndex = 2;
+            this.TabPageCommonOutput1.Text = "共通CSV出力1";
+            // 
+            // DataGridViewCommonOutput1
+            // 
+            this.DataGridViewCommonOutput1.AllowUserToAddRows = false;
+            this.DataGridViewCommonOutput1.AllowUserToDeleteRows = false;
+            this.DataGridViewCommonOutput1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataGridViewCommonOutput1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ColumnJapaneseName3,
+            this.ColumnEnglishName3,
+            this.ColumnSettingValue3});
+            this.DataGridViewCommonOutput1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DataGridViewCommonOutput1.Location = new System.Drawing.Point(3, 3);
+            this.DataGridViewCommonOutput1.Name = "DataGridViewCommonOutput1";
+            this.DataGridViewCommonOutput1.RowTemplate.Height = 21;
+            this.DataGridViewCommonOutput1.Size = new System.Drawing.Size(747, 428);
+            this.DataGridViewCommonOutput1.TabIndex = 3;
+            // 
+            // TabPageCommonOutput2
+            // 
+            this.TabPageCommonOutput2.BackColor = System.Drawing.SystemColors.Control;
+            this.TabPageCommonOutput2.Controls.Add(this.DataGridViewCommonOutput2);
+            this.TabPageCommonOutput2.Location = new System.Drawing.Point(4, 24);
+            this.TabPageCommonOutput2.Name = "TabPageCommonOutput2";
+            this.TabPageCommonOutput2.Padding = new System.Windows.Forms.Padding(3);
+            this.TabPageCommonOutput2.Size = new System.Drawing.Size(753, 434);
+            this.TabPageCommonOutput2.TabIndex = 3;
+            this.TabPageCommonOutput2.Text = "共通CSV出力2";
+            // 
+            // DataGridViewCommonOutput2
+            // 
+            this.DataGridViewCommonOutput2.AllowUserToAddRows = false;
+            this.DataGridViewCommonOutput2.AllowUserToDeleteRows = false;
+            this.DataGridViewCommonOutput2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataGridViewCommonOutput2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ColumnJapaneseName4,
+            this.ColumnEnglishName4,
+            this.ColumnSettingValue4});
+            this.DataGridViewCommonOutput2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DataGridViewCommonOutput2.Location = new System.Drawing.Point(3, 3);
+            this.DataGridViewCommonOutput2.Name = "DataGridViewCommonOutput2";
+            this.DataGridViewCommonOutput2.RowTemplate.Height = 21;
+            this.DataGridViewCommonOutput2.Size = new System.Drawing.Size(747, 428);
+            this.DataGridViewCommonOutput2.TabIndex = 3;
             // 
             // ColumnJapaneseName1
             // 
@@ -962,7 +1062,7 @@
             this.ColumnEnglishName1.Name = "ColumnEnglishName1";
             this.ColumnEnglishName1.ReadOnly = true;
             this.ColumnEnglishName1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ColumnEnglishName1.Width = 230;
+            this.ColumnEnglishName1.Width = 250;
             // 
             // ColumnSettingValue1
             // 
@@ -971,33 +1071,6 @@
             this.ColumnSettingValue1.Name = "ColumnSettingValue1";
             this.ColumnSettingValue1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.ColumnSettingValue1.Width = 285;
-            // 
-            // TabPageOutputPattern2
-            // 
-            this.TabPageOutputPattern2.BackColor = System.Drawing.SystemColors.Control;
-            this.TabPageOutputPattern2.Controls.Add(this.DataGridViewOutputPattern2);
-            this.TabPageOutputPattern2.Location = new System.Drawing.Point(4, 24);
-            this.TabPageOutputPattern2.Name = "TabPageOutputPattern2";
-            this.TabPageOutputPattern2.Padding = new System.Windows.Forms.Padding(3);
-            this.TabPageOutputPattern2.Size = new System.Drawing.Size(732, 433);
-            this.TabPageOutputPattern2.TabIndex = 1;
-            this.TabPageOutputPattern2.Text = "出力CSVパターン2";
-            // 
-            // DataGridViewOutputPattern2
-            // 
-            this.DataGridViewOutputPattern2.AllowUserToAddRows = false;
-            this.DataGridViewOutputPattern2.AllowUserToDeleteRows = false;
-            this.DataGridViewOutputPattern2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGridViewOutputPattern2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ColumnJapaneseName2,
-            this.ColumnEnglishName2,
-            this.ColumnSettingValue2});
-            this.DataGridViewOutputPattern2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DataGridViewOutputPattern2.Location = new System.Drawing.Point(3, 3);
-            this.DataGridViewOutputPattern2.Name = "DataGridViewOutputPattern2";
-            this.DataGridViewOutputPattern2.RowTemplate.Height = 21;
-            this.DataGridViewOutputPattern2.Size = new System.Drawing.Size(726, 427);
-            this.DataGridViewOutputPattern2.TabIndex = 2;
             // 
             // ColumnJapaneseName2
             // 
@@ -1015,7 +1088,7 @@
             this.ColumnEnglishName2.Name = "ColumnEnglishName2";
             this.ColumnEnglishName2.ReadOnly = true;
             this.ColumnEnglishName2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ColumnEnglishName2.Width = 230;
+            this.ColumnEnglishName2.Width = 250;
             // 
             // ColumnSettingValue2
             // 
@@ -1024,33 +1097,6 @@
             this.ColumnSettingValue2.Name = "ColumnSettingValue2";
             this.ColumnSettingValue2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.ColumnSettingValue2.Width = 285;
-            // 
-            // TabPageCommonOutput1
-            // 
-            this.TabPageCommonOutput1.BackColor = System.Drawing.SystemColors.Control;
-            this.TabPageCommonOutput1.Controls.Add(this.DataGridViewCommonOutput1);
-            this.TabPageCommonOutput1.Location = new System.Drawing.Point(4, 24);
-            this.TabPageCommonOutput1.Name = "TabPageCommonOutput1";
-            this.TabPageCommonOutput1.Padding = new System.Windows.Forms.Padding(3);
-            this.TabPageCommonOutput1.Size = new System.Drawing.Size(732, 433);
-            this.TabPageCommonOutput1.TabIndex = 2;
-            this.TabPageCommonOutput1.Text = "共通CSV出力1";
-            // 
-            // DataGridViewCommonOutput1
-            // 
-            this.DataGridViewCommonOutput1.AllowUserToAddRows = false;
-            this.DataGridViewCommonOutput1.AllowUserToDeleteRows = false;
-            this.DataGridViewCommonOutput1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGridViewCommonOutput1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ColumnJapaneseName3,
-            this.ColumnEnglishName3,
-            this.ColumnSettingValue3});
-            this.DataGridViewCommonOutput1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DataGridViewCommonOutput1.Location = new System.Drawing.Point(3, 3);
-            this.DataGridViewCommonOutput1.Name = "DataGridViewCommonOutput1";
-            this.DataGridViewCommonOutput1.RowTemplate.Height = 21;
-            this.DataGridViewCommonOutput1.Size = new System.Drawing.Size(726, 427);
-            this.DataGridViewCommonOutput1.TabIndex = 3;
             // 
             // ColumnJapaneseName3
             // 
@@ -1068,7 +1114,7 @@
             this.ColumnEnglishName3.Name = "ColumnEnglishName3";
             this.ColumnEnglishName3.ReadOnly = true;
             this.ColumnEnglishName3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ColumnEnglishName3.Width = 230;
+            this.ColumnEnglishName3.Width = 250;
             // 
             // ColumnSettingValue3
             // 
@@ -1077,33 +1123,6 @@
             this.ColumnSettingValue3.Name = "ColumnSettingValue3";
             this.ColumnSettingValue3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.ColumnSettingValue3.Width = 285;
-            // 
-            // TabPageCommonOutput2
-            // 
-            this.TabPageCommonOutput2.BackColor = System.Drawing.SystemColors.Control;
-            this.TabPageCommonOutput2.Controls.Add(this.DataGridViewCommonOutput2);
-            this.TabPageCommonOutput2.Location = new System.Drawing.Point(4, 24);
-            this.TabPageCommonOutput2.Name = "TabPageCommonOutput2";
-            this.TabPageCommonOutput2.Padding = new System.Windows.Forms.Padding(3);
-            this.TabPageCommonOutput2.Size = new System.Drawing.Size(732, 433);
-            this.TabPageCommonOutput2.TabIndex = 3;
-            this.TabPageCommonOutput2.Text = "共通CSV出力2";
-            // 
-            // DataGridViewCommonOutput2
-            // 
-            this.DataGridViewCommonOutput2.AllowUserToAddRows = false;
-            this.DataGridViewCommonOutput2.AllowUserToDeleteRows = false;
-            this.DataGridViewCommonOutput2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGridViewCommonOutput2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ColumnJapaneseName4,
-            this.ColumnEnglishName4,
-            this.ColumnSettingValue4});
-            this.DataGridViewCommonOutput2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DataGridViewCommonOutput2.Location = new System.Drawing.Point(3, 3);
-            this.DataGridViewCommonOutput2.Name = "DataGridViewCommonOutput2";
-            this.DataGridViewCommonOutput2.RowTemplate.Height = 21;
-            this.DataGridViewCommonOutput2.Size = new System.Drawing.Size(726, 427);
-            this.DataGridViewCommonOutput2.TabIndex = 3;
             // 
             // ColumnJapaneseName4
             // 
@@ -1121,7 +1140,7 @@
             this.ColumnEnglishName4.Name = "ColumnEnglishName4";
             this.ColumnEnglishName4.ReadOnly = true;
             this.ColumnEnglishName4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ColumnEnglishName4.Width = 230;
+            this.ColumnEnglishName4.Width = 250;
             // 
             // ColumnSettingValue4
             // 
@@ -1130,6 +1149,27 @@
             this.ColumnSettingValue4.Name = "ColumnSettingValue4";
             this.ColumnSettingValue4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.ColumnSettingValue4.Width = 285;
+            // 
+            // ProgressBarOutputPatternCSV
+            // 
+            this.ProgressBarOutputPatternCSV.Location = new System.Drawing.Point(1027, 112);
+            this.ProgressBarOutputPatternCSV.Name = "ProgressBarOutputPatternCSV";
+            this.ProgressBarOutputPatternCSV.Size = new System.Drawing.Size(232, 20);
+            this.ProgressBarOutputPatternCSV.TabIndex = 18;
+            // 
+            // ProgressBarOutputCommonCSV1
+            // 
+            this.ProgressBarOutputCommonCSV1.Location = new System.Drawing.Point(1027, 141);
+            this.ProgressBarOutputCommonCSV1.Name = "ProgressBarOutputCommonCSV1";
+            this.ProgressBarOutputCommonCSV1.Size = new System.Drawing.Size(232, 20);
+            this.ProgressBarOutputCommonCSV1.TabIndex = 19;
+            // 
+            // ProgressBarOutputCommonCSV2
+            // 
+            this.ProgressBarOutputCommonCSV2.Location = new System.Drawing.Point(1026, 170);
+            this.ProgressBarOutputCommonCSV2.Name = "ProgressBarOutputCommonCSV2";
+            this.ProgressBarOutputCommonCSV2.Size = new System.Drawing.Size(232, 20);
+            this.ProgressBarOutputCommonCSV2.TabIndex = 20;
             // 
             // Form1
             // 
@@ -1232,27 +1272,6 @@
         protected System.Windows.Forms.TabControl TabControlMatchingOutput;
         protected System.Windows.Forms.TabPage TabPageMatching;
         protected System.Windows.Forms.TabPage TabPageOutputSetting;
-        protected System.Windows.Forms.TabControl TabControlOutputFileSetting;
-        protected System.Windows.Forms.TabPage TabPageOutputPattern1;
-        protected System.Windows.Forms.DataGridView DataGridViewOutputPattern1;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnJapaneseName1;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnEnglishName1;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnSettingValue1;
-        protected System.Windows.Forms.TabPage TabPageOutputPattern2;
-        protected System.Windows.Forms.DataGridView DataGridViewOutputPattern2;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnJapaneseName2;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnEnglishName2;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnSettingValue2;
-        protected System.Windows.Forms.TabPage TabPageCommonOutput1;
-        protected System.Windows.Forms.DataGridView DataGridViewCommonOutput1;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnJapaneseName3;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnEnglishName3;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnSettingValue3;
-        protected System.Windows.Forms.TabPage TabPageCommonOutput2;
-        protected System.Windows.Forms.DataGridView DataGridViewCommonOutput2;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnJapaneseName4;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnEnglishName4;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnSettingValue4;
         protected System.Windows.Forms.Label LabelElapsed;
         protected System.Windows.Forms.Label LabelResultRows;
         protected System.Windows.Forms.Panel PanelMatchCondition;
@@ -1274,6 +1293,31 @@
         protected System.Windows.Forms.RadioButton RadioButtonSearchType02;
         protected System.Windows.Forms.RadioButton RadioButtonSearchType01;
         private System.ComponentModel.IContainer components;
+        protected System.Windows.Forms.TabControl TabControlOutputFileSetting;
+        protected System.Windows.Forms.TabPage TabPageOutputPattern1;
+        protected System.Windows.Forms.DataGridView DataGridViewOutputPattern1;
+        protected System.Windows.Forms.TabPage TabPageOutputPattern2;
+        protected System.Windows.Forms.DataGridView DataGridViewOutputPattern2;
+        protected System.Windows.Forms.TabPage TabPageCommonOutput1;
+        protected System.Windows.Forms.DataGridView DataGridViewCommonOutput1;
+        protected System.Windows.Forms.TabPage TabPageCommonOutput2;
+        protected System.Windows.Forms.DataGridView DataGridViewCommonOutput2;
+        private System.Windows.Forms.Button ButtonPreviewOutputs;
+        protected System.Windows.Forms.ProgressBar ProgressBarOutputCommonCSV2;
+        protected System.Windows.Forms.ProgressBar ProgressBarOutputCommonCSV1;
+        protected System.Windows.Forms.ProgressBar ProgressBarOutputPatternCSV;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnJapaneseName1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEnglishName1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnSettingValue1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnJapaneseName2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEnglishName2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnSettingValue2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnJapaneseName3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEnglishName3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnSettingValue3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnJapaneseName4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEnglishName4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnSettingValue4;
     }
 }
 
