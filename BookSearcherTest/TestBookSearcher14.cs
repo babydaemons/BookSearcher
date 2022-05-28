@@ -4,24 +4,24 @@ using BookSearcherApp;
 namespace BookSearcherTest
 {
     [TestClass]
-    public class TestBookSearcher13 : TestBookSearcher
+    public class TestBookSearcher14 : TestBookSearcher
     {
         private readonly CSVData dataAsc;
         private readonly CSVData dataDesc;
         private readonly CSVData dataDiff1;
         private readonly CSVData dataDiff2;
 
-        public TestBookSearcher13()
+        public TestBookSearcher14()
         {
-            const string URL = "ページURL";
-            const string valuePrefix = "https://www.example.com/";
-            BookColumnSetting.Rows.Add(URL, valuePrefix, "URL");
-            ScrapingColumnSetting.Rows.Add(URL, valuePrefix, "URL");
+            const string ISBN = "書籍ISBN13";
+            const string valuePrefix = "97841";
+            BookColumnSetting.Rows.Add(ISBN, valuePrefix, "ISBN");
+            ScrapingColumnSetting.Rows.Add(ISBN, valuePrefix, "ISBN");
 
-            dataAsc = CreateDataAsc(URL, valuePrefix, ROW_COUNT);
-            dataDesc = CreateDataDesc(URL, valuePrefix, ROW_COUNT);
-            dataDiff1 = CreateDataAsc(URL, valuePrefix, ROW_COUNT + 1);
-            dataDiff2 = CreateDataDesc(URL, valuePrefix, ROW_COUNT + 1);
+            dataAsc = CreateDataAsc(ISBN, valuePrefix, ROW_COUNT);
+            dataDesc = CreateDataDesc(ISBN, valuePrefix, ROW_COUNT);
+            dataDiff1 = CreateDataAsc(ISBN, valuePrefix, ROW_COUNT + 1);
+            dataDiff2 = CreateDataDesc(ISBN, valuePrefix, ROW_COUNT + 1);
         }
 
         [TestMethod]
@@ -30,7 +30,7 @@ namespace BookSearcherTest
             var books = dataAsc;
             var scrapings = dataAsc;
             BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.All, -1);
-            searcher = new BookSearcher13();
+            searcher = new BookSearcher14();
             searcher.Search();
             Assert.AreEqual(ROW_COUNT, BookSearcher.ResultTable.Rows.Count);
         }
@@ -41,7 +41,7 @@ namespace BookSearcherTest
             var books = dataAsc;
             var scrapings = dataDesc;
             BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.All, -1);
-            searcher = new BookSearcher13();
+            searcher = new BookSearcher14();
             searcher.Search();
             Assert.AreEqual(ROW_COUNT, BookSearcher.ResultTable.Rows.Count);
         }
@@ -52,7 +52,7 @@ namespace BookSearcherTest
             var books = dataAsc;
             var scrapings = dataDiff1;
             BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.All, -1);
-            searcher = new BookSearcher13();
+            searcher = new BookSearcher14();
             searcher.Search();
             Assert.AreEqual(ROW_COUNT, BookSearcher.ResultTable.Rows.Count);
         }
@@ -63,7 +63,7 @@ namespace BookSearcherTest
             var books = dataDiff2;
             var scrapings = dataAsc;
             BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.All, -1);
-            searcher = new BookSearcher13();
+            searcher = new BookSearcher14();
             searcher.Search();
             Assert.AreEqual(ROW_COUNT, BookSearcher.ResultTable.Rows.Count);
         }
