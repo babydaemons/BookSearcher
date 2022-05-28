@@ -35,31 +35,27 @@ namespace BookSearcherTest
             return rows;
         }
 
-        protected CSVData CreateDataAsc(int count, string columnName1, string columnName2, string valuePrefix1, string valuePrefix2, int paddingLength1 = 8, int paddingLength2 = 8)
+        protected CSVData CreateDataAsc(int count, string columnName1, string columnName2, string valueFormat1, string valueFormat2)
         {
             var rows = new CSVData();
             rows.SetTitles(new string[] { columnName1, columnName2 });
             rows.AllocateTable(count);
-            var format1 = $"D{paddingLength1}";
-            var format2 = $"D{paddingLength2}";
             Enumerable.Range(0, count).AsParallel().ForAll(i =>
             {
-                var row = new MemoryRow(rows.MemoryTable, i, new string[] { valuePrefix1 + i.ToString(format1), valuePrefix2 + i.ToString(format2) });
+                var row = new MemoryRow(rows.MemoryTable, i, new string[] { i.ToString(valueFormat1), i.ToString(valueFormat2) });
                 rows.MemoryTable.TryAdd(i, row);
             });
             return rows;
         }
 
-        protected CSVData CreateDataDesc(int count, string columnName1, string columnName2, string valuePrefix1, string valuePrefix2, int paddingLength1 = 8, int paddingLength2 = 8)
+        protected CSVData CreateDataDesc(int count, string columnName1, string columnName2, string valueFormat1, string valueFormat2)
         {
             var rows = new CSVData();
             rows.SetTitles(new string[] { columnName1, columnName2 });
             rows.AllocateTable(count);
-            var format1 = $"D{paddingLength1}";
-            var format2 = $"D{paddingLength2}";
             Enumerable.Range(0, count).AsParallel().ForAll(i =>
             {
-                var row = new MemoryRow(rows.MemoryTable, i, new string[] { valuePrefix1 + i.ToString(format1), valuePrefix2 + i.ToString(format2) });
+                var row = new MemoryRow(rows.MemoryTable, i, new string[] { i.ToString(valueFormat1), i.ToString(valueFormat2) });
                 rows.MemoryTable.TryAdd(count - i - 1, row);
             });
             return rows;
