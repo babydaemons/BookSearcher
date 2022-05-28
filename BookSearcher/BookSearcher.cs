@@ -121,6 +121,9 @@ namespace BookSearcherApp
         private delegate string ConvertValue(string value);
         private static DataGridView BookColumnSetting;
         private static DataGridView ScrapingColumnSetting;
+        public static Stopwatch StopWatch { get; private set; }
+        private static ConcurrentBag<RowIndexPair> resultRows = new ConcurrentBag<RowIndexPair>();
+        public static int ResultRows => resultRows.Count;
 
         public static void InitColumnSettings(DataGridView bookColumnSetting, DataGridView scrapingColumnSetting)
         {
@@ -170,7 +173,7 @@ namespace BookSearcherApp
 
         protected TimeSpan Search(ColumnInfo columnInfo)
         {
-            var stopwatch = Stopwatch.StartNew();
+            StopWatch = Stopwatch.StartNew();
             var bookValues = CreateColumnList(BookCSV.MemoryTable, columnInfo, true);
             var scrapingValues = CreateColumnList(ScrapingCSV.MemoryTable, columnInfo, false);
             var results = from bookRow in bookValues
@@ -178,13 +181,13 @@ namespace BookSearcherApp
                           on bookRow.Value.Value equals scrapingRow.Value.Value
                           select new RowIndexPair { BookRowIndex = bookRow.Key, ScrapingRowIndex = scrapingRow.Key };
             SaveTable(new List<RowIndexPair>(results));
-            stopwatch.Stop();
-            return stopwatch.Elapsed;
+            StopWatch.Stop();
+            return StopWatch.Elapsed;
         }
 
         protected TimeSpan Search(ColumnInfo columnInfo1, ColumnInfo columnInfo2)
         {
-            var stopwatch = Stopwatch.StartNew();
+            StopWatch = Stopwatch.StartNew();
             var bookValues = CreateColumnList(BookCSV.MemoryTable, columnInfo1, columnInfo2, true);
             var scrapingValues = CreateColumnList(ScrapingCSV.MemoryTable, columnInfo1, columnInfo2, false);
             var results = from bookRow in bookValues
@@ -192,13 +195,13 @@ namespace BookSearcherApp
                           on new { bookRow.Value.Value1, bookRow.Value.Value2 } equals new { scrapingRow.Value.Value1, scrapingRow.Value.Value2 }
                           select new RowIndexPair { BookRowIndex = bookRow.Key, ScrapingRowIndex = scrapingRow.Key };
             SaveTable(new List<RowIndexPair>(results));
-            stopwatch.Stop();
-            return stopwatch.Elapsed;
+            StopWatch.Stop();
+            return StopWatch.Elapsed;
         }
 
         protected TimeSpan SearchPartial1(ColumnInfo columnPartial, ColumnInfo columnComplete)
         {
-            var stopwatch = Stopwatch.StartNew();
+            StopWatch = Stopwatch.StartNew();
             var bookValues = CreateColumnList(BookCSV.MemoryTable, columnPartial, columnComplete, true);
             var scrapingValues = CreateColumnList(ScrapingCSV.MemoryTable, columnPartial, columnComplete, false);
             var results = from bookRow in bookValues
@@ -207,16 +210,16 @@ namespace BookSearcherApp
                           equals new ValuePairPartial1 { Value1 = scrapingRow.Value.Value2, Value2 = scrapingRow.Value.Value1 }
                           select new RowIndexPair { BookRowIndex = bookRow.Key, ScrapingRowIndex = scrapingRow.Key };
             SaveTable(new List<RowIndexPair>(results));
-            stopwatch.Stop();
-            return stopwatch.Elapsed;
+            StopWatch.Stop();
+            return StopWatch.Elapsed;
         }
 
         protected TimeSpan SearchPartial2(ColumnInfo columnPartial1, ColumnInfo columnPartial2)
         {
-            var stopwatch = Stopwatch.StartNew();
+            resultRows = new ConcurrentBag<RowIndexPair>();
+            StopWatch = Stopwatch.StartNew();
             var bookValues = CreateColumnList(BookCSV.MemoryTable, columnPartial1, columnPartial2, true);
             var scrapingValues = CreateColumnList(ScrapingCSV.MemoryTable, columnPartial1, columnPartial2, false);
-            var resultRows = new ConcurrentBag<RowIndexPair>();
 
             var bookKeys = bookValues.Keys;
             var scrapingKeys = scrapingValues.Keys;
@@ -236,8 +239,8 @@ namespace BookSearcherApp
                 });
             });
             SaveTable(resultRows.ToList());
-            stopwatch.Stop();
-            return stopwatch.Elapsed;
+            StopWatch.Stop();
+            return StopWatch.Elapsed;
         }
 
         private static bool IsPartialMatch2(string value1a, string value1b, string value2a, string value2b)
@@ -286,10 +289,10 @@ namespace BookSearcherApp
 
         protected TimeSpan SearchComplex2(ColumnInfo columnPartial1, ColumnInfo columnPartial2, ColumnInfo columnComplex3)
         {
-            var stopwatch = Stopwatch.StartNew();
+            resultRows = new ConcurrentBag<RowIndexPair>();
+            StopWatch = Stopwatch.StartNew();
             var bookValues = CreateBookColumnList(columnPartial1, columnPartial2);
             var scrapingValues = CreateScrapingColumnList(columnComplex3);
-            var resultRows = new ConcurrentBag<RowIndexPair>();
 
             var bookKeys = bookValues.Keys;
             var scrapingKeys = scrapingValues.Keys;
@@ -310,8 +313,8 @@ namespace BookSearcherApp
                 });
             });
             SaveTable(resultRows.ToList());
-            stopwatch.Stop();
-            return stopwatch.Elapsed;
+            StopWatch.Stop();
+            return StopWatch.Elapsed;
         }
 
         private static bool IsComplexMatch(string value1, string value2, string scrapingComplexValue)
@@ -359,7 +362,7 @@ namespace BookSearcherApp
 
         protected TimeSpan SearchPartial32(ColumnInfo columnPartial1, ColumnInfo columnPartial2, ColumnInfo columnPartial3)
         {
-            var stopwatch = Stopwatch.StartNew();
+            StopWatch = Stopwatch.StartNew();
             var bookValues = CreateColumnList(BookCSV.MemoryTable, columnPartial1, columnPartial2, columnPartial3, true);
             var scrapingValues = CreateColumnList(ScrapingCSV.MemoryTable, columnPartial1, columnPartial2, columnPartial3, false);
             var results = from bookRow in bookValues
@@ -368,12 +371,13 @@ namespace BookSearcherApp
                           equals new ValuePairPartial32 { Value1 = scrapingRow.Value.Value1, Value2 = scrapingRow.Value.Value2, Value3 = scrapingRow.Value.Value3 }
                           select new RowIndexPair { BookRowIndex = bookRow.Key, ScrapingRowIndex = scrapingRow.Key };
             SaveTable(new List<RowIndexPair>(results));
-            return stopwatch.Elapsed;
+            StopWatch.Stop();
+            return StopWatch.Elapsed;
         }
 
         protected TimeSpan SearchPartial33(ColumnInfo columnPartial1, ColumnInfo columnPartial2, ColumnInfo columnPartial3)
         {
-            var stopwatch = Stopwatch.StartNew();
+            StopWatch = Stopwatch.StartNew();
             var bookValues = CreateColumnList(BookCSV.MemoryTable, columnPartial1, columnPartial2, columnPartial3, true);
             var scrapingValues = CreateColumnList(ScrapingCSV.MemoryTable, columnPartial1, columnPartial2, columnPartial3, false);
             var results = from bookRow in bookValues
@@ -382,7 +386,8 @@ namespace BookSearcherApp
                           equals new ValuePairPartial33 { Value1 = scrapingRow.Value.Value1, Value2 = scrapingRow.Value.Value2, Value3 = scrapingRow.Value.Value3 }
                           select new RowIndexPair { BookRowIndex = bookRow.Key, ScrapingRowIndex = scrapingRow.Key };
             SaveTable(new List<RowIndexPair>(results));
-            return stopwatch.Elapsed;
+            StopWatch.Stop();
+            return StopWatch.Elapsed;
         }
 
         private ConcurrentDictionary<int, Column1> CreateColumnList(MemoryTable table, ColumnInfo columnInfo, bool isBookDB)

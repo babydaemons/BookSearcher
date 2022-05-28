@@ -427,6 +427,8 @@ namespace BookSearcherApp
 
         private void Timer1_Tick(object sender, EventArgs e)
         {
+            LabelElapsed.Text = "経過時間 " + BookSearcher.StopWatch.Elapsed.ToString(@"hh\:mm\:ss\.fff");
+            LabelResultRows.Text = $"{BookSearcher.ResultRows} 件";
         }
 
         private void SetExecuteControlsEnabled()
@@ -444,7 +446,7 @@ namespace BookSearcherApp
 
         private void SetSearchControlsEnabled(bool enabled)
         {
-            GroupBoxFiles.Enabled = GroupBoxOutput.Enabled = GroupBoxPartMatch.Enabled = GroupBoxExecute.Enabled = enabled;
+            GroupBoxFiles.Enabled = GroupBoxOutput.Enabled = GroupBoxPartMatch.Enabled = GroupBoxExecute.Enabled = GroupBoxAllMatch.Enabled = PanelMatchCondition.Enabled = enabled;
             BookColumnSetting.Enabled = ScrapingColumnSetting.Enabled = enabled;
         }
 
