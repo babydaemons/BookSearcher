@@ -18,10 +18,10 @@ namespace BookSearcherTest
             BookColumnSetting.Rows.Add(URL, valuePrefix, "URL");
             ScrapingColumnSetting.Rows.Add(URL, valuePrefix, "URL");
 
-            dataAsc = CreateDataAsc(URL, valuePrefix, ROW_COUNT);
-            dataDesc = CreateDataDesc(URL, valuePrefix, ROW_COUNT);
-            dataDiff1 = CreateDataAsc(URL, valuePrefix, ROW_COUNT + 1);
-            dataDiff2 = CreateDataDesc(URL, valuePrefix, ROW_COUNT + 1);
+            dataAsc = CreateDataAsc(ROW_COUNT, URL, valuePrefix);
+            dataDesc = CreateDataDesc(ROW_COUNT, URL, valuePrefix);
+            dataDiff1 = CreateDataAsc(ROW_COUNT + 1, URL, valuePrefix);
+            dataDiff2 = CreateDataDesc(ROW_COUNT + 1, URL, valuePrefix);
         }
 
         [TestMethod]
