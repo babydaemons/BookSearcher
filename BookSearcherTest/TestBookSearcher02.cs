@@ -135,7 +135,7 @@ namespace BookSearcherTest
             BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.All, PrefixLength);
             searcher = new BookSearcher02();
             searcher.Search();
-            Assert.AreEqual(ROW_COUNT + 1, BookSearcher.ResultTable.Rows.Count);
+            Assert.AreEqual(ROW_COUNT, BookSearcher.ResultTable.Rows.Count);
         }
 
         [TestMethod]

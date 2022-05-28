@@ -42,7 +42,7 @@ namespace BookSearcherTest
             rows.AllocateTable(count);
             Enumerable.Range(0, count).AsParallel().ForAll(i =>
             {
-                var row = new MemoryRow(rows.MemoryTable, i, new string[] { i.ToString(valueFormat1), i.ToString(valueFormat2) });
+                var row = new MemoryRow(rows.MemoryTable, i, new string[] { string.Format(valueFormat1, i), string.Format(valueFormat2, i) });
                 rows.MemoryTable.TryAdd(i, row);
             });
             return rows;
@@ -55,7 +55,7 @@ namespace BookSearcherTest
             rows.AllocateTable(count);
             Enumerable.Range(0, count).AsParallel().ForAll(i =>
             {
-                var row = new MemoryRow(rows.MemoryTable, i, new string[] { i.ToString(valueFormat1), i.ToString(valueFormat2) });
+                var row = new MemoryRow(rows.MemoryTable, i, new string[] { string.Format(valueFormat1, i), string.Format(valueFormat2, i) });
                 rows.MemoryTable.TryAdd(count - i - 1, row);
             });
             return rows;
