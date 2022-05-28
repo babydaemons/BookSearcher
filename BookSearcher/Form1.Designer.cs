@@ -796,12 +796,11 @@
             // RadioButtonSearchType10
             // 
             this.RadioButtonSearchType10.AutoSize = true;
-            this.RadioButtonSearchType10.Enabled = false;
             this.RadioButtonSearchType10.Location = new System.Drawing.Point(25, 263);
             this.RadioButtonSearchType10.Name = "RadioButtonSearchType10";
             this.RadioButtonSearchType10.Size = new System.Drawing.Size(582, 19);
             this.RadioButtonSearchType10.TabIndex = 43;
-            this.RadioButtonSearchType10.Text = "⑩「書籍名(部分一致)」+「出版年(完全一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル1つ】";
+            this.RadioButtonSearchType10.Text = "⑩「書籍名(部分一致)」+「出版年(部分一致)」　【データベース側参照セル2つ⇔スクレイピングデータ側参照セル1つ】";
             this.RadioButtonSearchType10.UseVisualStyleBackColor = true;
             // 
             // RadioButtonSearchType09

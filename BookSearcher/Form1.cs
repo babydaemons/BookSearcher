@@ -344,6 +344,7 @@ namespace BookSearcherApp
                 }
                 if (RadioButtonSearchType10.Checked)
                 {
+                    searcher = new BookSearcher10();
                     searchTypeName = RadioButtonSearchType10.Text;
                 }
                 if (RadioButtonSearchType11.Checked)
