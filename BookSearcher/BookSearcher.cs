@@ -47,24 +47,6 @@ namespace BookSearcherApp
         }
     }
 
-    struct ValuePairPartial2
-    {
-        public string Value1;
-        public string Value2;
-        public static bool operator ==(ValuePairPartial2 a, ValuePairPartial2 b) => a.Value1.Contains(b.Value1) && a.Value2.Contains(b.Value2);
-        public static bool operator !=(ValuePairPartial2 a, ValuePairPartial2 b) => !a.Value1.Contains(b.Value1) || !b.Value2.Contains(a.Value2);
-        public override bool Equals(object obj)
-        {
-            ValuePairPartial2 a = this;
-            ValuePairPartial2 b = (ValuePairPartial2)obj;
-            return a == b;
-        }
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
-    }
-
     struct ValuePairPartial32
     {
         public string Value1;
@@ -234,15 +216,73 @@ namespace BookSearcherApp
             var stopwatch = Stopwatch.StartNew();
             var bookValues = CreateColumnList(BookCSV.MemoryTable, columnPartial1, columnPartial2, true);
             var scrapingValues = CreateColumnList(ScrapingCSV.MemoryTable, columnPartial1, columnPartial2, false);
-            var results = from bookRow in bookValues
-                          join scrapingRow in scrapingValues.AsParallel()
-                          on new ValuePairPartial2 { Value1 = bookRow.Value.Value1, Value2 = bookRow.Value.Value2 }
-                          equals new ValuePairPartial2 { Value1 = scrapingRow.Value.Value1, Value2 = scrapingRow.Value.Value2 }
-                          select new RowIndexPair { BookRowIndex = bookRow.Key, ScrapingRowIndex = scrapingRow.Key };
-            SaveTable(new List<RowIndexPair>(results));
+            var resultRows = new ConcurrentBag<RowIndexPair>();
+
+            var bookKeys = bookValues.Keys;
+            var scrapingKeys = scrapingValues.Keys;
+
+            bookKeys.AsParallel().ForAll(i =>
+            {
+                var bookValue1 = bookValues[i].Value1;
+                var bookValue2 = bookValues[i].Value2;
+                scrapingKeys.AsParallel().ForAll(j =>
+                {
+                    var scrapingValue1 = scrapingValues[j].Value1;
+                    var scrapingValue2 = scrapingValues[j].Value2;
+                    if (IsPartialMatch2(bookValue1, bookValue2, scrapingValue1, scrapingValue2))
+                    {
+                        resultRows.Add(new RowIndexPair { BookRowIndex = i, ScrapingRowIndex = j });
+                    }
+                });
+            });
+            SaveTable(resultRows.ToList());
             stopwatch.Stop();
             return stopwatch.Elapsed;
         }
+
+        private static bool IsPartialMatch2(string value1a, string value1b, string value2a, string value2b)
+        {
+            var char1 = value1a[0];
+            var index1 = value2a.IndexOf(char1);
+            if (index1 == -1)
+            {
+                return false;
+            }
+
+            var length1 = value1a.Length;
+            var left1 = value2a.Length - index1;
+            if (left1 < length1)
+            {
+                return false;
+            }
+
+            var char2 = value1b[0];
+            var index2 = value2b.IndexOf(char2);
+            if (index2 == -1)
+            {
+                return false;
+            }
+
+            var length2 = value1b.Length;
+            var left2 = value2b.Length - index2;
+            if (left2 < length2)
+            {
+                return false;
+            }
+
+            if (!value2a.Contains(value1a))
+            {
+                return false;
+            }
+
+            if (!value2b.Contains(value1b))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
 
         protected TimeSpan SearchComplex2(ColumnInfo columnPartial1, ColumnInfo columnPartial2, ColumnInfo columnComplex3)
         {

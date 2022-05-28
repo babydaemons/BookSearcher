@@ -2,7 +2,7 @@
 
 namespace BookSearcherApp
 {
-    internal class BookSearcher09 : BookSearcher
+    public class BookSearcher09 : BookSearcher
     {
         private readonly ColumnInfo bookTitle = new ColumnInfo(MatchType.PartialMatch, SpaceMatch, ColumnType.BookTitle);
         private readonly ColumnInfo author = new ColumnInfo(MatchType.PartialMatch, SpaceMatch, ColumnType.Author);
@@ -13,7 +13,7 @@ namespace BookSearcherApp
 
         public override TimeSpan Search()
         {
-            return SearchPartial2(author, bookTitle);
+            return SearchPartial2(bookTitle, author);
         }
     }
 }

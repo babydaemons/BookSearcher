@@ -57,6 +57,9 @@
     <Compile Include="TestBookSearcher.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="TestBookSearcher09.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="TestBookSearcher08.cs">
       <SubType>Form</SubType>
     </Compile>
