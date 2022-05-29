@@ -4,8 +4,6 @@ namespace BookSearcherApp
 {
     public abstract class CSVSaver1 : CSVSaver
     {
-        public override int ColumnIndexISBN => 1;
-
         public override string[] Titles => new string[]
         {
             "sku",

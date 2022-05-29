@@ -88,6 +88,8 @@
     <Compile Include="DataLoader\CSVMultiLineFile.cs" />
     <Compile Include="DataLoader\CSVSingleLineFile.cs" />
     <Compile Include="DataLoader\CSVMercariFile.cs" />
+    <Compile Include="DataSaver\CSVSaver2.cs" />
+    <Compile Include="DataSaver\CSVSaverCommon1.cs" />
     <Compile Include="DataSaver\CSVSaverPattern2.cs" />
     <Compile Include="DataSaver\CSVSaverPattern1.cs" />
     <Compile Include="DataSaver\CSVSaverCommon2.cs" />

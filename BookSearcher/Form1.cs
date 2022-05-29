@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 
@@ -11,6 +10,7 @@ namespace BookSearcherApp
         protected CSVFile BookCSV;
         protected CSVFile ScrapingCSV;
         protected CSVSaver saver0;
+        protected CSVSaver saver1;
         protected CSVSaver saver2;
         protected SpaceMatch spaceMatch;
         protected int prefixLength;
@@ -288,6 +288,7 @@ namespace BookSearcherApp
                 {
                     saver0 = new CSVSaverPattern2(DataGridViewOutputPattern2);
                 }
+                saver1 = new CSVSaverCommon1(DataGridViewCommonOutput1);
                 saver2 = new CSVSaverCommon2(DataGridViewCommonOutput2);
 
                 spaceMatch = RadioButtonSpaceContains.Checked ? SpaceMatch.All : SpaceMatch.Ignore;
@@ -441,8 +442,9 @@ namespace BookSearcherApp
                 MessageBox.Show(searchTime.ToString());
 
                 saver0.ConvertTable();
+                saver1.ConvertTable();
                 saver2.ConvertTable();
-                var form = new Form2(saver0.DataTable, searchTypeName);
+                var form = new Form2(saver1.DataTable, searchTypeName);
                 form.ShowDialog();
             }
             SetSearchControlsEnabled(true);

@@ -6,8 +6,6 @@ using System.Windows.Forms;
 
 namespace BookSearcherApp
 {
-    public enum CSVOutputType { Pattern1, Pattern2 };
-
     public abstract class CSVSaver
     {
         public abstract string[] Titles { get; }
@@ -17,7 +15,7 @@ namespace BookSearcherApp
 
         protected DataTable dataTable = new DataTable();
         public DataTable DataTable => dataTable;
-        private Dictionary<string, string> settings = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> settings = new Dictionary<string, string>();
 
         protected CSVSaver(DataGridView view)
         {
