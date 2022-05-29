@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Windows.Forms;
 
 namespace BookSearcherApp
 {
-    public class Pattern1CSVSaver : CSVSaver
+    public abstract class CSVSaver1 : CSVSaver
     {
+        public override int ColumnIndexISBN => 1;
+
         public override string[] Titles => new string[]
         {
             "sku",
@@ -58,8 +56,6 @@ namespace BookSearcherApp
             "battery_weight_unit_of_measure"
         };
 
-        public Pattern1CSVSaver() : base()
-        {
-        }
+        protected CSVSaver1(DataGridView view) : base(view) { }
     }
 }

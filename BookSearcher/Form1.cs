@@ -10,6 +10,7 @@ namespace BookSearcherApp
     {
         protected CSVFile BookCSV;
         protected CSVFile ScrapingCSV;
+        protected CSVSaver saver2;
         protected SpaceMatch spaceMatch;
         protected int prefixLength;
         protected BookSearcher searcher = null;
@@ -276,17 +277,26 @@ namespace BookSearcherApp
 
         private void ButtonExecute_Click(object sender, EventArgs e)
         {
-            spaceMatch = RadioButtonSpaceContains.Checked ? SpaceMatch.All : SpaceMatch.Ignore;
-            prefixLength = (int)NumericUpDownLength.Value;
-
-            if (!InvokeMatching())
+            try
             {
-                return;
-            }
+                saver2 = new CSVSaverCommon2(DataGridViewCommonOutput2);
 
-            SetSearchControlsEnabled(false);
-            Timer1.Enabled = true;
-            BackgroundWorker4.RunWorkerAsync();
+                spaceMatch = RadioButtonSpaceContains.Checked ? SpaceMatch.All : SpaceMatch.Ignore;
+                prefixLength = (int)NumericUpDownLength.Value;
+
+                if (!InvokeMatching())
+                {
+                    return;
+                }
+
+                SetSearchControlsEnabled(false);
+                Timer1.Enabled = true;
+                BackgroundWorker4.RunWorkerAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private bool InvokeMatching()
@@ -421,7 +431,8 @@ namespace BookSearcherApp
                 Timer1.Enabled = false;
                 MessageBox.Show(searchTime.ToString());
 
-                var form = new Form2(BookSearcher.ResultTable, searchTypeName);
+                saver2.ConvertTable();
+                var form = new Form2(saver2.DataTable, searchTypeName);
                 form.ShowDialog();
             }
             SetSearchControlsEnabled(true);
@@ -429,6 +440,10 @@ namespace BookSearcherApp
 
         private void Timer1_Tick(object sender, EventArgs e)
         {
+            if (searchInitFailed || BookSearcher.StopWatch == null)
+            {
+                return;
+            }
             LabelElapsed.Text = "経過時間 " + BookSearcher.StopWatch.Elapsed.ToString(@"hh\:mm\:ss\.fff");
             LabelResultRows.Text = $"{BookSearcher.ResultCount} 件";
         }

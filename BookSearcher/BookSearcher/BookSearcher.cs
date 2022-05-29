@@ -28,13 +28,13 @@ namespace BookSearcherApp
         public static Stopwatch StopWatch { get; protected set; }
         protected static ConcurrentBag<RowIndexPair> resultRows = new ConcurrentBag<RowIndexPair>();
         public static int ResultCount => resultRows.Count;
-        private readonly int columnIndexISBN;
-        private readonly int columnIndexPrice;
+        public static int ColumnIndexISBN { get; private set; }
+        public static int ColumnIndexCost { get; private set; }
 
         protected BookSearcher()
         {
-            columnIndexISBN = SelectColumnIndex(BookColumnSetting, ColumnType.ISBN);
-            columnIndexPrice = SelectColumnIndex(BookColumnSetting, ColumnType.Price);
+            ColumnIndexISBN = SelectColumnIndex(BookColumnSetting, ColumnType.ISBN);
+            ColumnIndexCost = SelectColumnIndex(BookColumnSetting, ColumnType.Price);
         }
 
         public static void InitColumnSettings(DataGridView bookColumnSetting, DataGridView scrapingColumnSetting)
@@ -116,11 +116,11 @@ namespace BookSearcherApp
             resultTable = new DataTable();
             foreach (var column in BookCSV.Titles)
             {
-                resultTable.Columns.Add("データベースファイル\n" + column);
+                resultTable.Columns.Add("データベースファイル\n" + column, typeof(string));
             }
             foreach (var column in ScrapingCSV.Titles)
             {
-                resultTable.Columns.Add("スクレイピングデータファイル\n" + column);
+                resultTable.Columns.Add("スクレイピングデータファイル\n" + column, typeof(string));
             }
 
             foreach (var resultRow in resultRows)
