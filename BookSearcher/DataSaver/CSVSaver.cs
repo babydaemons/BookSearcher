@@ -95,12 +95,12 @@ namespace BookSearcherApp
                     {
                         row[ColumnIndexISBN] = resultTable.Rows[i][columnIndexISBN];
                     }
-                    else if (ColumnIndexPrice >= 0)
+                    if (ColumnIndexPrice >= 0)
                     {
                         var costString = (string)resultTable.Rows[i][columnIndexCost];
                         if (!int.TryParse(costString, out int cost))
                         {
-                            throw new Exception($"原価のデータの書式が不正です：{i + 1}行{columnIndexCost + 1}列：「{costString}」");
+                            cost = 1; // throw new Exception($"原価のデータの書式が不正です：{i + 1}行{columnIndexCost + 1}列：「{costString}」");
                         }
                         var price = CalcSellingPrice(cost);
                         row[ColumnIndexPrice] = price.ToString();
