@@ -280,7 +280,14 @@ namespace BookSearcherApp
         {
             try
             {
-                saver0 = new CSVSaverPattern1(DataGridViewOutputPattern1);
+                if (RadioButtonFileTypeCSV1.Checked)
+                {
+                    saver0 = new CSVSaverPattern1(DataGridViewOutputPattern1);
+                }
+                else
+                {
+                    saver0 = new CSVSaverPattern2(DataGridViewOutputPattern2);
+                }
                 saver2 = new CSVSaverCommon2(DataGridViewCommonOutput2);
 
                 spaceMatch = RadioButtonSpaceContains.Checked ? SpaceMatch.All : SpaceMatch.Ignore;
