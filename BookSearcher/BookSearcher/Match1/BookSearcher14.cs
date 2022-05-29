@@ -2,7 +2,7 @@
 
 namespace BookSearcherApp
 {
-    public class BookSearcher14 : BookSearcher1
+    public class BookSearcher14 : AbstractSearcherComplete1
     {
         private readonly ColumnInfo ISBN = new ColumnInfo(MatchType.CompleteMatch, SpaceMatch.Ignore, ColumnType.ISBN);
 

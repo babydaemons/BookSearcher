@@ -2,12 +2,12 @@
 
 namespace BookSearcherApp
 {
-    public class BookSearcher07 : BookSearcher
+    public class BookSearcher08 : AbstractSearcher_Type2_Partial21
     {
-        private readonly ColumnInfo bookTitle = new ColumnInfo(MatchType.CompleteMatch, SpaceMatch, ColumnType.BookTitle);
+        private readonly ColumnInfo bookTitle = new ColumnInfo(MatchType.BeginningMatch, SpaceMatch, ColumnType.BookTitle);
         private readonly ColumnInfo author = new ColumnInfo(MatchType.PartialMatch, SpaceMatch.Ignore, ColumnType.Author);
 
-        public BookSearcher07() : base()
+        public BookSearcher08() : base()
         {
         }
 

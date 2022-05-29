@@ -6,9 +6,9 @@ using System.Linq;
 
 namespace BookSearcherApp
 {
-    public abstract class BookSearcher1 : BookSearcher
+    public abstract class AbstractSearcherComplete1 : BookSearcher
     {
-        protected BookSearcher1() : base()
+        protected AbstractSearcherComplete1() : base()
         {
         }
 

@@ -2,7 +2,7 @@
 
 namespace BookSearcherApp
 {
-    public class BookSearcher06 : BookSearcher
+    public class BookSearcher06 : AbstractSearcher_Type2_Partial21
     {
         private readonly ColumnInfo bookTitle = new ColumnInfo(MatchType.PartialMatch, SpaceMatch, ColumnType.BookTitle);
         private readonly ColumnInfo publisher = new ColumnInfo(MatchType.CompleteMatch, SpaceMatch.Ignore, ColumnType.Publisher);

@@ -57,55 +57,55 @@
     <Compile Include="BookSearcher\TestBookSearcher.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BookSearcher\TestBookSearcher10.cs">
+    <Compile Include="BookSearcher\Match2\Type4_Complex21\TestBookSearcher10.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BookSearcher\TestBookSearcher11.cs">
+    <Compile Include="BookSearcher\Match2\Type4_Complex21\TestBookSearcher11.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BookSearcher\TestBookSearcher12.cs">
+    <Compile Include="BookSearcher\Match2\Type4_Complex21\TestBookSearcher12.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BookSearcher\TestBookSearcher09.cs">
+    <Compile Include="BookSearcher\Match2\Type3_Partial22\TestBookSearcher09.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BookSearcher\TestBookSearcher08.cs">
+    <Compile Include="BookSearcher\Match2\Type2_Partial21\TestBookSearcher08.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BookSearcher\TestBookSearcher07.cs">
+    <Compile Include="BookSearcher\Match2\Type2_Partial21\TestBookSearcher07.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BookSearcher\TestBookSearcher06.cs">
+    <Compile Include="BookSearcher\Match2\Type2_Partial21\TestBookSearcher06.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BookSearcher\TestBookSearcher03.cs">
+    <Compile Include="BookSearcher\Match2\Type2_Partial21\TestBookSearcher03.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BookSearcher\TestBookSearcher05.cs">
+    <Compile Include="BookSearcher\Match2\Type1_CompleteBeginning\TestBookSearcher05.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BookSearcher\TestBookSearcher02.cs">
+    <Compile Include="BookSearcher\Match2\Type1_CompleteBeginning\TestBookSearcher02.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BookSearcher\TestBookSearcher04.cs">
+    <Compile Include="BookSearcher\Match2\Type1_CompleteBeginning\TestBookSearcher04.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BookSearcher\TestBookSearcher01.cs">
+    <Compile Include="BookSearcher\Match2\Type1_CompleteBeginning\TestBookSearcher01.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BookSearcher\TestBookSearcher17.cs">
+    <Compile Include="BookSearcher\Match3\TestBookSearcher17.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BookSearcher\TestBookSearcher16.cs">
+    <Compile Include="BookSearcher\Match3\TestBookSearcher16.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BookSearcher\BookSearcer1\TestBookSearcher15.cs">
+    <Compile Include="BookSearcher\Match1\TestBookSearcher15.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BookSearcher\BookSearcer1\TestBookSearcher14.cs">
+    <Compile Include="BookSearcher\Match1\TestBookSearcher14.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BookSearcher\BookSearcer1\TestBookSearcher13.cs">
+    <Compile Include="BookSearcher\Match1\TestBookSearcher13.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

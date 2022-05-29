@@ -2,19 +2,19 @@
 
 namespace BookSearcherApp
 {
-    public class BookSearcher11 : BookSearcher
+    public class BookSearcher10 : AbstractSearcher_Type4_Complex21
     {
         private readonly ColumnInfo bookTitle = new ColumnInfo(MatchType.ComplexMatch, SpaceMatch.Ignore, ColumnType.BookTitle);
-        private readonly ColumnInfo publisher = new ColumnInfo(MatchType.ComplexMatch, SpaceMatch.Ignore, ColumnType.Publisher);
+        private readonly ColumnInfo year = new ColumnInfo(MatchType.ComplexMatch, SpaceMatch.Ignore, ColumnType.Year);
         private readonly ColumnInfo complex = new ColumnInfo(MatchType.ComplexMatch, SpaceMatch.Ignore, ColumnType.Complex);
 
-        public BookSearcher11() : base()
+        public BookSearcher10() : base()
         {
         }
 
         public override TimeSpan Search()
         {
-            return SearchComplex2(bookTitle, publisher, complex);
+            return SearchComplex2(bookTitle, year, complex);
         }
     }
 }
