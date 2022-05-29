@@ -47,15 +47,10 @@ namespace BookSearcherApp
         }
     }
 
-    struct RowIndexPair
+    public struct RowIndexPair
     {
         public int BookRowIndex;
         public int ScrapingRowIndex;
-    }
-
-    struct Column1
-    {
-        public string Value;
     }
 
     struct Column2
@@ -80,12 +75,12 @@ namespace BookSearcherApp
         private static readonly string[] columnTypeNames = new string[] { "", "書籍名", "著者名", "出版社名", "出版年", "ISBN", "URL", "価格", "複合データ" };
         private static DataTable resultTable = new DataTable();
         public static DataTable ResultTable => resultTable;
-        private delegate string ConvertValue(string value);
+        protected delegate string ConvertValue(string value);
         private static DataGridView BookColumnSetting;
         private static DataGridView ScrapingColumnSetting;
-        public static Stopwatch StopWatch { get; private set; }
+        public static Stopwatch StopWatch { get; protected set; }
         private static ConcurrentBag<RowIndexPair> resultRows = new ConcurrentBag<RowIndexPair>();
-        public static int ResultRows => resultRows.Count;
+        public static int ResultCount => resultRows.Count;
 
         public static void InitColumnSettings(DataGridView bookColumnSetting, DataGridView scrapingColumnSetting)
         {
@@ -132,20 +127,6 @@ namespace BookSearcherApp
         }
 
         public abstract TimeSpan Search();
-
-        protected TimeSpan Search(ColumnInfo columnInfo)
-        {
-            StopWatch = Stopwatch.StartNew();
-            var bookValues = CreateColumnList(BookCSV.MemoryTable, columnInfo, true);
-            var scrapingValues = CreateColumnList(ScrapingCSV.MemoryTable, columnInfo, false);
-            var results = from bookRow in bookValues
-                          join scrapingRow in scrapingValues.AsParallel()
-                          on bookRow.Value.Value equals scrapingRow.Value.Value
-                          select new RowIndexPair { BookRowIndex = bookRow.Key, ScrapingRowIndex = scrapingRow.Key };
-            SaveTable(new List<RowIndexPair>(results));
-            StopWatch.Stop();
-            return StopWatch.Elapsed;
-        }
 
         protected TimeSpan Search(ColumnInfo columnInfo1, ColumnInfo columnInfo2)
         {
@@ -498,22 +479,6 @@ namespace BookSearcherApp
             return true;
         }
 
-        private ConcurrentDictionary<int, Column1> CreateColumnList(MemoryTable table, ColumnInfo columnInfo, bool isBookDB)
-        {
-            var columnName = table.ColumnNames[isBookDB ? columnInfo.BookColumnIndex : columnInfo.ScrapingColumnIndex];
-            var columnIndex = table.ColumnIndexes[columnName];
-            var spaceMatch = columnInfo.SpaceMatch;
-
-            var rows = table.Where(row => row.Value[columnIndex].Length > 0);
-            var values = new ConcurrentDictionary<int, Column1>(Environment.ProcessorCount, table.Count);
-            ConvertValue convertValue = spaceMatch == SpaceMatch.All ? ConvertNone : (ConvertValue)ConvertRemoveSpace;
-            foreach (var row in rows)
-            {
-                _ = values.TryAdd(row.Key, new Column1 { Value = convertValue(row.Value[columnIndex]) });
-            }
-            return values;
-        }
-
         private ConcurrentDictionary<int, Column2> CreateColumnList(MemoryTable table, ColumnInfo columnInfo1, ColumnInfo columnInfo2, bool isBookDB)
         {
             var columnName1 = table.ColumnNames[isBookDB ? columnInfo1.BookColumnIndex : columnInfo1.ScrapingColumnIndex];
@@ -645,7 +610,7 @@ namespace BookSearcherApp
             }
         }
 
-        private void SaveTable(List<RowIndexPair> resultRows)
+        protected void SaveTable(List<RowIndexPair> resultRows)
         {
             resultTable = new DataTable();
             foreach (var column in BookCSV.Titles)
@@ -673,22 +638,22 @@ namespace BookSearcherApp
             }
         }
 
-        private string ConvertNone(string value)
+        protected string ConvertNone(string value)
         {
             return value;
         }
 
-        private string ConvertRemoveSpace(string value)
+        protected string ConvertRemoveSpace(string value)
         {
             return value.Replace(" ", "").Replace("　", "");
         }
 
-        private string ConvertExtractPrefix(string value)
+        protected string ConvertExtractPrefix(string value)
         {
             return value.Length > PrefixLength ? value.Substring(0, PrefixLength) : value;
         }
 
-        private string ConvertRemoveSpaceExtractPrefix(string value)
+        protected string ConvertRemoveSpaceExtractPrefix(string value)
         {
             value = value.Replace(" ", "").Replace("　", "");
             return value.Length > PrefixLength ? value.Substring(0, PrefixLength) : value;

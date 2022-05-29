@@ -51,37 +51,38 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BookSearcher.cs" />
-    <Compile Include="BookSearcher10.cs" />
-    <Compile Include="BookSearcher11.cs" />
-    <Compile Include="BookSearcher12.cs" />
-    <Compile Include="BookSearcher17.cs" />
-    <Compile Include="BookSearcher16.cs" />
-    <Compile Include="BookSearcher09.cs" />
-    <Compile Include="BookSearcher08.cs" />
-    <Compile Include="BookSearcher07.cs" />
-    <Compile Include="BookSearcher06.cs" />
-    <Compile Include="BookSearcher03.cs" />
-    <Compile Include="BookSearcher05.cs" />
-    <Compile Include="BookSearcher02.cs" />
-    <Compile Include="BookSearcher04.cs" />
-    <Compile Include="BookSearcher01.cs" />
-    <Compile Include="BookSearcher13.cs" />
-    <Compile Include="BookSearcher15.cs" />
-    <Compile Include="BookSearcher14.cs" />
-    <Compile Include="CSVData.cs" />
-    <Compile Include="CSVFileSplitInfo.cs" />
-    <Compile Include="CSVFileSplitInfoQuotedLine.cs" />
-    <Compile Include="CSVFileSplitInfoMultiLine.cs" />
-    <Compile Include="CSVFileSplitInfoSingleLine.cs" />
-    <Compile Include="CSVHontoWebFile.cs" />
-    <Compile Include="CSVYamahaFile.cs" />
-    <Compile Include="CSVRakutenBooksFile.cs" />
-    <Compile Include="CSVRakutenIchibaFile.cs" />
-    <Compile Include="CSVKoshoFile.cs" />
-    <Compile Include="CSVMultiLineFile.cs" />
-    <Compile Include="CSVSingleLineFile.cs" />
-    <Compile Include="CSVMercariFile.cs" />
+    <Compile Include="BookSearcher\BookSearcher.cs" />
+    <Compile Include="BookSearcher\BookSearcher10.cs" />
+    <Compile Include="BookSearcher\BookSearcher11.cs" />
+    <Compile Include="BookSearcher\BookSearcher12.cs" />
+    <Compile Include="BookSearcher\BookSearcher17.cs" />
+    <Compile Include="BookSearcher\BookSearcher16.cs" />
+    <Compile Include="BookSearcher\BookSearcher09.cs" />
+    <Compile Include="BookSearcher\BookSearcher08.cs" />
+    <Compile Include="BookSearcher\BookSearcher07.cs" />
+    <Compile Include="BookSearcher\BookSearcher06.cs" />
+    <Compile Include="BookSearcher\BookSearcher03.cs" />
+    <Compile Include="BookSearcher\BookSearcher05.cs" />
+    <Compile Include="BookSearcher\BookSearcher02.cs" />
+    <Compile Include="BookSearcher\BookSearcher04.cs" />
+    <Compile Include="BookSearcher\BookSearcher01.cs" />
+    <Compile Include="BookSearcher\BookSearcher1\BookSearcher1.cs" />
+    <Compile Include="BookSearcher\BookSearcher1\BookSearcher13.cs" />
+    <Compile Include="BookSearcher\BookSearcher1\BookSearcher15.cs" />
+    <Compile Include="BookSearcher\BookSearcher1\BookSearcher14.cs" />
+    <Compile Include="DataLoader\CSVData.cs" />
+    <Compile Include="DataLoader\CSVFileSplitInfo.cs" />
+    <Compile Include="DataLoader\CSVFileSplitInfoQuotedLine.cs" />
+    <Compile Include="DataLoader\CSVFileSplitInfoMultiLine.cs" />
+    <Compile Include="DataLoader\CSVFileSplitInfoSingleLine.cs" />
+    <Compile Include="DataLoader\CSVHontoWebFile.cs" />
+    <Compile Include="DataLoader\CSVYamahaFile.cs" />
+    <Compile Include="DataLoader\CSVRakutenBooksFile.cs" />
+    <Compile Include="DataLoader\CSVRakutenIchibaFile.cs" />
+    <Compile Include="DataLoader\CSVKoshoFile.cs" />
+    <Compile Include="DataLoader\CSVMultiLineFile.cs" />
+    <Compile Include="DataLoader\CSVSingleLineFile.cs" />
+    <Compile Include="DataLoader\CSVMercariFile.cs" />
     <Compile Include="Form2.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,11 +95,13 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="CSVFile.cs" />
+    <Compile Include="DataLoader\CSVFile.cs" />
     <Compile Include="MemoryRow.cs" />
     <Compile Include="MemoryTable.cs" />
+    <Compile Include="DataSaver\Pattern1CSVSaver.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DataSaver\CSVSaver.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -132,5 +135,6 @@
   <ItemGroup>
     <Content Include="App.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

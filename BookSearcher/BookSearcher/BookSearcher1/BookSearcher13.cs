@@ -2,7 +2,7 @@
 
 namespace BookSearcherApp
 {
-    public class BookSearcher13 : BookSearcher
+    public class BookSearcher13 : BookSearcher1
     {
         private readonly ColumnInfo URL = new ColumnInfo(MatchType.CompleteMatch, SpaceMatch.All, ColumnType.URL);
 

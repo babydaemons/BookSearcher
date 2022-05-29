@@ -54,61 +54,62 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TestBookSearcher.cs">
+    <Compile Include="BookSearcher\TestBookSearcher.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TestBookSearcher10.cs">
+    <Compile Include="BookSearcher\TestBookSearcher10.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TestBookSearcher11.cs">
+    <Compile Include="BookSearcher\TestBookSearcher11.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TestBookSearcher12.cs">
+    <Compile Include="BookSearcher\TestBookSearcher12.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TestBookSearcher09.cs">
+    <Compile Include="BookSearcher\TestBookSearcher09.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TestBookSearcher08.cs">
+    <Compile Include="BookSearcher\TestBookSearcher08.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TestBookSearcher07.cs">
+    <Compile Include="BookSearcher\TestBookSearcher07.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TestBookSearcher06.cs">
+    <Compile Include="BookSearcher\TestBookSearcher06.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TestBookSearcher03.cs">
+    <Compile Include="BookSearcher\TestBookSearcher03.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TestBookSearcher05.cs">
+    <Compile Include="BookSearcher\TestBookSearcher05.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TestBookSearcher02.cs">
+    <Compile Include="BookSearcher\TestBookSearcher02.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TestBookSearcher04.cs">
+    <Compile Include="BookSearcher\TestBookSearcher04.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TestBookSearcher01.cs">
+    <Compile Include="BookSearcher\TestBookSearcher01.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TestBookSearcher17.cs">
+    <Compile Include="BookSearcher\TestBookSearcher17.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TestBookSearcher16.cs">
+    <Compile Include="BookSearcher\TestBookSearcher16.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TestBookSearcher15.cs">
+    <Compile Include="BookSearcher\BookSearcer1\TestBookSearcher15.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TestBookSearcher14.cs">
+    <Compile Include="BookSearcher\BookSearcer1\TestBookSearcher14.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TestBookSearcher13.cs">
+    <Compile Include="BookSearcher\BookSearcer1\TestBookSearcher13.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DataSaver\TestCSVSaver.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

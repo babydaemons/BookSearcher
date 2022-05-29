@@ -430,7 +430,7 @@ namespace BookSearcherApp
         private void Timer1_Tick(object sender, EventArgs e)
         {
             LabelElapsed.Text = "経過時間 " + BookSearcher.StopWatch.Elapsed.ToString(@"hh\:mm\:ss\.fff");
-            LabelResultRows.Text = $"{BookSearcher.ResultRows} 件";
+            LabelResultRows.Text = $"{BookSearcher.ResultCount} 件";
         }
 
         private void SetExecuteControlsEnabled()
