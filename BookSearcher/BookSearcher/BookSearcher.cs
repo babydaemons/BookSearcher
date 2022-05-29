@@ -13,28 +13,6 @@ namespace BookSearcherApp
     public enum MatchType { CompleteMatch, BeginningMatch, PartialMatch, ComplexMatch };
     public enum SpaceMatch { All, Ignore };
 
-    public struct ColumnInfo
-    {
-        public MatchType MatchType { get; }
-        public SpaceMatch SpaceMatch { get; }
-        public int BookColumnIndex { get; }
-        public int ScrapingColumnIndex { get; }
-
-        public ColumnInfo(MatchType matchType, SpaceMatch spaceMatch, ColumnType columnType)
-        {
-            MatchType = matchType;
-            SpaceMatch = spaceMatch;
-            BookColumnIndex = columnType == ColumnType.Complex ? -1 : BookSearcher.SelectBookColumnIndex(columnType);
-            ScrapingColumnIndex = matchType == MatchType.ComplexMatch && columnType != ColumnType.Complex ? -1 : BookSearcher.SelectScrapingColumnIndex(columnType);
-        }
-    }
-
-    public struct RowIndexPair
-    {
-        public int BookRowIndex;
-        public int ScrapingRowIndex;
-    }
-
     public abstract class BookSearcher
     {
         protected static CSVData BookCSV;
@@ -176,6 +154,28 @@ namespace BookSearcherApp
         {
             value = value.Replace(" ", "").Replace("　", "");
             return value.Length > PrefixLength ? value.Substring(0, PrefixLength) : value;
+        }
+
+        protected struct ColumnInfo
+        {
+            public MatchType MatchType { get; }
+            public SpaceMatch SpaceMatch { get; }
+            public int BookColumnIndex { get; }
+            public int ScrapingColumnIndex { get; }
+
+            public ColumnInfo(MatchType matchType, SpaceMatch spaceMatch, ColumnType columnType)
+            {
+                MatchType = matchType;
+                SpaceMatch = spaceMatch;
+                BookColumnIndex = columnType == ColumnType.Complex ? -1 : BookSearcher.SelectBookColumnIndex(columnType);
+                ScrapingColumnIndex = matchType == MatchType.ComplexMatch && columnType != ColumnType.Complex ? -1 : BookSearcher.SelectScrapingColumnIndex(columnType);
+            }
+        }
+
+        protected struct RowIndexPair
+        {
+            public int BookRowIndex;
+            public int ScrapingRowIndex;
         }
     }
 }
