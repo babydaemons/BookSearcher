@@ -18,7 +18,6 @@ namespace BookSearcherApp
         private string searchTypeName = "";
         private string folderPath = "";
         private bool searchInitFailed = false;
-        private TimeSpan searchTime;
 
         public Form1()
         {
@@ -144,6 +143,10 @@ namespace BookSearcherApp
                 var form = new Form2(csvFile);
                 form.ShowDialog();
             }
+#if DEBUG
+            SetSearchControlsEnabled(true);
+            SetExecuteControlsEnabled(true);
+#endif
         }
 
         private void RadioButtonFileType_CheckedChanged(object sender, EventArgs e)
@@ -282,14 +285,14 @@ namespace BookSearcherApp
             {
                 if (RadioButtonFileTypeCSV1.Checked)
                 {
-                    saver0 = new CSVSaverPattern1(DataGridViewOutputPattern1);
+                    saver0 = new CSVSaverPattern1(DataGridViewOutputPattern1, TextBoxOutputCSV.Text, BackgroundWorker11);
                 }
                 else
                 {
-                    saver0 = new CSVSaverPattern2(DataGridViewOutputPattern2);
+                    saver0 = new CSVSaverPattern2(DataGridViewOutputPattern2, TextBoxOutputCSV.Text, BackgroundWorker11);
                 }
-                saver1 = new CSVSaverCommon1(DataGridViewCommonOutput1);
-                saver2 = new CSVSaverCommon2(DataGridViewCommonOutput2);
+                saver1 = new CSVSaverCommon1(DataGridViewCommonOutput1, TextBoxOutputCSV1.Text, BackgroundWorker12);
+                saver2 = new CSVSaverCommon2(DataGridViewCommonOutput2, TextBoxOutputCSV2.Text, BackgroundWorker13);
 
                 spaceMatch = RadioButtonSpaceContains.Checked ? SpaceMatch.All : SpaceMatch.Ignore;
                 prefixLength = (int)NumericUpDownLength.Value;
@@ -423,7 +426,7 @@ namespace BookSearcherApp
             {
                 if (searcher != null)
                 {
-                    searchTime = searcher.Search();
+                    _ = searcher.Search();
                     searchInitFailed = false;
                 }
             }
@@ -436,18 +439,13 @@ namespace BookSearcherApp
 
         private void BackgroundWorker4_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (!searchInitFailed)
+            if (searchInitFailed)
             {
-                Timer1.Enabled = false;
-                MessageBox.Show(searchTime.ToString());
-
-                saver0.ConvertTable();
-                saver1.ConvertTable();
-                saver2.ConvertTable();
-                var form = new Form2(saver1.DataTable, searchTypeName);
-                form.ShowDialog();
+                return;
             }
-            SetSearchControlsEnabled(true);
+            BackgroundWorker11.RunWorkerAsync();
+            BackgroundWorker12.RunWorkerAsync();
+            BackgroundWorker13.RunWorkerAsync();
         }
 
         private void Timer1_Tick(object sender, EventArgs e)
@@ -470,6 +468,17 @@ namespace BookSearcherApp
 
         private void SetExecuteControlsEnabled(bool enabled) => GroupBoxExecute.Enabled = ButtonExecute.Enabled = enabled;
 
+        private void UpdateExecuteControlsEnabled()
+        {
+            bool enabled = ProgressBarOutputPatternCSV.Value == 100 && ProgressBarOutputCommonCSV1.Value == 100 && ProgressBarOutputCommonCSV2.Value == 100;
+            if (enabled)
+            {
+                Timer1.Enabled = false;
+                SetExecuteControlsEnabled(enabled);
+                SetSearchControlsEnabled(enabled);
+            }
+        }
+
         private void TextBoxFileName_TextChanged(object sender, EventArgs e) => SetExecuteControlsEnabled();
 
 
@@ -482,5 +491,50 @@ namespace BookSearcherApp
         private void BackgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e) => ProgressBarInput1.Value = e.ProgressPercentage;
 
         private void BackgroundWorker2_ProgressChanged(object sender, ProgressChangedEventArgs e) => ProgressBarInput2.Value = e.ProgressPercentage;
+
+        private void BackgroundWorker10_DoWork(object sender, DoWorkEventArgs e)
+        {
+
+        }
+
+        private void BackgroundWorker10_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+
+        }
+
+        private void BackgroundWorker10_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+
+        }
+
+        private void BackgroundWorker11_DoWork(object sender, DoWorkEventArgs e) => saver0.Save();
+
+        private void BackgroundWorker11_ProgressChanged(object sender, ProgressChangedEventArgs e) => ProgressBarOutputPatternCSV.Value = e.ProgressPercentage;
+
+        private void BackgroundWorker11_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            ProgressBarOutputPatternCSV.Value = 100;
+            UpdateExecuteControlsEnabled();
+        }
+
+        private void BackgroundWorker12_DoWork(object sender, DoWorkEventArgs e) => saver1.Save();
+
+        private void BackgroundWorker12_ProgressChanged(object sender, ProgressChangedEventArgs e) => ProgressBarOutputCommonCSV1.Value = e.ProgressPercentage;
+
+        private void BackgroundWorker12_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            ProgressBarOutputCommonCSV1.Value = 100;
+            UpdateExecuteControlsEnabled();
+        }
+
+        private void BackgroundWorker13_DoWork(object sender, DoWorkEventArgs e) => saver2.Save();
+
+        private void BackgroundWorker13_ProgressChanged(object sender, ProgressChangedEventArgs e) => ProgressBarOutputCommonCSV2.Value = e.ProgressPercentage;
+
+        private void BackgroundWorker13_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            ProgressBarOutputCommonCSV2.Value = 100;
+            UpdateExecuteControlsEnabled();
+        }
     }
 }

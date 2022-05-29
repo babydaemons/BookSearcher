@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace BookSearcherApp
 {
@@ -8,6 +9,6 @@ namespace BookSearcherApp
 
         public override int ColumnIndexISBN => 1;
 
-        public CSVSaverCommon2(DataGridView view) : base(view) { }
+        public CSVSaverCommon2(DataGridView view, string path, BackgroundWorker worker = null) : base(view, path, worker) { }
     }
 }

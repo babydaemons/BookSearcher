@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace BookSearcherApp
 {
@@ -27,6 +28,6 @@ namespace BookSearcherApp
             "is_delete"
         };
 
-        protected CSVSaver2(DataGridView view) : base(view) { }
+        protected CSVSaver2(DataGridView view, string path, BackgroundWorker worker = null) : base(view, path, worker) { }
     }
 }

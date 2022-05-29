@@ -120,6 +120,10 @@
             this.ColumnEnglishName4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnSettingValue4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ButtonPreviewOutputs = new System.Windows.Forms.Button();
+            this.BackgroundWorker10 = new System.ComponentModel.BackgroundWorker();
+            this.BackgroundWorker11 = new System.ComponentModel.BackgroundWorker();
+            this.BackgroundWorker12 = new System.ComponentModel.BackgroundWorker();
+            this.BackgroundWorker13 = new System.ComponentModel.BackgroundWorker();
             this.GroupBoxOutput.SuspendLayout();
             this.GroupBoxPartMatch.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownLength)).BeginInit();
@@ -1175,6 +1179,34 @@
             this.ButtonPreviewOutputs.Text = "詳細確認";
             this.ButtonPreviewOutputs.UseVisualStyleBackColor = true;
             // 
+            // BackgroundWorker10
+            // 
+            this.BackgroundWorker10.WorkerReportsProgress = true;
+            this.BackgroundWorker10.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker10_DoWork);
+            this.BackgroundWorker10.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.BackgroundWorker10_ProgressChanged);
+            this.BackgroundWorker10.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorker10_RunWorkerCompleted);
+            // 
+            // BackgroundWorker11
+            // 
+            this.BackgroundWorker11.WorkerReportsProgress = true;
+            this.BackgroundWorker11.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker11_DoWork);
+            this.BackgroundWorker11.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.BackgroundWorker11_ProgressChanged);
+            this.BackgroundWorker11.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorker11_RunWorkerCompleted);
+            // 
+            // BackgroundWorker12
+            // 
+            this.BackgroundWorker12.WorkerReportsProgress = true;
+            this.BackgroundWorker12.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker12_DoWork);
+            this.BackgroundWorker12.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.BackgroundWorker12_ProgressChanged);
+            this.BackgroundWorker12.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorker12_RunWorkerCompleted);
+            // 
+            // BackgroundWorker13
+            // 
+            this.BackgroundWorker13.WorkerReportsProgress = true;
+            this.BackgroundWorker13.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker13_DoWork);
+            this.BackgroundWorker13.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.BackgroundWorker13_ProgressChanged);
+            this.BackgroundWorker13.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorker13_RunWorkerCompleted);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1322,6 +1354,10 @@
         protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnEnglishName4;
         protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnSettingValue4;
         private System.ComponentModel.IContainer components;
+        protected System.ComponentModel.BackgroundWorker BackgroundWorker10;
+        protected System.ComponentModel.BackgroundWorker BackgroundWorker11;
+        protected System.ComponentModel.BackgroundWorker BackgroundWorker12;
+        protected System.ComponentModel.BackgroundWorker BackgroundWorker13;
     }
 }
 

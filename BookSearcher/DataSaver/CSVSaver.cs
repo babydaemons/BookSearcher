@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 
 namespace BookSearcherApp
 {
-    public abstract class CSVSaver
+    public abstract class CSVSaver : CSVWriter
     {
         public abstract string[] Titles { get; }
         public int ColumnIndexSKU => 0;
@@ -16,8 +17,10 @@ namespace BookSearcherApp
         protected DataTable dataTable = new DataTable();
         public DataTable DataTable => dataTable;
         private readonly Dictionary<string, string> settings = new Dictionary<string, string>();
+        private readonly string path;
+        private readonly BackgroundWorker worker;
 
-        protected CSVSaver(DataGridView view)
+        protected CSVSaver(DataGridView view, string path, BackgroundWorker worker = null)
         {
             CheckParameterEntered(view);
 
@@ -28,6 +31,9 @@ namespace BookSearcherApp
             {
                 dataTable.Columns.Add(title, typeof(string));
             }
+
+            this.path = path;
+            this.worker = worker;
         }
 
         private void CheckParameterEntered(DataGridView view)
@@ -71,6 +77,12 @@ namespace BookSearcherApp
             settings["sku"] = sku_middle + DateTime.Now.ToString("yyMM");
         }
 
+        public void Save()
+        {
+            ConvertTable();
+            Write(path, DataTable, worker);
+        }
+
         public void ConvertTable() => ConvertTable(BookSearcher.ResultTable, BookSearcher.ColumnIndexISBN, BookSearcher.ColumnIndexCost);
 
         public void ConvertTable(DataTable resultTable, int columnIndexISBN, int columnIndexCost)
@@ -87,11 +99,11 @@ namespace BookSearcherApp
 
                     if (ColumnIndexSKU >= 0)
                     {
-                        row[ColumnIndexSKU] = resultTable.Rows[i][columnIndexISBN] + settings["sku"];
+                        row[ColumnIndexSKU] = (string)resultTable.Rows[i][columnIndexISBN] + settings["sku"];
                     }
                     if (ColumnIndexISBN >= 0)
                     {
-                        row[ColumnIndexISBN] = resultTable.Rows[i][columnIndexISBN];
+                        row[ColumnIndexISBN] = (string)resultTable.Rows[i][columnIndexISBN];
                     }
                     if (ColumnIndexPrice >= 0)
                     {

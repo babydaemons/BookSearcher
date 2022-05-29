@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace BookSearcherApp
 {
@@ -54,6 +55,6 @@ namespace BookSearcherApp
             "battery_weight_unit_of_measure"
         };
 
-        protected CSVSaver1(DataGridView view) : base(view) { }
+        protected CSVSaver1(DataGridView view, string path, BackgroundWorker worker) : base(view, path, worker) { }
     }
 }
