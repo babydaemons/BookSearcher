@@ -28,6 +28,14 @@ namespace BookSearcherApp
         public static Stopwatch StopWatch { get; protected set; }
         protected static ConcurrentBag<RowIndexPair> resultRows = new ConcurrentBag<RowIndexPair>();
         public static int ResultCount => resultRows.Count;
+        private readonly int columnIndexISBN;
+        private readonly int columnIndexPrice;
+
+        protected BookSearcher()
+        {
+            columnIndexISBN = SelectColumnIndex(BookColumnSetting, ColumnType.ISBN);
+            columnIndexPrice = SelectColumnIndex(BookColumnSetting, ColumnType.Price);
+        }
 
         public static void InitColumnSettings(DataGridView bookColumnSetting, DataGridView scrapingColumnSetting)
         {
@@ -67,10 +75,6 @@ namespace BookSearcherApp
 
             var tableName = (string)columnSetting.Tag;
             throw new Exception($"「{tableName}」の「{columnTypeName}」が選択されていません。");
-        }
-
-        protected BookSearcher()
-        {
         }
 
         public abstract TimeSpan Search();
