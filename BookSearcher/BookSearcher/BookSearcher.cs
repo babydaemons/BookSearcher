@@ -116,11 +116,11 @@ namespace BookSearcherApp
             resultTable = new DataTable();
             foreach (var column in BookCSV.Titles)
             {
-                resultTable.Columns.Add("データベースファイル\n" + column, typeof(string));
+                resultTable.Columns.Add("データベースファイル／" + column, typeof(string));
             }
             foreach (var column in ScrapingCSV.Titles)
             {
-                resultTable.Columns.Add("スクレイピングデータファイル\n" + column, typeof(string));
+                resultTable.Columns.Add("スクレイピングデータファイル／" + column, typeof(string));
             }
 
             foreach (var resultRow in resultRows)

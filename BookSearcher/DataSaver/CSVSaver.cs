@@ -80,7 +80,7 @@ namespace BookSearcherApp
         public void Save()
         {
             ConvertTable();
-            Write(path, DataTable, worker);
+            Write(path, dataTable, worker);
         }
 
         public void ConvertTable() => ConvertTable(BookSearcher.ResultTable, BookSearcher.ColumnIndexISBN, BookSearcher.ColumnIndexCost);

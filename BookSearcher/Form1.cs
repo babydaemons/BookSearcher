@@ -9,6 +9,7 @@ namespace BookSearcherApp
     {
         protected CSVFile BookCSV;
         protected CSVFile ScrapingCSV;
+        protected ExcelSaver excelSaver;
         protected CSVSaver saver0;
         protected CSVSaver saver1;
         protected CSVSaver saver2;
@@ -283,6 +284,7 @@ namespace BookSearcherApp
         {
             try
             {
+                excelSaver = new ExcelSaver(TextBoxOutputExcel.Text, BackgroundWorker10);
                 if (RadioButtonFileTypeCSV1.Checked)
                 {
                     saver0 = new CSVSaverPattern1(DataGridViewOutputPattern1, TextBoxOutputCSV.Text, BackgroundWorker11);
@@ -443,6 +445,7 @@ namespace BookSearcherApp
             {
                 return;
             }
+            BackgroundWorker10.RunWorkerAsync();
             BackgroundWorker11.RunWorkerAsync();
             BackgroundWorker12.RunWorkerAsync();
             BackgroundWorker13.RunWorkerAsync();
@@ -470,7 +473,7 @@ namespace BookSearcherApp
 
         private void UpdateExecuteControlsEnabled()
         {
-            bool enabled = ProgressBarOutputPatternCSV.Value == 100 && ProgressBarOutputCommonCSV1.Value == 100 && ProgressBarOutputCommonCSV2.Value == 100;
+            bool enabled = ProgressBarOutputExcel.Value == 100 && ProgressBarOutputPatternCSV.Value == 100 && ProgressBarOutputCommonCSV1.Value == 100 && ProgressBarOutputCommonCSV2.Value == 100;
             if (enabled)
             {
                 Timer1.Enabled = false;
@@ -492,19 +495,14 @@ namespace BookSearcherApp
 
         private void BackgroundWorker2_ProgressChanged(object sender, ProgressChangedEventArgs e) => ProgressBarInput2.Value = e.ProgressPercentage;
 
-        private void BackgroundWorker10_DoWork(object sender, DoWorkEventArgs e)
-        {
+        private void BackgroundWorker10_DoWork(object sender, DoWorkEventArgs e) => excelSaver.Save();
 
-        }
-
-        private void BackgroundWorker10_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-
-        }
+        private void BackgroundWorker10_ProgressChanged(object sender, ProgressChangedEventArgs e) => ProgressBarOutputExcel.Value = e.ProgressPercentage;
 
         private void BackgroundWorker10_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-
+            ProgressBarOutputExcel.Value = 100;
+            UpdateExecuteControlsEnabled();
         }
 
         private void BackgroundWorker11_DoWork(object sender, DoWorkEventArgs e) => saver0.Save();
