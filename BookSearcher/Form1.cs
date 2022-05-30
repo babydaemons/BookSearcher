@@ -94,6 +94,7 @@ namespace BookSearcherApp
             LabelInput1.Enabled = TextBoxInput1.Enabled = ButtonInput1.Enabled = ButtonPreviewDatabase.Enabled = true;
             SetExecuteControlsEnabled();
             ProgressBarInput1.Value = 100;
+            ProgressBarOutputExcel.Value = ProgressBarOutputPatternCSV.Value = ProgressBarOutputCommonCSV1.Value = ProgressBarOutputCommonCSV2.Value = 0;
         }
 
         private void ButtonInput2_Click(object sender, EventArgs e)
@@ -135,6 +136,7 @@ namespace BookSearcherApp
             LabelInput2.Enabled = TextBoxInput2.Enabled = ButtonInput2.Enabled = ButtonPreviewScraping.Enabled = true;
             SetExecuteControlsEnabled();
             ProgressBarInput2.Value = 100;
+            ProgressBarOutputExcel.Value = ProgressBarOutputPatternCSV.Value = ProgressBarOutputCommonCSV1.Value = ProgressBarOutputCommonCSV2.Value = 0;
         }
 
         private void ButtonPreview_Click(object sender, EventArgs e)
