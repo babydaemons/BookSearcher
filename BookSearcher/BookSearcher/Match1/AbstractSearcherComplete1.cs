@@ -14,13 +14,26 @@ namespace BookSearcherApp
 
         protected void Search(ColumnInfo columnInfo)
         {
+            resultRows = new ConcurrentBag<RowIndexPair>();
             var bookValues = CreateColumnList(BookCSV.MemoryTable, columnInfo, true);
             var scrapingValues = CreateColumnList(ScrapingCSV.MemoryTable, columnInfo, false);
-            var results = from bookRow in bookValues
-                          join scrapingRow in scrapingValues.AsParallel()
-                          on bookRow.Value.Value equals scrapingRow.Value.Value
-                          select new RowIndexPair { BookRowIndex = bookRow.Key, ScrapingRowIndex = scrapingRow.Key };
-            SaveTable(new List<RowIndexPair>(results));
+ 
+            var bookKeys = bookValues.Keys;
+            var scrapingKeys = scrapingValues.Keys;
+
+            bookKeys.AsParallel().ForAll(i =>
+            {
+                var bookValue = bookValues[i].Value;
+                scrapingKeys.AsParallel().ForAll(j =>
+                {
+                    var scrapingValue = scrapingValues[j].Value;
+                    if (bookValue == scrapingValue)
+                    {
+                        resultRows.Add(new RowIndexPair { BookRowIndex = i, ScrapingRowIndex = j });
+                    }
+                });
+            });
+            SaveTable(resultRows.ToList());
         }
 
         private ConcurrentDictionary<int, Column1> CreateColumnList(MemoryTable table, ColumnInfo columnInfo, bool isBookDB)
