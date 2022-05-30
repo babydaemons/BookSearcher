@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
@@ -75,7 +76,7 @@ namespace BookSearcherApp
                     }
                     if (BookCSV.Titles.Length > 0)
                     {
-                        LabelInput1.Enabled = TextBoxInput1.Enabled = ButtonInput1.Enabled = ButtonPreviewDatabase.Enabled = false;
+                        LabelInput1.Enabled = TextBoxInput1.Enabled = ButtonInput1.Enabled = ButtonPreviewDatabase.Enabled = ButtonPreviewOutputs.Enabled = false;
                         SetExecuteControlsEnabled(false);
                         BackgroundWorker1.RunWorkerAsync();
                     }
@@ -117,7 +118,7 @@ namespace BookSearcherApp
                     }
                     if (ScrapingCSV.Titles.Length > 0)
                     {
-                        LabelInput2.Enabled = TextBoxInput2.Enabled = ButtonInput2.Enabled = ButtonPreviewScraping.Enabled = false;
+                        LabelInput2.Enabled = TextBoxInput2.Enabled = ButtonInput2.Enabled = ButtonPreviewScraping.Enabled = ButtonPreviewOutputs.Enabled = false;
                         SetExecuteControlsEnabled(false);
                         BackgroundWorker2.RunWorkerAsync();
                     }
@@ -486,6 +487,7 @@ namespace BookSearcherApp
                 timer = null;
                 SetExecuteControlsEnabled(enabled);
                 SetSearchControlsEnabled(enabled);
+                ButtonPreviewOutputs.Enabled = enabled;
             }
         }
 
@@ -540,6 +542,14 @@ namespace BookSearcherApp
         {
             ProgressBarOutputCommonCSV2.Value = 100;
             UpdateExecuteControlsEnabled();
+        }
+
+        private void ButtonPreviewOutputs_Click(object sender, EventArgs e)
+        {
+            var form3 = RadioButtonFileTypeCSV1.Checked ?
+                new Form3(searchTypeName, BookSearcher.ResultTable, saver0.DataTable, new DataTable(), saver1.DataTable, saver2.DataTable) :
+                new Form3(searchTypeName, BookSearcher.ResultTable, new DataTable(), saver0.DataTable, saver1.DataTable, saver2.DataTable);
+            form3.ShowDialog();
         }
     }
 }

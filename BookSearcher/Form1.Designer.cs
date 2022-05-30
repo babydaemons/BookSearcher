@@ -1188,12 +1188,14 @@
             // ButtonPreviewOutputs
             // 
             this.ButtonPreviewOutputs.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ButtonPreviewOutputs.Enabled = false;
             this.ButtonPreviewOutputs.Location = new System.Drawing.Point(3, 465);
             this.ButtonPreviewOutputs.Name = "ButtonPreviewOutputs";
             this.ButtonPreviewOutputs.Size = new System.Drawing.Size(761, 23);
             this.ButtonPreviewOutputs.TabIndex = 0;
             this.ButtonPreviewOutputs.Text = "詳細確認";
             this.ButtonPreviewOutputs.UseVisualStyleBackColor = true;
+            this.ButtonPreviewOutputs.Click += new System.EventHandler(this.ButtonPreviewOutputs_Click);
             // 
             // BackgroundWorker10
             // 
