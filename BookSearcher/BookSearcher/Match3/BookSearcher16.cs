@@ -17,10 +17,10 @@ namespace BookSearcherApp
 
         public override void Search()
         {
-            SearchPartial33(bookTitle, year, publisher);
+            Search(bookTitle, year, publisher);
         }
 
-        protected void SearchPartial33(ColumnInfo columnPartial1, ColumnInfo columnPartial2, ColumnInfo columnPartial3)
+        protected void Search(ColumnInfo columnPartial1, ColumnInfo columnPartial2, ColumnInfo columnPartial3)
         {
             resultRows = new ConcurrentBag<RowIndexPair>();
             var bookValues = CreateColumnList(BookCSV.MemoryTable, columnPartial1, columnPartial2, columnPartial3, true);
