@@ -10,10 +10,9 @@ namespace BookSearcherApp
 {
     public abstract class AbstractSearcher_Type4_Complex21 : AbstractSearcher2
     {
-        protected TimeSpan SearchComplex2(ColumnInfo columnPartial1, ColumnInfo columnPartial2, ColumnInfo columnComplex3)
+        protected void Search(ColumnInfo columnPartial1, ColumnInfo columnPartial2, ColumnInfo columnComplex3)
         {
             resultRows = new ConcurrentBag<RowIndexPair>();
-            StopWatch = Stopwatch.StartNew();
             var bookValues = CreateBookColumnList(columnPartial1, columnPartial2);
             var scrapingValues = CreateScrapingColumnList(columnComplex3);
 
@@ -36,8 +35,6 @@ namespace BookSearcherApp
                 });
             });
             SaveTable(resultRows.ToList());
-            StopWatch.Stop();
-            return StopWatch.Elapsed;
         }
 
         private static bool IsComplexMatch(string value1, string value2, string scrapingComplexValue)

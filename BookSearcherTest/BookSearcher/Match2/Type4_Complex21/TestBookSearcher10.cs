@@ -15,30 +15,22 @@ namespace BookSearcherTest
         private readonly CSVData scrapingDiff1B;
         private readonly CSVData scrapingDiff2B;
 
-        const string BookTitle = "書籍タイトル";
-        const string valueFormat1a = "書籍 通巻{0:D6}";
-        const string Year = "出版年";
-        const string valueFormat2a = "20{0:D2}";
-        const string Complex = "書籍タイトル＆出版年";
-        const string valueFormat1b = "タイトル「大好評！書籍通巻 {0:D6}第二版」／出版年「西暦20{0:D2}年」";
-
         const int PrefixLength = 10;
 
         public TestBookSearcher10()
         {
-            BookColumnSetting.Rows.Add(BookTitle, valueFormat1a, "書籍名");
-            BookColumnSetting.Rows.Add(Year, valueFormat2a, "出版年");
+            ApplyColumnInfo(BookTitle);
+            ApplyColumnInfo(Year);
+            ApplyColumnInfo(Complex);
 
-            ScrapingColumnSetting.Rows.Add(BookTitle, valueFormat1a, "複合データ");
-
-            bookAscA = CreateDataAsc(ROW_COUNT, BookTitle, Year, valueFormat1a, valueFormat2a);
-            bookDescA = CreateDataDesc(ROW_COUNT, BookTitle, Year, valueFormat1a, valueFormat2a);
-            scrapingAscB = CreateDataAsc(ROW_COUNT, Complex, valueFormat1b);
-            scrapingDescB = CreateDataDesc(ROW_COUNT, Complex, valueFormat1b);
-            bookDiff1A = CreateDataAsc(ROW_COUNT + 1, BookTitle, Year, valueFormat1a, valueFormat2a);
-            bookDiff2A = CreateDataDesc(ROW_COUNT + 1, BookTitle, Year, valueFormat1a, valueFormat2a);
-            scrapingDiff1B = CreateDataAsc(ROW_COUNT + 1, Complex, valueFormat1b);
-            scrapingDiff2B = CreateDataDesc(ROW_COUNT + 1, Complex, valueFormat1b);
+            bookAscA = CreateDataAsc(ROW_COUNT);
+            bookDescA = CreateDataDesc(ROW_COUNT);
+            scrapingAscB = CreateDataAsc(ROW_COUNT);
+            scrapingDescB = CreateDataDesc(ROW_COUNT);
+            bookDiff1A = CreateDataAsc(ROW_COUNT + 1);
+            bookDiff2A = CreateDataDesc(ROW_COUNT + 1);
+            scrapingDiff1B = CreateDataAsc(ROW_COUNT + 1);
+            scrapingDiff2B = CreateDataDesc(ROW_COUNT + 1);
         }
 
         [TestMethod]
@@ -46,7 +38,7 @@ namespace BookSearcherTest
         {
             var books = bookAscA;
             var scrapings = scrapingAscB;
-            BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.All, PrefixLength);
+            BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.Ignore, PrefixLength);
             searcher = new BookSearcher10();
             searcher.Search();
             Assert.AreEqual(ROW_COUNT, BookSearcher.ResultTable.Rows.Count);
@@ -57,7 +49,7 @@ namespace BookSearcherTest
         {
             var books = bookAscA;
             var scrapings = scrapingDescB;
-            BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.All, PrefixLength);
+            BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.Ignore, PrefixLength);
             searcher = new BookSearcher10();
             searcher.Search();
             Assert.AreEqual(ROW_COUNT, BookSearcher.ResultTable.Rows.Count);
@@ -68,7 +60,7 @@ namespace BookSearcherTest
         {
             var books = bookDescA;
             var scrapings = scrapingDiff1B;
-            BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.All, PrefixLength);
+            BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.Ignore, PrefixLength);
             searcher = new BookSearcher10();
             searcher.Search();
             Assert.AreEqual(ROW_COUNT, BookSearcher.ResultTable.Rows.Count);
@@ -79,7 +71,7 @@ namespace BookSearcherTest
         {
             var books = bookDiff2A;
             var scrapings = scrapingAscB;
-            BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.All, PrefixLength);
+            BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.Ignore, PrefixLength);
             searcher = new BookSearcher10();
             searcher.Search();
             Assert.AreEqual(ROW_COUNT, BookSearcher.ResultTable.Rows.Count);
@@ -90,7 +82,7 @@ namespace BookSearcherTest
         {
             var books = bookDescA;
             var scrapings = scrapingDiff2B;
-            BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.All, PrefixLength);
+            BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.Ignore, PrefixLength);
             searcher = new BookSearcher10();
             searcher.Search();
             Assert.AreEqual(ROW_COUNT, BookSearcher.ResultTable.Rows.Count);
@@ -99,10 +91,10 @@ namespace BookSearcherTest
         [TestMethod]
         public void TestMatchingDiffColumn11()
         {
-            var books = bookAscA;
-            var scrapings = CreateDataAsc(ROW_COUNT, Complex, valueFormat1b);
-            scrapings.AddRow(new string[] { string.Format(valueFormat1b + "!", scrapings.RowCount - 1) });
-            BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.All, PrefixLength);
+            var books = bookDiff1A;
+            var scrapings = CreateDataAsc(ROW_COUNT);
+            AddRow(scrapings, AppendType.Right);
+            BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.Ignore, PrefixLength);
             searcher = new BookSearcher10();
             searcher.Search();
             Assert.AreEqual(ROW_COUNT + 1, BookSearcher.ResultTable.Rows.Count);
@@ -112,9 +104,9 @@ namespace BookSearcherTest
         public void TestMatchingDiffColumn12()
         {
             var books = bookDiff1A;
-            var scrapings = CreateDataAsc(ROW_COUNT, Complex, valueFormat1b);
-            scrapings.AddRow(new string[] { string.Format("!" + valueFormat1b, scrapings.RowCount - 1) });
-            BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.All, PrefixLength);
+            var scrapings = CreateDataAsc(ROW_COUNT);
+            AddRow(scrapings, AppendType.Left);
+            BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.Ignore, PrefixLength);
             searcher = new BookSearcher10();
             searcher.Search();
             Assert.AreEqual(ROW_COUNT + 1, BookSearcher.ResultTable.Rows.Count);
@@ -123,13 +115,13 @@ namespace BookSearcherTest
         [TestMethod]
         public void TestMatchingDiffColumn22()
         {
-            var books = CreateDataAsc(ROW_COUNT, BookTitle, Year, valueFormat1a, valueFormat2a);
-            books.AddRow(new string[] { string.Format(valueFormat1a, books.RowCount), string.Format(valueFormat2a + "!", books.RowCount) });
+            var books = CreateDataAsc(ROW_COUNT);
+            AddRow(books, AppendType.Left);
             var scrapings = scrapingDiff1B;
-            BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.All, PrefixLength);
+            BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.Ignore, PrefixLength);
             searcher = new BookSearcher10();
             searcher.Search();
-            Assert.AreEqual(ROW_COUNT, BookSearcher.ResultTable.Rows.Count);
+            Assert.AreEqual(ROW_COUNT + 1, BookSearcher.ResultTable.Rows.Count);
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Diagnostics;
+﻿using System.Collections.Concurrent;
 using System.Linq;
 
 namespace BookSearcherApp
@@ -15,15 +13,14 @@ namespace BookSearcherApp
         {
         }
 
-        public override TimeSpan Search()
+        public override void Search()
         {
-            return SearchPartial32(bookTitle, year, publisher);
+            SearchPartial32(bookTitle, year, publisher);
         }
 
-        private TimeSpan SearchPartial32(ColumnInfo columnPartial1, ColumnInfo columnPartial2, ColumnInfo columnPartial3)
+        private void SearchPartial32(ColumnInfo columnPartial1, ColumnInfo columnPartial2, ColumnInfo columnPartial3)
         {
             resultRows = new ConcurrentBag<RowIndexPair>();
-            StopWatch = Stopwatch.StartNew();
             var bookValues = CreateColumnList(BookCSV.MemoryTable, columnPartial1, columnPartial2, columnPartial3, true);
             var scrapingValues = CreateColumnList(ScrapingCSV.MemoryTable, columnPartial1, columnPartial2, columnPartial3, false);
 
@@ -47,8 +44,6 @@ namespace BookSearcherApp
                 });
             });
             SaveTable(resultRows.ToList());
-            StopWatch.Stop();
-            return StopWatch.Elapsed;
         }
 
         private static bool IsPartialMatch32(string value1a, string value1b, string value1c, string value2a, string value2b, string value2c)

@@ -12,9 +12,8 @@ namespace BookSearcherApp
         {
         }
 
-        protected TimeSpan Search(ColumnInfo columnInfo)
+        protected void Search(ColumnInfo columnInfo)
         {
-            StopWatch = Stopwatch.StartNew();
             var bookValues = CreateColumnList(BookCSV.MemoryTable, columnInfo, true);
             var scrapingValues = CreateColumnList(ScrapingCSV.MemoryTable, columnInfo, false);
             var results = from bookRow in bookValues
@@ -22,8 +21,6 @@ namespace BookSearcherApp
                           on bookRow.Value.Value equals scrapingRow.Value.Value
                           select new RowIndexPair { BookRowIndex = bookRow.Key, ScrapingRowIndex = scrapingRow.Key };
             SaveTable(new List<RowIndexPair>(results));
-            StopWatch.Stop();
-            return StopWatch.Elapsed;
         }
 
         private ConcurrentDictionary<int, Column1> CreateColumnList(MemoryTable table, ColumnInfo columnInfo, bool isBookDB)

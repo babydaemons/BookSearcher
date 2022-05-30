@@ -12,9 +12,6 @@ namespace BookSearcherApp
         {
         }
 
-        public override TimeSpan Search()
-        {
-            return SearchComplex2(bookTitle, author, complex);
-        }
+        public override void Search() => Search(bookTitle, author, complex);
     }
 }

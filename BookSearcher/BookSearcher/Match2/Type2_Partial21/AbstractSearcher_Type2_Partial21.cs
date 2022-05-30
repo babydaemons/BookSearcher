@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookSearcherApp
 {
@@ -13,9 +9,8 @@ namespace BookSearcherApp
         {
         }
 
-        protected TimeSpan SearchPartial1(ColumnInfo columnPartial, ColumnInfo columnComplete)
+        protected void Search(ColumnInfo columnPartial, ColumnInfo columnComplete)
         {
-            StopWatch = Stopwatch.StartNew();
             var bookValues = CreateColumnList(BookCSV.MemoryTable, columnPartial, columnComplete, true);
             var scrapingValues = CreateColumnList(ScrapingCSV.MemoryTable, columnPartial, columnComplete, false);
             var results = from bookRow in bookValues
@@ -24,8 +19,6 @@ namespace BookSearcherApp
                           equals new ValuePairPartial1 { Value1 = scrapingRow.Value.Value2, Value2 = scrapingRow.Value.Value1 }
                           select new RowIndexPair { BookRowIndex = bookRow.Key, ScrapingRowIndex = scrapingRow.Key };
             SaveTable(new List<RowIndexPair>(results));
-            StopWatch.Stop();
-            return StopWatch.Elapsed;
         }
 
         struct ValuePairPartial1

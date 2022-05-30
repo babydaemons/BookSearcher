@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 
@@ -16,6 +17,7 @@ namespace BookSearcherApp
         protected SpaceMatch spaceMatch;
         protected int prefixLength;
         protected BookSearcher searcher = null;
+        protected Stopwatch timer;
         private string searchTypeName = "";
         private string folderPath = "";
         private bool searchInitFailed = false;
@@ -306,6 +308,7 @@ namespace BookSearcherApp
 
                 SetSearchControlsEnabled(false);
                 Timer1.Enabled = true;
+                timer = Stopwatch.StartNew();
                 BackgroundWorker4.RunWorkerAsync();
             }
             catch (Exception ex)
@@ -428,7 +431,7 @@ namespace BookSearcherApp
             {
                 if (searcher != null)
                 {
-                    _ = searcher.Search();
+                    searcher.Search();
                     searchInitFailed = false;
                 }
             }
@@ -453,11 +456,11 @@ namespace BookSearcherApp
 
         private void Timer1_Tick(object sender, EventArgs e)
         {
-            if (searchInitFailed || BookSearcher.StopWatch == null)
+            if (searchInitFailed || timer == null)
             {
                 return;
             }
-            LabelElapsed.Text = "経過時間 " + BookSearcher.StopWatch.Elapsed.ToString(@"hh\:mm\:ss\.fff");
+            LabelElapsed.Text = "経過時間 " + timer.Elapsed.ToString(@"hh\:mm\:ss\.fff");
             LabelResultRows.Text = $"{BookSearcher.ResultCount} 件";
         }
 
@@ -477,6 +480,8 @@ namespace BookSearcherApp
             if (enabled)
             {
                 Timer1.Enabled = false;
+                timer.Stop();
+                timer = null;
                 SetExecuteControlsEnabled(enabled);
                 SetSearchControlsEnabled(enabled);
             }

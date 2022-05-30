@@ -13,15 +13,12 @@ namespace BookSearcherTest
 
         public TestBookSearcher15()
         {
-            const string BookTitle = "書籍タイトル";
-            const string valueFormat = "書籍タイトル通巻{0:D8}";
-            BookColumnSetting.Rows.Add(BookTitle, valueFormat, "書籍名");
-            ScrapingColumnSetting.Rows.Add(BookTitle, valueFormat, "書籍名");
+            ApplyColumnInfo(BookTitle);
 
-            dataAsc = CreateDataAsc(ROW_COUNT, BookTitle, valueFormat);
-            dataDesc = CreateDataDesc(ROW_COUNT, BookTitle, valueFormat);
-            dataDiff1 = CreateDataAsc(ROW_COUNT  + 1, BookTitle, valueFormat);
-            dataDiff2 = CreateDataDesc(ROW_COUNT + 1, BookTitle, valueFormat);
+            dataAsc = CreateDataAsc(ROW_COUNT);
+            dataDesc = CreateDataDesc(ROW_COUNT);
+            dataDiff1 = CreateDataAsc(ROW_COUNT);
+            dataDiff2 = CreateDataDesc(ROW_COUNT);
         }
 
         [TestMethod]

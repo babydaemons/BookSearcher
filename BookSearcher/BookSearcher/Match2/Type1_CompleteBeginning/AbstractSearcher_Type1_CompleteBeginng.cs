@@ -11,9 +11,8 @@ namespace BookSearcherApp
         {
         }
 
-        protected TimeSpan Search(ColumnInfo columnInfo1, ColumnInfo columnInfo2)
+        protected void Search(ColumnInfo columnInfo1, ColumnInfo columnInfo2)
         {
-            StopWatch = Stopwatch.StartNew();
             var bookValues = CreateColumnList(BookCSV.MemoryTable, columnInfo1, columnInfo2, true);
             var scrapingValues = CreateColumnList(ScrapingCSV.MemoryTable, columnInfo1, columnInfo2, false);
             var results = from bookRow in bookValues
@@ -21,8 +20,6 @@ namespace BookSearcherApp
                           on new { bookRow.Value.Value1, bookRow.Value.Value2 } equals new { scrapingRow.Value.Value1, scrapingRow.Value.Value2 }
                           select new RowIndexPair { BookRowIndex = bookRow.Key, ScrapingRowIndex = scrapingRow.Key };
             SaveTable(new List<RowIndexPair>(results));
-            StopWatch.Stop();
-            return StopWatch.Elapsed;
         }
     }
 }

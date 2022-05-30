@@ -15,15 +15,14 @@ namespace BookSearcherApp
         {
         }
 
-        public override TimeSpan Search()
+        public override void Search()
         {
-            return SearchPartial33(bookTitle, year, publisher);
+            SearchPartial33(bookTitle, year, publisher);
         }
 
-        protected TimeSpan SearchPartial33(ColumnInfo columnPartial1, ColumnInfo columnPartial2, ColumnInfo columnPartial3)
+        protected void SearchPartial33(ColumnInfo columnPartial1, ColumnInfo columnPartial2, ColumnInfo columnPartial3)
         {
             resultRows = new ConcurrentBag<RowIndexPair>();
-            StopWatch = Stopwatch.StartNew();
             var bookValues = CreateColumnList(BookCSV.MemoryTable, columnPartial1, columnPartial2, columnPartial3, true);
             var scrapingValues = CreateColumnList(ScrapingCSV.MemoryTable, columnPartial1, columnPartial2, columnPartial3, false);
 
@@ -47,8 +46,6 @@ namespace BookSearcherApp
                 });
             });
             SaveTable(resultRows.ToList());
-            StopWatch.Stop();
-            return StopWatch.Elapsed;
         }
 
         private static bool IsPartialMatch33(string value1a, string value1b, string value1c, string value2a, string value2b, string value2c)

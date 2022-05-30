@@ -13,15 +13,10 @@ namespace BookSearcherTest
 
         public TestBookSearcher14()
         {
-            const string ISBN = "書籍ISBN13";
-            const string valueFormat = "97841{0:D8}";
-            BookColumnSetting.Rows.Add(ISBN, valueFormat, "ISBN");
-            ScrapingColumnSetting.Rows.Add(ISBN, valueFormat, "ISBN");
-
-            dataAsc = CreateDataAsc(ROW_COUNT, ISBN, valueFormat);
-            dataDesc = CreateDataDesc(ROW_COUNT, ISBN, valueFormat);
-            dataDiff1 = CreateDataAsc(ROW_COUNT + 1, ISBN, valueFormat);
-            dataDiff2 = CreateDataDesc(ROW_COUNT + 1, ISBN, valueFormat);
+            dataAsc = CreateDataAsc(ROW_COUNT);
+            dataDesc = CreateDataDesc(ROW_COUNT);
+            dataDiff1 = CreateDataAsc(ROW_COUNT);
+            dataDiff2 = CreateDataDesc(ROW_COUNT);
         }
 
         [TestMethod]

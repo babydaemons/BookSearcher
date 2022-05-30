@@ -14,15 +14,14 @@ namespace BookSearcherApp
         {
         }
 
-        public override TimeSpan Search()
+        public override void Search()
         {
-            return SearchPartial2(bookTitle, author);
+            SearchPartial2(bookTitle, author);
         }
 
-        private TimeSpan SearchPartial2(ColumnInfo columnPartial1, ColumnInfo columnPartial2)
+        private void SearchPartial2(ColumnInfo columnPartial1, ColumnInfo columnPartial2)
         {
             resultRows = new ConcurrentBag<RowIndexPair>();
-            StopWatch = Stopwatch.StartNew();
             var bookValues = CreateColumnList(BookCSV.MemoryTable, columnPartial1, columnPartial2, true);
             var scrapingValues = CreateColumnList(ScrapingCSV.MemoryTable, columnPartial1, columnPartial2, false);
 
@@ -44,8 +43,6 @@ namespace BookSearcherApp
                 });
             });
             SaveTable(resultRows.ToList());
-            StopWatch.Stop();
-            return StopWatch.Elapsed;
         }
 
         private static bool IsPartialMatch2(string value1a, string value1b, string value2a, string value2b)

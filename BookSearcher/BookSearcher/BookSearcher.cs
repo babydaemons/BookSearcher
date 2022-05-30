@@ -25,7 +25,6 @@ namespace BookSearcherApp
         protected delegate string ConvertValue(string value);
         private static DataGridView BookColumnSetting;
         private static DataGridView ScrapingColumnSetting;
-        public static Stopwatch StopWatch { get; protected set; }
         protected static ConcurrentBag<RowIndexPair> resultRows = new ConcurrentBag<RowIndexPair>();
         public static int ResultCount => resultRows.Count;
         public static int ColumnIndexISBN { get; private set; }
@@ -77,7 +76,7 @@ namespace BookSearcherApp
             throw new Exception($"「{tableName}」の「{columnTypeName}」が選択されていません。");
         }
 
-        public abstract TimeSpan Search();
+        public abstract void Search();
 
         protected ConvertValue GetConvertValue(ColumnInfo columnInfo)
         {

@@ -11,17 +11,14 @@ namespace BookSearcherTest
         private readonly CSVData dataDiff1;
         private readonly CSVData dataDiff2;
 
-        public TestBookSearcher13()
+        public TestBookSearcher13() : base()
         {
-            const string URL = "ページURL";
-            const string valueFormat = "https://www.example.com/{0:D8}";
-            BookColumnSetting.Rows.Add(URL, valueFormat, "URL");
-            ScrapingColumnSetting.Rows.Add(URL, valueFormat, "URL");
+            ApplyColumnInfo(URL);
 
-            dataAsc = CreateDataAsc(ROW_COUNT, URL, valueFormat);
-            dataDesc = CreateDataDesc(ROW_COUNT, URL, valueFormat);
-            dataDiff1 = CreateDataAsc(ROW_COUNT + 1, URL, valueFormat);
-            dataDiff2 = CreateDataDesc(ROW_COUNT + 1, URL, valueFormat);
+            dataAsc = CreateDataAsc(ROW_COUNT);
+            dataDesc = CreateDataDesc(ROW_COUNT);
+            dataDiff1 = CreateDataAsc(ROW_COUNT);
+            dataDiff2 = CreateDataDesc(ROW_COUNT);
         }
 
         [TestMethod]
