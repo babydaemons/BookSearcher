@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace BookSearcherApp
@@ -13,13 +13,28 @@ namespace BookSearcherApp
 
         protected void Search(ColumnInfo columnInfo1, ColumnInfo columnInfo2)
         {
+            resultRows = new ConcurrentBag<RowIndexPair>();
             var bookValues = CreateColumnList(BookCSV.MemoryTable, columnInfo1, columnInfo2, true);
             var scrapingValues = CreateColumnList(ScrapingCSV.MemoryTable, columnInfo1, columnInfo2, false);
-            var results = from bookRow in bookValues
-                          join scrapingRow in scrapingValues.AsParallel()
-                          on new { bookRow.Value.Value1, bookRow.Value.Value2 } equals new { scrapingRow.Value.Value1, scrapingRow.Value.Value2 }
-                          select new RowIndexPair { BookRowIndex = bookRow.Key, ScrapingRowIndex = scrapingRow.Key };
-            SaveTable(new List<RowIndexPair>(results));
+
+            var bookKeys = bookValues.Keys;
+            var scrapingKeys = scrapingValues.Keys;
+
+            bookKeys.AsParallel().ForAll(i =>
+            {
+                var bookValue1 = bookValues[i].Value1;
+                var bookValue2 = bookValues[i].Value2;
+                scrapingKeys.AsParallel().ForAll(j =>
+                {
+                    var scrapingValue1 = scrapingValues[j].Value1;
+                    var scrapingValue2 = scrapingValues[j].Value2;
+                    if (bookValue1 == scrapingValue1 && bookValue2 == scrapingValue2)
+                    {
+                        resultRows.Add(new RowIndexPair { BookRowIndex = i, ScrapingRowIndex = j });
+                    }
+                });
+            });
+            SaveTable(resultRows.ToList());
         }
     }
 }
