@@ -73,7 +73,7 @@ namespace BookSearcherApp
             }
 
             var tableName = (string)columnSetting.Tag;
-            throw new Exception($"「{tableName}」の「{columnTypeName}」が選択されていません。");
+            throw new MyException($"「{tableName}」入力エラー", $"「{columnTypeName}」が選択されていません。");
         }
 
         public abstract void Search();

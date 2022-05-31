@@ -48,7 +48,7 @@ namespace BookSearcherApp
                 var value = (string)cells[2].Value;
                 if (string.IsNullOrEmpty(value))
                 {
-                    throw new Exception($"「{settingName}」の「{keyJP}／{keyEN}」が入力されていません。");
+                    throw new MyException($"「{settingName}」入力エラー", $"「{keyJP}／{keyEN}」が入力されていません。");
                 }
 
                 settings.Add(keyEN, value);
@@ -59,11 +59,11 @@ namespace BookSearcherApp
         {
             if (sku_input.Length == 0)
             {
-                throw new Exception($"「{settingName}」の「商品管理番号(真ん中2文字)／sku」が入力されていません。");
+                throw new MyException($"「{settingName}」入力エラー", $"「商品管理番号(真ん中2文字)／sku」が入力されていません。");
             }
             if (sku_input.Length != 2)
             {
-                throw new Exception($"「{settingName}」の「商品管理番号(真ん中2文字)／sku」の文字数が不正です：「{sku_input}」");
+                throw new MyException($"「{settingName}」入力エラー", $"「商品管理番号(真ん中2文字)／sku」の文字数が不正です：「{sku_input}」");
             }
 
             var sku_middle = sku_input.ToUpper();
@@ -71,7 +71,7 @@ namespace BookSearcherApp
             {
                 if (sku_middle[i] < 'A' || 'Z' < sku_middle[i])
                 {
-                    throw new Exception($"「{settingName}」の「商品管理番号(真ん中2文字)／sku」の{i + 1}文字目がアルファベットではありません：「{sku_input}」");
+                    throw new MyException($"「{settingName}」入力エラー", $"商品管理番号(真ん中2文字)／sku」の{i + 1}文字目がアルファベットではありません：「{sku_input}」");
                 }
             }
             settings["sku"] = sku_middle + DateTime.Now.ToString("yyMM");
@@ -87,40 +87,33 @@ namespace BookSearcherApp
 
         public void ConvertTable(DataTable resultTable, int columnIndexISBN, int columnIndexCost)
         {
-            try
+            foreach (var i in Enumerable.Range(0, resultTable.Rows.Count))
             {
-                foreach (var i in Enumerable.Range(0, resultTable.Rows.Count))
+                var row = dataTable.NewRow();
+                foreach (var key in settings.Keys)
                 {
-                    var row = dataTable.NewRow();
-                    foreach (var key in settings.Keys)
-                    {
-                        row[key] = settings[key];
-                    }
-
-                    if (ColumnIndexSKU >= 0)
-                    {
-                        row[ColumnIndexSKU] = (string)resultTable.Rows[i][columnIndexISBN] + settings["sku"];
-                    }
-                    if (ColumnIndexISBN >= 0)
-                    {
-                        row[ColumnIndexISBN] = (string)resultTable.Rows[i][columnIndexISBN];
-                    }
-                    if (ColumnIndexPrice >= 0)
-                    {
-                        var costString = (string)resultTable.Rows[i][columnIndexCost];
-                        if (!int.TryParse(costString, out int cost))
-                        {
-                            cost = 1; // throw new Exception($"原価のデータの書式が不正です：{i + 1}行{columnIndexCost + 1}列：「{costString}」");
-                        }
-                        var price = CalcSellingPrice(cost);
-                        row[ColumnIndexPrice] = price.ToString();
-                    }
-                    dataTable.Rows.Add(row);
+                    row[key] = settings[key];
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.StackTrace);
+
+                if (ColumnIndexSKU >= 0)
+                {
+                    row[ColumnIndexSKU] = (string)resultTable.Rows[i][columnIndexISBN] + settings["sku"];
+                }
+                if (ColumnIndexISBN >= 0)
+                {
+                    row[ColumnIndexISBN] = (string)resultTable.Rows[i][columnIndexISBN];
+                }
+                if (ColumnIndexPrice >= 0)
+                {
+                    var costString = (string)resultTable.Rows[i][columnIndexCost];
+                    if (!int.TryParse(costString, out int cost))
+                    {
+                        cost = 1; // throw new Exception($"原価のデータの書式が不正です：{i + 1}行{columnIndexCost + 1}列：「{costString}」");
+                    }
+                    var price = CalcSellingPrice(cost);
+                    row[ColumnIndexPrice] = price.ToString();
+                }
+                dataTable.Rows.Add(row);
             }
         }
  

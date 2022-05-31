@@ -26,15 +26,7 @@ namespace BookSearcherApp
 
             foreach (var columName in ColumnNames)
             {
-                try
-                {
-                    table.Columns.Add(columName, typeof(string));
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    Environment.Exit(1);
-                }
+                table.Columns.Add(columName, typeof(string));
             }
         }
 

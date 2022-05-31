@@ -104,62 +104,55 @@ namespace BookSearcherApp
 
         public static CSVFile ParseTitle(string path)
         {
-            try
+            CSVMercariFile mercariFile = new CSVMercariFile(path);
+            if (mercariFile.ParseTitle())
             {
-                CSVMercariFile mercariFile = new CSVMercariFile(path);
-                if (mercariFile.ParseTitle())
-                {
-                    return mercariFile;
-                }
-
-                CSVKoshoFile koshoFile = new CSVKoshoFile(path);
-                if (koshoFile.ParseTitle())
-                {
-                    return koshoFile;
-                }
-
-                CSVRakutenIchibaFile rakutenIchibaFile = new CSVRakutenIchibaFile(path);
-                if (rakutenIchibaFile.ParseTitle())
-                {
-                    return rakutenIchibaFile;
-                }
-
-                CSVRakutenBooksFile rakutenBooksFile = new CSVRakutenBooksFile(path);
-                if (rakutenBooksFile.ParseTitle())
-                {
-                    return rakutenBooksFile;
-                }
-
-                CSVHontoWebFile hontoWebFile = new CSVHontoWebFile(path);
-                if (hontoWebFile.ParseTitle())
-                {
-                    return hontoWebFile;
-                }
-
-                CSVYamahaFile yamahaFile = new CSVYamahaFile(path);
-                if (yamahaFile.ParseTitle())
-                {
-                    return yamahaFile;
-                }
-
-                CSVSingleLineFile singleLineFile = new CSVSingleLineFile(path);
-                if (singleLineFile.ParseTitle())
-                {
-                    return singleLineFile;
-                }
-
-                CSVMultiLineFile multiLineFile = new CSVMultiLineFile(path);
-                if (multiLineFile.ParseTitle())
-                {
-                    return multiLineFile;
-                }
-
-                MessageBox.Show("不正な形式のCSVファイルです。\n" + path);
+                return mercariFile;
             }
-            catch (Exception ex)
+
+            CSVKoshoFile koshoFile = new CSVKoshoFile(path);
+            if (koshoFile.ParseTitle())
             {
-                MessageBox.Show(ex.Message);
+                return koshoFile;
             }
+
+            CSVRakutenIchibaFile rakutenIchibaFile = new CSVRakutenIchibaFile(path);
+            if (rakutenIchibaFile.ParseTitle())
+            {
+                return rakutenIchibaFile;
+            }
+
+            CSVRakutenBooksFile rakutenBooksFile = new CSVRakutenBooksFile(path);
+            if (rakutenBooksFile.ParseTitle())
+            {
+                return rakutenBooksFile;
+            }
+
+            CSVHontoWebFile hontoWebFile = new CSVHontoWebFile(path);
+            if (hontoWebFile.ParseTitle())
+            {
+                return hontoWebFile;
+            }
+
+            CSVYamahaFile yamahaFile = new CSVYamahaFile(path);
+            if (yamahaFile.ParseTitle())
+            {
+                return yamahaFile;
+            }
+
+            CSVSingleLineFile singleLineFile = new CSVSingleLineFile(path);
+            if (singleLineFile.ParseTitle())
+            {
+                return singleLineFile;
+            }
+
+            CSVMultiLineFile multiLineFile = new CSVMultiLineFile(path);
+            if (multiLineFile.ParseTitle())
+            {
+                return multiLineFile;
+            }
+
+            MessageBox.Show("不正な形式のCSVファイルです。\n" + path, "入力ファイルエラー");
             return null;
         }
 
@@ -173,15 +166,7 @@ namespace BookSearcherApp
             stopWatch.Start();
 
             CountLines();
-
-            try
-            {
-                DoReadAll();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            DoReadAll();
 
             stopWatch.Stop();
             Debug.WriteLine($"{Path} - {stopWatch.Elapsed}");
@@ -193,7 +178,7 @@ namespace BookSearcherApp
 
         private void CountLines()
         {
-            const int size = 10 * 1024 * 1024;
+            const int size = 64 * 1024 * 1024;
             var bytes = new byte[size];
             var startOffset = 0L;
             using (var memoryMappedViewStream = GetMemoryMappedViewStream())
@@ -201,13 +186,13 @@ namespace BookSearcherApp
                 while (memoryMappedViewStream.Position < memoryMappedViewStream.Length)
                 {
                     int count = memoryMappedViewStream.Read(bytes, 0, size);
-                    foreach (var i in Enumerable.Range(0, count).AsParallel())
+                    Enumerable.Range(0, count).AsParallel().ForAll(i =>
                     {
                         if (bytes[i] == (byte)'\n')
                         {
                             lineOffsets.Add(startOffset + i + 1);
                         }
-                    }
+                    });
                     startOffset += count;
                 }
             }

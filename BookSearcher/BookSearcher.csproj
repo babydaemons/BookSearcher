@@ -135,6 +135,8 @@
     <Compile Include="MemoryRow.cs" />
     <Compile Include="MemoryTable.cs" />
     <Compile Include="DataSaver\CSVSaver1.cs" />
+    <Compile Include="MyException.cs" />
+    <Compile Include="MyExceptionHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataSaver\CSVSaver.cs" />

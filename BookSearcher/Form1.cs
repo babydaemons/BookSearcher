@@ -87,7 +87,14 @@ namespace BookSearcherApp
 
         private void BackgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
-            BookCSV.ReadAll(BackgroundWorker1);
+            try
+            {
+                BookCSV.ReadAll(BackgroundWorker1);
+            }
+            catch (Exception ex) // for internal error handling
+            {
+                MyExceptionHandler.Show(ex);
+            }
         }
 
         private void BackgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -129,7 +136,14 @@ namespace BookSearcherApp
 
         private void BackgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
         {
-            ScrapingCSV.ReadAll(BackgroundWorker2);
+            try
+            {
+                ScrapingCSV.ReadAll(BackgroundWorker2);
+            }
+            catch (Exception ex) // for internal error handling
+            {
+                MyExceptionHandler.Show(ex);
+            }
         }
 
         private void BackgroundWorker2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -199,88 +213,79 @@ namespace BookSearcherApp
         private string GetMatchingPatternName()
         {
             var matchingPatternName = "";
-            try
+            if (RadioButtonSearchType01.Checked)
             {
-                if (RadioButtonSearchType01.Checked)
-                {
-                    matchingPatternName = RadioButtonSearchType01.Text;
-                }
-                if (RadioButtonSearchType02.Checked)
-                {
-                    matchingPatternName = RadioButtonSearchType02.Text;
-                }
-                if (RadioButtonSearchType03.Checked)
-                {
-                    matchingPatternName = RadioButtonSearchType03.Text;
-                }
-                if (RadioButtonSearchType04.Checked)
-                {
-                    matchingPatternName = RadioButtonSearchType04.Text;
-                }
-                if (RadioButtonSearchType05.Checked)
-                {
-                    matchingPatternName = RadioButtonSearchType05.Text;
-                }
-                if (RadioButtonSearchType06.Checked)
-                {
-                    matchingPatternName = RadioButtonSearchType06.Text;
-                }
-                if (RadioButtonSearchType07.Checked)
-                {
-                    matchingPatternName = RadioButtonSearchType07.Text;
-                }
-                if (RadioButtonSearchType08.Checked)
-                {
-                    matchingPatternName = RadioButtonSearchType08.Text;
-                }
-                if (RadioButtonSearchType09.Checked)
-                {
-                    matchingPatternName = RadioButtonSearchType09.Text;
-                }
-                if (RadioButtonSearchType10.Checked)
-                {
-                    matchingPatternName = RadioButtonSearchType10.Text;
-                }
-                if (RadioButtonSearchType11.Checked)
-                {
-                    matchingPatternName = RadioButtonSearchType11.Text;
-                }
-                if (RadioButtonSearchType12.Checked)
-                {
-                    matchingPatternName = RadioButtonSearchType12.Text;
-                }
-                if (RadioButtonSearchType13.Checked)
-                {
-                    matchingPatternName = RadioButtonSearchType13.Text;
-                }
-                if (RadioButtonSearchType14.Checked)
-                {
-                    matchingPatternName = RadioButtonSearchType14.Text;
-                }
-                if (RadioButtonSearchType15.Checked)
-                {
-                    matchingPatternName = RadioButtonSearchType15.Text;
-                }
-                if (RadioButtonSearchType16.Checked)
-                {
-                    matchingPatternName = RadioButtonSearchType16.Text;
-                }
-                if (RadioButtonSearchType17.Checked)
-                {
-                    matchingPatternName = RadioButtonSearchType17.Text;
-                }
-                else if (matchingPatternName == "")
-                {
-                    MessageBox.Show("未サポートの検索パターンです。\n" + matchingPatternName);
-                    return "未サポート";
-                }
+                matchingPatternName = RadioButtonSearchType01.Text;
             }
-            catch (Exception ex)
+            if (RadioButtonSearchType02.Checked)
             {
-                MessageBox.Show(ex.Message);
+                matchingPatternName = RadioButtonSearchType02.Text;
+            }
+            if (RadioButtonSearchType03.Checked)
+            {
+                matchingPatternName = RadioButtonSearchType03.Text;
+            }
+            if (RadioButtonSearchType04.Checked)
+            {
+                matchingPatternName = RadioButtonSearchType04.Text;
+            }
+            if (RadioButtonSearchType05.Checked)
+            {
+                matchingPatternName = RadioButtonSearchType05.Text;
+            }
+            if (RadioButtonSearchType06.Checked)
+            {
+                matchingPatternName = RadioButtonSearchType06.Text;
+            }
+            if (RadioButtonSearchType07.Checked)
+            {
+                matchingPatternName = RadioButtonSearchType07.Text;
+            }
+            if (RadioButtonSearchType08.Checked)
+            {
+                matchingPatternName = RadioButtonSearchType08.Text;
+            }
+            if (RadioButtonSearchType09.Checked)
+            {
+                matchingPatternName = RadioButtonSearchType09.Text;
+            }
+            if (RadioButtonSearchType10.Checked)
+            {
+                matchingPatternName = RadioButtonSearchType10.Text;
+            }
+            if (RadioButtonSearchType11.Checked)
+            {
+                matchingPatternName = RadioButtonSearchType11.Text;
+            }
+            if (RadioButtonSearchType12.Checked)
+            {
+                matchingPatternName = RadioButtonSearchType12.Text;
+            }
+            if (RadioButtonSearchType13.Checked)
+            {
+                matchingPatternName = RadioButtonSearchType13.Text;
+            }
+            if (RadioButtonSearchType14.Checked)
+            {
+                matchingPatternName = RadioButtonSearchType14.Text;
+            }
+            if (RadioButtonSearchType15.Checked)
+            {
+                matchingPatternName = RadioButtonSearchType15.Text;
+            }
+            if (RadioButtonSearchType16.Checked)
+            {
+                matchingPatternName = RadioButtonSearchType16.Text;
+            }
+            if (RadioButtonSearchType17.Checked)
+            {
+                matchingPatternName = RadioButtonSearchType17.Text;
+            }
+            else if (matchingPatternName == "")
+            {
+                MessageBox.Show("未サポートの検索パターンです。\n" + matchingPatternName);
                 return "未サポート";
             }
-
             return "照合パターン" + matchingPatternName.Substring(0, 1);
         }
 
@@ -314,9 +319,9 @@ namespace BookSearcherApp
                 timer = Stopwatch.StartNew();
                 BackgroundWorker4.RunWorkerAsync();
             }
-            catch (Exception ex)
+            catch (MyException ex)
             {
-                MessageBox.Show(ex.Message);
+                ex.Show();
             }
         }
 
@@ -419,9 +424,9 @@ namespace BookSearcherApp
                     return false;
                 }
             }
-            catch (Exception ex)
+            catch (MyException ex)
             {
-                MessageBox.Show(ex.Message);
+                ex.Show();
                 return false;
             }
 
@@ -438,9 +443,9 @@ namespace BookSearcherApp
                     searchInitFailed = false;
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) // for internal error handling
             {
-                MessageBox.Show(ex.Message);
+                MyExceptionHandler.Show(ex);
                 searchInitFailed = true;
             }
         }
