@@ -77,6 +77,7 @@ namespace BookSearcherApp
                     if (BookCSV.Titles.Length > 0)
                     {
                         LabelInput1.Enabled = TextBoxInput1.Enabled = ButtonInput1.Enabled = ButtonPreviewDatabase.Enabled = ButtonPreviewOutputs.Enabled = false;
+                        ProgressBarOutputExcel.Value = ProgressBarOutputPatternCSV.Value = ProgressBarOutputCommonCSV1.Value = ProgressBarOutputCommonCSV2.Value = 0;
                         SetExecuteControlsEnabled(false);
                         BackgroundWorker1.RunWorkerAsync();
                     }
@@ -102,7 +103,6 @@ namespace BookSearcherApp
             LabelInput1.Enabled = TextBoxInput1.Enabled = ButtonInput1.Enabled = ButtonPreviewDatabase.Enabled = true;
             SetExecuteControlsEnabled();
             ProgressBarInput1.Value = 100;
-            ProgressBarOutputExcel.Value = ProgressBarOutputPatternCSV.Value = ProgressBarOutputCommonCSV1.Value = ProgressBarOutputCommonCSV2.Value = 0;
         }
 
         private void ButtonInput2_Click(object sender, EventArgs e)
@@ -126,6 +126,7 @@ namespace BookSearcherApp
                     if (ScrapingCSV.Titles.Length > 0)
                     {
                         LabelInput2.Enabled = TextBoxInput2.Enabled = ButtonInput2.Enabled = ButtonPreviewScraping.Enabled = ButtonPreviewOutputs.Enabled = false;
+                        ProgressBarOutputExcel.Value = ProgressBarOutputPatternCSV.Value = ProgressBarOutputCommonCSV1.Value = ProgressBarOutputCommonCSV2.Value = 0;
                         SetExecuteControlsEnabled(false);
                         BackgroundWorker2.RunWorkerAsync();
                     }
@@ -151,7 +152,6 @@ namespace BookSearcherApp
             LabelInput2.Enabled = TextBoxInput2.Enabled = ButtonInput2.Enabled = ButtonPreviewScraping.Enabled = true;
             SetExecuteControlsEnabled();
             ProgressBarInput2.Value = 100;
-            ProgressBarOutputExcel.Value = ProgressBarOutputPatternCSV.Value = ProgressBarOutputCommonCSV1.Value = ProgressBarOutputCommonCSV2.Value = 0;
         }
 
         private void ButtonPreview_Click(object sender, EventArgs e)
@@ -315,6 +315,7 @@ namespace BookSearcherApp
                 }
 
                 SetSearchControlsEnabled(false);
+                ProgressBarOutputExcel.Value = ProgressBarOutputPatternCSV.Value = ProgressBarOutputCommonCSV1.Value = ProgressBarOutputCommonCSV2.Value = 0;
                 Timer1.Enabled = true;
                 timer = Stopwatch.StartNew();
                 BackgroundWorker4.RunWorkerAsync();
