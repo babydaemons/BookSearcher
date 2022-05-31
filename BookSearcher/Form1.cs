@@ -18,7 +18,7 @@ namespace BookSearcherApp
         protected SpaceMatch spaceMatch;
         protected int prefixLength;
         protected BookSearcher searcher = null;
-        protected Stopwatch timer;
+        protected Stopwatch timer = new Stopwatch();
         private string searchTypeName = "";
         private string folderPath = "";
         private bool searchInitFailed = false;
@@ -489,7 +489,6 @@ namespace BookSearcherApp
             {
                 Timer1.Enabled = false;
                 timer.Stop();
-                timer = null;
                 SetExecuteControlsEnabled(enabled);
                 SetSearchControlsEnabled(enabled);
                 ButtonPreviewOutputs.Enabled = enabled;

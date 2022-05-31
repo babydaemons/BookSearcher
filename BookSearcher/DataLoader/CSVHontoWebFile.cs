@@ -8,7 +8,6 @@ namespace BookSearcherApp
     {
         protected override Regex[] Url => new Regex[] { new Regex("https://honto.jp/netstore/"), new Regex(@"\s+税込価格："), new Regex(@"\s+出版社："), new Regex(@"\s+(発行年月|発売日)："), new Regex(@"\s+発送可能日：") };
         protected override Regex RegexInfoDelimiter => new Regex(@"\n\s*");
-        protected override bool DoDeleteTailFields => false;
         private readonly Regex RegexRemovePrefixSpace = new Regex(@"^\s+");
         private readonly Regex RegexRemovePrefixPrice = new Regex(@"^\s*税込価格：");
         private readonly Regex RegexRemovePrefixPublisher = new Regex(@"^\s*出版社：");

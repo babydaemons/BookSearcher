@@ -5,12 +5,12 @@ using System.Linq;
 
 namespace BookSearcherApp
 {
-    internal abstract class CSVFileSplitInfo : CSVFile
+    public abstract class CSVFileSplitInfo : CSVFile
     {
         const int CHECK_LINES = 20;
         protected abstract Regex[] Url { get; }
         protected abstract Regex RegexInfoDelimiter { get; }
-        protected abstract bool DoDeleteTailFields { get; }
+        protected int DeleteExceptFieldCount = -1;
         protected int infoIndex = -1;
         protected int infoCount = -1;
 
@@ -77,7 +77,7 @@ namespace BookSearcherApp
 
         protected void InsertInfoColumn(List<string> fields)
         {
-            if (DoDeleteTailFields)
+            if (DeleteExceptFieldCount > 0)
             {
                 DeleteTailFields(fields);
             }
@@ -94,7 +94,7 @@ namespace BookSearcherApp
 
         protected void DeleteTailFields(List<string> fields)
         {
-            fields.RemoveRange(ColumnCount, fields.Count - ColumnCount);
+            fields.RemoveRange(DeleteExceptFieldCount, fields.Count - DeleteExceptFieldCount);
         }
     }
 }
