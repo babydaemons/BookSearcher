@@ -23,38 +23,29 @@ namespace BookSearcherApp
         {
             var exists = File.Exists(path);
 
-            using (var wb = exists ? new XLWorkbook(path, XLEventTracking.Disabled) : new XLWorkbook(XLEventTracking.Disabled))
+            var ROWS1 = table.Rows.Count > 100 ? 100 : table.Rows.Count;
+            using (var book = exists ? new XLWorkbook(path, XLEventTracking.Disabled) : new XLWorkbook(XLEventTracking.Disabled))
             {
-                var ws = wb.AddWorksheet(table, "照合結果_" + DateTime.Now.ToString("yyyyMMdd-HHmm"));
-                if (backgroundWorker != null)
-                {
-                    backgroundWorker.ReportProgress(25);
-                }
+                if (backgroundWorker != null) { backgroundWorker.ReportProgress(5); }
 
-                ws.Style.Font.FontName = FontName;
-                if (backgroundWorker != null)
-                {
-                    backgroundWorker.ReportProgress(50);
-                }
+                var sheet = book.AddWorksheet(table, "照合結果_" + DateTime.Now.ToString("yyyyMMdd-HHmm"));
+                if (backgroundWorker != null) { backgroundWorker.ReportProgress(35); }
 
-                ws.Columns().AdjustToContents();
-                if (backgroundWorker != null)
-                {
-                    backgroundWorker.ReportProgress(75);
-                }
+                sheet.Style.Font.FontName = FontName;
+                if (backgroundWorker != null) { backgroundWorker.ReportProgress(40); }
+
+                sheet.Rows(1,ROWS1).AdjustToContents();
+                if (backgroundWorker != null) { backgroundWorker.ReportProgress(70); }
 
                 if (exists)
                 {
-                    wb.Save();
+                    book.Save();
                 }
                 else
                 {
-                    wb.SaveAs(path);
+                    book.SaveAs(path);
                 }
-                if (backgroundWorker != null)
-                {
-                    backgroundWorker.ReportProgress(100);
-                }
+                if (backgroundWorker != null) { backgroundWorker.ReportProgress(100); }
             }
         }
 

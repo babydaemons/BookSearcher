@@ -503,6 +503,7 @@ namespace BookSearcherApp
         {
             GroupBoxFiles.Enabled = GroupBoxOutput.Enabled = GroupBoxPartMatch.Enabled = GroupBoxExecute.Enabled = GroupBoxAllMatch.Enabled = PanelMatchCondition.Enabled = enabled;
             BookColumnSetting.Enabled = ScrapingColumnSetting.Enabled = enabled;
+            DataGridViewOutputPattern1.Enabled = DataGridViewOutputPattern2.Enabled = DataGridViewCommonOutput1.Enabled = DataGridViewCommonOutput2.Enabled = enabled;
         }
 
         private void BackgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e) => ProgressBarInput1.Value = e.ProgressPercentage;
