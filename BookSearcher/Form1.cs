@@ -172,6 +172,8 @@ namespace BookSearcherApp
         private void RadioButtonFileType_CheckedChanged(object sender, EventArgs e)
         {
             string fileType = RadioButtonFileTypeCSV1.Checked ? "出力CSVファイル(パターン1)" : "出力CSVファイル(パターン2)";
+            DataGridViewOutputPattern1.Enabled = RadioButtonFileTypeCSV1.Checked;
+            DataGridViewOutputPattern2.Enabled = RadioButtonFileTypeCSV2.Checked;
             LabelOutputCSV.Text = fileType;
             SetOutputFileNames();
         }
