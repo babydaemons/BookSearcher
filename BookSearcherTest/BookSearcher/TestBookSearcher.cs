@@ -67,7 +67,7 @@ namespace BookSearcherTest
 
         private CSVData CreateData(int count)
         {
-            var rows = new CSVData();
+            var rows = new TestCSVData();
             var columnCount = BookColumnSetting.RowCount;
             var columnNames = new string[columnCount];
             foreach (var i in Enumerable.Range(0, columnCount))
@@ -170,7 +170,7 @@ namespace BookSearcherTest
 
         protected CSVData CreateDataAsc(int count, string columnName1, string columnName2, string valueFormat1, string valueFormat2)
         {
-            var rows = new CSVData();
+            var rows = new TestCSVData();
             rows.SetTitles(new string[] { columnName1, columnName2 });
             rows.AllocateTable(count);
             Enumerable.Range(0, count).AsParallel().ForAll(i =>
@@ -183,7 +183,7 @@ namespace BookSearcherTest
 
         protected CSVData CreateDataDesc(int count, string columnName1, string columnName2, string valueFormat1, string valueFormat2)
         {
-            var rows = new CSVData();
+            var rows = new TestCSVData();
             rows.SetTitles(new string[] { columnName1, columnName2 });
             rows.AllocateTable(count);
             Enumerable.Range(0, count).AsParallel().ForAll(i =>
@@ -196,7 +196,7 @@ namespace BookSearcherTest
 
         protected CSVData CreateDataAsc(int count, string columnName1, string columnName2, string columnName3, string valueFormat1, string valueFormat2, string valueFormat3)
         {
-            var rows = new CSVData();
+            var rows = new TestCSVData();
             rows.SetTitles(new string[] { columnName1, columnName2, columnName3 });
             rows.AllocateTable(count);
             Enumerable.Range(0, count).AsParallel().ForAll(i =>
@@ -209,7 +209,7 @@ namespace BookSearcherTest
 
         protected CSVData CreateDataDesc(int count, string columnName1, string columnName2, string columnName3, string valueFormat1, string valueFormat2, string valueFormat3)
         {
-            var rows = new CSVData();
+            var rows = new TestCSVData();
             rows.SetTitles(new string[] { columnName1, columnName2, columnName3 });
             rows.AllocateTable(count);
             Enumerable.Range(0, count).AsParallel().ForAll(i =>

@@ -6,8 +6,8 @@ using System.IO;
 using System.IO.MemoryMappedFiles;
 using System.Linq;
 using System.Text;
-using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace BookSearcherApp
 {
@@ -21,11 +21,11 @@ namespace BookSearcherApp
 
         public string Path { get; }
         public Encoding FileEncoding { get; protected set; }
-        public bool Loaded { get; private set; } = false;
-        private BackgroundWorker backgoundworker;
-        private int rowIndex = 0;
-        private int rowCount = 0;
-        private int progressPercent = 0;
+        public bool Loaded { get; protected set; } = false;
+        protected BackgroundWorker backgoundworker;
+        protected int rowIndex = 0;
+        protected int rowCount = 0;
+        protected int progressPercent = 0;
 
         protected CSVFile(string path)
         {
@@ -104,6 +104,16 @@ namespace BookSearcherApp
 
         public static CSVFile ParseTitle(string path)
         {
+            var extension = System.IO.Path.GetExtension(path).ToLower();
+            if (extension == ".xlsx")
+            {
+                ExcelFile excelFile = new ExcelFile(path);
+                if (excelFile.ParseTitle())
+                {
+                    return excelFile;
+                }
+            }
+
             CSVMercariFile mercariFile = new CSVMercariFile(path);
             if (mercariFile.ParseTitle())
             {
@@ -156,7 +166,7 @@ namespace BookSearcherApp
             return null;
         }
 
-        public void ReadAll(BackgroundWorker backgoundworker)
+        public override void ReadAll(BackgroundWorker backgoundworker)
         {
             Loaded = false;
             this.backgoundworker = backgoundworker;
@@ -176,7 +186,7 @@ namespace BookSearcherApp
             memoryMappedFile = null;
         }
 
-        private void CountLines()
+        protected override void CountLines()
         {
             const int size = 64 * 1024 * 1024;
             var bytes = new byte[size];
@@ -205,13 +215,14 @@ namespace BookSearcherApp
 
         protected abstract void DoReadAll();
 
-        protected void AddTableRow(int k, string[] fields)
+        protected void AddTableRow(int k, string[] fields, int start = 0, int end = 100)
         {
             MemoryTable.AddRow(k, fields);
 
-            int percent = 100 * MemoryTable.Count / rowCount;
+            int percent = start + (end - start) * MemoryTable.Count / rowCount;
             if (progressPercent != percent)
             {
+                percent = percent > end ? end : percent;
                 backgoundworker.ReportProgress(percent);
                 progressPercent = percent;
             }

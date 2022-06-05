@@ -61,7 +61,7 @@ namespace BookSearcherApp
             var dialog = new OpenFileDialog
             {
                 Title = "書籍データベースファイル",
-                Filter = "CSVファイル|*.csv"
+                Filter = "Excelファイル|*.xlsx|CSVファイル|*.csv"
             };
             if (dialog.ShowDialog() == DialogResult.OK)
             {
@@ -70,18 +70,12 @@ namespace BookSearcherApp
                 BookColumnSetting.Rows.Clear();
                 if (BookCSV != null)
                 {
-                    for (int i = 0; i < BookCSV.Titles.Length; ++i)
-                    {
-                        BookColumnSetting.Rows.Add(new object[] { BookCSV.Titles[i], BookCSV.Fields[i], "" });
-                    }
-                    if (BookCSV.Titles.Length > 0)
-                    {
-                        LabelInput1.Enabled = TextBoxInput1.Enabled = ButtonInput1.Enabled = ButtonPreviewDatabase.Enabled = ButtonPreviewOutputs.Enabled = false;
-                        ProgressBarOutputExcel.Value = ProgressBarOutputPatternCSV.Value = ProgressBarOutputCommonCSV1.Value = ProgressBarOutputCommonCSV2.Value = 0;
-                        SetExecuteControlsEnabled(false);
-                        BackgroundWorker1.RunWorkerAsync();
-                    }
                     TextBoxInput1.Text = path;
+                    LabelInput1.Enabled = TextBoxInput1.Enabled = ButtonInput1.Enabled = ButtonPreviewDatabase.Enabled = ButtonPreviewOutputs.Enabled = false;
+                    ProgressBarOutputExcel.Value = ProgressBarOutputPatternCSV.Value = ProgressBarOutputCommonCSV1.Value = ProgressBarOutputCommonCSV2.Value = 0;
+                    SetExecuteControlsEnabled(false);
+                    InitColumnSetting(BookCSV, BookColumnSetting);
+                    BackgroundWorker1.RunWorkerAsync();
                 }
             }
         }
@@ -102,7 +96,22 @@ namespace BookSearcherApp
         {
             LabelInput1.Enabled = TextBoxInput1.Enabled = ButtonInput1.Enabled = ButtonPreviewDatabase.Enabled = true;
             SetExecuteControlsEnabled();
+            InitColumnSetting(BookCSV, BookColumnSetting);
             ProgressBarInput1.Value = 100;
+        }
+
+        private void InitColumnSetting(CSVFile csvFile, DataGridView columnSetting)
+        {
+            if (csvFile == null) { return; }
+            if (columnSetting.Rows.Count > 0) { return; }
+
+            if (csvFile.Titles != null)
+            {
+                for (int i = 0; i < BookCSV.Titles.Length; ++i)
+                {
+                    columnSetting.Rows.Add(new object[] { csvFile.Titles[i], csvFile.Fields[i], "" });
+                }
+            }
         }
 
         private void ButtonInput2_Click(object sender, EventArgs e)
@@ -110,7 +119,7 @@ namespace BookSearcherApp
             var dialog = new OpenFileDialog
             {
                 Title = "スクレイピングデータファイル",
-                Filter = "CSVファイル|*.csv"
+                Filter = "Excelファイル|*.xlsx|CSVファイル|*.csv"
             };
             if (dialog.ShowDialog() == DialogResult.OK)
             {
@@ -119,17 +128,11 @@ namespace BookSearcherApp
                 ScrapingColumnSetting.Rows.Clear();
                 if (ScrapingCSV != null)
                 {
-                    for (int i = 0; i < ScrapingCSV.Titles.Length; ++i)
-                    {
-                        ScrapingColumnSetting.Rows.Add(new object[] { ScrapingCSV.Titles[i], ScrapingCSV.Fields[i], "" });
-                    }
-                    if (ScrapingCSV.Titles.Length > 0)
-                    {
-                        LabelInput2.Enabled = TextBoxInput2.Enabled = ButtonInput2.Enabled = ButtonPreviewScraping.Enabled = ButtonPreviewOutputs.Enabled = false;
-                        ProgressBarOutputExcel.Value = ProgressBarOutputPatternCSV.Value = ProgressBarOutputCommonCSV1.Value = ProgressBarOutputCommonCSV2.Value = 0;
-                        SetExecuteControlsEnabled(false);
-                        BackgroundWorker2.RunWorkerAsync();
-                    }
+                    LabelInput2.Enabled = TextBoxInput2.Enabled = ButtonInput2.Enabled = ButtonPreviewScraping.Enabled = ButtonPreviewOutputs.Enabled = false;
+                    ProgressBarOutputExcel.Value = ProgressBarOutputPatternCSV.Value = ProgressBarOutputCommonCSV1.Value = ProgressBarOutputCommonCSV2.Value = 0;
+                    SetExecuteControlsEnabled(false);
+                    InitColumnSetting(ScrapingCSV, ScrapingColumnSetting);
+                    BackgroundWorker2.RunWorkerAsync();
                     TextBoxInput2.Text = path;
                 }
             }
@@ -151,6 +154,7 @@ namespace BookSearcherApp
         {
             LabelInput2.Enabled = TextBoxInput2.Enabled = ButtonInput2.Enabled = ButtonPreviewScraping.Enabled = true;
             SetExecuteControlsEnabled();
+            InitColumnSetting(ScrapingCSV, ScrapingColumnSetting);
             ProgressBarInput2.Value = 100;
         }
 

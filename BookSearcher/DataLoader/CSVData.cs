@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookSearcherApp
 {
-    public class CSVData
+    public abstract class CSVData
     {
         public MemoryTable MemoryTable { get; private set; }
         public DataTable Table => MemoryTable.DataTable;
@@ -28,5 +24,9 @@ namespace BookSearcherApp
         }
  
         public void AddRow(string[] fields) => MemoryTable.AddRow(fields);
+
+        public abstract void ReadAll(BackgroundWorker backgoundworker);
+
+        protected abstract void CountLines();
     }
 }
