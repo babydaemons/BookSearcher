@@ -20,8 +20,8 @@ namespace BookSearcherApp
         protected static SpaceMatch SpaceMatch;
         protected static int PrefixLength;
         private static readonly string[] columnTypeNames = new string[] { "", "書籍名", "著者名", "出版社名", "出版年", "ISBN", "URL", "価格", "複合データ" };
-        private static DataTable resultTable = new DataTable();
-        public static DataTable ResultTable => resultTable;
+        private static readonly List<DataTable> resultTables = new List<DataTable>();
+        public static List<DataTable> ResultTables => resultTables;
         protected delegate string ConvertValue(string value);
         private static DataGridView BookColumnSetting;
         private static DataGridView ScrapingColumnSetting;
@@ -112,19 +112,22 @@ namespace BookSearcherApp
 
         protected void SaveTable(List<RowIndexPair> resultRows)
         {
-            resultTable = new DataTable();
+            resultTables.Clear();
+            resultTables.Add(new DataTable());
             foreach (var column in BookCSV.Titles)
             {
-                resultTable.Columns.Add("データベースファイル／" + column, typeof(string));
+                resultTables[0].Columns.Add("データベースファイル／" + column, typeof(string));
             }
             foreach (var column in ScrapingCSV.Titles)
             {
-                resultTable.Columns.Add("スクレイピングデータファイル／" + column, typeof(string));
+                resultTables[0].Columns.Add("スクレイピングデータファイル／" + column, typeof(string));
             }
 
+            int k = 0;
+            int n = 0;
             foreach (var resultRow in resultRows)
             {
-                var row = resultTable.NewRow();
+                var row = resultTables[n].NewRow();
                 int i = 0;
                 foreach (var columnIndex in Enumerable.Range(0, BookCSV.MemoryTable.ColumnCount))
                 {
@@ -134,7 +137,13 @@ namespace BookSearcherApp
                 {
                     row[i++] = ScrapingCSV.MemoryTable[resultRow.ScrapingRowIndex][columnIndex];
                 }
-                resultTable.Rows.Add(row);
+                resultTables[n].Rows.Add(row);
+
+                if (++k > (n + 1) * ExcelSaver.MAX_EXCEL_ROWS)
+                {
+                    resultTables.Add(resultTables[0].Clone());
+                    ++n;
+                }
             }
         }
 

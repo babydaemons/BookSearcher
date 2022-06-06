@@ -83,37 +83,40 @@ namespace BookSearcherApp
             Write(path, dataTable, worker);
         }
 
-        public void ConvertTable() => ConvertTable(BookSearcher.ResultTable, BookSearcher.ColumnIndexISBN, BookSearcher.ColumnIndexCost);
+        public void ConvertTable() => ConvertTable(BookSearcher.ResultTables, BookSearcher.ColumnIndexISBN, BookSearcher.ColumnIndexCost);
 
-        public void ConvertTable(DataTable resultTable, int columnIndexISBN, int columnIndexCost)
+        public void ConvertTable(List<DataTable> resultTables, int columnIndexISBN, int columnIndexCost)
         {
-            foreach (var i in Enumerable.Range(0, resultTable.Rows.Count))
+            foreach (var resultTable in resultTables)
             {
-                var row = dataTable.NewRow();
-                foreach (var key in settings.Keys)
+                foreach (var i in Enumerable.Range(0, resultTable.Rows.Count))
                 {
-                    row[key] = settings[key];
-                }
-
-                if (ColumnIndexSKU >= 0)
-                {
-                    row[ColumnIndexSKU] = (string)resultTable.Rows[i][columnIndexISBN] + settings["sku"];
-                }
-                if (ColumnIndexISBN >= 0)
-                {
-                    row[ColumnIndexISBN] = (string)resultTable.Rows[i][columnIndexISBN];
-                }
-                if (ColumnIndexPrice >= 0)
-                {
-                    var costString = (string)resultTable.Rows[i][columnIndexCost];
-                    if (!int.TryParse(costString, out int cost))
+                    var row = dataTable.NewRow();
+                    foreach (var key in settings.Keys)
                     {
-                        cost = 1; // throw new Exception($"原価のデータの書式が不正です：{i + 1}行{columnIndexCost + 1}列：「{costString}」");
+                        row[key] = settings[key];
                     }
-                    var price = CalcSellingPrice(cost);
-                    row[ColumnIndexPrice] = price.ToString();
+
+                    if (ColumnIndexSKU >= 0)
+                    {
+                        row[ColumnIndexSKU] = (string)resultTable.Rows[i][columnIndexISBN] + settings["sku"];
+                    }
+                    if (ColumnIndexISBN >= 0)
+                    {
+                        row[ColumnIndexISBN] = (string)resultTable.Rows[i][columnIndexISBN];
+                    }
+                    if (ColumnIndexPrice >= 0)
+                    {
+                        var costString = (string)resultTable.Rows[i][columnIndexCost];
+                        if (!int.TryParse(costString, out int cost))
+                        {
+                            cost = 1; // throw new Exception($"原価のデータの書式が不正です：{i + 1}行{columnIndexCost + 1}列：「{costString}」");
+                        }
+                        var price = CalcSellingPrice(cost);
+                        row[ColumnIndexPrice] = price.ToString();
+                    }
+                    dataTable.Rows.Add(row);
                 }
-                dataTable.Rows.Add(row);
             }
         }
  

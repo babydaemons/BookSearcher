@@ -566,8 +566,8 @@ namespace BookSearcherApp
         private void ButtonPreviewOutputs_Click(object sender, EventArgs e)
         {
             var form3 = RadioButtonFileTypeCSV1.Checked ?
-                new Form3(searchTypeName, BookSearcher.ResultTable, saver0.DataTable, new DataTable(), saver1.DataTable, saver2.DataTable) :
-                new Form3(searchTypeName, BookSearcher.ResultTable, new DataTable(), saver0.DataTable, saver1.DataTable, saver2.DataTable);
+                new Form3(searchTypeName, BookSearcher.ResultTables[0], saver0.DataTable, new DataTable(), saver1.DataTable, saver2.DataTable) :
+                new Form3(searchTypeName, BookSearcher.ResultTables[0], new DataTable(), saver0.DataTable, saver1.DataTable, saver2.DataTable);
             form3.ShowDialog();
         }
     }

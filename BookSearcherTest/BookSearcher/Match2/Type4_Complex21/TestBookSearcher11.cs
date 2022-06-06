@@ -41,7 +41,7 @@ namespace BookSearcherTest
             BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.All, PrefixLength);
             searcher = new BookSearcher11();
             searcher.Search();
-            Assert.AreEqual(ROW_COUNT, BookSearcher.ResultTable.Rows.Count);
+            Assert.AreEqual(ROW_COUNT, BookSearcher.ResultTables[0].Rows.Count);
         }
 
         [TestMethod]
@@ -52,7 +52,7 @@ namespace BookSearcherTest
             BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.All, PrefixLength);
             searcher = new BookSearcher11();
             searcher.Search();
-            Assert.AreEqual(ROW_COUNT, BookSearcher.ResultTable.Rows.Count);
+            Assert.AreEqual(ROW_COUNT, BookSearcher.ResultTables[0].Rows.Count);
         }
 
         [TestMethod]
@@ -63,7 +63,7 @@ namespace BookSearcherTest
             BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.All, PrefixLength);
             searcher = new BookSearcher11();
             searcher.Search();
-            Assert.AreEqual(ROW_COUNT, BookSearcher.ResultTable.Rows.Count);
+            Assert.AreEqual(ROW_COUNT, BookSearcher.ResultTables[0].Rows.Count);
         }
 
         [TestMethod]
@@ -74,7 +74,7 @@ namespace BookSearcherTest
             BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.All, PrefixLength);
             searcher = new BookSearcher11();
             searcher.Search();
-            Assert.AreEqual(ROW_COUNT, BookSearcher.ResultTable.Rows.Count);
+            Assert.AreEqual(ROW_COUNT, BookSearcher.ResultTables[0].Rows.Count);
         }
 
         [TestMethod]
@@ -85,7 +85,7 @@ namespace BookSearcherTest
             BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.All, PrefixLength);
             searcher = new BookSearcher11();
             searcher.Search();
-            Assert.AreEqual(ROW_COUNT, BookSearcher.ResultTable.Rows.Count);
+            Assert.AreEqual(ROW_COUNT, BookSearcher.ResultTables[0].Rows.Count);
         }
 
         [TestMethod]
@@ -97,7 +97,7 @@ namespace BookSearcherTest
             BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.All, PrefixLength);
             searcher = new BookSearcher11();
             searcher.Search();
-            Assert.AreEqual(ROW_COUNT + 1, BookSearcher.ResultTable.Rows.Count);
+            Assert.AreEqual(ROW_COUNT + 1, BookSearcher.ResultTables[0].Rows.Count);
         }
 
         [TestMethod]
@@ -109,7 +109,7 @@ namespace BookSearcherTest
             BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.All, PrefixLength);
             searcher = new BookSearcher11();
             searcher.Search();
-            Assert.AreEqual(ROW_COUNT + 1, BookSearcher.ResultTable.Rows.Count);
+            Assert.AreEqual(ROW_COUNT + 1, BookSearcher.ResultTables[0].Rows.Count);
         }
 
         [TestMethod]
@@ -121,7 +121,7 @@ namespace BookSearcherTest
             BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.All, PrefixLength);
             searcher = new BookSearcher11();
             searcher.Search();
-            Assert.AreEqual(ROW_COUNT, BookSearcher.ResultTable.Rows.Count);
+            Assert.AreEqual(ROW_COUNT, BookSearcher.ResultTables[0].Rows.Count);
         }
     }
 }
