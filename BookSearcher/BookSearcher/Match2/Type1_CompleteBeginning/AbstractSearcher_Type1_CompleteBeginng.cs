@@ -14,27 +14,36 @@ namespace BookSearcherApp
         protected void Search(ColumnInfo columnInfo1, ColumnInfo columnInfo2)
         {
             resultRows = new ConcurrentBag<RowIndexPair>();
-            var bookValues = CreateColumnList(BookCSV.MemoryTable, columnInfo1, columnInfo2, true);
-            var scrapingValues = CreateColumnList(ScrapingCSV.MemoryTable, columnInfo1, columnInfo2, false);
+            var bookValues = CreateCopleteColumnList(BookCSV.MemoryTable, columnInfo1, columnInfo2, true);
+            var scrapingValues = CreateCopleteColumnList(ScrapingCSV.MemoryTable, columnInfo1, columnInfo2, false);
 
-            var bookKeys = bookValues.Keys;
-            var scrapingKeys = scrapingValues.Keys;
+            var result =
+                from bookValue in bookValues
+                join scrapingValue in scrapingValues.AsParallel()
+                on bookValue.Key equals scrapingValue.Key
+                select new RowIndexPair { BookRowIndex = bookValue.Value, ScrapingRowIndex = scrapingValue.Value };
 
-            bookKeys.AsParallel().ForAll(i =>
+            result.AsParallel().ForAll(row => resultRows.Add(row));
+
+            SaveTable(result.ToList());
+        }
+
+        private ConcurrentDictionary<string, int> CreateCopleteColumnList(MemoryTable table, ColumnInfo columnInfo1, ColumnInfo columnInfo2, bool isBookDB)
+        {
+            var columnName1 = table.ColumnNames[isBookDB ? columnInfo1.BookColumnIndex : columnInfo1.ScrapingColumnIndex];
+            var columnName2 = table.ColumnNames[isBookDB ? columnInfo2.BookColumnIndex : columnInfo2.ScrapingColumnIndex];
+            var columnIndex1 = table.ColumnIndexes[columnName1];
+            var columnIndex2 = table.ColumnIndexes[columnName2];
+
+            var rows = table.AsEnumerable().Where(row => row.Value[columnIndex1].Length > 0 && row.Value[columnIndex2].Length > 0);
+            var values = new ConcurrentDictionary<string, int>(Environment.ProcessorCount, table.Count);
+            ConvertValue convertValue1 = GetConvertValue(columnInfo1);
+            ConvertValue convertValue2 = GetConvertValue(columnInfo2);
+            rows.AsParallel().ForAll(row =>
             {
-                var bookValue1 = bookValues[i].Value1;
-                var bookValue2 = bookValues[i].Value2;
-                scrapingKeys.AsParallel().ForAll(j =>
-                {
-                    var scrapingValue1 = scrapingValues[j].Value1;
-                    var scrapingValue2 = scrapingValues[j].Value2;
-                    if (bookValue1 == scrapingValue1 && bookValue2 == scrapingValue2)
-                    {
-                        resultRows.Add(new RowIndexPair { BookRowIndex = i, ScrapingRowIndex = j });
-                    }
-                });
+                _ = values.TryAdd(convertValue1(row.Value[columnIndex1]) + "\a" + convertValue2(row.Value[columnIndex2]), row.Key);
             });
-            SaveTable(resultRows.ToList());
+            return values;
         }
     }
 }
