@@ -75,6 +75,7 @@ namespace BookSearcherApp
                     ProgressBarOutputExcel.Value = ProgressBarOutputPatternCSV.Value = ProgressBarOutputCommonCSV1.Value = ProgressBarOutputCommonCSV2.Value = 0;
                     SetExecuteControlsEnabled(false);
                     InitColumnSetting(BookCSV, BookColumnSetting);
+                    ProgressBarInput1.Start();
                     BackgroundWorker1.RunWorkerAsync();
                 }
             }
@@ -97,7 +98,7 @@ namespace BookSearcherApp
             LabelInput1.Enabled = TextBoxInput1.Enabled = ButtonInput1.Enabled = ButtonPreviewDatabase.Enabled = true;
             SetExecuteControlsEnabled();
             InitColumnSetting(BookCSV, BookColumnSetting);
-            ProgressBarInput1.Value = 100;
+            ProgressBarInput1.Stop();
         }
 
         private void InitColumnSetting(CSVFile csvFile, DataGridView columnSetting)
@@ -107,7 +108,7 @@ namespace BookSearcherApp
 
             if (csvFile.Titles != null)
             {
-                for (int i = 0; i < BookCSV.Titles.Length; ++i)
+                for (int i = 0; i < csvFile.Titles.Length; ++i)
                 {
                     columnSetting.Rows.Add(new object[] { csvFile.Titles[i], csvFile.Fields[i], "" });
                 }
@@ -132,6 +133,7 @@ namespace BookSearcherApp
                     ProgressBarOutputExcel.Value = ProgressBarOutputPatternCSV.Value = ProgressBarOutputCommonCSV1.Value = ProgressBarOutputCommonCSV2.Value = 0;
                     SetExecuteControlsEnabled(false);
                     InitColumnSetting(ScrapingCSV, ScrapingColumnSetting);
+                    ProgressBarInput2.Start();
                     BackgroundWorker2.RunWorkerAsync();
                     TextBoxInput2.Text = path;
                 }
@@ -155,7 +157,7 @@ namespace BookSearcherApp
             LabelInput2.Enabled = TextBoxInput2.Enabled = ButtonInput2.Enabled = ButtonPreviewScraping.Enabled = true;
             SetExecuteControlsEnabled();
             InitColumnSetting(ScrapingCSV, ScrapingColumnSetting);
-            ProgressBarInput2.Value = 100;
+            ProgressBarInput2.Stop();
         }
 
         private void ButtonPreview_Click(object sender, EventArgs e)
@@ -463,6 +465,11 @@ namespace BookSearcherApp
             {
                 return;
             }
+            timer.Stop();
+            ProgressBarOutputExcel.Start();
+            ProgressBarOutputPatternCSV.Start();
+            ProgressBarOutputCommonCSV1.Start();
+            ProgressBarOutputCommonCSV2.Start();
             BackgroundWorker10.RunWorkerAsync();
             BackgroundWorker11.RunWorkerAsync();
             BackgroundWorker12.RunWorkerAsync();
@@ -522,7 +529,7 @@ namespace BookSearcherApp
 
         private void BackgroundWorker10_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            ProgressBarOutputExcel.Value = 100;
+            ProgressBarOutputExcel.Stop();
             UpdateExecuteControlsEnabled();
         }
 
@@ -532,7 +539,7 @@ namespace BookSearcherApp
 
         private void BackgroundWorker11_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            ProgressBarOutputPatternCSV.Value = 100;
+            ProgressBarOutputPatternCSV.Stop();
             UpdateExecuteControlsEnabled();
         }
 
@@ -542,7 +549,7 @@ namespace BookSearcherApp
 
         private void BackgroundWorker12_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            ProgressBarOutputCommonCSV1.Value = 100;
+            ProgressBarOutputCommonCSV1.Stop();
             UpdateExecuteControlsEnabled();
         }
 
@@ -552,7 +559,7 @@ namespace BookSearcherApp
 
         private void BackgroundWorker13_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            ProgressBarOutputCommonCSV2.Value = 100;
+            ProgressBarOutputCommonCSV2.Stop();
             UpdateExecuteControlsEnabled();
         }
 
