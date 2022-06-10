@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
+using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookSearcherApp
 {
@@ -13,25 +11,27 @@ namespace BookSearcherApp
         {
         }
 
-        protected ConcurrentDictionary<int, Column2> CreateColumnList(MemoryTable table, ColumnInfo columnInfo1, ColumnInfo columnInfo2, bool isBookDB)
+        protected ConcurrentDictionary<int, Column2> CreateColumnList(DataTable table, ColumnInfo columnInfo1, ColumnInfo columnInfo2, bool isBookDB)
         {
-            var columnName1 = table.ColumnNames[isBookDB ? columnInfo1.BookColumnIndex : columnInfo1.ScrapingColumnIndex];
-            var columnName2 = table.ColumnNames[isBookDB ? columnInfo2.BookColumnIndex : columnInfo2.ScrapingColumnIndex];
-            var columnIndex1 = table.ColumnIndexes[columnName1];
-            var columnIndex2 = table.ColumnIndexes[columnName2];
+            var columnIndex1 = isBookDB ? columnInfo1.BookColumnIndex : columnInfo1.ScrapingColumnIndex;
+            var columnIndex2 = isBookDB ? columnInfo2.BookColumnIndex : columnInfo2.ScrapingColumnIndex;
 
-            var rows = table.AsEnumerable().Where(row => row.Value[columnIndex1].Length > 0 && row.Value[columnIndex2].Length > 0);
-            var values = new ConcurrentDictionary<int, Column2>(Environment.ProcessorCount, table.Count);
+            var N = table.Rows.Count;
+            var values = new ConcurrentDictionary<int, Column2>(Environment.ProcessorCount, N);
             ConvertValue convertValue1 = GetConvertValue(columnInfo1);
             ConvertValue convertValue2 = GetConvertValue(columnInfo2);
-            foreach (var row in rows)
+            foreach (var i in Enumerable.Range(0, N))
             {
+                var value1 = (string)table.Rows[i][columnIndex1];
+                if (string.IsNullOrEmpty(value1)) { continue; }
+                var value2 = (string)table.Rows[i][columnIndex2];
+                if (string.IsNullOrEmpty(value2)) { continue; }
                 _ = values.TryAdd(
-                    row.Key,
+                    i,
                     new Column2
                     {
-                        Value1 = convertValue1(row.Value[columnIndex1]),
-                        Value2 = convertValue2(row.Value[columnIndex2])
+                        Value1 = convertValue1(value1),
+                        Value2 = convertValue2(value2)
                     });
             }
             return values;

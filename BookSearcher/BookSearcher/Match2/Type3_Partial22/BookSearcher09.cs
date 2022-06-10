@@ -22,8 +22,8 @@ namespace BookSearcherApp
         private void Search(ColumnInfo columnPartial1, ColumnInfo columnPartial2)
         {
             resultRows = new ConcurrentBag<RowIndexPair>();
-            var bookValues = CreateColumnList(BookCSV.MemoryTable, columnPartial1, columnPartial2, true);
-            var scrapingValues = CreateColumnList(ScrapingCSV.MemoryTable, columnPartial1, columnPartial2, false);
+            var bookValues = CreateColumnList(BookCSV.Table, columnPartial1, columnPartial2, true);
+            var scrapingValues = CreateColumnList(ScrapingCSV.Table, columnPartial1, columnPartial2, false);
 
             var bookKeys = bookValues.Keys;
             var scrapingKeys = scrapingValues.Keys;

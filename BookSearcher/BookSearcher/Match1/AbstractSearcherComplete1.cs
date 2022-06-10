@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Diagnostics;
+using System.Data;
 using System.Linq;
 
 namespace BookSearcherApp
@@ -15,8 +14,8 @@ namespace BookSearcherApp
         protected void Search(ColumnInfo columnInfo)
         {
             resultRows = new ConcurrentBag<RowIndexPair>();
-            var bookValues = CreateColumnList(BookCSV.MemoryTable, columnInfo, true);
-            var scrapingValues = CreateColumnList(ScrapingCSV.MemoryTable, columnInfo, false);
+            var bookValues = CreateColumnList(BookCSV.Table, columnInfo, true);
+            var scrapingValues = CreateColumnList(ScrapingCSV.Table, columnInfo, false);
 
             var result =
                 from bookValue in bookValues
@@ -29,19 +28,20 @@ namespace BookSearcherApp
             SaveTable(result.ToList());
         }
 
-        private ConcurrentDictionary<string, int> CreateColumnList(MemoryTable table, ColumnInfo columnInfo, bool isBookDB)
+        private ConcurrentDictionary<string, int> CreateColumnList(DataTable table, ColumnInfo columnInfo, bool isBookDB)
         {
-            var columnName = table.ColumnNames[isBookDB ? columnInfo.BookColumnIndex : columnInfo.ScrapingColumnIndex];
-            var columnIndex = table.ColumnIndexes[columnName];
+            var columnIndex = isBookDB ? columnInfo.BookColumnIndex : columnInfo.ScrapingColumnIndex;
             var spaceMatch = columnInfo.SpaceMatch;
 
-            var rows = table.Where(row => row.Value[columnIndex].Length > 0);
-            var values = new ConcurrentDictionary<string, int>(Environment.ProcessorCount, table.Count);
+            var N = table.Rows.Count;
+            var values = new ConcurrentDictionary<string, int>(Environment.ProcessorCount, N);
             ConvertValue convertValue = spaceMatch == SpaceMatch.All ? ConvertNone : (ConvertValue)ConvertRemoveSpace;
-            rows.AsParallel().ForAll(row =>
+            foreach (var i in Enumerable.Range(0, N))
             {
-                _ = values.TryAdd(convertValue(row.Value[columnIndex]), row.Key);
-            });
+                var value = (string)table.Rows[i][columnIndex];
+                if (string.IsNullOrEmpty(value)) { continue; }
+                _ = values.TryAdd(convertValue(value), i);
+            }
             return values;
         }
     }

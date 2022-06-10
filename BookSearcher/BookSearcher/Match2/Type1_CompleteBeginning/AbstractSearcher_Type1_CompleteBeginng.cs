@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 
 namespace BookSearcherApp
@@ -14,8 +14,8 @@ namespace BookSearcherApp
         protected void Search(ColumnInfo columnInfo1, ColumnInfo columnInfo2)
         {
             resultRows = new ConcurrentBag<RowIndexPair>();
-            var bookValues = CreateCopleteColumnList(BookCSV.MemoryTable, columnInfo1, columnInfo2, true);
-            var scrapingValues = CreateCopleteColumnList(ScrapingCSV.MemoryTable, columnInfo1, columnInfo2, false);
+            var bookValues = CreateCopleteColumnList(BookCSV.Table, columnInfo1, columnInfo2, true);
+            var scrapingValues = CreateCopleteColumnList(ScrapingCSV.Table, columnInfo1, columnInfo2, false);
 
             var result =
                 from bookValue in bookValues
@@ -28,29 +28,31 @@ namespace BookSearcherApp
             SaveTable(result.ToList());
         }
 
-        private ConcurrentDictionary<string, int> CreateCopleteColumnList(MemoryTable table, ColumnInfo columnInfo1, ColumnInfo columnInfo2, bool isBookDB)
+        private ConcurrentDictionary<string, int> CreateCopleteColumnList(DataTable table, ColumnInfo columnInfo1, ColumnInfo columnInfo2, bool isBookDB)
         {
-            var columnName1 = table.ColumnNames[isBookDB ? columnInfo1.BookColumnIndex : columnInfo1.ScrapingColumnIndex];
-            var columnName2 = table.ColumnNames[isBookDB ? columnInfo2.BookColumnIndex : columnInfo2.ScrapingColumnIndex];
-            var columnIndex1 = table.ColumnIndexes[columnName1];
-            var columnIndex2 = table.ColumnIndexes[columnName2];
+            var columnIndex1 = isBookDB ? columnInfo1.BookColumnIndex : columnInfo1.ScrapingColumnIndex;
+            var columnIndex2 = table.Columns[isBookDB ? columnInfo2.BookColumnIndex : columnInfo2.ScrapingColumnIndex];
 
-            var rows = table.AsEnumerable().Where(row => row.Value[columnIndex1].Length > 0 && row.Value[columnIndex2].Length > 0);
-            var values = new ConcurrentDictionary<string, int>(Environment.ProcessorCount, table.Count);
+            var N = table.Rows.Count;
+            var values = new ConcurrentDictionary<string, int>(Environment.ProcessorCount, N);
             ConvertValue convertValue1 = GetConvertValue(columnInfo1);
             ConvertValue convertValue2 = GetConvertValue(columnInfo2);
-            rows.AsParallel().ForAll(row =>
+            foreach (var i in Enumerable.Range(0, N))
             {
-                _ = values.TryAdd(convertValue1(row.Value[columnIndex1]) + "\a" + convertValue2(row.Value[columnIndex2]), row.Key);
-            });
+                var value1 = (string)table.Rows[i][columnIndex1];
+                if (string.IsNullOrEmpty(value1)) { continue; }
+                var value2 = (string)table.Rows[i][columnIndex2];
+                if (string.IsNullOrEmpty(value2)) { continue; }
+                _ = values.TryAdd(convertValue1(value1) + "\a" + convertValue2(value2), i);
+            }
             return values;
         }
 
         protected void SearchBeginning(ColumnInfo columnInfo1, ColumnInfo columnInfo2)
         {
             resultRows = new ConcurrentBag<RowIndexPair>();
-            var bookValues = CreateBeginningColumnList(BookCSV.MemoryTable, columnInfo1, columnInfo2, true);
-            var scrapingValues = CreateBeginningColumnList(ScrapingCSV.MemoryTable, columnInfo1, columnInfo2, false);
+            var bookValues = CreateBeginningColumnList(BookCSV.Table, columnInfo1, columnInfo2, true);
+            var scrapingValues = CreateBeginningColumnList(ScrapingCSV.Table, columnInfo1, columnInfo2, false);
 
             var result =
                 from bookValue in bookValues
@@ -71,29 +73,33 @@ namespace BookSearcherApp
             SaveTable(resultRows.ToList());
         }
 
-        protected ConcurrentDictionary<string, ConcurrentBag<int>> CreateBeginningColumnList(MemoryTable table, ColumnInfo columnInfo1, ColumnInfo columnInfo2, bool isBookDB)
+        protected ConcurrentDictionary<string, ConcurrentBag<int>> CreateBeginningColumnList(DataTable table, ColumnInfo columnInfo1, ColumnInfo columnInfo2, bool isBookDB)
         {
-            var columnName1 = table.ColumnNames[isBookDB ? columnInfo1.BookColumnIndex : columnInfo1.ScrapingColumnIndex];
-            var columnName2 = table.ColumnNames[isBookDB ? columnInfo2.BookColumnIndex : columnInfo2.ScrapingColumnIndex];
-            var columnIndex1 = table.ColumnIndexes[columnName1];
-            var columnIndex2 = table.ColumnIndexes[columnName2];
+            var columnIndex1 = isBookDB ? columnInfo1.BookColumnIndex : columnInfo1.ScrapingColumnIndex;
+            var columnIndex2 = isBookDB ? columnInfo2.BookColumnIndex : columnInfo2.ScrapingColumnIndex;
 
-            var rows = table.AsEnumerable().Where(row => row.Value[columnIndex1].Length > 0 && row.Value[columnIndex2].Length > 0);
-            var values = new ConcurrentDictionary<string, ConcurrentBag<int>>(Environment.ProcessorCount, table.Count);
+            var N = table.Rows.Count;
+            var values = new ConcurrentDictionary<string, ConcurrentBag<int>>(Environment.ProcessorCount, N);
             ConvertValue convertValue1 = GetConvertValue(columnInfo1);
             ConvertValue convertValue2 = GetConvertValue(columnInfo2);
-            rows.AsParallel().ForAll(row =>
+            foreach (var i in Enumerable.Range(0, N))
             {
-                var strKey = convertValue1(row.Value[columnIndex1]) + "\a" + convertValue2(row.Value[columnIndex2]);
+                DataRow row = table.Rows[i];
+                var value1 = (string)row[columnIndex1];
+                if (string.IsNullOrEmpty(value1)) { continue; }
+                var value2 = (string)row[columnIndex2];
+                if (string.IsNullOrEmpty(value2)) { continue; }
+
+                var strKey = convertValue1(value1) + "\a" + convertValue2(value2);
                 if (values.ContainsKey(strKey))
                 {
-                    values[strKey].Add(row.Key);
+                    values[strKey].Add(i);
                 }
                 else
                 {
-                    _ = values.TryAdd(strKey, new ConcurrentBag<int>(new int[] { row.Key }));
+                    _ = values.TryAdd(strKey, new ConcurrentBag<int>(new int[] { i }));
                 }
-            });
+            }
             return values;
         }
 

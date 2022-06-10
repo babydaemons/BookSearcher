@@ -1,37 +1,38 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
+using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookSearcherApp
 {
     public abstract class AbstractSearcherPartial3 : BookSearcher
     {
-        protected ConcurrentDictionary<int, Column3> CreateColumnList(MemoryTable table, ColumnInfo columnInfo1, ColumnInfo columnInfo2, ColumnInfo columnInfo3, bool isBookDB)
+        protected ConcurrentDictionary<int, Column3> CreateColumnList(DataTable table, ColumnInfo columnInfo1, ColumnInfo columnInfo2, ColumnInfo columnInfo3, bool isBookDB)
         {
-            var columnName1 = table.ColumnNames[isBookDB ? columnInfo1.BookColumnIndex : columnInfo1.ScrapingColumnIndex];
-            var columnName2 = table.ColumnNames[isBookDB ? columnInfo2.BookColumnIndex : columnInfo2.ScrapingColumnIndex];
-            var columnName3 = table.ColumnNames[isBookDB ? columnInfo3.BookColumnIndex : columnInfo3.ScrapingColumnIndex];
-            var columnIndex1 = table.ColumnIndexes[columnName1];
-            var columnIndex2 = table.ColumnIndexes[columnName2];
-            var columnIndex3 = table.ColumnIndexes[columnName3];
+            var columnIndex1 = isBookDB ? columnInfo1.BookColumnIndex : columnInfo1.ScrapingColumnIndex;
+            var columnIndex2 = isBookDB ? columnInfo2.BookColumnIndex : columnInfo2.ScrapingColumnIndex;
+            var columnIndex3 = isBookDB ? columnInfo3.BookColumnIndex : columnInfo3.ScrapingColumnIndex;
 
-            var rows = table.AsEnumerable().Where(row => row.Value[columnIndex1].Length > 0 && row.Value[columnIndex2].Length > 0 && row.Value[columnIndex3].Length > 0);
-            var values = new ConcurrentDictionary<int, Column3>(Environment.ProcessorCount, table.Count);
+            var N = table.Rows.Count;
+            var values = new ConcurrentDictionary<int, Column3>(Environment.ProcessorCount, N);
             ConvertValue convertValue1 = GetConvertValue(columnInfo1);
             ConvertValue convertValue2 = GetConvertValue(columnInfo2);
             ConvertValue convertValue3 = GetConvertValue(columnInfo3);
-            foreach (var row in rows)
+            foreach (var i in Enumerable.Range(0, N))
             {
+                var value1 = (string)table.Rows[i][columnIndex1];
+                if (string.IsNullOrEmpty(value1)) { continue; }
+                var value2 = (string)table.Rows[i][columnIndex2];
+                if (string.IsNullOrEmpty(value2)) { continue; }
+                var value3 = (string)table.Rows[i][columnIndex3];
+                if (string.IsNullOrEmpty(value3)) { continue; }
                 _ = values.TryAdd(
-                    row.Key,
+                    i,
                     new Column3
                     {
-                        Value1 = convertValue1(row.Value[columnIndex1]),
-                        Value2 = convertValue2(row.Value[columnIndex2]),
-                        Value3 = convertValue3(row.Value[columnIndex3])
+                        Value1 = convertValue1(value1),
+                        Value2 = convertValue2(value2),
+                        Value3 = convertValue3(value3)
                     });
             }
             return values;

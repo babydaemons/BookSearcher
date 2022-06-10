@@ -1,20 +1,25 @@
 ﻿using System.ComponentModel;
 using System.Data;
+using System.Linq;
 
 namespace BookSearcherApp
 {
     public abstract class CSVData
     {
-        public MemoryTable MemoryTable { get; private set; }
-        public DataTable Table => MemoryTable.DataTable;
-        public int RowCount => MemoryTable.Count;
+        protected readonly DataTable dataTable = new DataTable();
+        public DataTable Table => dataTable;
+        public int RowCount => dataTable.Rows.Count;
         public int ColumnCount { get; protected set; }
         public string[] Titles { get; protected set; }
         public string[] Fields { get; protected set; }
 
         public void AllocateTable(int rows)
         {
-            MemoryTable = new MemoryTable(Titles, rows);
+            dataTable.Rows.Clear();
+            foreach (var column in Titles)
+            {
+                dataTable.Columns.Add(column, typeof(string));
+            }
         }
 
         public void SetTitles(string[] titles)
@@ -23,7 +28,15 @@ namespace BookSearcherApp
             ColumnCount = titles.Length;
         }
  
-        public void AddRow(string[] fields) => MemoryTable.AddRow(fields);
+        public void AddRow(string[] fields)
+        {
+            var row = dataTable.NewRow();
+            foreach (var i in Enumerable.Range(0, ColumnCount))
+            {
+                row[i] = fields[i];
+            }
+            dataTable.Rows.Add(row);
+        }
 
         public abstract void ReadAll(BackgroundWorker backgoundworker);
 

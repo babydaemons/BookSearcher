@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Data;
+using System.Linq;
 using BookSearcherApp;
 
 namespace BookSearcherTest
@@ -47,10 +48,10 @@ namespace BookSearcherTest
         {
             var rows = CreateData(count);
             var formats = GetFormats(columnInfos);
-            Enumerable.Range(0, count).AsParallel().ForAll(i =>
+            foreach (var i in Enumerable.Range(0, count))
             {
-                _ = rows.MemoryTable.TryAdd(i, GetRow(rows, formats, i));
-            });
+                AddFormattedRow(rows, formats, i);
+            }
             return rows;
         }
 
@@ -58,10 +59,10 @@ namespace BookSearcherTest
         {
             var rows = CreateData(count);
             var formats = GetFormats(columnInfos);
-            Enumerable.Range(0, count).AsParallel().ForAll(i =>
+            foreach (var i in Enumerable.Range(0, count))
             {
-                _ = rows.MemoryTable.TryAdd(count - i - 1, GetRow(rows, formats, i));
-            });
+                AddFormattedRow(rows, formats, count - i - 1);
+            }
             return rows;
         }
 
@@ -95,7 +96,7 @@ namespace BookSearcherTest
             return formats;
         }
 
-        private MemoryRow GetRow(CSVData rows, string[] formats, int i)
+        private void AddFormattedRow(CSVData rows, string[] formats, int i)
         {
             var columnCount = formats.Length;
             var values = new string[columnCount];
@@ -103,10 +104,10 @@ namespace BookSearcherTest
             {
                 values[j] = string.Format(formats[j], i);
             }
-            return new MemoryRow(rows.MemoryTable, i, values);
+            rows.AddRow(values);
         }
 
-        protected void AddRow(CSVData rows, AppendType type, ColumnInfo[] columnInfos = null, int offset = 0)
+        protected void AddFormattedRow(CSVData rows, AppendType type, ColumnInfo[] columnInfos = null, int offset = 0)
         {
             var formats = GetFormats(columnInfos);
 
@@ -114,10 +115,10 @@ namespace BookSearcherTest
             formats[i] = ModifyFormat(type, formats[i]);
 
             var n = rows.RowCount;
-            _ = rows.MemoryTable.TryAdd(n, GetRow(rows, formats, n + offset));
+            AddFormattedRow(rows, formats, n + offset);
         }
 
-        protected void AddRow(CSVData rows, AppendType type1, AppendType type2, ColumnInfo[] columnInfos = null, int offset = 0)
+        protected void AddFormattedRow(CSVData rows, AppendType type1, AppendType type2, ColumnInfo[] columnInfos = null, int offset = 0)
         {
             var formats = GetFormats(columnInfos);
 
@@ -128,10 +129,10 @@ namespace BookSearcherTest
             formats[i] = ModifyFormat(type2, formats[i]);
 
             var n = rows.RowCount;
-            _ = rows.MemoryTable.TryAdd(n, GetRow(rows, formats, n + offset));
+            AddFormattedRow(rows, formats, n + offset);
         }
 
-        protected void AddRow(CSVData rows, AppendType type1, AppendType type2, AppendType type3, ColumnInfo[] columnInfos = null, int offset = 0)
+        protected void AddFormattedRow(CSVData rows, AppendType type1, AppendType type2, AppendType type3, ColumnInfo[] columnInfos = null, int offset = 0)
         {
             var formats = GetFormats(columnInfos);
 
@@ -145,7 +146,7 @@ namespace BookSearcherTest
             formats[i] = ModifyFormat(type3, formats[i]);
 
             var n = rows.RowCount;
-            _ = rows.MemoryTable.TryAdd(n, GetRow(rows, formats, n + offset));
+            AddFormattedRow(rows, formats, n + offset);
         }
 
         private string ModifyFormat(AppendType type, string format)
@@ -173,11 +174,10 @@ namespace BookSearcherTest
             var rows = new TestCSVData();
             rows.SetTitles(new string[] { columnName1, columnName2 });
             rows.AllocateTable(count);
-            Enumerable.Range(0, count).AsParallel().ForAll(i =>
+            foreach (var i in Enumerable.Range(0, count))
             {
-                var row = new MemoryRow(rows.MemoryTable, i, new string[] { string.Format(valueFormat1, i), string.Format(valueFormat2, i) });
-                rows.MemoryTable.TryAdd(i, row);
-            });
+                AddFormattedRow(rows, new string[] { valueFormat1, valueFormat2 }, i);
+            }
             return rows;
         }
 
@@ -186,11 +186,11 @@ namespace BookSearcherTest
             var rows = new TestCSVData();
             rows.SetTitles(new string[] { columnName1, columnName2 });
             rows.AllocateTable(count);
-            Enumerable.Range(0, count).AsParallel().ForAll(i =>
+            foreach (var i in Enumerable.Range(0, count))
             {
-                var row = new MemoryRow(rows.MemoryTable, i, new string[] { string.Format(valueFormat1, i), string.Format(valueFormat2, i) });
-                rows.MemoryTable.TryAdd(count - i - 1, row);
-            });
+                var j = count - i - 1;
+                AddFormattedRow(rows, new string[] { valueFormat1, valueFormat2 }, j);
+            }
             return rows;
         }
 
@@ -199,11 +199,10 @@ namespace BookSearcherTest
             var rows = new TestCSVData();
             rows.SetTitles(new string[] { columnName1, columnName2, columnName3 });
             rows.AllocateTable(count);
-            Enumerable.Range(0, count).AsParallel().ForAll(i =>
+            foreach (var i in Enumerable.Range(0, count))
             {
-                var row = new MemoryRow(rows.MemoryTable, i, new string[] { string.Format(valueFormat1, i), string.Format(valueFormat2, i), string.Format(valueFormat3, i) });
-                rows.MemoryTable.TryAdd(i, row);
-            });
+                rows.AddRow(new string[] { string.Format(valueFormat1, i), string.Format(valueFormat2, i), string.Format(valueFormat3, i) });
+            }
             return rows;
         }
 
@@ -212,11 +211,10 @@ namespace BookSearcherTest
             var rows = new TestCSVData();
             rows.SetTitles(new string[] { columnName1, columnName2, columnName3 });
             rows.AllocateTable(count);
-            Enumerable.Range(0, count).AsParallel().ForAll(i =>
+            foreach (var i in Enumerable.Range(0, count))
             {
-                var row = new MemoryRow(rows.MemoryTable, i, new string[] { string.Format(valueFormat1, i), string.Format(valueFormat2, i), string.Format(valueFormat3, i) });
-                rows.MemoryTable.TryAdd(count - i - 1, row);
-            });
+                rows.AddRow(new string[] { string.Format(valueFormat1, i), string.Format(valueFormat2, i), string.Format(valueFormat3, i) });
+            }
             return rows;
         }
     }
