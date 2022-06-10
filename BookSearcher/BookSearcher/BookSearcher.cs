@@ -114,13 +114,16 @@ namespace BookSearcherApp
         {
             resultTables.Clear();
             resultTables.Add(new DataTable());
+            var emptyColumnNames = 0;
             foreach (var column in BookCSV.Titles)
             {
-                resultTables[0].Columns.Add("データベースファイル／" + column, typeof(string));
+                var columnName = column.Length > 0 ? column : $"Column{++emptyColumnNames}";
+                resultTables[0].Columns.Add("データベースファイル／" + columnName, typeof(string));
             }
             foreach (var column in ScrapingCSV.Titles)
             {
-                resultTables[0].Columns.Add("スクレイピングデータファイル／" + column, typeof(string));
+                var columnName = column.Length > 0 ? column : $"Column{++emptyColumnNames}";
+                resultTables[0].Columns.Add("スクレイピングデータファイル／" + columnName, typeof(string));
             }
 
             int k = 0;
@@ -129,13 +132,13 @@ namespace BookSearcherApp
             {
                 var row = resultTables[n].NewRow();
                 int i = 0;
-                foreach (var columnIndex in Enumerable.Range(0, BookCSV.MemoryTable.ColumnCount))
+                foreach (var columnIndex in Enumerable.Range(0, BookCSV.ColumnCount))
                 {
-                    row[i++] = BookCSV.MemoryTable[resultRow.BookRowIndex][columnIndex];
+                    row[i++] = BookCSV.Table.Rows[resultRow.BookRowIndex][columnIndex];
                 }
-                foreach (var columnIndex in Enumerable.Range(0, ScrapingCSV.MemoryTable.ColumnCount))
+                foreach (var columnIndex in Enumerable.Range(0, ScrapingCSV.ColumnCount))
                 {
-                    row[i++] = ScrapingCSV.MemoryTable[resultRow.ScrapingRowIndex][columnIndex];
+                    row[i++] = ScrapingCSV.Table.Rows[resultRow.ScrapingRowIndex][columnIndex];
                 }
                 resultTables[n].Rows.Add(row);
 

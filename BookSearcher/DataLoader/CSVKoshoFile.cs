@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace BookSearcherApp
 {
-    internal class CSVKoshoFile : CSVFileSplitInfoSingleLine
+    internal class CSVKoshoFile : CSVFileSplitInfoMultiLine
     {
         private readonly CultureInfo culture;
         protected override Regex[] Url => new Regex[] { new Regex(@"https://www.kosho.or.jp/products/") };
@@ -39,8 +39,8 @@ namespace BookSearcherApp
         protected override void InsertInfoColumn(List<string> fields, string[] infos)
         {
             fields.Insert(infoIndex + 1, ParseYear(infos));
-            fields.Insert(infoIndex + 1, infos.Length > 1 ? infos[1] : "");
-            fields.Insert(infoIndex + 1, infos[0]);
+            fields.Insert(infoIndex + 1, infos[0].StartsWith("、") ? infos[0].Substring(1) : (infos.Length > 1 ? infos[1] : ""));
+            fields.Insert(infoIndex + 1, infos[0].StartsWith("、") ? "" : infos[0]);
 
             var url = fields[urlIndex];
             var yearStart = url.IndexOf(search_published_year_min) + search_published_year_min.Length;

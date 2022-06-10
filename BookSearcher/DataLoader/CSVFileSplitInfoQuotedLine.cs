@@ -41,13 +41,12 @@ namespace BookSearcherApp
 
         protected override void DoReadAll()
         {
-            var N = Environment.ProcessorCount;
-            _ = Parallel.For(0, N, n => DoReadPart(n));
+            DoReadPart(0);
         }
 
         private void DoReadPart(int n)
         {
-            int N = Environment.ProcessorCount;
+            int N = 1;
             int partLines = LineOffsets.Length / N;
             long start = LineOffsets[n * partLines];
             long end = n < N - 1 ? LineOffsets[(n + 1) * partLines] : fileSize;

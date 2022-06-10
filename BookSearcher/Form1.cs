@@ -120,7 +120,7 @@ namespace BookSearcherApp
             var dialog = new OpenFileDialog
             {
                 Title = "スクレイピングデータファイル",
-                Filter = "Excelファイル|*.xlsx|CSVファイル|*.csv"
+                Filter = "CSVファイル|*.csv|Excelファイル|*.xlsx"
             };
             if (dialog.ShowDialog() == DialogResult.OK)
             {

@@ -217,9 +217,9 @@ namespace BookSearcherApp
 
         protected void AddTableRow(int k, string[] fields, int start = 0, int end = 100)
         {
-            MemoryTable.AddRow(k, fields);
+            AddRow(fields);
 
-            int percent = start + (end - start) * MemoryTable.Count / rowCount;
+            int percent = start + (end - start) * dataTable.Rows.Count / rowCount;
             if (progressPercent != percent)
             {
                 percent = percent > end ? end : percent;

@@ -97,7 +97,7 @@ namespace BookSearcherTest
         {
             var books = dataAscA;
             var scrapings = CreateDataAsc(ROW_COUNT, columnInfosLR);
-            AddRow(scrapings, AppendType.Right, AppendType.None, AppendType.None);
+            AddFormattedRow(scrapings, AppendType.Right, AppendType.None, AppendType.None);
             BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.All, PrefixLength);
             searcher = new BookSearcher17();
             searcher.Search();
@@ -109,7 +109,7 @@ namespace BookSearcherTest
         {
             var books = dataDiff1A;
             var scrapings = CreateDataAsc(ROW_COUNT, columnInfosLR);
-            AddRow(scrapings, AppendType.Right, AppendType.None, AppendType.None);
+            AddFormattedRow(scrapings, AppendType.Right, AppendType.None, AppendType.None);
             BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.All, PrefixLength);
             searcher = new BookSearcher17();
             searcher.Search();
@@ -121,7 +121,7 @@ namespace BookSearcherTest
         {
             var books = dataDiff1A;
             var scrapings = CreateDataAsc(ROW_COUNT, columnInfosLR);
-            AddRow(scrapings, AppendType.Right, AppendType.Left, AppendType.Both);
+            AddFormattedRow(scrapings, AppendType.Right, AppendType.Left, AppendType.Both);
             BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.All, PrefixLength);
             searcher = new BookSearcher17();
             searcher.Search();
@@ -132,7 +132,7 @@ namespace BookSearcherTest
         public void TestMatchingDiffColumn22()
         {
             var books = CreateDataAsc(ROW_COUNT);
-            AddRow(books, AppendType.Left, AppendType.Right, AppendType.None);
+            AddFormattedRow(books, AppendType.Left, AppendType.Right, AppendType.None);
             var scrapings = dataDiff1B;
             BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.All, PrefixLength);
             searcher = new BookSearcher17();

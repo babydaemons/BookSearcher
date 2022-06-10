@@ -82,24 +82,26 @@ namespace BookSearcherApp
 
         private ConcurrentDictionary<int, Column2> CreateBookColumnList(ColumnInfo columnInfo1, ColumnInfo columnInfo2)
         {
-            var table = BookCSV.MemoryTable;
-            var columnName1 = table.ColumnNames[columnInfo1.BookColumnIndex];
-            var columnName2 = table.ColumnNames[columnInfo2.BookColumnIndex];
-            var columnIndex1 = table.ColumnIndexes[columnName1];
-            var columnIndex2 = table.ColumnIndexes[columnName2];
+            var table = BookCSV.Table;
+            var columnIndex1 = columnInfo1.BookColumnIndex;
+            var columnIndex2 = columnInfo2.BookColumnIndex;
 
-            var rows = table.Where(row => row.Value[columnIndex1].Length > 0 && row.Value[columnIndex2].Length > 0);
-            var values = new ConcurrentDictionary<int, Column2>(Environment.ProcessorCount, table.Count);
+            var N = table.Rows.Count;
+            var values = new ConcurrentDictionary<int, Column2>(Environment.ProcessorCount, N);
             ConvertValue convertValue1 = GetConvertValue(columnInfo1);
             ConvertValue convertValue2 = GetConvertValue(columnInfo2);
-            foreach (var row in rows)
+            foreach (var i in Enumerable.Range(0, N))
             {
+                var value1 = (string)table.Rows[i][columnIndex1];
+                if (string.IsNullOrEmpty(value1)) { continue; }
+                var value2 = (string)table.Rows[i][columnIndex2];
+                if (string.IsNullOrEmpty(value2)) { continue; }
                 _ = values.TryAdd(
-                    row.Key,
+                    i,
                     new Column2
                     {
-                        Value1 = convertValue1(row.Value[columnIndex1]),
-                        Value2 = convertValue2(row.Value[columnIndex2])
+                        Value1 = convertValue1(value1),
+                        Value2 = convertValue2(value2)
                     });
             }
             return values;
@@ -107,20 +109,21 @@ namespace BookSearcherApp
 
         private ConcurrentDictionary<int, Column2> CreateScrapingColumnList(ColumnInfo columnInfo)
         {
-            var table = ScrapingCSV.MemoryTable;
-            var columnName = table.ColumnNames[columnInfo.ScrapingColumnIndex];
-            var columnIndex = table.ColumnIndexes[columnName];
+            var table = ScrapingCSV.Table;
+            var columnIndex = columnInfo.ScrapingColumnIndex;
 
-            var rows = table.Where(row => row.Value[columnIndex].Length > 0);
-            var values = new ConcurrentDictionary<int, Column2>();
+            var N = table.Rows.Count;
+            var values = new ConcurrentDictionary<int, Column2>(Environment.ProcessorCount, N);
             ConvertValue convertValue = GetConvertValue(columnInfo);
-            foreach (var row in rows)
+            foreach (var i in Enumerable.Range(0, N))
             {
+                var value = (string)table.Rows[i][columnIndex];
+                if (string.IsNullOrEmpty(value)) { continue; }
                 _ = values.TryAdd(
-                    row.Key,
+                    i,
                     new Column2
                     {
-                        Value1 = convertValue(row.Value[columnIndex]),
+                        Value1 = convertValue(value),
                         Value2 = ""
                     });
             }

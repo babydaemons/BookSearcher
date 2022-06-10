@@ -97,7 +97,7 @@ namespace BookSearcherTest
         {
             var books = dataAscA;
             var scrapings = CreateDataAsc(ROW_COUNT, columnInfosLR);
-            AddRow(scrapings, AppendType.Right, AppendType.None, AppendType.None, columnInfosLR);
+            AddFormattedRow(scrapings, AppendType.Right, AppendType.None, AppendType.None, columnInfosLR);
             BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.All, PrefixLength);
             searcher = new BookSearcher16();
             searcher.Search();
@@ -109,7 +109,7 @@ namespace BookSearcherTest
         {
             var books = dataDiff1A;
             var scrapings = CreateDataAsc(ROW_COUNT, columnInfosLR);
-            AddRow(scrapings, AppendType.None, AppendType.Left, AppendType.None, columnInfosLR);
+            AddFormattedRow(scrapings, AppendType.None, AppendType.Left, AppendType.None, columnInfosLR);
             BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.All, PrefixLength);
             searcher = new BookSearcher16();
             searcher.Search();
@@ -121,7 +121,7 @@ namespace BookSearcherTest
         {
             var books = dataDiff1A;
             var scrapings = CreateDataAsc(ROW_COUNT, columnInfosLR);
-            AddRow(scrapings, AppendType.Left, AppendType.Right, AppendType.Both, columnInfosLR);
+            AddFormattedRow(scrapings, AppendType.Left, AppendType.Right, AppendType.Both, columnInfosLR);
             BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.All, PrefixLength);
             searcher = new BookSearcher16();
             searcher.Search();
@@ -132,7 +132,7 @@ namespace BookSearcherTest
         public void TestMatchingDiffColumn22()
         {
             var books = CreateDataAsc(ROW_COUNT);
-            AddRow(books, AppendType.None, AppendType.Right, AppendType.None);
+            AddFormattedRow(books, AppendType.None, AppendType.Right, AppendType.None);
             var scrapings = dataDiff1B;
             BookSearcher.InitSearchSettings(books, scrapings, SpaceMatch.All, PrefixLength);
             searcher = new BookSearcher16();

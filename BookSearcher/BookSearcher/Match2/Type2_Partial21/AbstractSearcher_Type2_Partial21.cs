@@ -13,8 +13,8 @@ namespace BookSearcherApp
         protected void Search(ColumnInfo columnInfo1, ColumnInfo columnInfo2)
         {
             resultRows = new ConcurrentBag<RowIndexPair>();
-            var bookValues = CreateColumnList(BookCSV.MemoryTable, columnInfo1, columnInfo2, true);
-            var scrapingValues = CreateColumnList(ScrapingCSV.MemoryTable, columnInfo1, columnInfo2, false);
+            var bookValues = CreateColumnList(BookCSV.Table, columnInfo1, columnInfo2, true);
+            var scrapingValues = CreateColumnList(ScrapingCSV.Table, columnInfo1, columnInfo2, false);
 
             var bookKeys = bookValues.Keys;
             var scrapingKeys = scrapingValues.Keys;
