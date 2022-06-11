@@ -16,6 +16,7 @@ namespace BookSearcherApp
                 "ご迷惑をお掛けします。内部エラーが発生しました。\n" +
                 "ログファイル「" + path + "」をお送りください。\n\n" +
                 "【エラー内容】\n" + ex.Message + "\n\n" +
+                "【例外種別】\n" + ex.GetType().FullName + "\n\n" +
                 "【スタックトレース】\n" + ex.StackTrace;
 
             using (var writer = new StreamWriter(path)) { writer.WriteLine(message); }

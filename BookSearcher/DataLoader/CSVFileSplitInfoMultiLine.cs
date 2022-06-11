@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Windows.Forms;
 using Microsoft.VisualBasic.FileIO;
 
 namespace BookSearcherApp
@@ -38,17 +39,24 @@ namespace BookSearcherApp
 
         protected override void DoReadAll()
         {
-            using (var memoryMappedViewStream = GetMemoryMappedViewStream())
-            using (var reader = new TextFieldParser(memoryMappedViewStream, FileEncoding))
+            try
             {
-                reader.SetDelimiters(",");
-                _ = reader.ReadFields();
-                while (!reader.EndOfData)
+                using (var memoryMappedViewStream = GetMemoryMappedViewStream())
+                using (var reader = new TextFieldParser(memoryMappedViewStream, FileEncoding))
                 {
-                    var fields = new List<string>(reader.ReadFields());
-                    InsertInfoColumn(fields);
-                    AddTableRow(fields.ToArray());
+                    reader.SetDelimiters(",");
+                    _ = reader.ReadFields();
+                    while (!reader.EndOfData)
+                    {
+                        var fields = new List<string>(reader.ReadFields());
+                        InsertInfoColumn(fields);
+                        AddTableRow(fields.ToArray());
+                    }
                 }
+            }
+            catch (MalformedLineException ex)
+            {
+                MessageBox.Show($"入力ファイルの読み込みを中断しました。\n{ex.Message}\n\n入力ファイル：\n{Path}", "入力ファイルエラー");
             }
         }
     }
