@@ -34,7 +34,7 @@ namespace BookSearcherApp
             var columnIndex2 = table.Columns[isBookDB ? columnInfo2.BookColumnIndex : columnInfo2.ScrapingColumnIndex];
 
             var N = table.Rows.Count;
-            var values = new ConcurrentDictionary<string, int>(Environment.ProcessorCount, N);
+            var values = new ConcurrentDictionary<string, int>(Form1.ProcessorCount, N);
             ConvertValue convertValue1 = GetConvertValue(columnInfo1);
             ConvertValue convertValue2 = GetConvertValue(columnInfo2);
             foreach (var i in Enumerable.Range(0, N))
@@ -79,7 +79,7 @@ namespace BookSearcherApp
             var columnIndex2 = isBookDB ? columnInfo2.BookColumnIndex : columnInfo2.ScrapingColumnIndex;
 
             var N = table.Rows.Count;
-            var values = new ConcurrentDictionary<string, ConcurrentBag<int>>(Environment.ProcessorCount, N);
+            var values = new ConcurrentDictionary<string, ConcurrentBag<int>>(Form1.ProcessorCount, N);
             ConvertValue convertValue1 = GetConvertValue(columnInfo1);
             ConvertValue convertValue2 = GetConvertValue(columnInfo2);
             foreach (var i in Enumerable.Range(0, N))

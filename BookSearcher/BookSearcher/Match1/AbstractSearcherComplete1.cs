@@ -34,7 +34,7 @@ namespace BookSearcherApp
             var spaceMatch = columnInfo.SpaceMatch;
 
             var N = table.Rows.Count;
-            var values = new ConcurrentDictionary<string, int>(Environment.ProcessorCount, N);
+            var values = new ConcurrentDictionary<string, int>(Form1.ProcessorCount, N);
             ConvertValue convertValue = spaceMatch == SpaceMatch.All ? ConvertNone : (ConvertValue)ConvertRemoveSpace;
             foreach (var i in Enumerable.Range(0, N))
             {

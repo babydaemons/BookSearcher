@@ -3,12 +3,15 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BookSearcherApp
 {
     public partial class Form1 : Form
     {
+        private ParallelOptions parallelOptions = new ParallelOptions();
+        public static int ProcessorCount { get; private set; }
         protected CSVFile BookCSV;
         protected CSVFile ScrapingCSV;
         protected ExcelSaver excelSaver;
@@ -27,6 +30,9 @@ namespace BookSearcherApp
         {
             InitializeComponent();
             BookSearcher.InitColumnSettings(BookColumnSetting, ScrapingColumnSetting);
+            ProcessorCount = Environment.ProcessorCount;
+            NumericUpDownUseCpuCoreCount.Maximum = ProcessorCount;
+            this.LabelTotalCpuCoreCount.Text = $"コア / 全 {ProcessorCount} コア";
 
             DataGridViewOutputPattern1.Rows.Add(new object[] { "商品管理番号(真ん中2文字)", "sku", "" });
             DataGridViewOutputPattern1.Rows.Add(new object[] { "商品コードのタイプ", "product-id-type", "" });
@@ -326,6 +332,8 @@ namespace BookSearcherApp
                 ProgressBarOutputExcel.Value = ProgressBarOutputPatternCSV.Value = ProgressBarOutputCommonCSV1.Value = ProgressBarOutputCommonCSV2.Value = 0;
                 Timer1.Enabled = true;
                 timer = Stopwatch.StartNew();
+                ProcessorCount = (int)NumericUpDownUseCpuCoreCount.Value;
+                parallelOptions.MaxDegreeOfParallelism = ProcessorCount;
                 BackgroundWorker4.RunWorkerAsync();
             }
             catch (MyException ex)
@@ -514,7 +522,7 @@ namespace BookSearcherApp
 
         private void SetSearchControlsEnabled(bool enabled)
         {
-            GroupBoxFiles.Enabled = GroupBoxOutput.Enabled = GroupBoxPartMatch.Enabled = GroupBoxExecute.Enabled = GroupBoxAllMatch.Enabled = PanelMatchCondition.Enabled = enabled;
+            GroupBoxFiles.Enabled = GroupBoxOutput.Enabled = GroupBoxPartMatch.Enabled = GroupBoxCpuCores.Enabled = GroupBoxExecute.Enabled = GroupBoxAllMatch.Enabled = PanelMatchCondition.Enabled = enabled;
             BookColumnSetting.Enabled = ScrapingColumnSetting.Enabled = enabled;
             DataGridViewOutputPattern1.Enabled = DataGridViewOutputPattern2.Enabled = DataGridViewCommonOutput1.Enabled = DataGridViewCommonOutput2.Enabled = enabled;
         }

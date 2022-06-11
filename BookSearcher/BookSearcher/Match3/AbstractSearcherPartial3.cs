@@ -14,7 +14,7 @@ namespace BookSearcherApp
             var columnIndex3 = isBookDB ? columnInfo3.BookColumnIndex : columnInfo3.ScrapingColumnIndex;
 
             var N = table.Rows.Count;
-            var values = new ConcurrentDictionary<int, Column3>(Environment.ProcessorCount, N);
+            var values = new ConcurrentDictionary<int, Column3>(Form1.ProcessorCount, N);
             ConvertValue convertValue1 = GetConvertValue(columnInfo1);
             ConvertValue convertValue2 = GetConvertValue(columnInfo2);
             ConvertValue convertValue3 = GetConvertValue(columnInfo3);

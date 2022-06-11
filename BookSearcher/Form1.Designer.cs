@@ -124,6 +124,10 @@
             this.BackgroundWorker11 = new System.ComponentModel.BackgroundWorker();
             this.BackgroundWorker12 = new System.ComponentModel.BackgroundWorker();
             this.BackgroundWorker13 = new System.ComponentModel.BackgroundWorker();
+            this.GroupBoxCpuCores = new System.Windows.Forms.GroupBox();
+            this.LabelCpuCoreCountTitle = new System.Windows.Forms.Label();
+            this.LabelTotalCpuCoreCount = new System.Windows.Forms.Label();
+            this.NumericUpDownUseCpuCoreCount = new System.Windows.Forms.NumericUpDown();
             this.GroupBoxOutput.SuspendLayout();
             this.GroupBoxPartMatch.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownLength)).BeginInit();
@@ -148,6 +152,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewCommonOutput1)).BeginInit();
             this.TabPageCommonOutput2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewCommonOutput2)).BeginInit();
+            this.GroupBoxCpuCores.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownUseCpuCoreCount)).BeginInit();
             this.SuspendLayout();
             // 
             // Timer1
@@ -180,7 +186,7 @@
             this.GroupBoxOutput.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.GroupBoxOutput.Location = new System.Drawing.Point(12, 228);
             this.GroupBoxOutput.Name = "GroupBoxOutput";
-            this.GroupBoxOutput.Size = new System.Drawing.Size(347, 57);
+            this.GroupBoxOutput.Size = new System.Drawing.Size(207, 57);
             this.GroupBoxOutput.TabIndex = 1;
             this.GroupBoxOutput.TabStop = false;
             this.GroupBoxOutput.Text = "出力CSVファイルパターン";
@@ -188,11 +194,11 @@
             // RadioButtonFileTypeCSV2
             // 
             this.RadioButtonFileTypeCSV2.AutoSize = true;
-            this.RadioButtonFileTypeCSV2.Location = new System.Drawing.Point(179, 24);
+            this.RadioButtonFileTypeCSV2.Location = new System.Drawing.Point(109, 24);
             this.RadioButtonFileTypeCSV2.Name = "RadioButtonFileTypeCSV2";
-            this.RadioButtonFileTypeCSV2.Size = new System.Drawing.Size(137, 19);
+            this.RadioButtonFileTypeCSV2.Size = new System.Drawing.Size(69, 19);
             this.RadioButtonFileTypeCSV2.TabIndex = 2;
-            this.RadioButtonFileTypeCSV2.Text = "CSVファイル(パターン2)";
+            this.RadioButtonFileTypeCSV2.Text = "パターン2";
             this.RadioButtonFileTypeCSV2.UseVisualStyleBackColor = true;
             this.RadioButtonFileTypeCSV2.CheckedChanged += new System.EventHandler(this.RadioButtonFileType_CheckedChanged);
             // 
@@ -202,10 +208,10 @@
             this.RadioButtonFileTypeCSV1.Checked = true;
             this.RadioButtonFileTypeCSV1.Location = new System.Drawing.Point(34, 24);
             this.RadioButtonFileTypeCSV1.Name = "RadioButtonFileTypeCSV1";
-            this.RadioButtonFileTypeCSV1.Size = new System.Drawing.Size(137, 19);
+            this.RadioButtonFileTypeCSV1.Size = new System.Drawing.Size(69, 19);
             this.RadioButtonFileTypeCSV1.TabIndex = 1;
             this.RadioButtonFileTypeCSV1.TabStop = true;
-            this.RadioButtonFileTypeCSV1.Text = "CSVファイル(パターン1)";
+            this.RadioButtonFileTypeCSV1.Text = "パターン1";
             this.RadioButtonFileTypeCSV1.UseVisualStyleBackColor = true;
             this.RadioButtonFileTypeCSV1.CheckedChanged += new System.EventHandler(this.RadioButtonFileType_CheckedChanged);
             // 
@@ -214,16 +220,16 @@
             this.GroupBoxPartMatch.Controls.Add(this.NumericUpDownLength);
             this.GroupBoxPartMatch.Controls.Add(this.Label4);
             this.GroupBoxPartMatch.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.GroupBoxPartMatch.Location = new System.Drawing.Point(673, 228);
+            this.GroupBoxPartMatch.Location = new System.Drawing.Point(479, 228);
             this.GroupBoxPartMatch.Name = "GroupBoxPartMatch";
-            this.GroupBoxPartMatch.Size = new System.Drawing.Size(251, 57);
+            this.GroupBoxPartMatch.Size = new System.Drawing.Size(233, 57);
             this.GroupBoxPartMatch.TabIndex = 3;
             this.GroupBoxPartMatch.TabStop = false;
             this.GroupBoxPartMatch.Text = "前方一致照合条件";
             // 
             // NumericUpDownLength
             // 
-            this.NumericUpDownLength.Location = new System.Drawing.Point(162, 20);
+            this.NumericUpDownLength.Location = new System.Drawing.Point(153, 22);
             this.NumericUpDownLength.Maximum = new decimal(new int[] {
             20,
             0,
@@ -248,7 +254,7 @@
             // 
             this.Label4.AutoSize = true;
             this.Label4.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.Label4.Location = new System.Drawing.Point(31, 24);
+            this.Label4.Location = new System.Drawing.Point(22, 25);
             this.Label4.Name = "Label4";
             this.Label4.Size = new System.Drawing.Size(125, 15);
             this.Label4.TabIndex = 0;
@@ -523,9 +529,9 @@
             this.GroupBoxAllMatch.Controls.Add(this.RadioButtonSpaceIgnore);
             this.GroupBoxAllMatch.Controls.Add(this.RadioButtonSpaceContains);
             this.GroupBoxAllMatch.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.GroupBoxAllMatch.Location = new System.Drawing.Point(365, 228);
+            this.GroupBoxAllMatch.Location = new System.Drawing.Point(225, 228);
             this.GroupBoxAllMatch.Name = "GroupBoxAllMatch";
-            this.GroupBoxAllMatch.Size = new System.Drawing.Size(302, 57);
+            this.GroupBoxAllMatch.Size = new System.Drawing.Size(248, 57);
             this.GroupBoxAllMatch.TabIndex = 2;
             this.GroupBoxAllMatch.TabStop = false;
             this.GroupBoxAllMatch.Text = "完全一致照合条件";
@@ -534,7 +540,7 @@
             // 
             this.RadioButtonSpaceIgnore.AutoSize = true;
             this.RadioButtonSpaceIgnore.Checked = true;
-            this.RadioButtonSpaceIgnore.Location = new System.Drawing.Point(168, 24);
+            this.RadioButtonSpaceIgnore.Location = new System.Drawing.Point(130, 24);
             this.RadioButtonSpaceIgnore.Name = "RadioButtonSpaceIgnore";
             this.RadioButtonSpaceIgnore.Size = new System.Drawing.Size(97, 19);
             this.RadioButtonSpaceIgnore.TabIndex = 6;
@@ -545,7 +551,7 @@
             // RadioButtonSpaceContains
             // 
             this.RadioButtonSpaceContains.AutoSize = true;
-            this.RadioButtonSpaceContains.Location = new System.Drawing.Point(42, 24);
+            this.RadioButtonSpaceContains.Location = new System.Drawing.Point(29, 24);
             this.RadioButtonSpaceContains.Name = "RadioButtonSpaceContains";
             this.RadioButtonSpaceContains.Size = new System.Drawing.Size(95, 19);
             this.RadioButtonSpaceContains.TabIndex = 5;
@@ -561,7 +567,7 @@
             this.TabControlOutputSetting.Name = "TabControlOutputSetting";
             this.TabControlOutputSetting.SelectedIndex = 0;
             this.TabControlOutputSetting.Size = new System.Drawing.Size(518, 519);
-            this.TabControlOutputSetting.TabIndex = 30;
+            this.TabControlOutputSetting.TabIndex = 6;
             // 
             // TabPageDatabaseColumn
             // 
@@ -716,7 +722,7 @@
             this.TabControlMatchingOutput.Name = "TabControlMatchingOutput";
             this.TabControlMatchingOutput.SelectedIndex = 0;
             this.TabControlMatchingOutput.Size = new System.Drawing.Size(775, 519);
-            this.TabControlMatchingOutput.TabIndex = 31;
+            this.TabControlMatchingOutput.TabIndex = 5;
             // 
             // TabPageMatching
             // 
@@ -1225,12 +1231,67 @@
             this.BackgroundWorker13.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.BackgroundWorker13_ProgressChanged);
             this.BackgroundWorker13.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorker13_RunWorkerCompleted);
             // 
+            // GroupBoxCpuCores
+            // 
+            this.GroupBoxCpuCores.Controls.Add(this.LabelCpuCoreCountTitle);
+            this.GroupBoxCpuCores.Controls.Add(this.LabelTotalCpuCoreCount);
+            this.GroupBoxCpuCores.Controls.Add(this.NumericUpDownUseCpuCoreCount);
+            this.GroupBoxCpuCores.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.GroupBoxCpuCores.Location = new System.Drawing.Point(718, 228);
+            this.GroupBoxCpuCores.Name = "GroupBoxCpuCores";
+            this.GroupBoxCpuCores.Size = new System.Drawing.Size(206, 57);
+            this.GroupBoxCpuCores.TabIndex = 4;
+            this.GroupBoxCpuCores.TabStop = false;
+            this.GroupBoxCpuCores.Text = "使用CPUコア数";
+            // 
+            // LabelCpuCoreCountTitle
+            // 
+            this.LabelCpuCoreCountTitle.AutoSize = true;
+            this.LabelCpuCoreCountTitle.Location = new System.Drawing.Point(19, 26);
+            this.LabelCpuCoreCountTitle.Name = "LabelCpuCoreCountTitle";
+            this.LabelCpuCoreCountTitle.Size = new System.Drawing.Size(31, 15);
+            this.LabelCpuCoreCountTitle.TabIndex = 7;
+            this.LabelCpuCoreCountTitle.Text = "使用";
+            // 
+            // LabelTotalCpuCoreCount
+            // 
+            this.LabelTotalCpuCoreCount.AutoSize = true;
+            this.LabelTotalCpuCoreCount.Location = new System.Drawing.Point(105, 26);
+            this.LabelTotalCpuCoreCount.Name = "LabelTotalCpuCoreCount";
+            this.LabelTotalCpuCoreCount.Size = new System.Drawing.Size(81, 15);
+            this.LabelTotalCpuCoreCount.TabIndex = 6;
+            this.LabelTotalCpuCoreCount.Text = "コア / 全 8 コア";
+            // 
+            // NumericUpDownUseCpuCoreCount
+            // 
+            this.NumericUpDownUseCpuCoreCount.Location = new System.Drawing.Point(55, 23);
+            this.NumericUpDownUseCpuCoreCount.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.NumericUpDownUseCpuCoreCount.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.NumericUpDownUseCpuCoreCount.Name = "NumericUpDownUseCpuCoreCount";
+            this.NumericUpDownUseCpuCoreCount.Size = new System.Drawing.Size(44, 23);
+            this.NumericUpDownUseCpuCoreCount.TabIndex = 5;
+            this.NumericUpDownUseCpuCoreCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.NumericUpDownUseCpuCoreCount.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1316, 821);
+            this.Controls.Add(this.GroupBoxCpuCores);
             this.Controls.Add(this.TabControlMatchingOutput);
             this.Controls.Add(this.TabControlOutputSetting);
             this.Controls.Add(this.GroupBoxAllMatch);
@@ -1271,6 +1332,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewCommonOutput1)).EndInit();
             this.TabPageCommonOutput2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewCommonOutput2)).EndInit();
+            this.GroupBoxCpuCores.ResumeLayout(false);
+            this.GroupBoxCpuCores.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownUseCpuCoreCount)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1376,6 +1440,10 @@
         protected System.ComponentModel.BackgroundWorker BackgroundWorker11;
         protected System.ComponentModel.BackgroundWorker BackgroundWorker12;
         protected System.ComponentModel.BackgroundWorker BackgroundWorker13;
+        protected System.Windows.Forms.GroupBox GroupBoxCpuCores;
+        protected System.Windows.Forms.NumericUpDown NumericUpDownUseCpuCoreCount;
+        protected System.Windows.Forms.Label LabelCpuCoreCountTitle;
+        protected System.Windows.Forms.Label LabelTotalCpuCoreCount;
     }
 }
 
