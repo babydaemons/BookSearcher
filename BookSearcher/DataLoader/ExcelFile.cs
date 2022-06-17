@@ -1,17 +1,17 @@
-﻿using System.IO.MemoryMappedFiles;
+﻿using System.Data;
+using System.IO.MemoryMappedFiles;
 using System.Linq;
 using System.ComponentModel;
 using System.Diagnostics;
-using ClosedXML.Excel;
+using ExcelDataReader;
 
 namespace BookSearcherApp
 {
     internal class ExcelFile : CSVFile
     {
         MemoryMappedViewStream memoryMappedViewStream;
-        XLWorkbook book;
-        IXLWorksheet sheet;
-        IXLTable table;
+        IExcelDataReader excelReader;
+        DataSet dataSet;
 
         public ExcelFile(string path) : base(path)
         {
@@ -31,6 +31,14 @@ namespace BookSearcherApp
             var stopWatch = new Stopwatch();
             stopWatch.Start();
 
+            memoryMappedViewStream = GetMemoryMappedViewStream();
+            backgoundworker?.ReportProgress(5);
+            excelReader = ExcelReaderFactory.CreateReader(memoryMappedViewStream);
+            dataSet = excelReader.AsDataSet();
+            memoryMappedViewStream.Dispose();
+            memoryMappedViewStream = null;
+            backgoundworker?.ReportProgress(40);
+
             ReadHeader();
             CountLines();
             DoReadAll();
@@ -40,46 +48,32 @@ namespace BookSearcherApp
 
             Loaded = true;
 
-            table = null;
-            sheet = null;
-            book.Dispose();
-            book = null;
-            backgoundworker?.ReportProgress(95);
-            memoryMappedViewStream.Dispose();
-            memoryMappedViewStream = null;
             backgoundworker?.ReportProgress(100);
         }
 
         private void ReadHeader()
         {
-            backgoundworker.ReportProgress(5);
-
-            // http://nineworks2.blog.fc2.com/blog-entry-64.html
-            memoryMappedViewStream = GetMemoryMappedViewStream();
-            book = new XLWorkbook(memoryMappedViewStream, XLEventTracking.Disabled);
-            backgoundworker.ReportProgress(60);
-
-            sheet = book.Worksheet(1);
-            // テーブル作成
-            table = sheet.RangeUsed().AsTable();
-
             // フィールド名を取得
-            ColumnCount = table.Fields.Count();
+            ColumnCount = dataSet.Tables[0].Rows[0].ItemArray.Length;
             Titles = new string[ColumnCount];
-            foreach (var field in table.Fields)
+            foreach (var j in Enumerable.Range(0, ColumnCount))
             {
-                Titles[field.Index] = field.Name;
+                Titles[j] = dataSet.Tables[0].Rows[0].ItemArray[j].ToString();
             }
-            Fields = new string[ColumnCount];
-            var cells = table.DataRange.Rows(1, 1).Cells().ToArray();
 
             // データを行単位で取得
-            foreach (var row in table.DataRange.Rows())
+            var rowIndex = 0;
+            foreach (DataRow row in dataSet.Tables[0].Rows)
             {
+                if (rowIndex++ == 0)
+                {
+                    continue;
+                }
+
                 var fields = new string[ColumnCount];
                 foreach (var j in Enumerable.Range(0, ColumnCount))
                 {
-                    fields[j] = row.Cell(j + 1).Value.ToString();
+                    fields[j] = row.ItemArray[j].ToString();
                 }
                 bool isAllValid = fields.All(field => field.Length > 0);
                 if (isAllValid)
@@ -92,7 +86,7 @@ namespace BookSearcherApp
 
         protected override void CountLines()
         {
-            rowCount = table.RowCount();
+            rowCount = dataSet.Tables[0].Rows.Count;
             AllocateTable(rowCount);
         }
 
@@ -101,14 +95,14 @@ namespace BookSearcherApp
             rowIndex = 0;
 
             // データを行単位で取得
-            foreach (var row in table.DataRange.Rows())
+            foreach (DataRow row in dataSet.Tables[0].Rows)
             {
                 var fields = new string[ColumnCount];
                 foreach (var j in Enumerable.Range(0, ColumnCount))
                 {
-                    fields[j] = row.Cell(j + 1).Value.ToString();
+                    fields[j] = row.ItemArray[j].ToString();
                 }
-                AddTableRow(rowIndex++, fields, 60, 90);
+                AddTableRow(rowIndex++, fields, 40, 100);
             }
         }
     }
