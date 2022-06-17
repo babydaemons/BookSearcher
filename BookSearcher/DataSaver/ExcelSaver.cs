@@ -4,6 +4,11 @@ using System.ComponentModel;
 using System.Data;
 using System.IO;
 using ClosedXML.Excel;
+using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
+using NPOI.HSSF.Util;
+using NPOI.SS.Util;
+using System.Linq;
 
 namespace BookSearcherApp
 {
@@ -16,7 +21,11 @@ namespace BookSearcherApp
         private readonly BackgroundWorker worker;
 
         private static int N = 0;
+        private static int P0 = 0;
+        private static int P1 = 0;
+        private static int P2 = 0;
         private static string sheetNameBase;
+        private static IFont font;
 
         public ExcelSaver(string path, BackgroundWorker worker = null)
         {
@@ -30,46 +39,75 @@ namespace BookSearcherApp
 
             var n = 0;
             var exists = File.Exists(path);
-
-            if (backgroundWorker != null) { backgroundWorker.ReportProgress((n + 1) * 5 / N); }
-
-            using (var book = exists ? new XLWorkbook(path, XLEventTracking.Disabled) : new XLWorkbook(XLEventTracking.Disabled))
+            if (exists)
             {
-                var sheets = new List<IXLWorksheet>();
-
-                sheetNameBase = "照合結果_" + DateTime.Now.ToString("yyyyMMdd-HHmm");
-                foreach (var table in tables)
+                var fileInfo = new FileInfo(path);
+                using (var file = fileInfo.OpenRead())
                 {
-                    sheets.Add(Write(table, n, book, backgroundWorker));
-                    ++n;
+                    exists = file.Length > 0;
                 }
-
-                if (exists)
-                {
-                    book.Save();
-                }
-                else
-                {
-                    book.SaveAs(path);
-                }
-                if (backgroundWorker != null) { backgroundWorker.ReportProgress(100); }
             }
+
+            P0 = exists ? 20 : 6;
+            P2 = exists ? 60 : 80;
+            P1 = P2 - P0;
+
+            backgroundWorker?.ReportProgress((n + 1) * 5 / N);
+
+            var book = exists ? WorkbookFactory.Create(path) : new XSSFWorkbook();
+            font = book.CreateFont();
+            font.FontHeightInPoints = 11;
+            font.FontName = FONT_NAME;
+
+            backgroundWorker?.ReportProgress((n + 1) * P0 / N);
+
+            sheetNameBase = "照合結果_" + DateTime.Now.ToString("yyyyMMdd-HHmm");
+            foreach (var table in tables)
+            {
+                Write(table, n, book, backgroundWorker);
+                ++n;
+            }
+
+            backgroundWorker?.ReportProgress((n + 1) * P2 / N);
+            using (var stream = new FileStream(path, FileMode.Create, FileAccess.Write))
+            {
+                book.Write(stream);
+            }
+            
+            backgroundWorker?.ReportProgress(100);
         }
 
-        public static IXLWorksheet Write(DataTable table, int n, XLWorkbook book, BackgroundWorker backgroundWorker = null)
+        public static void Write(DataTable table, int n, IWorkbook book, BackgroundWorker backgroundWorker = null)
         {
             var suffix = N == 1 ? "" : $" ({n + 1})";
-            var sheet = book.AddWorksheet(table, sheetNameBase + suffix);
-            if (backgroundWorker != null) { backgroundWorker.ReportProgress((n + 1) * 35 / N); }
+            var sheet = book.CreateSheet(sheetNameBase + suffix);
+            var currentProgress = 0;
 
-            sheet.Style.Font.FontName = FONT_NAME;
-            if (backgroundWorker != null) { backgroundWorker.ReportProgress((n + 1) * 40 / N); }
+            var titles = sheet.CreateRow(0);
+            foreach (var j in Enumerable.Range(0, table.Columns.Count))
+            {
+                var cell = titles.CreateCell(j);
+                cell.SetCellValue(table.Columns[j].ColumnName);
+                cell.CellStyle.SetFont(font);
+            }
 
-            var ROWS1 = table.Rows.Count > 100 ? 100 : table.Rows.Count;
-            sheet.Rows(1, ROWS1).AdjustToContents();
-            if (backgroundWorker != null) { backgroundWorker.ReportProgress((n + 1) * 70 / N); }
+            foreach (var i in Enumerable.Range(0, table.Rows.Count))
+            {
+                var values = sheet.CreateRow(i + 1);
+                foreach (var j in Enumerable.Range(0, table.Columns.Count))
+                {
+                    var cell = values.CreateCell(j);
+                    cell.SetCellValue(table.Rows[i][j].ToString());
+                    cell.CellStyle.SetFont(font);
+                }
 
-            return sheet;
+                var progress = (n + 1) * (P0 + P1 * i / table.Rows.Count) / N;
+                if (progress > currentProgress)
+                {
+                    backgroundWorker?.ReportProgress(progress);
+                    currentProgress = progress;
+                }
+            }
         }
 
         public void Save() => Write(path, BookSearcher.ResultTables, worker);
