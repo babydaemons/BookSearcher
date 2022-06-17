@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.IO;
-using ClosedXML.Excel;
 
 namespace BookSearcherApp
 {
@@ -33,43 +32,55 @@ namespace BookSearcherApp
 
             if (backgroundWorker != null) { backgroundWorker.ReportProgress((n + 1) * 5 / N); }
 
-            using (var book = exists ? new XLWorkbook(path, XLEventTracking.Disabled) : new XLWorkbook(XLEventTracking.Disabled))
+            using (var book = exists ? MyExcelBook.Open(path) : MyExcelBook.CreateBook(path))
             {
-                var sheets = new List<IXLWorksheet>();
-
                 sheetNameBase = "照合結果_" + DateTime.Now.ToString("yyyyMMdd-HHmm");
                 foreach (var table in tables)
                 {
-                    sheets.Add(Write(table, n, book, backgroundWorker));
+                    Write(table, n, book, backgroundWorker);
                     ++n;
                 }
+                book.Save();
 
-                if (exists)
-                {
-                    book.Save();
-                }
-                else
-                {
-                    book.SaveAs(path);
-                }
                 if (backgroundWorker != null) { backgroundWorker.ReportProgress(100); }
             }
         }
 
-        public static IXLWorksheet Write(DataTable table, int n, XLWorkbook book, BackgroundWorker backgroundWorker = null)
+        public static void Write(DataTable table, int n, MyExcelBook book, BackgroundWorker backgroundWorker = null)
         {
             var suffix = N == 1 ? "" : $" ({n + 1})";
-            var sheet = book.AddWorksheet(table, sheetNameBase + suffix);
-            if (backgroundWorker != null) { backgroundWorker.ReportProgress((n + 1) * 35 / N); }
 
-            sheet.Style.Font.FontName = FONT_NAME;
-            if (backgroundWorker != null) { backgroundWorker.ReportProgress((n + 1) * 40 / N); }
+            book.CreateSheet(sheetNameBase + suffix);
+            var progress = 0;
+            var currentProgress = (n + 1) * 10 / N;
+            if (backgroundWorker != null && currentProgress > progress)
+            {
+                progress = currentProgress;
+                backgroundWorker.ReportProgress(progress); 
+            }
 
-            var ROWS1 = table.Rows.Count > 100 ? 100 : table.Rows.Count;
-            sheet.Rows(1, ROWS1).AdjustToContents();
-            if (backgroundWorker != null) { backgroundWorker.ReportProgress((n + 1) * 70 / N); }
+            uint rowIndex = 1;
+            for (uint columnIndex  = 1; columnIndex <= table.Columns.Count; columnIndex++)
+            {
+                book.SetValue(rowIndex, columnIndex, table.Columns[(int)columnIndex - 1].ColumnName);
+            }
+            ++rowIndex;
 
-            return sheet;
+            for (int i = 0; i < table.Rows.Count; i++)
+            {
+                for (uint columnIndex = 1; columnIndex <= table.Columns.Count; columnIndex++)
+                {
+                    book.SetValue(rowIndex, columnIndex, table.Rows[i][(int)columnIndex - 1].ToString());
+                }
+                ++rowIndex;
+
+                var currentProgress2 = ((n + 1) * 10 + 90 * i / table.Rows.Count) / N;
+                if (backgroundWorker != null && currentProgress2 > progress)
+                {
+                    progress = currentProgress2;
+                    backgroundWorker.ReportProgress(progress);
+                }
+            }
         }
 
         public void Save() => Write(path, BookSearcher.ResultTables, worker);

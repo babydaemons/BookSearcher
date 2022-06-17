@@ -1,17 +1,13 @@
-﻿using System.IO.MemoryMappedFiles;
-using System.Linq;
-using System.ComponentModel;
+﻿using System.ComponentModel;
+using System.Collections.Generic;
 using System.Diagnostics;
-using ClosedXML.Excel;
+using System.Linq;
 
 namespace BookSearcherApp
 {
-    internal class ExcelFile : CSVFile
+    public class ExcelFile : CSVFile
     {
-        MemoryMappedViewStream memoryMappedViewStream;
-        XLWorkbook book;
-        IXLWorksheet sheet;
-        IXLTable table;
+        private List<CellInfo[]> table;
 
         public ExcelFile(string path) : base(path)
         {
@@ -26,7 +22,7 @@ namespace BookSearcherApp
         {
             Loaded = false;
             this.backgoundworker = backgoundworker;
-            backgoundworker.ReportProgress(0);
+            backgoundworker?.ReportProgress(0);
 
             var stopWatch = new Stopwatch();
             stopWatch.Start();
@@ -40,46 +36,42 @@ namespace BookSearcherApp
 
             Loaded = true;
 
-            table = null;
-            sheet = null;
-            book.Dispose();
-            book = null;
-            backgoundworker?.ReportProgress(95);
-            memoryMappedViewStream.Dispose();
-            memoryMappedViewStream = null;
             backgoundworker?.ReportProgress(100);
         }
 
         private void ReadHeader()
         {
-            backgoundworker.ReportProgress(5);
+            backgoundworker?.ReportProgress(5);
 
-            // http://nineworks2.blog.fc2.com/blog-entry-64.html
-            memoryMappedViewStream = GetMemoryMappedViewStream();
-            book = new XLWorkbook(memoryMappedViewStream, XLEventTracking.Disabled);
-            backgoundworker.ReportProgress(60);
+            var book = MyExcelBook.Open(Path);
+            backgoundworker?.ReportProgress(10);
 
-            sheet = book.Worksheet(1);
+            book.SelectSheet(1);
+
             // テーブル作成
-            table = sheet.RangeUsed().AsTable();
+            table = book.GetAllCellValues();
 
             // フィールド名を取得
-            ColumnCount = table.Fields.Count();
+            ColumnCount = table[0].Length;
             Titles = new string[ColumnCount];
-            foreach (var field in table.Fields)
+            foreach (var cell in table[0])
             {
-                Titles[field.Index] = field.Name;
+                Titles[cell.Col - 1] = cell.Value;
             }
             Fields = new string[ColumnCount];
-            var cells = table.DataRange.Rows(1, 1).Cells().ToArray();
 
             // データを行単位で取得
-            foreach (var row in table.DataRange.Rows())
+            foreach (var row in table)
             {
+                if (row[0].Row == 1)
+                {
+                    continue;
+                }
+
                 var fields = new string[ColumnCount];
                 foreach (var j in Enumerable.Range(0, ColumnCount))
                 {
-                    fields[j] = row.Cell(j + 1).Value.ToString();
+                    fields[j] = row[j].Value;
                 }
                 bool isAllValid = fields.All(field => field.Length > 0);
                 if (isAllValid)
@@ -92,7 +84,7 @@ namespace BookSearcherApp
 
         protected override void CountLines()
         {
-            rowCount = table.RowCount();
+            rowCount = table.Count;
             AllocateTable(rowCount);
         }
 
@@ -101,12 +93,16 @@ namespace BookSearcherApp
             rowIndex = 0;
 
             // データを行単位で取得
-            foreach (var row in table.DataRange.Rows())
+            foreach (var row in table)
             {
+                if (row[0].Row == 1)
+                {
+                    continue;
+                }
                 var fields = new string[ColumnCount];
                 foreach (var j in Enumerable.Range(0, ColumnCount))
                 {
-                    fields[j] = row.Cell(j + 1).Value.ToString();
+                    fields[j] = row[j].Value;
                 }
                 AddTableRow(rowIndex++, fields, 60, 90);
             }
