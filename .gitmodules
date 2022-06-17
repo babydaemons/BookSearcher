@@ -1,0 +1,3 @@
+[submodule "BookSearcher/EPPlus"]
+	path = BookSearcher/EPPlus
+	url = https://github.com/babydaemons/EPPlus
