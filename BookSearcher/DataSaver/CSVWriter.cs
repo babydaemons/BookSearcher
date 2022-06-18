@@ -7,9 +7,9 @@ using System.Linq;
 
 namespace BookSearcherApp
 {
-    public class CSVWriter
+    public class CSVWriter : FileIO
     {
-        public static void Write(string path, DataTable table, BackgroundWorker backgroundWorker = null)
+        public void Write(string path, DataTable table)
         {
             using (StreamWriter writer = new StreamWriter(path))
             {
@@ -17,7 +17,7 @@ namespace BookSearcherApp
             }
         }
 
-        public static void Write(Stream stream, DataTable table, BackgroundWorker backgroundWorker = null)
+        public void Write(Stream stream, DataTable table)
         {
             using (StreamWriter writer = new StreamWriter(stream))
             {
@@ -25,7 +25,7 @@ namespace BookSearcherApp
             }
         }
 
-        public static void Write(StreamWriter writer, DataTable table, BackgroundWorker backgroundWorker = null)
+        public void Write(StreamWriter writer, DataTable table)
         {
             var titles = new List<string>();
             foreach (DataColumn column in table.Columns)
@@ -36,7 +36,7 @@ namespace BookSearcherApp
 
             var rowCount = table.Rows.Count;
             var columnCount = table.Columns.Count;
-            var percentage = 0;
+            ReportProgress(0);
             foreach (var i in Enumerable.Range(0, rowCount))
             {
                 var values = new List<string>();
@@ -45,15 +45,7 @@ namespace BookSearcherApp
                     values.Add(QuoteValue(table.Rows[i][j]));
                 }
                 writer.WriteLine(string.Join(",", values.ToArray()));
-                var currentPercentage = 100 * i / rowCount;
-                if (currentPercentage > percentage)
-                {
-                    percentage = currentPercentage;
-                    if (backgroundWorker != null)
-                    {
-                        backgroundWorker.ReportProgress(percentage);
-                    }
-                }
+                ReportProgress(MAX_VALUE * i / rowCount);
             }
         }
 

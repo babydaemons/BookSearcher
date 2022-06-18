@@ -5,22 +5,27 @@ using System.Windows.Forms;
 
 namespace BookSearcherApp
 {
-    public class TextDisplayedProgressBar : ProgressBar
+    public class FileIOProgressBar : ProgressBar
     {
+        public const int MAX_VALUE = 10000;
+        public const int DIV_VALUE = 100;
+
+        public bool Completed => Value >= Maximum;
+
         // https://dobon.net/vb/dotnet/control/pbshowtext.html
         private const int WM_PAINT = 0x000F;
-        private Stopwatch StopWatch;
+        private static TextFormatFlags textFormatFlags = TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.SingleLine;
+        private string PrevText = "";
 
         public void Start()
         {
             Value = 0;
-            StopWatch = Stopwatch.StartNew();
         }
 
         public void Stop()
         {
-            Value = 100;
-            StopWatch.Stop();
+            Value = MAX_VALUE;
+            Refresh();
         }
 
         [SecurityPermission(SecurityAction.Demand, Flags = SecurityPermissionFlag.UnmanagedCode)]
@@ -28,15 +33,13 @@ namespace BookSearcherApp
         {
             base.WndProc(ref m);
 
-            if (m.Msg == WM_PAINT && StopWatch != null)
+            if (m.Msg == WM_PAINT && Text != PrevText)
             {
-                var text = StopWatch.Elapsed.ToString(@"hh\:mm\:ss\.fff");
-
                 // 文字列を描画する
-                TextFormatFlags flags = TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.SingleLine;
                 Graphics g = CreateGraphics();
-                TextRenderer.DrawText(g, text, Font, ClientRectangle, SystemColors.ControlText, flags);
+                TextRenderer.DrawText(g, Text, Font, ClientRectangle, SystemColors.ControlText, textFormatFlags);
                 g.Dispose();
+                PrevText = Text;
             }
         }
     }

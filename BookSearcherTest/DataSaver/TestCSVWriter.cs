@@ -8,7 +8,7 @@ using BookSearcherApp;
 namespace BookSearcherTest
 {
     [TestClass]
-    public class TestCSVWriter
+    public class TestCSVWriter : CSVWriter
     {
         [TestMethod]
         public void TestWrite()
@@ -27,7 +27,7 @@ namespace BookSearcherTest
             table.Rows.Add(row2);
 
             var path = DateTime.Now.ToString("yyyyMMddhhmmssfffff") + ".csv";
-            CSVWriter.Write(path, table);
+            Write(path, table);
 
             using (var reader = new TextFieldParser(path))
             {

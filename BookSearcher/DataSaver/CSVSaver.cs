@@ -18,9 +18,8 @@ namespace BookSearcherApp
         public DataTable DataTable => dataTable;
         private readonly Dictionary<string, string> settings = new Dictionary<string, string>();
         private readonly string path;
-        private readonly BackgroundWorker worker;
 
-        protected CSVSaver(DataGridView view, string path, BackgroundWorker worker = null)
+        protected CSVSaver(DataGridView view, string path)
         {
             CheckParameterEntered(view);
 
@@ -33,7 +32,6 @@ namespace BookSearcherApp
             }
 
             this.path = path;
-            this.worker = worker;
         }
 
         private void CheckParameterEntered(DataGridView view)
@@ -77,10 +75,12 @@ namespace BookSearcherApp
             settings["sku"] = sku_middle + DateTime.Now.ToString("yyMM");
         }
 
-        public void Save()
+        public void Save(BackgroundWorker backgroundWorker, FileIOProgressBar progressBar)
         {
             ConvertTable();
-            Write(path, dataTable, worker);
+            StartIO(backgroundWorker, progressBar);
+            Write(path, dataTable);
+            StopIO();
         }
 
         public void ConvertTable() => ConvertTable(BookSearcher.ResultTables, BookSearcher.ColumnIndexISBN, BookSearcher.ColumnIndexCost);

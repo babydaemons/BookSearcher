@@ -41,18 +41,7 @@ namespace BookSearcherApp
 
         protected override void DoReadAll()
         {
-            DoReadPart(0);
-        }
-
-        private void DoReadPart(int n)
-        {
-            int N = 1;
-            int partLines = LineOffsets.Length / N;
-            long start = LineOffsets[n * partLines];
-            long end = n < N - 1 ? LineOffsets[(n + 1) * partLines] : fileSize;
-            long size = end - start;
-            int rowIndex = n * partLines;
-            using (var memoryMappedViewStream = GetMemoryMappedViewStream(start, size))
+            using (var memoryMappedViewStream = GetMemoryMappedViewStream())
             using (var reader = new TextFieldParser(memoryMappedViewStream, FileEncoding))
             {
                 reader.SetDelimiters(",");
@@ -64,7 +53,7 @@ namespace BookSearcherApp
                     {
                         DeleteTailFields(fields);
                         InsertInfoColumn(fields);
-                        AddTableRow(rowIndex++, fields.ToArray());
+                        AddTableRow(memoryMappedViewStream, fields.ToArray());
                     }
                 }
             }

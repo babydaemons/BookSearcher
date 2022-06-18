@@ -76,7 +76,7 @@ namespace BookSearcherTest
                 columnNames[i] = (string)BookColumnSetting[0, i].Value;
             }
             rows.SetTitles(columnNames);
-            rows.AllocateTable(count);
+            rows.AllocateTable();
             return rows;
         }
 
@@ -173,7 +173,7 @@ namespace BookSearcherTest
         {
             var rows = new TestCSVData();
             rows.SetTitles(new string[] { columnName1, columnName2 });
-            rows.AllocateTable(count);
+            rows.AllocateTable();
             foreach (var i in Enumerable.Range(0, count))
             {
                 AddFormattedRow(rows, new string[] { valueFormat1, valueFormat2 }, i);
@@ -185,7 +185,7 @@ namespace BookSearcherTest
         {
             var rows = new TestCSVData();
             rows.SetTitles(new string[] { columnName1, columnName2 });
-            rows.AllocateTable(count);
+            rows.AllocateTable();
             foreach (var i in Enumerable.Range(0, count))
             {
                 var j = count - i - 1;
@@ -198,7 +198,7 @@ namespace BookSearcherTest
         {
             var rows = new TestCSVData();
             rows.SetTitles(new string[] { columnName1, columnName2, columnName3 });
-            rows.AllocateTable(count);
+            rows.AllocateTable();
             foreach (var i in Enumerable.Range(0, count))
             {
                 rows.AddRow(new string[] { string.Format(valueFormat1, i), string.Format(valueFormat2, i), string.Format(valueFormat3, i) });
@@ -210,7 +210,7 @@ namespace BookSearcherTest
         {
             var rows = new TestCSVData();
             rows.SetTitles(new string[] { columnName1, columnName2, columnName3 });
-            rows.AllocateTable(count);
+            rows.AllocateTable();
             foreach (var i in Enumerable.Range(0, count))
             {
                 rows.AddRow(new string[] { string.Format(valueFormat1, i), string.Format(valueFormat2, i), string.Format(valueFormat3, i) });

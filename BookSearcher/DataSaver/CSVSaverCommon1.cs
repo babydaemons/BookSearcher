@@ -9,6 +9,6 @@ namespace BookSearcherApp
 
         public override int ColumnIndexISBN => 1;
 
-        public CSVSaverCommon1(DataGridView view, string path, BackgroundWorker worker = null) : base(view, path, worker) { }
+        public CSVSaverCommon1(DataGridView view, string path) : base(view, path) { }
     }
 }

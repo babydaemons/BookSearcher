@@ -50,7 +50,7 @@ namespace BookSearcherApp
                     {
                         var fields = new List<string>(reader.ReadFields());
                         InsertInfoColumn(fields);
-                        AddTableRow(fields.ToArray());
+                        AddTableRow(memoryMappedViewStream, fields.ToArray());
                     }
                 }
             }
