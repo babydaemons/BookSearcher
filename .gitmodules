@@ -1,3 +1,6 @@
 [submodule "BookSearcher/EPPlus"]
 	path = BookSearcher/EPPlus
 	url = https://github.com/babydaemons/EPPlus
+[submodule "BookSearcher/ExcelDataReader"]
+	path = BookSearcher/ExcelDataReader
+	url = https://github.com/babydaemons/ExcelDataReader
