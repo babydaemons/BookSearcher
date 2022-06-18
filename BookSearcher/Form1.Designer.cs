@@ -25,7 +25,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.Timer1 = new System.Windows.Forms.Timer(this.components);
+            this.TimerSearch = new System.Windows.Forms.Timer(this.components);
             this.BackgroundWorker4 = new System.ComponentModel.BackgroundWorker();
             this.BackgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.BackgroundWorker1 = new System.ComponentModel.BackgroundWorker();
@@ -40,12 +40,12 @@
             this.LabelElapsed = new System.Windows.Forms.Label();
             this.ButtonExecute = new System.Windows.Forms.Button();
             this.GroupBoxFiles = new System.Windows.Forms.GroupBox();
-            this.ProgressBarOutputCommonCSV2 = new BookSearcherApp.TextDisplayedProgressBar();
-            this.ProgressBarOutputCommonCSV1 = new BookSearcherApp.TextDisplayedProgressBar();
-            this.ProgressBarOutputPatternCSV = new BookSearcherApp.TextDisplayedProgressBar();
-            this.ProgressBarOutputExcel = new BookSearcherApp.TextDisplayedProgressBar();
-            this.ProgressBarInput2 = new BookSearcherApp.TextDisplayedProgressBar();
-            this.ProgressBarInput1 = new BookSearcherApp.TextDisplayedProgressBar();
+            this.ProgressBarOutputCommonCSV2 = new BookSearcherApp.FileIOProgressBar();
+            this.ProgressBarOutputCommonCSV1 = new BookSearcherApp.FileIOProgressBar();
+            this.ProgressBarOutputPatternCSV = new BookSearcherApp.FileIOProgressBar();
+            this.ProgressBarOutputExcel = new BookSearcherApp.FileIOProgressBar();
+            this.ProgressBarInput2 = new BookSearcherApp.FileIOProgressBar();
+            this.ProgressBarInput1 = new BookSearcherApp.FileIOProgressBar();
             this.LabelOutputCSV = new System.Windows.Forms.Label();
             this.TextBoxOutputCSV2 = new System.Windows.Forms.TextBox();
             this.LabelOutputCSV2 = new System.Windows.Forms.Label();
@@ -128,6 +128,7 @@
             this.LabelCpuCoreCountTitle = new System.Windows.Forms.Label();
             this.LabelTotalCpuCoreCount = new System.Windows.Forms.Label();
             this.NumericUpDownUseCpuCoreCount = new System.Windows.Forms.NumericUpDown();
+            this.TimerFileIO = new System.Windows.Forms.Timer(this.components);
             this.GroupBoxOutput.SuspendLayout();
             this.GroupBoxPartMatch.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownLength)).BeginInit();
@@ -156,9 +157,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownUseCpuCoreCount)).BeginInit();
             this.SuspendLayout();
             // 
-            // Timer1
+            // TimerSearch
             // 
-            this.Timer1.Tick += new System.EventHandler(this.Timer1_Tick);
+            this.TimerSearch.Tick += new System.EventHandler(this.TimerSearch_Tick);
             // 
             // BackgroundWorker4
             // 
@@ -338,6 +339,7 @@
             // ProgressBarOutputCommonCSV2
             // 
             this.ProgressBarOutputCommonCSV2.Location = new System.Drawing.Point(1026, 170);
+            this.ProgressBarOutputCommonCSV2.Maximum = 1000;
             this.ProgressBarOutputCommonCSV2.Name = "ProgressBarOutputCommonCSV2";
             this.ProgressBarOutputCommonCSV2.Size = new System.Drawing.Size(232, 20);
             this.ProgressBarOutputCommonCSV2.TabIndex = 20;
@@ -345,6 +347,7 @@
             // ProgressBarOutputCommonCSV1
             // 
             this.ProgressBarOutputCommonCSV1.Location = new System.Drawing.Point(1027, 141);
+            this.ProgressBarOutputCommonCSV1.Maximum = 1000;
             this.ProgressBarOutputCommonCSV1.Name = "ProgressBarOutputCommonCSV1";
             this.ProgressBarOutputCommonCSV1.Size = new System.Drawing.Size(232, 20);
             this.ProgressBarOutputCommonCSV1.TabIndex = 19;
@@ -352,6 +355,7 @@
             // ProgressBarOutputPatternCSV
             // 
             this.ProgressBarOutputPatternCSV.Location = new System.Drawing.Point(1027, 112);
+            this.ProgressBarOutputPatternCSV.Maximum = 1000;
             this.ProgressBarOutputPatternCSV.Name = "ProgressBarOutputPatternCSV";
             this.ProgressBarOutputPatternCSV.Size = new System.Drawing.Size(232, 20);
             this.ProgressBarOutputPatternCSV.TabIndex = 18;
@@ -359,6 +363,7 @@
             // ProgressBarOutputExcel
             // 
             this.ProgressBarOutputExcel.Location = new System.Drawing.Point(1027, 83);
+            this.ProgressBarOutputExcel.Maximum = 1000;
             this.ProgressBarOutputExcel.Name = "ProgressBarOutputExcel";
             this.ProgressBarOutputExcel.Size = new System.Drawing.Size(232, 20);
             this.ProgressBarOutputExcel.TabIndex = 17;
@@ -366,6 +371,7 @@
             // ProgressBarInput2
             // 
             this.ProgressBarInput2.Location = new System.Drawing.Point(1027, 54);
+            this.ProgressBarInput2.Maximum = 1000;
             this.ProgressBarInput2.Name = "ProgressBarInput2";
             this.ProgressBarInput2.Size = new System.Drawing.Size(232, 20);
             this.ProgressBarInput2.TabIndex = 16;
@@ -373,6 +379,7 @@
             // ProgressBarInput1
             // 
             this.ProgressBarInput1.Location = new System.Drawing.Point(1027, 25);
+            this.ProgressBarInput1.Maximum = 1000;
             this.ProgressBarInput1.Name = "ProgressBarInput1";
             this.ProgressBarInput1.Size = new System.Drawing.Size(232, 20);
             this.ProgressBarInput1.TabIndex = 15;
@@ -1285,6 +1292,11 @@
             0,
             0});
             // 
+            // TimerFileIO
+            // 
+            this.TimerFileIO.Enabled = true;
+            this.TimerFileIO.Tick += new System.EventHandler(this.TimerFileIO_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1340,7 +1352,7 @@
         }
 
         #endregion
-        protected System.Windows.Forms.Timer Timer1;
+        protected System.Windows.Forms.Timer TimerSearch;
         protected System.ComponentModel.BackgroundWorker BackgroundWorker4;
         protected System.ComponentModel.BackgroundWorker BackgroundWorker2;
         protected System.ComponentModel.BackgroundWorker BackgroundWorker1;
@@ -1371,9 +1383,9 @@
         protected System.Windows.Forms.RadioButton RadioButtonSpaceContains;
         protected System.Windows.Forms.Label LabelOutputCSV;
         protected System.Windows.Forms.TextBox TextBoxOutputCSV2;
-        protected BookSearcherApp.TextDisplayedProgressBar ProgressBarOutputExcel;
-        protected BookSearcherApp.TextDisplayedProgressBar ProgressBarInput2;
-        protected BookSearcherApp.TextDisplayedProgressBar ProgressBarInput1;
+        protected BookSearcherApp.FileIOProgressBar ProgressBarOutputExcel;
+        protected BookSearcherApp.FileIOProgressBar ProgressBarInput2;
+        protected BookSearcherApp.FileIOProgressBar ProgressBarInput1;
         protected System.Windows.Forms.TabControl TabControlOutputSetting;
         protected System.Windows.Forms.TabPage TabPageDatabaseColumn;
         protected System.Windows.Forms.TabPage TabPageScrapingColumn;
@@ -1420,9 +1432,9 @@
         protected System.Windows.Forms.TabPage TabPageCommonOutput2;
         protected System.Windows.Forms.DataGridView DataGridViewCommonOutput2;
         protected System.Windows.Forms.Button ButtonPreviewOutputs;
-        protected BookSearcherApp.TextDisplayedProgressBar ProgressBarOutputCommonCSV2;
-        protected BookSearcherApp.TextDisplayedProgressBar ProgressBarOutputCommonCSV1;
-        protected BookSearcherApp.TextDisplayedProgressBar ProgressBarOutputPatternCSV;
+        protected BookSearcherApp.FileIOProgressBar ProgressBarOutputCommonCSV2;
+        protected BookSearcherApp.FileIOProgressBar ProgressBarOutputCommonCSV1;
+        protected BookSearcherApp.FileIOProgressBar ProgressBarOutputPatternCSV;
         protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnJapaneseName1;
         protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnEnglishName1;
         protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnSettingValue1;
@@ -1444,6 +1456,7 @@
         protected System.Windows.Forms.NumericUpDown NumericUpDownUseCpuCoreCount;
         protected System.Windows.Forms.Label LabelCpuCoreCountTitle;
         protected System.Windows.Forms.Label LabelTotalCpuCoreCount;
+        protected System.Windows.Forms.Timer TimerFileIO;
     }
 }
 

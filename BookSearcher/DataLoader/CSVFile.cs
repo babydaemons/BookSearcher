@@ -17,19 +17,12 @@ namespace BookSearcherApp
         protected readonly long fileSize;
         private MemoryMappedFile memoryMappedFile;
         protected readonly ConcurrentBag<long> lineOffsets = new ConcurrentBag<long>();
-        protected long[] LineOffsets { get; private set; }
-
         public string Path { get; }
         public Encoding FileEncoding { get; protected set; }
-        public bool Loaded { get; protected set; } = false;
-        protected BackgroundWorker backgoundworker;
-        protected int rowIndex = 0;
-        protected int rowCount = 0;
-        protected int progressPercent = 0;
+        public bool Loaded => !IsRunning;
 
         protected CSVFile(string path)
         {
-            Loaded = false;
             Path = path;
             var fileInfo = new FileInfo(Path);
             fileSize = fileInfo.Length;
@@ -93,11 +86,6 @@ namespace BookSearcherApp
         protected MemoryMappedViewStream GetMemoryMappedViewStream()
         {
             return memoryMappedFile.CreateViewStream(0, fileSize, MemoryMappedFileAccess.Read);
-        }
-
-        protected MemoryMappedViewStream GetMemoryMappedViewStream(long start, long size)
-        {
-            return memoryMappedFile.CreateViewStream(start, size, MemoryMappedFileAccess.Read);
         }
 
         public abstract bool ParseTitle();
@@ -166,71 +154,32 @@ namespace BookSearcherApp
             return null;
         }
 
-        public override void ReadAll(BackgroundWorker backgoundworker)
+        public override void ReadAll(BackgroundWorker backgroundWorker, FileIOProgressBar progressBar)
         {
-            Loaded = false;
-            this.backgoundworker = backgoundworker;
-            backgoundworker.ReportProgress(0);
+            StartIO(backgroundWorker, progressBar);
 
-            var stopWatch = new Stopwatch();
-            stopWatch.Start();
-
-            CountLines();
+            AllocateTable();
             DoReadAll();
 
-            stopWatch.Stop();
-            Debug.WriteLine($"{Path} - {stopWatch.Elapsed}");
-
-            Loaded = true;
             memoryMappedFile.Dispose();
             memoryMappedFile = null;
-        }
 
-        protected override void CountLines()
-        {
-            const int size = 64 * 1024 * 1024;
-            var bytes = new byte[size];
-            var startOffset = 0L;
-            using (var memoryMappedViewStream = GetMemoryMappedViewStream())
-            {
-                while (memoryMappedViewStream.Position < memoryMappedViewStream.Length)
-                {
-                    int count = memoryMappedViewStream.Read(bytes, 0, size);
-                    Enumerable.Range(0, count).AsParallel().ForAll(i =>
-                    {
-                        if (bytes[i] == (byte)'\n')
-                        {
-                            lineOffsets.Add(startOffset + i + 1);
-                        }
-                    });
-                    startOffset += count;
-                }
-            }
-
-            rowCount = lineOffsets.Count;
-            LineOffsets = lineOffsets.ToArray();
-            Array.Sort(LineOffsets);
-            AllocateTable(rowCount);
+            StopIO();
+            Debug.WriteLine($"{Path} - {CurrentProgress}");
         }
 
         protected abstract void DoReadAll();
 
-        protected void AddTableRow(int k, string[] fields, int start = 0, int end = 100)
+        protected void AddTableRow(Stream stream, string[] fields, int start = 0, int end = FileIOProgressBar.MAX_VALUE)
         {
             AddRow(fields);
-
-            int percent = start + (end - start) * dataTable.Rows.Count / rowCount;
-            if (progressPercent != percent)
-            {
-                percent = percent > end ? end : percent;
-                backgoundworker.ReportProgress(percent);
-                progressPercent = percent;
-            }
+            ReportProgress((int)(start + (end - start) * stream.Position / stream.Length));
         }
 
-        protected void AddTableRow(string[] fields)
+        protected void AddTableRow(long position, long length, string[] fields, int start = 0, int end = FileIOProgressBar.MAX_VALUE)
         {
-            AddTableRow(rowIndex++, fields);
+            AddRow(fields);
+            ReportProgress((int)(start + (end - start) * position / length));
         }
 
         protected static void ConertWideDigits(ref string digits)

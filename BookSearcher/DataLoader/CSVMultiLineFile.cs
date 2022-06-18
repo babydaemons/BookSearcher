@@ -34,7 +34,7 @@ namespace BookSearcherApp
                 _ = reader.ReadFields();
                 while (!reader.EndOfData)
                 {
-                    AddTableRow(reader.ReadFields());
+                    AddTableRow(memoryMappedViewStream, reader.ReadFields());
                 }
             }
         }

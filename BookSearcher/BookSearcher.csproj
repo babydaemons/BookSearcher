@@ -931,6 +931,7 @@
     <Compile Include="ExcelDataReader\ExcelDataReader\Misc\LeaveOpenStream.cs" />
     <Compile Include="ExcelDataReader\ExcelDataReader\Portable\ZipArchive.cs" />
     <Compile Include="ExcelDataReader\ExcelDataReader\Portable\ZipArchiveEntry.cs" />
+    <Compile Include="FileIO.cs" />
     <Compile Include="Form3.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -956,7 +957,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataSaver\CSVSaver.cs" />
-    <Compile Include="TextDisplayedProgressBar.cs">
+    <Compile Include="FileIOProgressBar.cs">
       <SubType>Component</SubType>
     </Compile>
     <EmbeddedResource Include="Form1.resx">

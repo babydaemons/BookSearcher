@@ -28,6 +28,6 @@ namespace BookSearcherApp
             "is_delete"
         };
 
-        protected CSVSaver2(DataGridView view, string path, BackgroundWorker worker = null) : base(view, path, worker) { }
+        protected CSVSaver2(DataGridView view, string path) : base(view, path) { }
     }
 }

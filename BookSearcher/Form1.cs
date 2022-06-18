@@ -10,7 +10,7 @@ namespace BookSearcherApp
 {
     public partial class Form1 : Form
     {
-        private ParallelOptions parallelOptions = new ParallelOptions();
+        public readonly ParallelOptions parallelOptions = new ParallelOptions();
         public static int ProcessorCount { get; private set; }
         protected CSVFile BookCSV;
         protected CSVFile ScrapingCSV;
@@ -21,7 +21,7 @@ namespace BookSearcherApp
         protected SpaceMatch spaceMatch;
         protected int prefixLength;
         protected BookSearcher searcher = null;
-        protected Stopwatch timer = new Stopwatch();
+        protected Stopwatch searchTimer = new Stopwatch();
         private string searchTypeName = "";
         private string folderPath = "";
         private bool searchInitFailed = false;
@@ -81,7 +81,7 @@ namespace BookSearcherApp
                     ProgressBarOutputExcel.Value = ProgressBarOutputPatternCSV.Value = ProgressBarOutputCommonCSV1.Value = ProgressBarOutputCommonCSV2.Value = 0;
                     SetExecuteControlsEnabled(false);
                     InitColumnSetting(BookCSV, BookColumnSetting);
-                    ProgressBarInput1.Start();
+                    ProgressBarInput1.Start(BookCSV);
                     BackgroundWorker1.RunWorkerAsync();
                 }
             }
@@ -91,7 +91,7 @@ namespace BookSearcherApp
         {
             try
             {
-                BookCSV.ReadAll(BackgroundWorker1);
+                BookCSV.ReadAll(BackgroundWorker1, ProgressBarInput1);
             }
             catch (Exception ex) // for internal error handling
             {
@@ -139,7 +139,7 @@ namespace BookSearcherApp
                     ProgressBarOutputExcel.Value = ProgressBarOutputPatternCSV.Value = ProgressBarOutputCommonCSV1.Value = ProgressBarOutputCommonCSV2.Value = 0;
                     SetExecuteControlsEnabled(false);
                     InitColumnSetting(ScrapingCSV, ScrapingColumnSetting);
-                    ProgressBarInput2.Start();
+                    ProgressBarInput2.Start(ScrapingCSV);
                     BackgroundWorker2.RunWorkerAsync();
                     TextBoxInput2.Text = path;
                 }
@@ -150,7 +150,7 @@ namespace BookSearcherApp
         {
             try
             {
-                ScrapingCSV.ReadAll(BackgroundWorker2);
+                ScrapingCSV.ReadAll(BackgroundWorker2, ProgressBarInput2);
             }
             catch (Exception ex) // for internal error handling
             {
@@ -308,17 +308,17 @@ namespace BookSearcherApp
         {
             try
             {
-                excelSaver = new ExcelSaver(TextBoxOutputExcel.Text, BackgroundWorker10);
+                excelSaver = new ExcelSaver(TextBoxOutputExcel.Text);
                 if (RadioButtonFileTypeCSV1.Checked)
                 {
-                    saver0 = new CSVSaverPattern1(DataGridViewOutputPattern1, TextBoxOutputCSV.Text, BackgroundWorker11);
+                    saver0 = new CSVSaverPattern1(DataGridViewOutputPattern1, TextBoxOutputCSV.Text);
                 }
                 else
                 {
-                    saver0 = new CSVSaverPattern2(DataGridViewOutputPattern2, TextBoxOutputCSV.Text, BackgroundWorker11);
+                    saver0 = new CSVSaverPattern2(DataGridViewOutputPattern2, TextBoxOutputCSV.Text);
                 }
-                saver1 = new CSVSaverCommon1(DataGridViewCommonOutput1, TextBoxOutputCSV1.Text, BackgroundWorker12);
-                saver2 = new CSVSaverCommon2(DataGridViewCommonOutput2, TextBoxOutputCSV2.Text, BackgroundWorker13);
+                saver1 = new CSVSaverCommon1(DataGridViewCommonOutput1, TextBoxOutputCSV1.Text);
+                saver2 = new CSVSaverCommon2(DataGridViewCommonOutput2, TextBoxOutputCSV2.Text);
 
                 spaceMatch = RadioButtonSpaceContains.Checked ? SpaceMatch.All : SpaceMatch.Ignore;
                 prefixLength = (int)NumericUpDownLength.Value;
@@ -330,8 +330,8 @@ namespace BookSearcherApp
 
                 SetSearchControlsEnabled(false);
                 ProgressBarOutputExcel.Value = ProgressBarOutputPatternCSV.Value = ProgressBarOutputCommonCSV1.Value = ProgressBarOutputCommonCSV2.Value = 0;
-                Timer1.Enabled = true;
-                timer = Stopwatch.StartNew();
+                TimerSearch.Enabled = true;
+                searchTimer = Stopwatch.StartNew();
                 ProcessorCount = (int)NumericUpDownUseCpuCoreCount.Value;
                 parallelOptions.MaxDegreeOfParallelism = ProcessorCount;
                 BackgroundWorker4.RunWorkerAsync();
@@ -473,24 +473,24 @@ namespace BookSearcherApp
             {
                 return;
             }
-            timer.Stop();
-            ProgressBarOutputExcel.Start();
-            ProgressBarOutputPatternCSV.Start();
-            ProgressBarOutputCommonCSV1.Start();
-            ProgressBarOutputCommonCSV2.Start();
+            searchTimer.Stop();
+            ProgressBarOutputExcel.Start(excelSaver);
+            ProgressBarOutputPatternCSV.Start(saver0);
+            ProgressBarOutputCommonCSV1.Start(saver1);
+            ProgressBarOutputCommonCSV2.Start(saver2);
             BackgroundWorker10.RunWorkerAsync();
             BackgroundWorker11.RunWorkerAsync();
             BackgroundWorker12.RunWorkerAsync();
             BackgroundWorker13.RunWorkerAsync();
         }
 
-        private void Timer1_Tick(object sender, EventArgs e)
+        private void TimerSearch_Tick(object sender, EventArgs e)
         {
-            if (searchInitFailed || timer == null)
+            if (searchInitFailed || searchTimer == null)
             {
                 return;
             }
-            LabelElapsed.Text = "経過時間 " + timer.Elapsed.ToString(@"hh\:mm\:ss\.fff");
+            LabelElapsed.Text = "経過時間 " + searchTimer.Elapsed.ToString(@"hh\:mm\:ss\.fff");
             LabelResultRows.Text = $"{BookSearcher.ResultCount} 件";
         }
 
@@ -506,11 +506,11 @@ namespace BookSearcherApp
 
         private void UpdateExecuteControlsEnabled()
         {
-            bool enabled = ProgressBarOutputExcel.Value == 100 && ProgressBarOutputPatternCSV.Value == 100 && ProgressBarOutputCommonCSV1.Value == 100 && ProgressBarOutputCommonCSV2.Value == 100;
+            bool enabled = ProgressBarOutputExcel.Completed && ProgressBarOutputPatternCSV.Completed && ProgressBarOutputCommonCSV1.Completed && ProgressBarOutputCommonCSV2.Completed;
             if (enabled)
             {
-                Timer1.Enabled = false;
-                timer.Stop();
+                TimerSearch.Enabled = false;
+                searchTimer.Stop();
                 SetExecuteControlsEnabled(enabled);
                 SetSearchControlsEnabled(enabled);
                 ButtonPreviewOutputs.Enabled = enabled;
@@ -531,7 +531,7 @@ namespace BookSearcherApp
 
         private void BackgroundWorker2_ProgressChanged(object sender, ProgressChangedEventArgs e) => ProgressBarInput2.Value = e.ProgressPercentage;
 
-        private void BackgroundWorker10_DoWork(object sender, DoWorkEventArgs e) => excelSaver.Save();
+        private void BackgroundWorker10_DoWork(object sender, DoWorkEventArgs e) => excelSaver.Save(BackgroundWorker10, ProgressBarOutputExcel);
 
         private void BackgroundWorker10_ProgressChanged(object sender, ProgressChangedEventArgs e) => ProgressBarOutputExcel.Value = e.ProgressPercentage;
 
@@ -541,7 +541,7 @@ namespace BookSearcherApp
             UpdateExecuteControlsEnabled();
         }
 
-        private void BackgroundWorker11_DoWork(object sender, DoWorkEventArgs e) => saver0.Save();
+        private void BackgroundWorker11_DoWork(object sender, DoWorkEventArgs e) => saver0.Save(BackgroundWorker11, ProgressBarOutputPatternCSV);
 
         private void BackgroundWorker11_ProgressChanged(object sender, ProgressChangedEventArgs e) => ProgressBarOutputPatternCSV.Value = e.ProgressPercentage;
 
@@ -551,7 +551,7 @@ namespace BookSearcherApp
             UpdateExecuteControlsEnabled();
         }
 
-        private void BackgroundWorker12_DoWork(object sender, DoWorkEventArgs e) => saver1.Save();
+        private void BackgroundWorker12_DoWork(object sender, DoWorkEventArgs e) => saver1.Save(BackgroundWorker12, ProgressBarOutputCommonCSV1);
 
         private void BackgroundWorker12_ProgressChanged(object sender, ProgressChangedEventArgs e) => ProgressBarOutputCommonCSV1.Value = e.ProgressPercentage;
 
@@ -561,7 +561,7 @@ namespace BookSearcherApp
             UpdateExecuteControlsEnabled();
         }
 
-        private void BackgroundWorker13_DoWork(object sender, DoWorkEventArgs e) => saver2.Save();
+        private void BackgroundWorker13_DoWork(object sender, DoWorkEventArgs e) => saver2.Save(BackgroundWorker13, ProgressBarOutputCommonCSV2);
 
         private void BackgroundWorker13_ProgressChanged(object sender, ProgressChangedEventArgs e) => ProgressBarOutputCommonCSV2.Value = e.ProgressPercentage;
 
@@ -577,6 +577,26 @@ namespace BookSearcherApp
                 new Form3(searchTypeName, BookSearcher.ResultTables[0], saver0.DataTable, new DataTable(), saver1.DataTable, saver2.DataTable) :
                 new Form3(searchTypeName, BookSearcher.ResultTables[0], new DataTable(), saver0.DataTable, saver1.DataTable, saver2.DataTable);
             form3.ShowDialog();
+        }
+
+        private void TimerFileIO_Tick(object sender, EventArgs e)
+        {
+            UpdateProgressBar(BookCSV, ProgressBarInput1);
+            UpdateProgressBar(ScrapingCSV, ProgressBarInput2);
+            UpdateProgressBar(excelSaver, ProgressBarOutputExcel);
+            UpdateProgressBar(saver0, ProgressBarOutputPatternCSV);
+            UpdateProgressBar(saver1, ProgressBarOutputCommonCSV1);
+            UpdateProgressBar(saver2, ProgressBarOutputCommonCSV2);
+        }
+
+        private void UpdateProgressBar(FileIO fileIO, ProgressBar progressBar)
+        {
+            if (fileIO != null && fileIO.IsRunning)
+            {
+                progressBar.Value = fileIO.Progress;
+                progressBar.Text = fileIO.CurrentProgress;
+                progressBar.Invalidate();
+            }
         }
     }
 }

@@ -55,6 +55,6 @@ namespace BookSearcherApp
             "battery_weight_unit_of_measure"
         };
 
-        protected CSVSaver1(DataGridView view, string path, BackgroundWorker worker) : base(view, path, worker) { }
+        protected CSVSaver1(DataGridView view, string path) : base(view, path) { }
     }
 }

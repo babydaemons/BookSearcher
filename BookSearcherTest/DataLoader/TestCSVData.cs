@@ -6,12 +6,7 @@ namespace BookSearcherTest
 {
     internal class TestCSVData : CSVData
     {
-        public override void ReadAll(BackgroundWorker backgoundworker)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void CountLines()
+        public override void ReadAll(BackgroundWorker backgoundworker, FileIOProgressBar progressBar)
         {
             throw new NotImplementedException();
         }
