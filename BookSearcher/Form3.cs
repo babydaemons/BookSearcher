@@ -11,7 +11,7 @@ namespace BookSearcherApp
             InitializeComponent();
 
             // 画面タイトルの設定
-            Text = $"BookSearcher - {searchType} - {tableExcel.Rows.Count}件";
+            Text = $"{Properties.Resources.Version} - {searchType} - {tableExcel.Rows.Count}件";
 
             DataGridViewOutputPattern1.DataSource = tablePattern1;
             DataGridViewOutputPattern2.DataSource = tablePattern2;

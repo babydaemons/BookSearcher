@@ -29,11 +29,13 @@ namespace BookSearcherApp
         public Form1()
         {
             InitializeComponent();
+            Text = Properties.Resources.Version;
+
             BookSearcher.InitColumnSettings(BookColumnSetting, ScrapingColumnSetting);
             ProcessorCount = Environment.ProcessorCount;
             NumericUpDownUseCpuCoreCount.Maximum = ProcessorCount;
             NumericUpDownUseCpuCoreCount.Value = ProcessorCount;
-            this.LabelTotalCpuCoreCount.Text = $"コア / 全 {ProcessorCount} コア";
+            LabelTotalCpuCoreCount.Text = $"コア / 全 {ProcessorCount} コア";
 
             DataGridViewOutputPattern1.Rows.Add(new object[] { "商品管理番号(真ん中2文字)", "sku", "" });
             DataGridViewOutputPattern1.Rows.Add(new object[] { "商品コードのタイプ", "product-id-type", "" });

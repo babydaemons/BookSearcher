@@ -15,7 +15,7 @@ namespace BookSearcherApp
             InitializeComponent();
 
             // 画面タイトルの設定
-            Text = $"BookSearcher - {csvFile.Path} - {table.Rows.Count}件";
+            Text = $"{Properties.Resources.Version} - {csvFile.Path} - {table.Rows.Count}件";
         }
 
         public Form2(DataTable result, string searchType)
@@ -25,7 +25,7 @@ namespace BookSearcherApp
             InitializeComponent();
 
             // 画面タイトルの設定
-            Text = $"BookSearcher - {searchType} - {table.Rows.Count}件";
+            Text = $"{Properties.Resources.Version} - {searchType} - {table.Rows.Count}件";
         }
 
         private void Form2_Load(object sender, EventArgs e)

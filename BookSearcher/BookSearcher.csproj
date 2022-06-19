@@ -999,4 +999,7 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>powershell compress-archive -Force $(TargetDir)* $(TargetDir)..\..\$(SolutionName).zip</PostBuildEvent>
+  </PropertyGroup>
 </Project>
