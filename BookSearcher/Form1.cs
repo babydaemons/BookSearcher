@@ -107,7 +107,7 @@ namespace BookSearcherApp
             LabelInput1.Enabled = TextBoxInput1.Enabled = ButtonInput1.Enabled = ButtonPreviewDatabase.Enabled = true;
             SetExecuteControlsEnabled();
             InitColumnSetting(BookCSV, BookColumnSetting);
-            ProgressBarInput1.Stop();
+            ProgressBarInput1.Stop(BookCSV);
         }
 
         private void InitColumnSetting(CSVFile csvFile, DataGridView columnSetting)
@@ -166,7 +166,7 @@ namespace BookSearcherApp
             LabelInput2.Enabled = TextBoxInput2.Enabled = ButtonInput2.Enabled = ButtonPreviewScraping.Enabled = true;
             SetExecuteControlsEnabled();
             InitColumnSetting(ScrapingCSV, ScrapingColumnSetting);
-            ProgressBarInput2.Stop();
+            ProgressBarInput2.Stop(ScrapingCSV);
         }
 
         private void ButtonPreview_Click(object sender, EventArgs e)
@@ -541,7 +541,7 @@ namespace BookSearcherApp
 
         private void BackgroundWorker10_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            ProgressBarOutputExcel.Stop();
+            ProgressBarOutputExcel.Stop(excelSaver);
             UpdateExecuteControlsEnabled();
         }
 
@@ -551,7 +551,7 @@ namespace BookSearcherApp
 
         private void BackgroundWorker11_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            ProgressBarOutputPatternCSV.Stop();
+            ProgressBarOutputPatternCSV.Stop(saver0);
             UpdateExecuteControlsEnabled();
         }
 
@@ -561,7 +561,7 @@ namespace BookSearcherApp
 
         private void BackgroundWorker12_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            ProgressBarOutputCommonCSV1.Stop();
+            ProgressBarOutputCommonCSV1.Stop(saver1);
             UpdateExecuteControlsEnabled();
         }
 
@@ -571,7 +571,7 @@ namespace BookSearcherApp
 
         private void BackgroundWorker13_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            ProgressBarOutputCommonCSV2.Stop();
+            ProgressBarOutputCommonCSV2.Stop(saver2);
             UpdateExecuteControlsEnabled();
         }
 
@@ -593,14 +593,15 @@ namespace BookSearcherApp
             UpdateProgressBar(saver2, ProgressBarOutputCommonCSV2);
         }
 
-        private void UpdateProgressBar(FileIO fileIO, ProgressBar progressBar)
+        public static void UpdateProgressBar(FileIO fileIO, ProgressBar progressBar)
         {
-            if (fileIO != null && fileIO.IsRunning)
+            if (fileIO == null)
             {
-                progressBar.Value = fileIO.Progress;
-                progressBar.Text = fileIO.CurrentProgress;
-                progressBar.Invalidate();
+                return;
             }
+            progressBar.Value = fileIO.Progress;
+            progressBar.Text = fileIO.CurrentProgress;
+            progressBar.Invalidate();
         }
 
         private void CheckBoxISBN_CheckedChanged(object sender, EventArgs e)

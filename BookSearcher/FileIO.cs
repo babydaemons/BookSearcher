@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Windows.Threading;
 
 namespace BookSearcherApp
 {
@@ -12,17 +11,21 @@ namespace BookSearcherApp
         private const double DIV = MAX_VALUE / 100.0;
 
         private Stopwatch StopWatch;
+        private TimeSpan elapsed;
         private int currentProgress;
-        private BackgroundWorker backgroundWorker;
         private FileIOProgressBar progressBar;
+        private BackgroundWorker backgroundWorker;
 
         public int Progress => currentProgress;
 
         public string CurrentProgress
         {
             get {
-                if (StopWatch == null) { return ""; }
-                var time = StopWatch.Elapsed.ToString(@"hh\:mm\:ss\.fff");
+                if (StopWatch != null)
+                {
+                    elapsed = StopWatch.Elapsed;
+                }
+                var time = elapsed.ToString(@"hh\:mm\:ss\.fff");
                 var percentValue = currentProgress / DIV;
                 var percent = percentValue.ToString("F2").PadLeft(5);
                 return $"{percent}% - {time}";
@@ -40,10 +43,11 @@ namespace BookSearcherApp
         {
             IsRunning = true;
             this.backgroundWorker = backgroundWorker;
-            progressBar.BeginInvoke((Action)(() => progressBar.Maximum = MAX_VALUE));
+            _ = progressBar.BeginInvoke((Action)(() => progressBar.Maximum = MAX_VALUE));
             this.progressBar = progressBar;
             StopWatch = Stopwatch.StartNew();
             currentProgress = 0;
+            elapsed = TimeSpan.Zero;
             backgroundWorker?.ReportProgress(currentProgress);
         }
 

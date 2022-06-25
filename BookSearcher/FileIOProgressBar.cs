@@ -15,17 +15,21 @@ namespace BookSearcherApp
         // https://dobon.net/vb/dotnet/control/pbshowtext.html
         private const int WM_PAINT = 0x000F;
         private static TextFormatFlags textFormatFlags = TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.SingleLine;
-        private string PrevText = "";
 
         public void Start()
         {
+            Maximum = MAX_VALUE;
             Value = 0;
         }
 
-        public void Stop()
+        public void Stop(FileIO fileIO)
         {
             Value = MAX_VALUE;
-            Refresh();
+            if (fileIO == null)
+            {
+                return;
+            }
+            Form1.UpdateProgressBar(fileIO, this);
         }
 
         [SecurityPermission(SecurityAction.Demand, Flags = SecurityPermissionFlag.UnmanagedCode)]
@@ -33,13 +37,12 @@ namespace BookSearcherApp
         {
             base.WndProc(ref m);
 
-            if (m.Msg == WM_PAINT && Text != PrevText)
+            if (m.Msg == WM_PAINT)
             {
                 // 文字列を描画する
                 Graphics g = CreateGraphics();
                 TextRenderer.DrawText(g, Text, Font, ClientRectangle, SystemColors.ControlText, textFormatFlags);
                 g.Dispose();
-                PrevText = Text;
             }
         }
     }
