@@ -88,7 +88,6 @@
     <Compile Include="DataLoader\CSVFileSplitInfo.cs" />
     <Compile Include="DataLoader\CSVFileSplitInfoQuotedLine.cs" />
     <Compile Include="DataLoader\CSVFileSplitInfoMultiLine.cs" />
-    <Compile Include="DataLoader\CSVFileSplitInfoSingleLine.cs" />
     <Compile Include="DataLoader\CSVHontoWebFile.cs" />
     <Compile Include="DataLoader\CSVReader.cs" />
     <Compile Include="DataLoader\CSVYamahaFile.cs" />
@@ -96,7 +95,6 @@
     <Compile Include="DataLoader\CSVRakutenIchibaFile.cs" />
     <Compile Include="DataLoader\CSVKoshoFile.cs" />
     <Compile Include="DataLoader\CSVMultiLineFile.cs" />
-    <Compile Include="DataLoader\CSVSingleLineFile.cs" />
     <Compile Include="DataLoader\CSVMercariFile.cs" />
     <Compile Include="DataLoader\ExcelFile.cs" />
     <Compile Include="DataSaver\CSVSaver2.cs" />

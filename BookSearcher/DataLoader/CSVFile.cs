@@ -138,12 +138,6 @@ namespace BookSearcherApp
                 return yamahaFile;
             }
 
-            CSVSingleLineFile singleLineFile = new CSVSingleLineFile(path);
-            if (singleLineFile.ParseTitle())
-            {
-                return singleLineFile;
-            }
-
             CSVMultiLineFile multiLineFile = new CSVMultiLineFile(path);
             if (multiLineFile.ParseTitle())
             {

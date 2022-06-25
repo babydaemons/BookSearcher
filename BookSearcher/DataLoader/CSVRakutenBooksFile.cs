@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace BookSearcherApp
 {
-    internal class CSVRakutenBooksFile : CSVFileSplitInfoSingleLine
+    internal class CSVRakutenBooksFile : CSVFileSplitInfoMultiLine
     {
         protected override Regex[] Url => new Regex[] { new Regex("https://(product|books).rakuten.co.jp/") };
         protected override Regex RegexInfoDelimiter => new Regex(@" ／ ");
