@@ -15,7 +15,7 @@ namespace BookSearcherTest
             public string Key;
         }
 
-        protected readonly ColumnInfo ISBN = new ColumnInfo { Name = "書籍ISBNコード", Format = "9781{0:D8}", Key = "ISBN" };
+        protected readonly ColumnInfo ISBN = new ColumnInfo { Name = "書籍ISBNコード", Format = "9781{0:D8}", Key = "商品コード" };
         protected readonly ColumnInfo Cost = new ColumnInfo { Name = "仕入原価", Format = "{0}", Key = "価格" };
         protected readonly ColumnInfo URL = new ColumnInfo { Name = "ページURL", Format = "https://www.example.com/{0:D8}", Key = "URL" };
         protected readonly ColumnInfo Year = new ColumnInfo { Name = "発売年", Format = "20{0:D2}", Key = "出版年" };

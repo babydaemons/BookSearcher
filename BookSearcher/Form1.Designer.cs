@@ -40,12 +40,6 @@
             this.LabelElapsed = new System.Windows.Forms.Label();
             this.ButtonExecute = new System.Windows.Forms.Button();
             this.GroupBoxFiles = new System.Windows.Forms.GroupBox();
-            this.ProgressBarOutputCommonCSV2 = new BookSearcherApp.FileIOProgressBar();
-            this.ProgressBarOutputCommonCSV1 = new BookSearcherApp.FileIOProgressBar();
-            this.ProgressBarOutputPatternCSV = new BookSearcherApp.FileIOProgressBar();
-            this.ProgressBarOutputExcel = new BookSearcherApp.FileIOProgressBar();
-            this.ProgressBarInput2 = new BookSearcherApp.FileIOProgressBar();
-            this.ProgressBarInput1 = new BookSearcherApp.FileIOProgressBar();
             this.LabelOutputCSV = new System.Windows.Forms.Label();
             this.TextBoxOutputCSV2 = new System.Windows.Forms.TextBox();
             this.LabelOutputCSV2 = new System.Windows.Forms.Label();
@@ -69,18 +63,12 @@
             this.TableLayoutPanelBook = new System.Windows.Forms.TableLayoutPanel();
             this.ButtonPreviewDatabase = new System.Windows.Forms.Button();
             this.BookColumnSetting = new System.Windows.Forms.DataGridView();
-            this.BookColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BookColumnValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BookColumnType = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.CheckBoxBookISBN = new System.Windows.Forms.CheckBox();
             this.CheckBoxBookCost = new System.Windows.Forms.CheckBox();
             this.TabPageScrapingColumn = new System.Windows.Forms.TabPage();
             this.TableLayoutPanelScraping = new System.Windows.Forms.TableLayoutPanel();
             this.ButtonPreviewScraping = new System.Windows.Forms.Button();
             this.ScrapingColumnSetting = new System.Windows.Forms.DataGridView();
-            this.ScrapingColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ScrapingColumnValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ScrapingColumnType = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.CheckBoxScrapingISBN = new System.Windows.Forms.CheckBox();
             this.CheckBoxScrapingCost = new System.Windows.Forms.CheckBox();
             this.TabControlMatchingOutput = new System.Windows.Forms.TabControl();
@@ -135,6 +123,18 @@
             this.LabelTotalCpuCoreCount = new System.Windows.Forms.Label();
             this.NumericUpDownUseCpuCoreCount = new System.Windows.Forms.NumericUpDown();
             this.TimerFileIO = new System.Windows.Forms.Timer(this.components);
+            this.ProgressBarOutputCommonCSV2 = new BookSearcherApp.FileIOProgressBar();
+            this.ProgressBarOutputCommonCSV1 = new BookSearcherApp.FileIOProgressBar();
+            this.ProgressBarOutputPatternCSV = new BookSearcherApp.FileIOProgressBar();
+            this.ProgressBarOutputExcel = new BookSearcherApp.FileIOProgressBar();
+            this.ProgressBarInput2 = new BookSearcherApp.FileIOProgressBar();
+            this.ProgressBarInput1 = new BookSearcherApp.FileIOProgressBar();
+            this.BookColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BookColumnValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BookColumnType = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.ScrapingColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ScrapingColumnValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ScrapingColumnType = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.GroupBoxOutput.SuspendLayout();
             this.GroupBoxPartMatch.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownLength)).BeginInit();
@@ -343,54 +343,6 @@
             this.GroupBoxFiles.TabIndex = 0;
             this.GroupBoxFiles.TabStop = false;
             this.GroupBoxFiles.Text = "入力・出力データファイル指定";
-            // 
-            // ProgressBarOutputCommonCSV2
-            // 
-            this.ProgressBarOutputCommonCSV2.Location = new System.Drawing.Point(1026, 170);
-            this.ProgressBarOutputCommonCSV2.Maximum = 1000;
-            this.ProgressBarOutputCommonCSV2.Name = "ProgressBarOutputCommonCSV2";
-            this.ProgressBarOutputCommonCSV2.Size = new System.Drawing.Size(232, 20);
-            this.ProgressBarOutputCommonCSV2.TabIndex = 20;
-            // 
-            // ProgressBarOutputCommonCSV1
-            // 
-            this.ProgressBarOutputCommonCSV1.Location = new System.Drawing.Point(1027, 141);
-            this.ProgressBarOutputCommonCSV1.Maximum = 1000;
-            this.ProgressBarOutputCommonCSV1.Name = "ProgressBarOutputCommonCSV1";
-            this.ProgressBarOutputCommonCSV1.Size = new System.Drawing.Size(232, 20);
-            this.ProgressBarOutputCommonCSV1.TabIndex = 19;
-            // 
-            // ProgressBarOutputPatternCSV
-            // 
-            this.ProgressBarOutputPatternCSV.Location = new System.Drawing.Point(1027, 112);
-            this.ProgressBarOutputPatternCSV.Maximum = 1000;
-            this.ProgressBarOutputPatternCSV.Name = "ProgressBarOutputPatternCSV";
-            this.ProgressBarOutputPatternCSV.Size = new System.Drawing.Size(232, 20);
-            this.ProgressBarOutputPatternCSV.TabIndex = 18;
-            // 
-            // ProgressBarOutputExcel
-            // 
-            this.ProgressBarOutputExcel.Location = new System.Drawing.Point(1027, 83);
-            this.ProgressBarOutputExcel.Maximum = 1000;
-            this.ProgressBarOutputExcel.Name = "ProgressBarOutputExcel";
-            this.ProgressBarOutputExcel.Size = new System.Drawing.Size(232, 20);
-            this.ProgressBarOutputExcel.TabIndex = 17;
-            // 
-            // ProgressBarInput2
-            // 
-            this.ProgressBarInput2.Location = new System.Drawing.Point(1027, 54);
-            this.ProgressBarInput2.Maximum = 1000;
-            this.ProgressBarInput2.Name = "ProgressBarInput2";
-            this.ProgressBarInput2.Size = new System.Drawing.Size(232, 20);
-            this.ProgressBarInput2.TabIndex = 16;
-            // 
-            // ProgressBarInput1
-            // 
-            this.ProgressBarInput1.Location = new System.Drawing.Point(1027, 25);
-            this.ProgressBarInput1.Maximum = 1000;
-            this.ProgressBarInput1.Name = "ProgressBarInput1";
-            this.ProgressBarInput1.Size = new System.Drawing.Size(232, 20);
-            this.ProgressBarInput1.TabIndex = 15;
             // 
             // LabelOutputCSV
             // 
@@ -645,37 +597,6 @@
             this.BookColumnSetting.TabIndex = 2;
             this.BookColumnSetting.Tag = "書籍データベース列指定";
             // 
-            // BookColumnName
-            // 
-            this.BookColumnName.HeaderText = "列名";
-            this.BookColumnName.Name = "BookColumnName";
-            this.BookColumnName.ReadOnly = true;
-            this.BookColumnName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.BookColumnName.Width = 150;
-            // 
-            // BookColumnValue
-            // 
-            this.BookColumnValue.HeaderText = "列データ";
-            this.BookColumnValue.Name = "BookColumnValue";
-            this.BookColumnValue.ReadOnly = true;
-            this.BookColumnValue.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.BookColumnValue.Width = 200;
-            // 
-            // BookColumnType
-            // 
-            this.BookColumnType.HeaderText = "データ種別";
-            this.BookColumnType.Items.AddRange(new object[] {
-            "",
-            "書籍名",
-            "著者名",
-            "出版社名",
-            "出版年",
-            "ISBN",
-            "URL",
-            "価格"});
-            this.BookColumnType.Name = "BookColumnType";
-            this.BookColumnType.Width = 90;
-            // 
             // CheckBoxBookISBN
             // 
             this.CheckBoxBookISBN.AutoSize = true;
@@ -686,7 +607,7 @@
             this.CheckBoxBookISBN.Name = "CheckBoxBookISBN";
             this.CheckBoxBookISBN.Size = new System.Drawing.Size(246, 18);
             this.CheckBoxBookISBN.TabIndex = 0;
-            this.CheckBoxBookISBN.Text = "商品コードは書籍データベースを優先する";
+            this.CheckBoxBookISBN.Text = "商品コードは書籍データベースから取得";
             this.CheckBoxBookISBN.UseVisualStyleBackColor = true;
             this.CheckBoxBookISBN.CheckedChanged += new System.EventHandler(this.CheckBoxISBN_CheckedChanged);
             // 
@@ -700,7 +621,7 @@
             this.CheckBoxBookCost.Name = "CheckBoxBookCost";
             this.CheckBoxBookCost.Size = new System.Drawing.Size(246, 18);
             this.CheckBoxBookCost.TabIndex = 1;
-            this.CheckBoxBookCost.Text = "価格情報は書籍データベースを優先する";
+            this.CheckBoxBookCost.Text = "価格情報は書籍データベースから取得";
             this.CheckBoxBookCost.UseVisualStyleBackColor = true;
             this.CheckBoxBookCost.CheckedChanged += new System.EventHandler(this.CheckBoxCost_CheckedChanged);
             // 
@@ -765,38 +686,6 @@
             this.ScrapingColumnSetting.TabIndex = 3;
             this.ScrapingColumnSetting.Tag = "スクレイピングデータ列指定";
             // 
-            // ScrapingColumnName
-            // 
-            this.ScrapingColumnName.HeaderText = "列名";
-            this.ScrapingColumnName.Name = "ScrapingColumnName";
-            this.ScrapingColumnName.ReadOnly = true;
-            this.ScrapingColumnName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ScrapingColumnName.Width = 150;
-            // 
-            // ScrapingColumnValue
-            // 
-            this.ScrapingColumnValue.HeaderText = "列データ";
-            this.ScrapingColumnValue.Name = "ScrapingColumnValue";
-            this.ScrapingColumnValue.ReadOnly = true;
-            this.ScrapingColumnValue.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ScrapingColumnValue.Width = 200;
-            // 
-            // ScrapingColumnType
-            // 
-            this.ScrapingColumnType.HeaderText = "データ種別";
-            this.ScrapingColumnType.Items.AddRange(new object[] {
-            "",
-            "書籍名",
-            "著者名",
-            "出版社名",
-            "出版年",
-            "ISBN",
-            "URL",
-            "価格",
-            "複合データ"});
-            this.ScrapingColumnType.Name = "ScrapingColumnType";
-            this.ScrapingColumnType.Width = 90;
-            // 
             // CheckBoxScrapingISBN
             // 
             this.CheckBoxScrapingISBN.AutoSize = true;
@@ -805,7 +694,7 @@
             this.CheckBoxScrapingISBN.Name = "CheckBoxScrapingISBN";
             this.CheckBoxScrapingISBN.Size = new System.Drawing.Size(246, 18);
             this.CheckBoxScrapingISBN.TabIndex = 0;
-            this.CheckBoxScrapingISBN.Text = "商品コードはスクレイピングデータを優先する";
+            this.CheckBoxScrapingISBN.Text = "商品コードはスクレイピングデータから取得";
             this.CheckBoxScrapingISBN.UseVisualStyleBackColor = true;
             this.CheckBoxScrapingISBN.CheckedChanged += new System.EventHandler(this.CheckBoxISBN_CheckedChanged);
             // 
@@ -817,7 +706,7 @@
             this.CheckBoxScrapingCost.Name = "CheckBoxScrapingCost";
             this.CheckBoxScrapingCost.Size = new System.Drawing.Size(246, 18);
             this.CheckBoxScrapingCost.TabIndex = 1;
-            this.CheckBoxScrapingCost.Text = "価格情報はスクレイピングデータを優先する";
+            this.CheckBoxScrapingCost.Text = "価格情報はスクレイピングデータから取得";
             this.CheckBoxScrapingCost.UseVisualStyleBackColor = true;
             this.CheckBoxScrapingCost.CheckedChanged += new System.EventHandler(this.CheckBoxCost_CheckedChanged);
             // 
@@ -1161,7 +1050,7 @@
             this.DataGridViewOutputPattern2.Location = new System.Drawing.Point(3, 3);
             this.DataGridViewOutputPattern2.Name = "DataGridViewOutputPattern2";
             this.DataGridViewOutputPattern2.RowTemplate.Height = 21;
-            this.DataGridViewOutputPattern2.Size = new System.Drawing.Size(747, 428);
+            this.DataGridViewOutputPattern2.Size = new System.Drawing.Size(747, 430);
             this.DataGridViewOutputPattern2.TabIndex = 2;
             this.DataGridViewOutputPattern2.Tag = "出力CSVパターン2";
             // 
@@ -1215,7 +1104,7 @@
             this.DataGridViewCommonOutput1.Location = new System.Drawing.Point(3, 3);
             this.DataGridViewCommonOutput1.Name = "DataGridViewCommonOutput1";
             this.DataGridViewCommonOutput1.RowTemplate.Height = 21;
-            this.DataGridViewCommonOutput1.Size = new System.Drawing.Size(747, 428);
+            this.DataGridViewCommonOutput1.Size = new System.Drawing.Size(747, 430);
             this.DataGridViewCommonOutput1.TabIndex = 3;
             this.DataGridViewCommonOutput1.Tag = "共通CSV出力1";
             // 
@@ -1269,7 +1158,7 @@
             this.DataGridViewCommonOutput2.Location = new System.Drawing.Point(3, 3);
             this.DataGridViewCommonOutput2.Name = "DataGridViewCommonOutput2";
             this.DataGridViewCommonOutput2.RowTemplate.Height = 21;
-            this.DataGridViewCommonOutput2.Size = new System.Drawing.Size(747, 428);
+            this.DataGridViewCommonOutput2.Size = new System.Drawing.Size(747, 430);
             this.DataGridViewCommonOutput2.TabIndex = 3;
             this.DataGridViewCommonOutput2.Tag = "共通CSV出力2";
             // 
@@ -1397,6 +1286,117 @@
             // 
             this.TimerFileIO.Enabled = true;
             this.TimerFileIO.Tick += new System.EventHandler(this.TimerFileIO_Tick);
+            // 
+            // ProgressBarOutputCommonCSV2
+            // 
+            this.ProgressBarOutputCommonCSV2.Location = new System.Drawing.Point(1026, 170);
+            this.ProgressBarOutputCommonCSV2.Maximum = 1000;
+            this.ProgressBarOutputCommonCSV2.Name = "ProgressBarOutputCommonCSV2";
+            this.ProgressBarOutputCommonCSV2.Size = new System.Drawing.Size(232, 20);
+            this.ProgressBarOutputCommonCSV2.TabIndex = 20;
+            // 
+            // ProgressBarOutputCommonCSV1
+            // 
+            this.ProgressBarOutputCommonCSV1.Location = new System.Drawing.Point(1027, 141);
+            this.ProgressBarOutputCommonCSV1.Maximum = 1000;
+            this.ProgressBarOutputCommonCSV1.Name = "ProgressBarOutputCommonCSV1";
+            this.ProgressBarOutputCommonCSV1.Size = new System.Drawing.Size(232, 20);
+            this.ProgressBarOutputCommonCSV1.TabIndex = 19;
+            // 
+            // ProgressBarOutputPatternCSV
+            // 
+            this.ProgressBarOutputPatternCSV.Location = new System.Drawing.Point(1027, 112);
+            this.ProgressBarOutputPatternCSV.Maximum = 1000;
+            this.ProgressBarOutputPatternCSV.Name = "ProgressBarOutputPatternCSV";
+            this.ProgressBarOutputPatternCSV.Size = new System.Drawing.Size(232, 20);
+            this.ProgressBarOutputPatternCSV.TabIndex = 18;
+            // 
+            // ProgressBarOutputExcel
+            // 
+            this.ProgressBarOutputExcel.Location = new System.Drawing.Point(1027, 83);
+            this.ProgressBarOutputExcel.Maximum = 1000;
+            this.ProgressBarOutputExcel.Name = "ProgressBarOutputExcel";
+            this.ProgressBarOutputExcel.Size = new System.Drawing.Size(232, 20);
+            this.ProgressBarOutputExcel.TabIndex = 17;
+            // 
+            // ProgressBarInput2
+            // 
+            this.ProgressBarInput2.Location = new System.Drawing.Point(1027, 54);
+            this.ProgressBarInput2.Maximum = 1000;
+            this.ProgressBarInput2.Name = "ProgressBarInput2";
+            this.ProgressBarInput2.Size = new System.Drawing.Size(232, 20);
+            this.ProgressBarInput2.TabIndex = 16;
+            // 
+            // ProgressBarInput1
+            // 
+            this.ProgressBarInput1.Location = new System.Drawing.Point(1027, 25);
+            this.ProgressBarInput1.Maximum = 1000;
+            this.ProgressBarInput1.Name = "ProgressBarInput1";
+            this.ProgressBarInput1.Size = new System.Drawing.Size(232, 20);
+            this.ProgressBarInput1.TabIndex = 15;
+            // 
+            // BookColumnName
+            // 
+            this.BookColumnName.HeaderText = "列名";
+            this.BookColumnName.Name = "BookColumnName";
+            this.BookColumnName.ReadOnly = true;
+            this.BookColumnName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.BookColumnName.Width = 140;
+            // 
+            // BookColumnValue
+            // 
+            this.BookColumnValue.HeaderText = "列データ";
+            this.BookColumnValue.Name = "BookColumnValue";
+            this.BookColumnValue.ReadOnly = true;
+            this.BookColumnValue.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.BookColumnValue.Width = 208;
+            // 
+            // BookColumnType
+            // 
+            this.BookColumnType.HeaderText = "データ種別";
+            this.BookColumnType.Items.AddRange(new object[] {
+            "",
+            "書籍名",
+            "著者名",
+            "出版社名",
+            "出版年",
+            "商品コード",
+            "URL",
+            "価格"});
+            this.BookColumnType.Name = "BookColumnType";
+            this.BookColumnType.Width = 90;
+            // 
+            // ScrapingColumnName
+            // 
+            this.ScrapingColumnName.HeaderText = "列名";
+            this.ScrapingColumnName.Name = "ScrapingColumnName";
+            this.ScrapingColumnName.ReadOnly = true;
+            this.ScrapingColumnName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.ScrapingColumnName.Width = 140;
+            // 
+            // ScrapingColumnValue
+            // 
+            this.ScrapingColumnValue.HeaderText = "列データ";
+            this.ScrapingColumnValue.Name = "ScrapingColumnValue";
+            this.ScrapingColumnValue.ReadOnly = true;
+            this.ScrapingColumnValue.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.ScrapingColumnValue.Width = 208;
+            // 
+            // ScrapingColumnType
+            // 
+            this.ScrapingColumnType.HeaderText = "データ種別";
+            this.ScrapingColumnType.Items.AddRange(new object[] {
+            "",
+            "書籍名",
+            "著者名",
+            "出版社名",
+            "出版年",
+            "商品コード",
+            "URL",
+            "価格",
+            "複合データ"});
+            this.ScrapingColumnType.Name = "ScrapingColumnType";
+            this.ScrapingColumnType.Width = 90;
             // 
             // Form1
             // 
@@ -1553,21 +1553,21 @@
         protected System.Windows.Forms.Timer TimerFileIO;
         protected System.Windows.Forms.TableLayoutPanel TableLayoutPanelBook;
         protected System.Windows.Forms.DataGridView BookColumnSetting;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn BookColumnName;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn BookColumnValue;
-        protected System.Windows.Forms.DataGridViewComboBoxColumn BookColumnType;
         protected System.Windows.Forms.CheckBox CheckBoxBookISBN;
         protected System.Windows.Forms.CheckBox CheckBoxBookCost;
         protected System.Windows.Forms.TableLayoutPanel TableLayoutPanelScraping;
         protected System.Windows.Forms.DataGridView ScrapingColumnSetting;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ScrapingColumnName;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ScrapingColumnValue;
-        protected System.Windows.Forms.DataGridViewComboBoxColumn ScrapingColumnType;
         protected System.Windows.Forms.CheckBox CheckBoxScrapingISBN;
         protected System.Windows.Forms.CheckBox CheckBoxScrapingCost;
         protected System.Windows.Forms.Button ButtonPreviewDatabase;
         protected System.Windows.Forms.Button ButtonPreviewScraping;
         private System.ComponentModel.IContainer components;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BookColumnName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BookColumnValue;
+        private System.Windows.Forms.DataGridViewComboBoxColumn BookColumnType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ScrapingColumnName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ScrapingColumnValue;
+        private System.Windows.Forms.DataGridViewComboBoxColumn ScrapingColumnType;
     }
 }
 

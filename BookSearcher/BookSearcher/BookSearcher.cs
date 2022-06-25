@@ -19,7 +19,7 @@ namespace BookSearcherApp
         protected static CSVData ScrapingCSV;
         protected static SpaceMatch SpaceMatch;
         protected static int PrefixLength;
-        private static readonly string[] columnTypeNames = new string[] { "", "書籍名", "著者名", "出版社名", "出版年", "ISBN", "URL", "価格", "複合データ" };
+        private static readonly string[] columnTypeNames = new string[] { "", "書籍名", "著者名", "出版社名", "出版年", "商品コード", "URL", "価格", "複合データ" };
         private static readonly List<DataTable> resultTables = new List<DataTable>();
         public static List<DataTable> ResultTables => resultTables;
         protected delegate string ConvertValue(string value);
