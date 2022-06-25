@@ -29,11 +29,13 @@ namespace BookSearcherApp
         public static int ResultCount => resultRows.Count;
         public static int ColumnIndexISBN { get; private set; }
         public static int ColumnIndexCost { get; private set; }
+        public static bool OutputBookISBN { get; private set; }
+        public static bool OutputBookCost { get; private set; }
 
         protected BookSearcher()
         {
-            ColumnIndexISBN = SelectColumnIndex(BookColumnSetting, ColumnType.ISBN);
-            ColumnIndexCost = SelectColumnIndex(BookColumnSetting, ColumnType.Price);
+            ColumnIndexISBN = OutputBookISBN ? SelectBookColumnIndex(ColumnType.ISBN) : SelectScrapingColumnIndex(ColumnType.ISBN) + BookColumnSetting.RowCount;
+            ColumnIndexCost = OutputBookCost ? SelectBookColumnIndex(ColumnType.Price) : SelectScrapingColumnIndex(ColumnType.Price) + BookColumnSetting.RowCount;
         }
 
         public static void InitColumnSettings(DataGridView bookColumnSetting, DataGridView scrapingColumnSetting)
@@ -74,6 +76,12 @@ namespace BookSearcherApp
 
             var tableName = (string)columnSetting.Tag;
             throw new MyException($"「{tableName}」入力エラー", $"「{columnTypeName}」が選択されていません。");
+        }
+
+        public static void InitOutputSetting(bool outputBookISBN, bool outputBookCost)
+        {
+            OutputBookISBN = outputBookISBN;
+            OutputBookCost = outputBookCost;
         }
 
         public abstract void Search();

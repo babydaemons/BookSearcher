@@ -9,23 +9,23 @@ namespace BookSearcherApp
 {
     public class CSVWriter : FileIO
     {
-        public void Write(string path, DataTable table)
+        public void Write(bool ISBNFromBook, bool CostFromBook, string path, DataTable table)
         {
             using (StreamWriter writer = new StreamWriter(path))
             {
-                Write(writer, table);
+                Write(ISBNFromBook, CostFromBook, writer, table);
             }
         }
 
-        public void Write(Stream stream, DataTable table)
+        public void Write(bool ISBNFromBook, bool CostFromBook, Stream stream, DataTable table)
         {
             using (StreamWriter writer = new StreamWriter(stream))
             {
-                Write(writer, table);
+                Write(ISBNFromBook, CostFromBook, writer, table);
             }
         }
 
-        public void Write(StreamWriter writer, DataTable table)
+        public void Write(bool ISBNFromBook, bool CostFromBook, StreamWriter writer, DataTable table)
         {
             var titles = new List<string>();
             foreach (DataColumn column in table.Columns)

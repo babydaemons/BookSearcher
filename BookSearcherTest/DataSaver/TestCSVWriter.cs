@@ -27,7 +27,7 @@ namespace BookSearcherTest
             table.Rows.Add(row2);
 
             var path = DateTime.Now.ToString("yyyyMMddhhmmssfffff") + ".csv";
-            Write(path, table);
+            Write(true, true, path, table);
 
             using (var reader = new TextFieldParser(path))
             {

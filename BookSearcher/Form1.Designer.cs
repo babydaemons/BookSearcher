@@ -66,16 +66,22 @@
             this.RadioButtonSpaceContains = new System.Windows.Forms.RadioButton();
             this.TabControlOutputSetting = new System.Windows.Forms.TabControl();
             this.TabPageDatabaseColumn = new System.Windows.Forms.TabPage();
+            this.TableLayoutPanelBook = new System.Windows.Forms.TableLayoutPanel();
             this.BookColumnSetting = new System.Windows.Forms.DataGridView();
             this.BookColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BookColumnValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BookColumnType = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.CheckBoxBookISBN = new System.Windows.Forms.CheckBox();
+            this.CheckBoxBookCost = new System.Windows.Forms.CheckBox();
             this.ButtonPreviewDatabase = new System.Windows.Forms.Button();
             this.TabPageScrapingColumn = new System.Windows.Forms.TabPage();
+            this.TableLayoutPanelScraping = new System.Windows.Forms.TableLayoutPanel();
             this.ScrapingColumnSetting = new System.Windows.Forms.DataGridView();
             this.ScrapingColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ScrapingColumnValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ScrapingColumnType = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.CheckBoxScrapingISBN = new System.Windows.Forms.CheckBox();
+            this.CheckBoxScrapingCost = new System.Windows.Forms.CheckBox();
             this.ButtonPreviewScraping = new System.Windows.Forms.Button();
             this.TabControlMatchingOutput = new System.Windows.Forms.TabControl();
             this.TabPageMatching = new System.Windows.Forms.TabPage();
@@ -137,8 +143,10 @@
             this.GroupBoxAllMatch.SuspendLayout();
             this.TabControlOutputSetting.SuspendLayout();
             this.TabPageDatabaseColumn.SuspendLayout();
+            this.TableLayoutPanelBook.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BookColumnSetting)).BeginInit();
             this.TabPageScrapingColumn.SuspendLayout();
+            this.TableLayoutPanelScraping.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ScrapingColumnSetting)).BeginInit();
             this.TabControlMatchingOutput.SuspendLayout();
             this.TabPageMatching.SuspendLayout();
@@ -579,7 +587,7 @@
             // TabPageDatabaseColumn
             // 
             this.TabPageDatabaseColumn.BackColor = System.Drawing.SystemColors.Control;
-            this.TabPageDatabaseColumn.Controls.Add(this.BookColumnSetting);
+            this.TabPageDatabaseColumn.Controls.Add(this.TableLayoutPanelBook);
             this.TabPageDatabaseColumn.Controls.Add(this.ButtonPreviewDatabase);
             this.TabPageDatabaseColumn.Location = new System.Drawing.Point(4, 24);
             this.TabPageDatabaseColumn.Name = "TabPageDatabaseColumn";
@@ -587,6 +595,23 @@
             this.TabPageDatabaseColumn.Size = new System.Drawing.Size(510, 491);
             this.TabPageDatabaseColumn.TabIndex = 0;
             this.TabPageDatabaseColumn.Text = "書籍データベース列指定";
+            // 
+            // TableLayoutPanelBook
+            // 
+            this.TableLayoutPanelBook.ColumnCount = 2;
+            this.TableLayoutPanelBook.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.TableLayoutPanelBook.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.TableLayoutPanelBook.Controls.Add(this.BookColumnSetting, 0, 1);
+            this.TableLayoutPanelBook.Controls.Add(this.CheckBoxBookISBN, 0, 0);
+            this.TableLayoutPanelBook.Controls.Add(this.CheckBoxBookCost, 1, 0);
+            this.TableLayoutPanelBook.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TableLayoutPanelBook.Location = new System.Drawing.Point(3, 3);
+            this.TableLayoutPanelBook.Name = "TableLayoutPanelBook";
+            this.TableLayoutPanelBook.RowCount = 2;
+            this.TableLayoutPanelBook.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
+            this.TableLayoutPanelBook.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.TableLayoutPanelBook.Size = new System.Drawing.Size(504, 462);
+            this.TableLayoutPanelBook.TabIndex = 2;
             // 
             // BookColumnSetting
             // 
@@ -597,12 +622,13 @@
             this.BookColumnName,
             this.BookColumnValue,
             this.BookColumnType});
+            this.TableLayoutPanelBook.SetColumnSpan(this.BookColumnSetting, 2);
             this.BookColumnSetting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.BookColumnSetting.Location = new System.Drawing.Point(3, 3);
+            this.BookColumnSetting.Location = new System.Drawing.Point(3, 27);
             this.BookColumnSetting.Name = "BookColumnSetting";
             this.BookColumnSetting.RowTemplate.Height = 21;
-            this.BookColumnSetting.Size = new System.Drawing.Size(504, 462);
-            this.BookColumnSetting.TabIndex = 1;
+            this.BookColumnSetting.Size = new System.Drawing.Size(498, 432);
+            this.BookColumnSetting.TabIndex = 2;
             this.BookColumnSetting.Tag = "書籍データベース列指定";
             // 
             // BookColumnName
@@ -636,6 +662,34 @@
             this.BookColumnType.Name = "BookColumnType";
             this.BookColumnType.Width = 90;
             // 
+            // CheckBoxBookISBN
+            // 
+            this.CheckBoxBookISBN.AutoSize = true;
+            this.CheckBoxBookISBN.Checked = true;
+            this.CheckBoxBookISBN.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CheckBoxBookISBN.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CheckBoxBookISBN.Location = new System.Drawing.Point(3, 3);
+            this.CheckBoxBookISBN.Name = "CheckBoxBookISBN";
+            this.CheckBoxBookISBN.Size = new System.Drawing.Size(246, 18);
+            this.CheckBoxBookISBN.TabIndex = 0;
+            this.CheckBoxBookISBN.Text = "商品コードは書籍データベースを優先する";
+            this.CheckBoxBookISBN.UseVisualStyleBackColor = true;
+            this.CheckBoxBookISBN.CheckedChanged += new System.EventHandler(this.CheckBoxISBN_CheckedChanged);
+            // 
+            // CheckBoxBookCost
+            // 
+            this.CheckBoxBookCost.AutoSize = true;
+            this.CheckBoxBookCost.Checked = true;
+            this.CheckBoxBookCost.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CheckBoxBookCost.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CheckBoxBookCost.Location = new System.Drawing.Point(255, 3);
+            this.CheckBoxBookCost.Name = "CheckBoxBookCost";
+            this.CheckBoxBookCost.Size = new System.Drawing.Size(246, 18);
+            this.CheckBoxBookCost.TabIndex = 1;
+            this.CheckBoxBookCost.Text = "価格情報は書籍データベースを優先する";
+            this.CheckBoxBookCost.UseVisualStyleBackColor = true;
+            this.CheckBoxBookCost.CheckedChanged += new System.EventHandler(this.CheckBoxCost_CheckedChanged);
+            // 
             // ButtonPreviewDatabase
             // 
             this.ButtonPreviewDatabase.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -650,7 +704,7 @@
             // TabPageScrapingColumn
             // 
             this.TabPageScrapingColumn.BackColor = System.Drawing.SystemColors.Control;
-            this.TabPageScrapingColumn.Controls.Add(this.ScrapingColumnSetting);
+            this.TabPageScrapingColumn.Controls.Add(this.TableLayoutPanelScraping);
             this.TabPageScrapingColumn.Controls.Add(this.ButtonPreviewScraping);
             this.TabPageScrapingColumn.Location = new System.Drawing.Point(4, 24);
             this.TabPageScrapingColumn.Name = "TabPageScrapingColumn";
@@ -658,6 +712,23 @@
             this.TabPageScrapingColumn.Size = new System.Drawing.Size(510, 491);
             this.TabPageScrapingColumn.TabIndex = 1;
             this.TabPageScrapingColumn.Text = "スクレイピングデータ列指定";
+            // 
+            // TableLayoutPanelScraping
+            // 
+            this.TableLayoutPanelScraping.ColumnCount = 2;
+            this.TableLayoutPanelScraping.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.TableLayoutPanelScraping.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.TableLayoutPanelScraping.Controls.Add(this.ScrapingColumnSetting, 0, 1);
+            this.TableLayoutPanelScraping.Controls.Add(this.CheckBoxScrapingISBN, 0, 0);
+            this.TableLayoutPanelScraping.Controls.Add(this.CheckBoxScrapingCost, 1, 0);
+            this.TableLayoutPanelScraping.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TableLayoutPanelScraping.Location = new System.Drawing.Point(3, 3);
+            this.TableLayoutPanelScraping.Name = "TableLayoutPanelScraping";
+            this.TableLayoutPanelScraping.RowCount = 2;
+            this.TableLayoutPanelScraping.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
+            this.TableLayoutPanelScraping.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.TableLayoutPanelScraping.Size = new System.Drawing.Size(504, 462);
+            this.TableLayoutPanelScraping.TabIndex = 3;
             // 
             // ScrapingColumnSetting
             // 
@@ -668,12 +739,13 @@
             this.ScrapingColumnName,
             this.ScrapingColumnValue,
             this.ScrapingColumnType});
+            this.TableLayoutPanelScraping.SetColumnSpan(this.ScrapingColumnSetting, 2);
             this.ScrapingColumnSetting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ScrapingColumnSetting.Location = new System.Drawing.Point(3, 3);
+            this.ScrapingColumnSetting.Location = new System.Drawing.Point(3, 27);
             this.ScrapingColumnSetting.Name = "ScrapingColumnSetting";
             this.ScrapingColumnSetting.RowTemplate.Height = 21;
-            this.ScrapingColumnSetting.Size = new System.Drawing.Size(504, 462);
-            this.ScrapingColumnSetting.TabIndex = 2;
+            this.ScrapingColumnSetting.Size = new System.Drawing.Size(498, 462);
+            this.ScrapingColumnSetting.TabIndex = 3;
             this.ScrapingColumnSetting.Tag = "スクレイピングデータ列指定";
             // 
             // ScrapingColumnName
@@ -707,6 +779,30 @@
             "複合データ"});
             this.ScrapingColumnType.Name = "ScrapingColumnType";
             this.ScrapingColumnType.Width = 90;
+            // 
+            // CheckBoxScrapingISBN
+            // 
+            this.CheckBoxScrapingISBN.AutoSize = true;
+            this.CheckBoxScrapingISBN.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CheckBoxScrapingISBN.Location = new System.Drawing.Point(3, 3);
+            this.CheckBoxScrapingISBN.Name = "CheckBoxScrapingISBN";
+            this.CheckBoxScrapingISBN.Size = new System.Drawing.Size(246, 18);
+            this.CheckBoxScrapingISBN.TabIndex = 0;
+            this.CheckBoxScrapingISBN.Text = "商品コードはスクレイピングデータを優先する";
+            this.CheckBoxScrapingISBN.UseVisualStyleBackColor = true;
+            this.CheckBoxScrapingISBN.CheckedChanged += new System.EventHandler(this.CheckBoxISBN_CheckedChanged);
+            // 
+            // CheckBoxScrapingCost
+            // 
+            this.CheckBoxScrapingCost.AutoSize = true;
+            this.CheckBoxScrapingCost.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CheckBoxScrapingCost.Location = new System.Drawing.Point(255, 3);
+            this.CheckBoxScrapingCost.Name = "CheckBoxScrapingCost";
+            this.CheckBoxScrapingCost.Size = new System.Drawing.Size(246, 18);
+            this.CheckBoxScrapingCost.TabIndex = 1;
+            this.CheckBoxScrapingCost.Text = "価格情報はスクレイピングデータを優先する";
+            this.CheckBoxScrapingCost.UseVisualStyleBackColor = true;
+            this.CheckBoxScrapingCost.CheckedChanged += new System.EventHandler(this.CheckBoxCost_CheckedChanged);
             // 
             // ButtonPreviewScraping
             // 
@@ -1327,8 +1423,12 @@
             this.GroupBoxAllMatch.PerformLayout();
             this.TabControlOutputSetting.ResumeLayout(false);
             this.TabPageDatabaseColumn.ResumeLayout(false);
+            this.TableLayoutPanelBook.ResumeLayout(false);
+            this.TableLayoutPanelBook.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BookColumnSetting)).EndInit();
             this.TabPageScrapingColumn.ResumeLayout(false);
+            this.TableLayoutPanelScraping.ResumeLayout(false);
+            this.TableLayoutPanelScraping.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ScrapingColumnSetting)).EndInit();
             this.TabControlMatchingOutput.ResumeLayout(false);
             this.TabPageMatching.ResumeLayout(false);
@@ -1389,15 +1489,7 @@
         protected System.Windows.Forms.TabControl TabControlOutputSetting;
         protected System.Windows.Forms.TabPage TabPageDatabaseColumn;
         protected System.Windows.Forms.TabPage TabPageScrapingColumn;
-        protected System.Windows.Forms.DataGridView BookColumnSetting;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn BookColumnName;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn BookColumnValue;
-        protected System.Windows.Forms.DataGridViewComboBoxColumn BookColumnType;
         protected System.Windows.Forms.Button ButtonPreviewDatabase;
-        protected System.Windows.Forms.DataGridView ScrapingColumnSetting;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ScrapingColumnName;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ScrapingColumnValue;
-        protected System.Windows.Forms.DataGridViewComboBoxColumn ScrapingColumnType;
         protected System.Windows.Forms.Button ButtonPreviewScraping;
         protected System.Windows.Forms.TabControl TabControlMatchingOutput;
         protected System.Windows.Forms.TabPage TabPageMatching;
@@ -1447,7 +1539,6 @@
         protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnJapaneseName4;
         protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnEnglishName4;
         protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnSettingValue4;
-        private System.ComponentModel.IContainer components;
         protected System.ComponentModel.BackgroundWorker BackgroundWorker10;
         protected System.ComponentModel.BackgroundWorker BackgroundWorker11;
         protected System.ComponentModel.BackgroundWorker BackgroundWorker12;
@@ -1457,6 +1548,21 @@
         protected System.Windows.Forms.Label LabelCpuCoreCountTitle;
         protected System.Windows.Forms.Label LabelTotalCpuCoreCount;
         protected System.Windows.Forms.Timer TimerFileIO;
+        protected System.Windows.Forms.TableLayoutPanel TableLayoutPanelBook;
+        protected System.Windows.Forms.DataGridView BookColumnSetting;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn BookColumnName;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn BookColumnValue;
+        protected System.Windows.Forms.DataGridViewComboBoxColumn BookColumnType;
+        protected System.Windows.Forms.CheckBox CheckBoxBookISBN;
+        protected System.Windows.Forms.CheckBox CheckBoxBookCost;
+        protected System.Windows.Forms.TableLayoutPanel TableLayoutPanelScraping;
+        protected System.Windows.Forms.DataGridView ScrapingColumnSetting;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn ScrapingColumnName;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn ScrapingColumnValue;
+        protected System.Windows.Forms.DataGridViewComboBoxColumn ScrapingColumnType;
+        protected System.Windows.Forms.CheckBox CheckBoxScrapingISBN;
+        protected System.Windows.Forms.CheckBox CheckBoxScrapingCost;
+        private System.ComponentModel.IContainer components;
     }
 }
 

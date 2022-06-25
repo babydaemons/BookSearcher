@@ -351,6 +351,7 @@ namespace BookSearcherApp
             searchTypeName = "";
             try
             {
+                BookSearcher.InitOutputSetting(CheckBoxBookISBN.Checked, CheckBoxBookCost.Checked);
                 BookSearcher.InitSearchSettings(BookCSV, ScrapingCSV, spaceMatch, prefixLength);
 
                 if (RadioButtonSearchType01.Checked)
@@ -544,7 +545,7 @@ namespace BookSearcherApp
             UpdateExecuteControlsEnabled();
         }
 
-        private void BackgroundWorker11_DoWork(object sender, DoWorkEventArgs e) => saver0.Save(BackgroundWorker11, ProgressBarOutputPatternCSV);
+        private void BackgroundWorker11_DoWork(object sender, DoWorkEventArgs e) => saver0.Save(CheckBoxBookISBN.Checked, CheckBoxBookCost.Checked, BackgroundWorker11, ProgressBarOutputPatternCSV);
 
         private void BackgroundWorker11_ProgressChanged(object sender, ProgressChangedEventArgs e) => ProgressBarOutputPatternCSV.Value = e.ProgressPercentage;
 
@@ -554,7 +555,7 @@ namespace BookSearcherApp
             UpdateExecuteControlsEnabled();
         }
 
-        private void BackgroundWorker12_DoWork(object sender, DoWorkEventArgs e) => saver1.Save(BackgroundWorker12, ProgressBarOutputCommonCSV1);
+        private void BackgroundWorker12_DoWork(object sender, DoWorkEventArgs e) => saver1.Save(CheckBoxBookISBN.Checked, CheckBoxBookCost.Checked, BackgroundWorker12, ProgressBarOutputCommonCSV1);
 
         private void BackgroundWorker12_ProgressChanged(object sender, ProgressChangedEventArgs e) => ProgressBarOutputCommonCSV1.Value = e.ProgressPercentage;
 
@@ -564,7 +565,7 @@ namespace BookSearcherApp
             UpdateExecuteControlsEnabled();
         }
 
-        private void BackgroundWorker13_DoWork(object sender, DoWorkEventArgs e) => saver2.Save(BackgroundWorker13, ProgressBarOutputCommonCSV2);
+        private void BackgroundWorker13_DoWork(object sender, DoWorkEventArgs e) => saver2.Save(CheckBoxBookISBN.Checked, CheckBoxBookCost.Checked, BackgroundWorker13, ProgressBarOutputCommonCSV2);
 
         private void BackgroundWorker13_ProgressChanged(object sender, ProgressChangedEventArgs e) => ProgressBarOutputCommonCSV2.Value = e.ProgressPercentage;
 
@@ -599,6 +600,60 @@ namespace BookSearcherApp
                 progressBar.Value = fileIO.Progress;
                 progressBar.Text = fileIO.CurrentProgress;
                 progressBar.Invalidate();
+            }
+        }
+
+        private void CheckBoxISBN_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox checkBox = sender as CheckBox;
+            if (checkBox.Checked)
+            {
+                if (checkBox == CheckBoxBookISBN && CheckBoxScrapingISBN.Checked)
+                {
+                    CheckBoxScrapingISBN.Checked = false;
+                }
+                else if (checkBox == CheckBoxScrapingISBN && CheckBoxBookISBN.Checked)
+                {
+                    CheckBoxBookISBN.Checked = false;
+                }
+            }
+            else
+            {
+                if (checkBox == CheckBoxBookISBN && !CheckBoxScrapingISBN.Checked)
+                {
+                    CheckBoxScrapingISBN.Checked = true;
+                }
+                else if (checkBox == CheckBoxScrapingISBN && !CheckBoxBookISBN.Checked)
+                {
+                    CheckBoxBookISBN.Checked = true;
+                }
+            }
+        }
+
+        private void CheckBoxCost_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox checkBox = sender as CheckBox;
+            if (checkBox.Checked)
+            {
+                if (checkBox == CheckBoxBookCost && CheckBoxScrapingCost.Checked)
+                {
+                    CheckBoxScrapingCost.Checked = false;
+                }
+                else if (checkBox == CheckBoxScrapingCost && CheckBoxBookCost.Checked)
+                {
+                    CheckBoxBookCost.Checked = false;
+                }
+            }
+            else
+            {
+                if (checkBox == CheckBoxBookCost && !CheckBoxScrapingCost.Checked)
+                {
+                    CheckBoxScrapingCost.Checked = true;
+                }
+                else if (checkBox == CheckBoxScrapingCost && !CheckBoxBookCost.Checked)
+                {
+                    CheckBoxBookCost.Checked = true;
+                }
             }
         }
     }

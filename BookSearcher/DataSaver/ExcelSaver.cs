@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 using OfficeOpenXml;
 
 namespace BookSearcherApp
@@ -44,7 +45,8 @@ namespace BookSearcherApp
             }
 
             var exists = File.Exists(path);
-            var oldPath = exists ? path.Replace(".xlsx", "-Copy.xlsx") : null;
+            var oldSuffix = "-Copy$" + DateTime.Now.ToString("yyyyMMddHHmmssyyyyyy") + ".xlsx";
+            var oldPath = exists ? path.Replace(".xlsx", oldSuffix) : null;
             var newPath = path;
             if (exists)
             {
@@ -61,7 +63,7 @@ namespace BookSearcherApp
             {
                 ReportProgress(P0);
 
-                var sheetNameBase = "照合結果_" + DateTime.Now.ToString("yyyyMMdd-HHmm");
+                var sheetNameBase = "照合結果_" + DateTime.Now.ToString("yyyyMMdd-HHmmss");
                 var sheetNames = new List<string>();
                 foreach (var n in Enumerable.Range(0, N))
                 {
@@ -73,7 +75,17 @@ namespace BookSearcherApp
                 var styleIds = new List<int>();
                 foreach (var n in Enumerable.Range(0, N))
                 {
-                    var sheet = package.Workbook.Worksheets.Add(sheetNames[n]);
+                    ExcelWorksheet sheet;
+                    try
+                    {
+                        sheet = package.Workbook.Worksheets.Add(sheetNames[n]);
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show($"シート名が重複します。\n\n出力ファイル名：\n{newPath}\n\nシート名：{sheetNames[n]}", "出力Excelファイルエラー");
+                        File.Move(oldPath, newPath);
+                        return;
+                    }
                     sheet.Cells[1, 1].Style.Font.Name = FONT_NAME;
                     sheet.Cells[1, 1].Style.Font.Size = FONT_SIZE;
                     styleIds.Add(sheet.Cells[1, 1].StyleID);

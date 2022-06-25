@@ -75,11 +75,11 @@ namespace BookSearcherApp
             settings["sku"] = sku_middle + DateTime.Now.ToString("yyMM");
         }
 
-        public void Save(BackgroundWorker backgroundWorker, FileIOProgressBar progressBar)
+        public void Save(bool ISBNFromBook, bool CostFromBook, BackgroundWorker backgroundWorker, FileIOProgressBar progressBar)
         {
             ConvertTable();
             StartIO(backgroundWorker, progressBar);
-            Write(path, dataTable);
+            Write(ISBNFromBook, CostFromBook, path, dataTable);
             StopIO();
         }
 
@@ -107,7 +107,7 @@ namespace BookSearcherApp
                     }
                     if (ColumnIndexPrice >= 0)
                     {
-                        var costString = (string)resultTable.Rows[i][columnIndexCost];
+                        var costString = ((string)resultTable.Rows[i][columnIndexCost]).Replace(",", "");
                         if (!int.TryParse(costString, out int cost))
                         {
                             cost = 1; // throw new Exception($"原価のデータの書式が不正です：{i + 1}行{columnIndexCost + 1}列：「{costString}」");
