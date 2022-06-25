@@ -21,8 +21,8 @@ namespace BookSearcherApp
                 {
                     if (field.StartsWith("<mer-item-thumbnail "))
                     {
-                        Titles = ReadFields(fields[0], 0);
-                        Fields = ReadFields(fields[0], 1);
+                        Titles = ReadFields("生データ", fields[0], 0);
+                        Fields = ReadFields(fields[0], fields[0], 1);
                         ColumnCount = Titles.Length;
                         return true;
                     }
@@ -40,20 +40,21 @@ namespace BookSearcherApp
                 while (!reader.EndOfData)
                 {
                     var fields = reader.ReadFields();
-                    AddTableRow(memoryMappedViewStream, ReadFields(fields[0], 1));
+                    AddTableRow(memoryMappedViewStream, ReadFields(fields[0], fields[0], 1));
                 }
             }
         }
 
-        private string[] ReadFields(string line, int offset)
+        private string[] ReadFields(string raw_data, string parse_data, int offset)
         {
-            line = line.Replace("<mer-item-thumbnail ", "");
-            line = line.Replace("radius=\"\" mer-defined=\"\"></mer-item-thumbnail>", "");
-            string[] pairs = line.Split(mercari_delimiter, StringSplitOptions.RemoveEmptyEntries);
-            string[] fields = new string[pairs.Length / 2];
+            parse_data = parse_data.Replace("<mer-item-thumbnail ", "");
+            parse_data = parse_data.Replace("radius=\"\" mer-defined=\"\"></mer-item-thumbnail>", "");
+            string[] pairs = parse_data.Split(mercari_delimiter, StringSplitOptions.RemoveEmptyEntries);
+            string[] fields = new string[pairs.Length / 2 + 1];
+            fields[0] = raw_data;
             for (int i = 0; i < pairs.Length; i += 2)
             {
-                fields[i / 2] = pairs[i + offset];
+                fields[i / 2 + 1] = pairs[i + offset];
             }
             return fields;
         }
