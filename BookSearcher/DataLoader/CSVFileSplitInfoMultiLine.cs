@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.VisualBasic.FileIO;
+using System.Collections.Generic;
 using System.Windows.Forms;
-using Microsoft.VisualBasic.FileIO;
 
 namespace BookSearcherApp
 {
@@ -18,11 +18,11 @@ namespace BookSearcherApp
             }
 
             using (var memoryMappedViewStream = GetMemoryMappedViewStream())
-            using (var reader = new TextFieldParser(memoryMappedViewStream, FileEncoding))
+            using (var reader = new CSVReader(memoryMappedViewStream, FileEncoding))
             {
-                reader.SetDelimiters(",");
-                var titles = new List<string>(reader.ReadFields());
-                var fields = new List<string>(reader.ReadFields());
+                var titles = new List<string>(reader.ReadTitleFields());
+                TitleRowCount = titles.Count;
+                var fields = new List<string>(reader.ReadValueFields(TitleRowCount));
                 DetectInfoColumn(fields);
                 InsertTitleColums(titles);
                 InsertInfoColumn(fields);
@@ -42,13 +42,12 @@ namespace BookSearcherApp
             try
             {
                 using (var memoryMappedViewStream = GetMemoryMappedViewStream())
-                using (var reader = new TextFieldParser(memoryMappedViewStream, FileEncoding))
+                using (var reader = new CSVReader(memoryMappedViewStream, FileEncoding))
                 {
-                    reader.SetDelimiters(",");
-                    _ = reader.ReadFields();
+                    _ = reader.ReadTitleFields();
                     while (!reader.EndOfData)
                     {
-                        var fields = new List<string>(reader.ReadFields());
+                        var fields = new List<string>(reader.ReadValueFields(TitleRowCount));
                         InsertInfoColumn(fields);
                         AddTableRow(memoryMappedViewStream, fields.ToArray());
                     }

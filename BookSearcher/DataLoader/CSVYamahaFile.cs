@@ -16,12 +16,6 @@ namespace BookSearcherApp
 
         protected override void InsertTitleColums(List<string> titles)
         {
-            DeleteExceptFieldCount = 0;
-            while (titles[DeleteExceptFieldCount].Length > 0)
-            {
-                ++DeleteExceptFieldCount;
-            }
-            DeleteTailFields(titles);
             titles.Insert(2, $"{titles[1]}/在庫状態");
             titles.Insert(2, $"{titles[1]}/税込価格");
             titles.Insert(2, $"{titles[1]}/本体価格");

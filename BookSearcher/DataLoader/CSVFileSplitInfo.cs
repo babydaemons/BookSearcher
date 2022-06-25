@@ -10,7 +10,7 @@ namespace BookSearcherApp
         const int CHECK_LINES = 20;
         protected abstract Regex[] Url { get; }
         protected abstract Regex RegexInfoDelimiter { get; }
-        protected int DeleteExceptFieldCount = -1;
+        protected int TitleRowCount = -1;
         protected int infoIndex = -1;
         protected int infoCount = -1;
 
@@ -77,10 +77,6 @@ namespace BookSearcherApp
 
         protected void InsertInfoColumn(List<string> fields)
         {
-            if (DeleteExceptFieldCount > 0)
-            {
-                DeleteTailFields(fields);
-            }
             if (RegexInfoDelimiter == null)
             {
                 return;
@@ -91,10 +87,5 @@ namespace BookSearcherApp
         }
 
         protected abstract void InsertInfoColumn(List<string> fields, string[] infos);
-
-        protected void DeleteTailFields(List<string> fields)
-        {
-            fields.RemoveRange(DeleteExceptFieldCount, fields.Count - DeleteExceptFieldCount);
-        }
     }
 }

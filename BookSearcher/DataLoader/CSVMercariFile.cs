@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.VisualBasic.FileIO;
 
 namespace BookSearcherApp
 {
@@ -14,9 +13,8 @@ namespace BookSearcherApp
         public override bool ParseTitle()
         {
             using (var memoryMappedViewStream = GetMemoryMappedViewStream())
-            using (var reader = new TextFieldParser(memoryMappedViewStream, FileEncoding))
+            using (var reader = new CSVReader(memoryMappedViewStream, FileEncoding))
             {
-                reader.SetDelimiters(",");
                 _ = reader.ReadFields();
                 var fields = reader.ReadFields();
                 foreach (var field in fields)
@@ -36,9 +34,8 @@ namespace BookSearcherApp
         protected override void DoReadAll()
         {
             using (var memoryMappedViewStream = GetMemoryMappedViewStream())
-            using (var reader = new TextFieldParser(memoryMappedViewStream, FileEncoding))
+            using (var reader = new CSVReader(memoryMappedViewStream, FileEncoding))
             {
-                reader.SetDelimiters(",");
                 _ = reader.ReadFields();
                 while (!reader.EndOfData)
                 {

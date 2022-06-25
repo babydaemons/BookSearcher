@@ -1,9 +1,9 @@
-﻿using Microsoft.VisualBasic.FileIO;
-
-namespace BookSearcherApp
+﻿namespace BookSearcherApp
 {
     internal class CSVMultiLineFile : CSVFile
     {
+        protected int TitlesRowCount = -1;
+
         public CSVMultiLineFile(string path) : base(path)
         {
         }
@@ -11,12 +11,12 @@ namespace BookSearcherApp
         public override bool ParseTitle()
         {
             using (var memoryMappedViewStream = GetMemoryMappedViewStream())
-            using (var reader = new TextFieldParser(memoryMappedViewStream, FileEncoding))
+            using (var reader = new CSVReader(memoryMappedViewStream, FileEncoding))
             {
-                reader.SetDelimiters(",");
-                Titles = reader.ReadFields();
+                Titles = reader.ReadTitleFields();
+                TitlesRowCount = Titles.Length;
                 ColumnCount = Titles.Length;
-                Fields = reader.ReadFields();
+                Fields = reader.ReadValueFields(TitlesRowCount);
                 if (Fields.Length == Titles.Length)
                 {
                     return true;
@@ -28,13 +28,12 @@ namespace BookSearcherApp
         protected override void DoReadAll()
         {
             using (var memoryMappedViewStream = GetMemoryMappedViewStream())
-            using (var reader = new TextFieldParser(memoryMappedViewStream, FileEncoding))
+            using (var reader = new CSVReader(memoryMappedViewStream, FileEncoding))
             {
-                reader.SetDelimiters(",");
-                _ = reader.ReadFields();
+                _ = reader.ReadTitleFields();
                 while (!reader.EndOfData)
                 {
-                    AddTableRow(memoryMappedViewStream, reader.ReadFields());
+                    AddTableRow(memoryMappedViewStream, reader.ReadValueFields(TitlesRowCount));
                 }
             }
         }

@@ -90,6 +90,7 @@
     <Compile Include="DataLoader\CSVFileSplitInfoMultiLine.cs" />
     <Compile Include="DataLoader\CSVFileSplitInfoSingleLine.cs" />
     <Compile Include="DataLoader\CSVHontoWebFile.cs" />
+    <Compile Include="DataLoader\CSVReader.cs" />
     <Compile Include="DataLoader\CSVYamahaFile.cs" />
     <Compile Include="DataLoader\CSVRakutenBooksFile.cs" />
     <Compile Include="DataLoader\CSVRakutenIchibaFile.cs" />

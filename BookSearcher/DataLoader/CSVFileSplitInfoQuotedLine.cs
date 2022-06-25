@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.VisualBasic.FileIO;
 
 namespace BookSearcherApp
 {
@@ -20,11 +17,11 @@ namespace BookSearcherApp
             }
 
             using (var memoryMappedViewStream = GetMemoryMappedViewStream())
-            using (var reader = new TextFieldParser(memoryMappedViewStream, FileEncoding))
+            using (var reader = new CSVReader(memoryMappedViewStream, FileEncoding))
             {
-                reader.SetDelimiters(",");
-                var titles = new List<string>(reader.ReadFields());
-                var fields = new List<string>(reader.ReadFields());
+                var titles = new List<string>(reader.ReadTitleFields());
+                TitleRowCount = titles.Count;
+                var fields = new List<string>(reader.ReadValueFields(TitleRowCount));
                 DetectInfoColumn(fields);
                 InsertTitleColums(titles);
                 InsertInfoColumn(fields);
@@ -42,16 +39,14 @@ namespace BookSearcherApp
         protected override void DoReadAll()
         {
             using (var memoryMappedViewStream = GetMemoryMappedViewStream())
-            using (var reader = new TextFieldParser(memoryMappedViewStream, FileEncoding))
+            using (var reader = new CSVReader(memoryMappedViewStream, FileEncoding))
             {
-                reader.SetDelimiters(",");
                 while (!reader.EndOfData)
                 {
-                    var fields = new List<string>(reader.ReadFields());
+                    var fields = new List<string>(reader.ReadValueFields(TitleRowCount));
                     bool matched = fields.Any(field => { var match = Url[0].Match(field); return match.Success; });
                     if (matched)
                     {
-                        DeleteTailFields(fields);
                         InsertInfoColumn(fields);
                         AddTableRow(memoryMappedViewStream, fields.ToArray());
                     }

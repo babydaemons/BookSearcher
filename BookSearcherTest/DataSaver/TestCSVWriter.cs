@@ -29,18 +29,17 @@ namespace BookSearcherTest
             var path = DateTime.Now.ToString("yyyyMMddhhmmssfffff") + ".csv";
             Write(true, true, path, table);
 
-            using (var reader = new TextFieldParser(path))
+            using (var reader = new CSVReader(path))
             {
-                reader.SetDelimiters(",");
-                var titles = reader.ReadFields();
+                var titles = reader.ReadValueFields(2);
                 Assert.AreEqual(table.Columns[0].ColumnName, titles[0]);
                 Assert.AreEqual(table.Columns[1].ColumnName, titles[1]);
 
-                var values0 = reader.ReadFields();
+                var values0 = reader.ReadValueFields(2);
                 Assert.AreEqual((string)table.Rows[0][0], values0[0]);
                 Assert.AreEqual((string)table.Rows[0][1], values0[1]);
 
-                var values1 = reader.ReadFields();
+                var values1 = reader.ReadValueFields(2);
                 Assert.AreEqual((string)table.Rows[1][0], values1[0]);
                 Assert.AreEqual("", values1[1]);
             }
