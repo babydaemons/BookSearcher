@@ -108,7 +108,7 @@ namespace BookSearcherApp
                     if (ColumnIndexPrice >= 0)
                     {
                         var costString = (string)resultTable.Rows[i][columnIndexCost];
-                        if (!int.TryParse(costString.Replace(",", "").Replace(",", ""), out int cost))
+                        if (!int.TryParse(costString.Replace(",", "").Replace("円", ""), out int cost))
                         {
                             cost = 1; // throw new Exception($"原価のデータの書式が不正です：{i + 1}行{columnIndexCost + 1}列：「{costString}」");
                         }
