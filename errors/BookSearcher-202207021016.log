@@ -1,0 +1,24 @@
+ご迷惑をお掛けします。内部エラーが発生しました。
+ログファイル「BookSearcher-202207021016.log」をお送りください。
+
+【エラー内容】
+別のプロセスで使用されているため、プロセスはファイル 'C:\Users\y\Desktop\全スクレイピングデータ\【1990-1999】500スクレイピングデータ.csv' にアクセスできません。
+
+【例外種別】
+System.IO.IOException
+
+【スタックトレース】
+   場所 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   場所 System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   場所 System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share)
+   場所 BookSearcherApp.CSVFile..ctor(String path) 場所 A:\BookSearcher\DataLoader\CSVFile.cs:行 29
+   場所 BookSearcherApp.CSVFile.ParseTitle(String path) 場所 A:\BookSearcher\DataLoader\CSVFile.cs:行 106
+   場所 BookSearcherApp.Form1.ButtonInput2_Click(Object sender, EventArgs e) 場所 A:\BookSearcher\Form1.cs:行 137
+   場所 System.Windows.Forms.Control.OnClick(EventArgs e)
+   場所 System.Windows.Forms.Button.OnClick(EventArgs e)
+   場所 System.Windows.Forms.Button.OnMouseUp(MouseEventArgs mevent)
+   場所 System.Windows.Forms.Control.WmMouseUp(Message& m, MouseButtons button, Int32 clicks)
+   場所 System.Windows.Forms.Control.WndProc(Message& m)
+   場所 System.Windows.Forms.ButtonBase.WndProc(Message& m)
+   場所 System.Windows.Forms.Button.WndProc(Message& m)
+   場所 System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)

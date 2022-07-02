@@ -1,0 +1,16 @@
+ご迷惑をお掛けします。内部エラーが発生しました。
+ログファイル「BookSearcher-202207021011.log」をお送りください。
+
+【エラー内容】
+startIndex に文字列の長さより大きい値を指定することはできません。
+パラメーター名:startIndex
+
+【例外種別】
+System.ArgumentOutOfRangeException
+
+【スタックトレース】
+   場所 System.String.Substring(Int32 startIndex, Int32 length)
+   場所 BookSearcherApp.CSVKoshoFile.InsertInfoColumn(List`1 fields, String[] infos) 場所 A:\BookSearcher\DataLoader\CSVKoshoFile.cs:行 47
+   場所 BookSearcherApp.CSVFileSplitInfoMultiLine.DoReadAll() 場所 A:\BookSearcher\DataLoader\CSVFileSplitInfoMultiLine.cs:行 52
+   場所 BookSearcherApp.CSVFile.ReadAll(BackgroundWorker backgroundWorker, FileIOProgressBar progressBar) 場所 A:\BookSearcher\DataLoader\CSVFile.cs:行 158
+   場所 BookSearcherApp.Form1.BackgroundWorker2_DoWork(Object sender, DoWorkEventArgs e) 場所 A:\BookSearcher\Form1.cs:行 156

@@ -1,0 +1,16 @@
+ご迷惑をお掛けします。内部エラーが発生しました。
+ログファイル「BookSearcher-202206251319.log」をお送りください。
+
+【エラー内容】
+インデックスが範囲を超えています。負でない値で、コレクションのサイズよりも小さくなければなりません。
+パラメーター名:index
+
+【例外種別】
+System.ArgumentOutOfRangeException
+
+【スタックトレース】
+   場所 System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)
+   場所 BookSearcherApp.CSVFileSplitInfo.InsertInfoColumn(List`1 fields) 場所 A:\BookSearcher\DataLoader\CSVFileSplitInfo.cs:行 89
+   場所 BookSearcherApp.CSVFileSplitInfoMultiLine.DoReadAll() 場所 A:\BookSearcher\DataLoader\CSVFileSplitInfoMultiLine.cs:行 51
+   場所 BookSearcherApp.CSVFile.ReadAll(BackgroundWorker backgroundWorker, FileIOProgressBar progressBar) 場所 A:\BookSearcher\DataLoader\CSVFile.cs:行 164
+   場所 BookSearcherApp.Form1.BackgroundWorker2_DoWork(Object sender, DoWorkEventArgs e) 場所 A:\BookSearcher\Form1.cs:行 156
