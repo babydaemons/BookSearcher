@@ -535,7 +535,17 @@ namespace BookSearcherApp
 
         private void BackgroundWorker2_ProgressChanged(object sender, ProgressChangedEventArgs e) => ProgressBarInput2.Value = e.ProgressPercentage;
 
-        private void BackgroundWorker10_DoWork(object sender, DoWorkEventArgs e) => excelSaver.Save(BackgroundWorker10, ProgressBarOutputExcel);
+        private void BackgroundWorker10_DoWork(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                excelSaver.Save(BackgroundWorker10, ProgressBarOutputExcel);
+            }
+            catch (Exception ex) // for internal error handling
+            {
+                MyExceptionHandler.Show(ex);
+            }
+        }
 
         private void BackgroundWorker10_ProgressChanged(object sender, ProgressChangedEventArgs e) => ProgressBarOutputExcel.Value = e.ProgressPercentage;
 
@@ -545,7 +555,17 @@ namespace BookSearcherApp
             UpdateExecuteControlsEnabled();
         }
 
-        private void BackgroundWorker11_DoWork(object sender, DoWorkEventArgs e) => saver0.Save(CheckBoxBookISBN.Checked, CheckBoxBookCost.Checked, BackgroundWorker11, ProgressBarOutputPatternCSV);
+        private void BackgroundWorker11_DoWork(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                saver0.Save(CheckBoxBookISBN.Checked, CheckBoxBookCost.Checked, BackgroundWorker11, ProgressBarOutputPatternCSV);
+            }
+            catch (Exception ex) // for internal error handling
+            {
+                MyExceptionHandler.Show(ex);
+            }
+        }
 
         private void BackgroundWorker11_ProgressChanged(object sender, ProgressChangedEventArgs e) => ProgressBarOutputPatternCSV.Value = e.ProgressPercentage;
 
@@ -555,7 +575,17 @@ namespace BookSearcherApp
             UpdateExecuteControlsEnabled();
         }
 
-        private void BackgroundWorker12_DoWork(object sender, DoWorkEventArgs e) => saver1.Save(CheckBoxBookISBN.Checked, CheckBoxBookCost.Checked, BackgroundWorker12, ProgressBarOutputCommonCSV1);
+        private void BackgroundWorker12_DoWork(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                saver1.Save(CheckBoxBookISBN.Checked, CheckBoxBookCost.Checked, BackgroundWorker12, ProgressBarOutputCommonCSV1);
+            }
+            catch (Exception ex) // for internal error handling
+            {
+                MyExceptionHandler.Show(ex);
+            }
+        }
 
         private void BackgroundWorker12_ProgressChanged(object sender, ProgressChangedEventArgs e) => ProgressBarOutputCommonCSV1.Value = e.ProgressPercentage;
 
@@ -565,7 +595,17 @@ namespace BookSearcherApp
             UpdateExecuteControlsEnabled();
         }
 
-        private void BackgroundWorker13_DoWork(object sender, DoWorkEventArgs e) => saver2.Save(CheckBoxBookISBN.Checked, CheckBoxBookCost.Checked, BackgroundWorker13, ProgressBarOutputCommonCSV2);
+        private void BackgroundWorker13_DoWork(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                saver2.Save(CheckBoxBookISBN.Checked, CheckBoxBookCost.Checked, BackgroundWorker13, ProgressBarOutputCommonCSV2);
+            }
+            catch (Exception ex) // for internal error handling
+            {
+                MyExceptionHandler.Show(ex);
+            }
+        }
 
         private void BackgroundWorker13_ProgressChanged(object sender, ProgressChangedEventArgs e) => ProgressBarOutputCommonCSV2.Value = e.ProgressPercentage;
 
