@@ -38,17 +38,14 @@ namespace BookSearcherApp
 
         protected override void InsertInfoColumn(List<string> fields, string[] infos)
         {
-            fields.Insert(infoIndex + 1, ParseYear(infos));
+            fields.Insert(infoIndex + 1, ParseInfoYear(infos));
             fields.Insert(infoIndex + 1, infos[0].StartsWith("、") ? infos[0].Substring(1) : (infos.Length > 1 ? infos[1] : ""));
             fields.Insert(infoIndex + 1, infos[0].StartsWith("、") ? "" : infos[0]);
 
-            var url = fields[urlIndex];
-            var yearStart = url.IndexOf(search_published_year_min) + search_published_year_min.Length;
-            var year = url.Substring(yearStart, url.IndexOf(search_published_year_max) - yearStart);
-            fields.Insert(urlIndex + 1, year);
+            fields.Insert(urlIndex + 1, ParseUrlYear(fields[urlIndex]));
         }
 
-        private string ParseYear(string[] infos)
+        private string ParseInfoYear(string[] infos)
         {
             foreach (var info in infos)
             {
@@ -89,6 +86,23 @@ namespace BookSearcherApp
                 }
             }
             return "";
+        }
+ 
+        private string ParseUrlYear(string url)
+        {
+            var yearStart = url.IndexOf(search_published_year_min);
+            if (yearStart == -1)
+            {
+                return "";
+            }
+            var yearEnd = url.IndexOf(search_published_year_max);
+            if (yearEnd == -1)
+            {
+                return "";
+            }
+            yearStart += search_published_year_min.Length;
+            var year = url.Substring(yearStart, yearEnd - yearStart);
+            return year;
         }
     }
 }
