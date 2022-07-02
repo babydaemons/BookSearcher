@@ -12,11 +12,16 @@ namespace BookSearcherApp
     public class ExcelSaver : FileIO
     {
         public const int MAX_EXCEL_ROWS = 1000000; /* 1048576 */
-        
-        public const string FONT_NAME = "游ゴシック";
-        public const float FONT_SIZE= 11F;
 
-        private readonly string path;
+        public const string FONT_NAME = "游ゴシック";
+        public const float FONT_SIZE = 11F;
+
+        private ExcelPackage package = null;
+        private string newPath;
+        private string oldPath;
+        private FileStream newFile;
+        private FileStream oldFile;
+        private bool exists;
 
         private static int N = 0;
 
@@ -28,39 +33,82 @@ namespace BookSearcherApp
 
         public ExcelSaver(string path)
         {
-            this.path = path;
+            Open(path);
         }
 
-        public void Write(string path, List<DataTable> tables, BackgroundWorker backgroundWorker, FileIOProgressBar progressBar)
+        private void Open(string path)
         {
-            StartIO(backgroundWorker, progressBar);
-
-            ReportProgress(2 * DIV_VALUE);
-            
-            N = tables.Count;
-            M = 0;
-            foreach (var table in tables)
-            {
-                M += table.Rows.Count;
-            }
-
-            var exists = File.Exists(path);
+            exists = File.Exists(path);
             var oldSuffix = "-Copy$" + DateTime.Now.ToString("yyyyMMddHHmmssyyyyyy") + ".xlsx";
-            var oldPath = exists ? path.Replace(".xlsx", oldSuffix) : null;
-            var newPath = path;
-            if (exists)
+            oldPath = exists ? path.Replace(".xlsx", oldSuffix) : null;
+            newPath = path;
+
+            try
             {
-                File.Move(newPath, oldPath);
+                if (exists)
+                {
+                    File.Move(newPath, oldPath);
+                }
+
+                oldFile = exists ? new FileStream(oldPath, FileMode.Open, FileAccess.ReadWrite) : null;
+                newFile = new FileStream(newPath, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+
+                package = exists ? new ExcelPackage(newFile, oldFile) : new ExcelPackage(newFile);
             }
-
-            P0 = (exists ?  1 :  2) * DIV_VALUE;
-            P1 = (exists ? 70 : 60) * DIV_VALUE;
-
-            var oldFile = exists ? new FileInfo(oldPath) : null;
-            var newFile = new FileInfo(newPath);
-
-            using (var package = exists ? new ExcelPackage(newFile, oldFile) : new ExcelPackage(newFile))
+            catch (Exception ex)
             {
+                Close();
+                throw new MyException("Excelファイルオープンエラー", path, ex);
+            }
+        }
+
+        ~ExcelSaver()
+        {
+            Close();
+        }
+
+        private void Close()
+        {
+            if (package != null)
+            {
+                package.Dispose();
+                package = null;
+            }
+            if (newFile != null)
+            {
+                newFile.Close();
+                newFile.Dispose();
+                newFile = null;
+            }
+            if (oldFile != null)
+            {
+                oldFile.Close();
+                oldFile.Dispose();
+                oldFile = null;
+            }
+        }
+
+        public void Write(List<DataTable> tables, BackgroundWorker backgroundWorker, FileIOProgressBar progressBar)
+        {
+            try
+            {
+                if (package == null)
+                {
+                    Open(newPath);
+                }
+
+                StartIO(backgroundWorker, progressBar);
+
+                N = tables.Count;
+                M = 0;
+                foreach (var table in tables)
+                {
+                    M += table.Rows.Count;
+                }
+
+                P0 = (exists ? 10 : 15) * DIV_VALUE;
+                P1 = (exists ? 60 : 75) * DIV_VALUE;
+
                 ReportProgress(P0);
 
                 var sheetNameBase = "照合結果_" + DateTime.Now.ToString("yyyyMMdd-HHmmss");
@@ -101,15 +149,21 @@ namespace BookSearcherApp
                 }
 
                 package.Save();
+                ReportProgress(MAX_VALUE);
+                StopIO();
+            }
+            catch (Exception ex)
+            {
+                throw new MyException("Excelファイルオープンエラー", newPath, ex);
+            }
+            finally
+            {
+                Close();
                 if (exists)
                 {
                     File.Delete(oldPath);
                 }
-
-                ReportProgress(MAX_VALUE);
             }
-
-            StopIO();
         }
 
         public void Write(DataTable table, ExcelWorksheet sheet, int styleId)
@@ -134,6 +188,6 @@ namespace BookSearcherApp
             }
         }
 
-        public void Save(BackgroundWorker backgroundWorker, FileIOProgressBar progressBar) => Write(path, BookSearcher.ResultTables, backgroundWorker, progressBar);
+        public void Save(BackgroundWorker backgroundWorker, FileIOProgressBar progressBar) => Write(BookSearcher.ResultTables, backgroundWorker, progressBar);
     }
 }
