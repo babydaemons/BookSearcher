@@ -22,9 +22,6 @@ namespace BookSearcherApp
         {
             CheckParameterEntered(view);
 
-            var settingName = (string)view.Tag;
-            ParseSKUSuffix(settingName, settings["sku"]);
-
             foreach (var title in Titles)
             {
                 dataTable.Columns.Add(title, typeof(string));
@@ -48,28 +45,6 @@ namespace BookSearcherApp
 
                 settings.Add(keyEN, value);
             }
-        }
-
-        private void ParseSKUSuffix(string settingName, string sku_input)
-        {
-            if (sku_input.Length == 0)
-            {
-                throw new MyException($"「{settingName}」入力エラー", $"「商品管理番号(真ん中2文字)／sku」が入力されていません。");
-            }
-            if (sku_input.Length != 2)
-            {
-                throw new MyException($"「{settingName}」入力エラー", $"「商品管理番号(真ん中2文字)／sku」の文字数が不正です：「{sku_input}」");
-            }
-
-            var sku_middle = sku_input.ToUpper();
-            foreach (var i in Enumerable.Range(0, sku_middle.Length))
-            {
-                if (sku_middle[i] < 'A' || 'Z' < sku_middle[i])
-                {
-                    throw new MyException($"「{settingName}」入力エラー", $"商品管理番号(真ん中2文字)／sku」の{i + 1}文字目がアルファベットではありません：「{sku_input}」");
-                }
-            }
-            settings["sku"] = sku_middle + DateTime.Now.ToString("yyMM");
         }
 
         public void Save(BackgroundWorker backgroundWorker, FileIOProgressBar progressBar)

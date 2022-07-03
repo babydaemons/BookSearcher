@@ -45,7 +45,7 @@ namespace BookSearcherApp
             DataGridViewOutputPattern1.Rows.Add(new object[] { "在庫数", "quantity", "" });
             DataGridViewOutputPattern1.Rows.Add(new object[] { "商品メモ", "item-note", "" });
 
-            DataGridViewOutputPattern2.Rows.Add(new object[] { "商品管理番号(真ん中2文字)", "sku", "" });
+            DataGridViewOutputPattern2.Rows.Add(new object[] { "商品管理番号(商品コード以降)", "sku", "" });
             DataGridViewOutputPattern2.Rows.Add(new object[] { "商品コードのタイプ", "product-id-type", "" });
             DataGridViewOutputPattern2.Rows.Add(new object[] { "配送パターン", "merchant_shipping_group_name", "" });
             DataGridViewOutputPattern2.Rows.Add(new object[] { "ポイントパーセント", "standard-price-points-percent", "" });
@@ -53,7 +53,7 @@ namespace BookSearcherApp
             DataGridViewOutputPattern2.Rows.Add(new object[] { "在庫数", "quantity", "" });
             DataGridViewOutputPattern2.Rows.Add(new object[] { "商品メモ", "item-note", "" });
 
-            DataGridViewCommonOutput1.Rows.Add(new object[] { "商品管理番号(真ん中2文字)", "sku", "" });
+            DataGridViewCommonOutput1.Rows.Add(new object[] { "商品管理番号(商品コード以降)", "sku", "" });
             DataGridViewCommonOutput1.Rows.Add(new object[] { "数量", "quantity", "" });
             DataGridViewCommonOutput1.Rows.Add(new object[] { "リードタイム", "leadtime", "" });
             DataGridViewCommonOutput1.Rows.Add(new object[] { "自動価格モードID", "autoprice_template_mode", "" });
@@ -61,7 +61,7 @@ namespace BookSearcherApp
             DataGridViewCommonOutput1.Rows.Add(new object[] { "下限ストッパー", "autoprice_stopper", "" });
             DataGridViewCommonOutput1.Rows.Add(new object[] { "上限ストッパー", "autoprice_stopper_upper", "" });
 
-            DataGridViewCommonOutput2.Rows.Add(new object[] { "商品管理番号(真ん中2文字)", "sku", "" });
+            DataGridViewCommonOutput2.Rows.Add(new object[] { "商品管理番号(商品コード以降)", "sku", "" });
             DataGridViewCommonOutput2.Rows.Add(new object[] { "登録/削除", "add-delete", "" });
         }
 
