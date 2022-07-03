@@ -63,12 +63,18 @@
             this.TableLayoutPanelBook = new System.Windows.Forms.TableLayoutPanel();
             this.ButtonPreviewDatabase = new System.Windows.Forms.Button();
             this.BookColumnSetting = new System.Windows.Forms.DataGridView();
+            this.BookColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BookColumnValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BookColumnType = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.CheckBoxBookISBN = new System.Windows.Forms.CheckBox();
             this.CheckBoxBookCost = new System.Windows.Forms.CheckBox();
             this.TabPageScrapingColumn = new System.Windows.Forms.TabPage();
             this.TableLayoutPanelScraping = new System.Windows.Forms.TableLayoutPanel();
             this.ButtonPreviewScraping = new System.Windows.Forms.Button();
             this.ScrapingColumnSetting = new System.Windows.Forms.DataGridView();
+            this.ScrapingColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ScrapingColumnValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ScrapingColumnType = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.CheckBoxScrapingISBN = new System.Windows.Forms.CheckBox();
             this.CheckBoxScrapingCost = new System.Windows.Forms.CheckBox();
             this.TabControlMatchingOutput = new System.Windows.Forms.TabControl();
@@ -95,24 +101,33 @@
             this.TabControlOutputFileSetting = new System.Windows.Forms.TabControl();
             this.TabPageOutputPattern1 = new System.Windows.Forms.TabPage();
             this.DataGridViewOutputPattern1 = new System.Windows.Forms.DataGridView();
-            this.ColumnJapaneseName1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnEnglishName1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnSettingValue1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DataTableOutputPattern1 = new System.Data.DataTable();
+            this.DataColumnNameJP1 = new System.Data.DataColumn();
+            this.DataColumnNameEN1 = new System.Data.DataColumn();
+            this.DataColumnValue1 = new System.Data.DataColumn();
             this.TabPageOutputPattern2 = new System.Windows.Forms.TabPage();
             this.DataGridViewOutputPattern2 = new System.Windows.Forms.DataGridView();
-            this.ColumnJapaneseName2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnEnglishName2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnSettingValue2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DataTableOutputPattern2 = new System.Data.DataTable();
+            this.DataColumnNameJP2 = new System.Data.DataColumn();
+            this.DataColumnNameEN2 = new System.Data.DataColumn();
+            this.DataColumnValue2 = new System.Data.DataColumn();
             this.TabPageCommonOutput1 = new System.Windows.Forms.TabPage();
             this.DataGridViewCommonOutput1 = new System.Windows.Forms.DataGridView();
-            this.ColumnJapaneseName3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnEnglishName3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnSettingValue3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DataTableCommonOutput1 = new System.Data.DataTable();
+            this.DataColumnNameJP3 = new System.Data.DataColumn();
+            this.DataColumnNameEN3 = new System.Data.DataColumn();
+            this.DataColumnValue3 = new System.Data.DataColumn();
             this.TabPageCommonOutput2 = new System.Windows.Forms.TabPage();
             this.DataGridViewCommonOutput2 = new System.Windows.Forms.DataGridView();
-            this.ColumnJapaneseName4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnEnglishName4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnSettingValue4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DataTableCommonOutput2 = new System.Data.DataTable();
+            this.DataColumnNameJP4 = new System.Data.DataColumn();
+            this.DataColumnNameEN4 = new System.Data.DataColumn();
+            this.DataColumnValue4 = new System.Data.DataColumn();
+            this.TabPageCostRatio = new System.Windows.Forms.TabPage();
+            this.DataGridViewCostRatio = new System.Windows.Forms.DataGridView();
+            this.ColumnCostLower = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCostUpper = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnRatio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ButtonPreviewOutputs = new System.Windows.Forms.Button();
             this.BackgroundWorker10 = new System.ComponentModel.BackgroundWorker();
             this.BackgroundWorker11 = new System.ComponentModel.BackgroundWorker();
@@ -123,18 +138,26 @@
             this.LabelTotalCpuCoreCount = new System.Windows.Forms.Label();
             this.NumericUpDownUseCpuCoreCount = new System.Windows.Forms.NumericUpDown();
             this.TimerFileIO = new System.Windows.Forms.Timer(this.components);
+            this.DataSetSetting = new System.Data.DataSet();
+            this.DataTableCostRatio = new System.Data.DataTable();
+            this.ColumnJapaneseName1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnEnglishName1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnSettingValue1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnJapaneseName2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnEnglishName2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnSettingValue2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnJapaneseName3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnEnglishName3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnSettingValue3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnJapaneseName4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnEnglishName4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnSettingValue4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProgressBarOutputCommonCSV2 = new BookSearcherApp.FileIOProgressBar();
             this.ProgressBarOutputCommonCSV1 = new BookSearcherApp.FileIOProgressBar();
             this.ProgressBarOutputPatternCSV = new BookSearcherApp.FileIOProgressBar();
             this.ProgressBarOutputExcel = new BookSearcherApp.FileIOProgressBar();
             this.ProgressBarInput2 = new BookSearcherApp.FileIOProgressBar();
             this.ProgressBarInput1 = new BookSearcherApp.FileIOProgressBar();
-            this.BookColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BookColumnValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BookColumnType = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.ScrapingColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ScrapingColumnValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ScrapingColumnType = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.GroupBoxOutput.SuspendLayout();
             this.GroupBoxPartMatch.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownLength)).BeginInit();
@@ -155,14 +178,22 @@
             this.TabControlOutputFileSetting.SuspendLayout();
             this.TabPageOutputPattern1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewOutputPattern1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataTableOutputPattern1)).BeginInit();
             this.TabPageOutputPattern2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewOutputPattern2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataTableOutputPattern2)).BeginInit();
             this.TabPageCommonOutput1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewCommonOutput1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataTableCommonOutput1)).BeginInit();
             this.TabPageCommonOutput2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewCommonOutput2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataTableCommonOutput2)).BeginInit();
+            this.TabPageCostRatio.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewCostRatio)).BeginInit();
             this.GroupBoxCpuCores.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownUseCpuCoreCount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataSetSetting)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataTableCostRatio)).BeginInit();
             this.SuspendLayout();
             // 
             // TimerSearch
@@ -597,6 +628,37 @@
             this.BookColumnSetting.TabIndex = 2;
             this.BookColumnSetting.Tag = "書籍データベース列指定";
             // 
+            // BookColumnName
+            // 
+            this.BookColumnName.HeaderText = "列名";
+            this.BookColumnName.Name = "BookColumnName";
+            this.BookColumnName.ReadOnly = true;
+            this.BookColumnName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.BookColumnName.Width = 140;
+            // 
+            // BookColumnValue
+            // 
+            this.BookColumnValue.HeaderText = "列データ";
+            this.BookColumnValue.Name = "BookColumnValue";
+            this.BookColumnValue.ReadOnly = true;
+            this.BookColumnValue.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.BookColumnValue.Width = 208;
+            // 
+            // BookColumnType
+            // 
+            this.BookColumnType.HeaderText = "データ種別";
+            this.BookColumnType.Items.AddRange(new object[] {
+            "",
+            "書籍名",
+            "著者名",
+            "出版社名",
+            "出版年",
+            "商品コード",
+            "URL",
+            "価格"});
+            this.BookColumnType.Name = "BookColumnType";
+            this.BookColumnType.Width = 90;
+            // 
             // CheckBoxBookISBN
             // 
             this.CheckBoxBookISBN.AutoSize = true;
@@ -685,6 +747,38 @@
             this.ScrapingColumnSetting.Size = new System.Drawing.Size(498, 428);
             this.ScrapingColumnSetting.TabIndex = 3;
             this.ScrapingColumnSetting.Tag = "スクレイピングデータ列指定";
+            // 
+            // ScrapingColumnName
+            // 
+            this.ScrapingColumnName.HeaderText = "列名";
+            this.ScrapingColumnName.Name = "ScrapingColumnName";
+            this.ScrapingColumnName.ReadOnly = true;
+            this.ScrapingColumnName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.ScrapingColumnName.Width = 140;
+            // 
+            // ScrapingColumnValue
+            // 
+            this.ScrapingColumnValue.HeaderText = "列データ";
+            this.ScrapingColumnValue.Name = "ScrapingColumnValue";
+            this.ScrapingColumnValue.ReadOnly = true;
+            this.ScrapingColumnValue.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.ScrapingColumnValue.Width = 208;
+            // 
+            // ScrapingColumnType
+            // 
+            this.ScrapingColumnType.HeaderText = "データ種別";
+            this.ScrapingColumnType.Items.AddRange(new object[] {
+            "",
+            "書籍名",
+            "著者名",
+            "出版社名",
+            "出版年",
+            "商品コード",
+            "URL",
+            "価格",
+            "複合データ"});
+            this.ScrapingColumnType.Name = "ScrapingColumnType";
+            this.ScrapingColumnType.Width = 90;
             // 
             // CheckBoxScrapingISBN
             // 
@@ -964,6 +1058,7 @@
             this.TabControlOutputFileSetting.Controls.Add(this.TabPageOutputPattern2);
             this.TabControlOutputFileSetting.Controls.Add(this.TabPageCommonOutput1);
             this.TabControlOutputFileSetting.Controls.Add(this.TabPageCommonOutput2);
+            this.TabControlOutputFileSetting.Controls.Add(this.TabPageCostRatio);
             this.TabControlOutputFileSetting.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TabControlOutputFileSetting.Location = new System.Drawing.Point(3, 3);
             this.TabControlOutputFileSetting.Margin = new System.Windows.Forms.Padding(12);
@@ -987,11 +1082,13 @@
             // 
             this.DataGridViewOutputPattern1.AllowUserToAddRows = false;
             this.DataGridViewOutputPattern1.AllowUserToDeleteRows = false;
+            this.DataGridViewOutputPattern1.AutoGenerateColumns = false;
             this.DataGridViewOutputPattern1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGridViewOutputPattern1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColumnJapaneseName1,
             this.ColumnEnglishName1,
             this.ColumnSettingValue1});
+            this.DataGridViewOutputPattern1.DataSource = this.DataTableOutputPattern1;
             this.DataGridViewOutputPattern1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DataGridViewOutputPattern1.Location = new System.Drawing.Point(3, 3);
             this.DataGridViewOutputPattern1.Name = "DataGridViewOutputPattern1";
@@ -1002,15 +1099,17 @@
             // 
             // ColumnJapaneseName1
             // 
+            this.ColumnJapaneseName1.DataPropertyName = "NameJP";
             this.ColumnJapaneseName1.Frozen = true;
             this.ColumnJapaneseName1.HeaderText = "列名(日本語)";
             this.ColumnJapaneseName1.Name = "ColumnJapaneseName1";
             this.ColumnJapaneseName1.ReadOnly = true;
             this.ColumnJapaneseName1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ColumnJapaneseName1.Width = 170;
+            this.ColumnJapaneseName1.Width = 205;
             // 
             // ColumnEnglishName1
             // 
+            this.ColumnEnglishName1.DataPropertyName = "NameEN";
             this.ColumnEnglishName1.Frozen = true;
             this.ColumnEnglishName1.HeaderText = "列名(英語)";
             this.ColumnEnglishName1.Name = "ColumnEnglishName1";
@@ -1020,11 +1119,35 @@
             // 
             // ColumnSettingValue1
             // 
+            this.ColumnSettingValue1.DataPropertyName = "Value";
             this.ColumnSettingValue1.Frozen = true;
             this.ColumnSettingValue1.HeaderText = "設定値(固定出力値)";
             this.ColumnSettingValue1.Name = "ColumnSettingValue1";
             this.ColumnSettingValue1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ColumnSettingValue1.Width = 285;
+            this.ColumnSettingValue1.Width = 250;
+            // 
+            // DataTableOutputPattern1
+            // 
+            this.DataTableOutputPattern1.Columns.AddRange(new System.Data.DataColumn[] {
+            this.DataColumnNameJP1,
+            this.DataColumnNameEN1,
+            this.DataColumnValue1});
+            this.DataTableOutputPattern1.TableName = "TableOutputPattern1";
+            // 
+            // DataColumnNameJP1
+            // 
+            this.DataColumnNameJP1.Caption = "列名(日本語)";
+            this.DataColumnNameJP1.ColumnName = "NameJP";
+            // 
+            // DataColumnNameEN1
+            // 
+            this.DataColumnNameEN1.Caption = "列名(英語)";
+            this.DataColumnNameEN1.ColumnName = "NameEN";
+            // 
+            // DataColumnValue1
+            // 
+            this.DataColumnValue1.Caption = "設定値(固定出力値)";
+            this.DataColumnValue1.ColumnName = "Value";
             // 
             // TabPageOutputPattern2
             // 
@@ -1041,11 +1164,13 @@
             // 
             this.DataGridViewOutputPattern2.AllowUserToAddRows = false;
             this.DataGridViewOutputPattern2.AllowUserToDeleteRows = false;
+            this.DataGridViewOutputPattern2.AutoGenerateColumns = false;
             this.DataGridViewOutputPattern2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGridViewOutputPattern2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColumnJapaneseName2,
             this.ColumnEnglishName2,
             this.ColumnSettingValue2});
+            this.DataGridViewOutputPattern2.DataSource = this.DataTableOutputPattern2;
             this.DataGridViewOutputPattern2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DataGridViewOutputPattern2.Location = new System.Drawing.Point(3, 3);
             this.DataGridViewOutputPattern2.Name = "DataGridViewOutputPattern2";
@@ -1056,15 +1181,17 @@
             // 
             // ColumnJapaneseName2
             // 
+            this.ColumnJapaneseName2.DataPropertyName = "NameJP";
             this.ColumnJapaneseName2.Frozen = true;
             this.ColumnJapaneseName2.HeaderText = "列名(日本語)";
             this.ColumnJapaneseName2.Name = "ColumnJapaneseName2";
             this.ColumnJapaneseName2.ReadOnly = true;
             this.ColumnJapaneseName2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ColumnJapaneseName2.Width = 170;
+            this.ColumnJapaneseName2.Width = 205;
             // 
             // ColumnEnglishName2
             // 
+            this.ColumnEnglishName2.DataPropertyName = "NameEN";
             this.ColumnEnglishName2.Frozen = true;
             this.ColumnEnglishName2.HeaderText = "列名(英語)";
             this.ColumnEnglishName2.Name = "ColumnEnglishName2";
@@ -1074,11 +1201,35 @@
             // 
             // ColumnSettingValue2
             // 
+            this.ColumnSettingValue2.DataPropertyName = "Value";
             this.ColumnSettingValue2.Frozen = true;
             this.ColumnSettingValue2.HeaderText = "設定値(固定出力値)";
             this.ColumnSettingValue2.Name = "ColumnSettingValue2";
             this.ColumnSettingValue2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ColumnSettingValue2.Width = 285;
+            this.ColumnSettingValue2.Width = 250;
+            // 
+            // DataTableOutputPattern2
+            // 
+            this.DataTableOutputPattern2.Columns.AddRange(new System.Data.DataColumn[] {
+            this.DataColumnNameJP2,
+            this.DataColumnNameEN2,
+            this.DataColumnValue2});
+            this.DataTableOutputPattern2.TableName = "TableOutputPattern2";
+            // 
+            // DataColumnNameJP2
+            // 
+            this.DataColumnNameJP2.Caption = "列名(日本語)";
+            this.DataColumnNameJP2.ColumnName = "NameJP";
+            // 
+            // DataColumnNameEN2
+            // 
+            this.DataColumnNameEN2.Caption = "列名(英語)";
+            this.DataColumnNameEN2.ColumnName = "NameEN";
+            // 
+            // DataColumnValue2
+            // 
+            this.DataColumnValue2.Caption = "設定値(固定出力値)";
+            this.DataColumnValue2.ColumnName = "Value";
             // 
             // TabPageCommonOutput1
             // 
@@ -1095,11 +1246,13 @@
             // 
             this.DataGridViewCommonOutput1.AllowUserToAddRows = false;
             this.DataGridViewCommonOutput1.AllowUserToDeleteRows = false;
+            this.DataGridViewCommonOutput1.AutoGenerateColumns = false;
             this.DataGridViewCommonOutput1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGridViewCommonOutput1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColumnJapaneseName3,
             this.ColumnEnglishName3,
             this.ColumnSettingValue3});
+            this.DataGridViewCommonOutput1.DataSource = this.DataTableCommonOutput1;
             this.DataGridViewCommonOutput1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DataGridViewCommonOutput1.Location = new System.Drawing.Point(3, 3);
             this.DataGridViewCommonOutput1.Name = "DataGridViewCommonOutput1";
@@ -1110,15 +1263,17 @@
             // 
             // ColumnJapaneseName3
             // 
+            this.ColumnJapaneseName3.DataPropertyName = "NameJP";
             this.ColumnJapaneseName3.Frozen = true;
             this.ColumnJapaneseName3.HeaderText = "列名(日本語)";
             this.ColumnJapaneseName3.Name = "ColumnJapaneseName3";
             this.ColumnJapaneseName3.ReadOnly = true;
             this.ColumnJapaneseName3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ColumnJapaneseName3.Width = 170;
+            this.ColumnJapaneseName3.Width = 205;
             // 
             // ColumnEnglishName3
             // 
+            this.ColumnEnglishName3.DataPropertyName = "NameEN";
             this.ColumnEnglishName3.Frozen = true;
             this.ColumnEnglishName3.HeaderText = "列名(英語)";
             this.ColumnEnglishName3.Name = "ColumnEnglishName3";
@@ -1128,11 +1283,35 @@
             // 
             // ColumnSettingValue3
             // 
+            this.ColumnSettingValue3.DataPropertyName = "Value";
             this.ColumnSettingValue3.Frozen = true;
             this.ColumnSettingValue3.HeaderText = "設定値(固定出力値)";
             this.ColumnSettingValue3.Name = "ColumnSettingValue3";
             this.ColumnSettingValue3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ColumnSettingValue3.Width = 285;
+            this.ColumnSettingValue3.Width = 250;
+            // 
+            // DataTableCommonOutput1
+            // 
+            this.DataTableCommonOutput1.Columns.AddRange(new System.Data.DataColumn[] {
+            this.DataColumnNameJP3,
+            this.DataColumnNameEN3,
+            this.DataColumnValue3});
+            this.DataTableCommonOutput1.TableName = "TableCommonOutput1";
+            // 
+            // DataColumnNameJP3
+            // 
+            this.DataColumnNameJP3.Caption = "列名(日本語)";
+            this.DataColumnNameJP3.ColumnName = "NameJP";
+            // 
+            // DataColumnNameEN3
+            // 
+            this.DataColumnNameEN3.Caption = "列名(英語)";
+            this.DataColumnNameEN3.ColumnName = "NameEN";
+            // 
+            // DataColumnValue3
+            // 
+            this.DataColumnValue3.Caption = "設定値(固定出力値)";
+            this.DataColumnValue3.ColumnName = "Value";
             // 
             // TabPageCommonOutput2
             // 
@@ -1149,11 +1328,13 @@
             // 
             this.DataGridViewCommonOutput2.AllowUserToAddRows = false;
             this.DataGridViewCommonOutput2.AllowUserToDeleteRows = false;
+            this.DataGridViewCommonOutput2.AutoGenerateColumns = false;
             this.DataGridViewCommonOutput2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGridViewCommonOutput2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColumnJapaneseName4,
             this.ColumnEnglishName4,
             this.ColumnSettingValue4});
+            this.DataGridViewCommonOutput2.DataSource = this.DataTableCommonOutput2;
             this.DataGridViewCommonOutput2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DataGridViewCommonOutput2.Location = new System.Drawing.Point(3, 3);
             this.DataGridViewCommonOutput2.Name = "DataGridViewCommonOutput2";
@@ -1164,15 +1345,17 @@
             // 
             // ColumnJapaneseName4
             // 
+            this.ColumnJapaneseName4.DataPropertyName = "NameJP";
             this.ColumnJapaneseName4.Frozen = true;
             this.ColumnJapaneseName4.HeaderText = "列名(日本語)";
             this.ColumnJapaneseName4.Name = "ColumnJapaneseName4";
             this.ColumnJapaneseName4.ReadOnly = true;
             this.ColumnJapaneseName4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ColumnJapaneseName4.Width = 170;
+            this.ColumnJapaneseName4.Width = 205;
             // 
             // ColumnEnglishName4
             // 
+            this.ColumnEnglishName4.DataPropertyName = "NameEN";
             this.ColumnEnglishName4.Frozen = true;
             this.ColumnEnglishName4.HeaderText = "列名(英語)";
             this.ColumnEnglishName4.Name = "ColumnEnglishName4";
@@ -1182,11 +1365,83 @@
             // 
             // ColumnSettingValue4
             // 
+            this.ColumnSettingValue4.DataPropertyName = "Value";
             this.ColumnSettingValue4.Frozen = true;
             this.ColumnSettingValue4.HeaderText = "設定値(固定出力値)";
             this.ColumnSettingValue4.Name = "ColumnSettingValue4";
             this.ColumnSettingValue4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ColumnSettingValue4.Width = 285;
+            this.ColumnSettingValue4.Width = 250;
+            // 
+            // DataTableCommonOutput2
+            // 
+            this.DataTableCommonOutput2.Columns.AddRange(new System.Data.DataColumn[] {
+            this.DataColumnNameJP4,
+            this.DataColumnNameEN4,
+            this.DataColumnValue4});
+            this.DataTableCommonOutput2.TableName = "TableCommonOutput2";
+            // 
+            // DataColumnNameJP4
+            // 
+            this.DataColumnNameJP4.Caption = "列名(日本語)";
+            this.DataColumnNameJP4.ColumnName = "NameJP";
+            // 
+            // DataColumnNameEN4
+            // 
+            this.DataColumnNameEN4.Caption = "列名(英語)";
+            this.DataColumnNameEN4.ColumnName = "NameEN";
+            // 
+            // DataColumnValue4
+            // 
+            this.DataColumnValue4.Caption = "設定値(固定出力値)";
+            this.DataColumnValue4.ColumnName = "Value";
+            // 
+            // TabPageCostRatio
+            // 
+            this.TabPageCostRatio.BackColor = System.Drawing.SystemColors.Control;
+            this.TabPageCostRatio.Controls.Add(this.DataGridViewCostRatio);
+            this.TabPageCostRatio.Location = new System.Drawing.Point(4, 24);
+            this.TabPageCostRatio.Name = "TabPageCostRatio";
+            this.TabPageCostRatio.Size = new System.Drawing.Size(753, 434);
+            this.TabPageCostRatio.TabIndex = 4;
+            this.TabPageCostRatio.Text = "料率";
+            // 
+            // DataGridViewCostRatio
+            // 
+            this.DataGridViewCostRatio.AllowUserToAddRows = false;
+            this.DataGridViewCostRatio.AllowUserToDeleteRows = false;
+            this.DataGridViewCostRatio.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataGridViewCostRatio.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ColumnCostLower,
+            this.ColumnCostUpper,
+            this.ColumnRatio});
+            this.DataGridViewCostRatio.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DataGridViewCostRatio.Location = new System.Drawing.Point(0, 0);
+            this.DataGridViewCostRatio.Name = "DataGridViewCostRatio";
+            this.DataGridViewCostRatio.RowTemplate.Height = 21;
+            this.DataGridViewCostRatio.Size = new System.Drawing.Size(753, 434);
+            this.DataGridViewCostRatio.TabIndex = 0;
+            // 
+            // ColumnCostLower
+            // 
+            this.ColumnCostLower.Frozen = true;
+            this.ColumnCostLower.HeaderText = "原価下限";
+            this.ColumnCostLower.Name = "ColumnCostLower";
+            this.ColumnCostLower.Width = 237;
+            // 
+            // ColumnCostUpper
+            // 
+            this.ColumnCostUpper.Frozen = true;
+            this.ColumnCostUpper.HeaderText = "原価上限";
+            this.ColumnCostUpper.Name = "ColumnCostUpper";
+            this.ColumnCostUpper.ReadOnly = true;
+            this.ColumnCostUpper.Width = 237;
+            // 
+            // ColumnRatio
+            // 
+            this.ColumnRatio.Frozen = true;
+            this.ColumnRatio.HeaderText = "料率";
+            this.ColumnRatio.Name = "ColumnRatio";
+            this.ColumnRatio.Width = 237;
             // 
             // ButtonPreviewOutputs
             // 
@@ -1287,6 +1542,20 @@
             this.TimerFileIO.Enabled = true;
             this.TimerFileIO.Tick += new System.EventHandler(this.TimerFileIO_Tick);
             // 
+            // DataSetSetting
+            // 
+            this.DataSetSetting.DataSetName = "DataSetSetting";
+            this.DataSetSetting.Tables.AddRange(new System.Data.DataTable[] {
+            this.DataTableOutputPattern1,
+            this.DataTableOutputPattern2,
+            this.DataTableCommonOutput1,
+            this.DataTableCommonOutput2,
+            this.DataTableCostRatio});
+            // 
+            // DataTableCostRatio
+            // 
+            this.DataTableCostRatio.TableName = "TableCostRatio";
+            // 
             // ProgressBarOutputCommonCSV2
             // 
             this.ProgressBarOutputCommonCSV2.Location = new System.Drawing.Point(1026, 170);
@@ -1335,69 +1604,6 @@
             this.ProgressBarInput1.Size = new System.Drawing.Size(232, 20);
             this.ProgressBarInput1.TabIndex = 15;
             // 
-            // BookColumnName
-            // 
-            this.BookColumnName.HeaderText = "列名";
-            this.BookColumnName.Name = "BookColumnName";
-            this.BookColumnName.ReadOnly = true;
-            this.BookColumnName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.BookColumnName.Width = 140;
-            // 
-            // BookColumnValue
-            // 
-            this.BookColumnValue.HeaderText = "列データ";
-            this.BookColumnValue.Name = "BookColumnValue";
-            this.BookColumnValue.ReadOnly = true;
-            this.BookColumnValue.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.BookColumnValue.Width = 208;
-            // 
-            // BookColumnType
-            // 
-            this.BookColumnType.HeaderText = "データ種別";
-            this.BookColumnType.Items.AddRange(new object[] {
-            "",
-            "書籍名",
-            "著者名",
-            "出版社名",
-            "出版年",
-            "商品コード",
-            "URL",
-            "価格"});
-            this.BookColumnType.Name = "BookColumnType";
-            this.BookColumnType.Width = 90;
-            // 
-            // ScrapingColumnName
-            // 
-            this.ScrapingColumnName.HeaderText = "列名";
-            this.ScrapingColumnName.Name = "ScrapingColumnName";
-            this.ScrapingColumnName.ReadOnly = true;
-            this.ScrapingColumnName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ScrapingColumnName.Width = 140;
-            // 
-            // ScrapingColumnValue
-            // 
-            this.ScrapingColumnValue.HeaderText = "列データ";
-            this.ScrapingColumnValue.Name = "ScrapingColumnValue";
-            this.ScrapingColumnValue.ReadOnly = true;
-            this.ScrapingColumnValue.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ScrapingColumnValue.Width = 208;
-            // 
-            // ScrapingColumnType
-            // 
-            this.ScrapingColumnType.HeaderText = "データ種別";
-            this.ScrapingColumnType.Items.AddRange(new object[] {
-            "",
-            "書籍名",
-            "著者名",
-            "出版社名",
-            "出版年",
-            "商品コード",
-            "URL",
-            "価格",
-            "複合データ"});
-            this.ScrapingColumnType.Name = "ScrapingColumnType";
-            this.ScrapingColumnType.Width = 90;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1416,6 +1622,7 @@
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "BookSearcher";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.GroupBoxOutput.ResumeLayout(false);
             this.GroupBoxOutput.PerformLayout();
             this.GroupBoxPartMatch.ResumeLayout(false);
@@ -1443,15 +1650,23 @@
             this.TabControlOutputFileSetting.ResumeLayout(false);
             this.TabPageOutputPattern1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewOutputPattern1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataTableOutputPattern1)).EndInit();
             this.TabPageOutputPattern2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewOutputPattern2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataTableOutputPattern2)).EndInit();
             this.TabPageCommonOutput1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewCommonOutput1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataTableCommonOutput1)).EndInit();
             this.TabPageCommonOutput2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewCommonOutput2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataTableCommonOutput2)).EndInit();
+            this.TabPageCostRatio.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewCostRatio)).EndInit();
             this.GroupBoxCpuCores.ResumeLayout(false);
             this.GroupBoxCpuCores.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownUseCpuCoreCount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataSetSetting)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataTableCostRatio)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1530,18 +1745,6 @@
         protected BookSearcherApp.FileIOProgressBar ProgressBarOutputCommonCSV2;
         protected BookSearcherApp.FileIOProgressBar ProgressBarOutputCommonCSV1;
         protected BookSearcherApp.FileIOProgressBar ProgressBarOutputPatternCSV;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnJapaneseName1;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnEnglishName1;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnSettingValue1;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnJapaneseName2;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnEnglishName2;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnSettingValue2;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnJapaneseName3;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnEnglishName3;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnSettingValue3;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnJapaneseName4;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnEnglishName4;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnSettingValue4;
         protected System.ComponentModel.BackgroundWorker BackgroundWorker10;
         protected System.ComponentModel.BackgroundWorker BackgroundWorker11;
         protected System.ComponentModel.BackgroundWorker BackgroundWorker12;
@@ -1561,13 +1764,48 @@
         protected System.Windows.Forms.CheckBox CheckBoxScrapingCost;
         protected System.Windows.Forms.Button ButtonPreviewDatabase;
         protected System.Windows.Forms.Button ButtonPreviewScraping;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn BookColumnName;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn BookColumnValue;
+        protected System.Windows.Forms.DataGridViewComboBoxColumn BookColumnType;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn ScrapingColumnName;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn ScrapingColumnValue;
+        protected System.Windows.Forms.DataGridViewComboBoxColumn ScrapingColumnType;
+        protected System.Windows.Forms.TabPage TabPageCostRatio;
+        protected System.Windows.Forms.DataGridView DataGridViewCostRatio;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnCostLower;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnCostUpper;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnRatio;
+        protected System.Data.DataSet DataSetSetting;
+        protected System.Data.DataTable DataTableOutputPattern1;
+        protected System.Data.DataColumn DataColumnNameJP1;
+        protected System.Data.DataColumn DataColumnNameEN1;
+        protected System.Data.DataColumn DataColumnValue1;
+        protected System.Data.DataTable DataTableOutputPattern2;
+        protected System.Data.DataColumn DataColumnNameJP2;
+        protected System.Data.DataColumn DataColumnNameEN2;
+        protected System.Data.DataColumn DataColumnValue2;
+        protected System.Data.DataTable DataTableCommonOutput1;
+        protected System.Data.DataColumn DataColumnNameJP3;
+        protected System.Data.DataColumn DataColumnNameEN3;
+        protected System.Data.DataColumn DataColumnValue3;
+        protected System.Data.DataTable DataTableCommonOutput2;
+        protected System.Data.DataColumn DataColumnNameJP4;
+        protected System.Data.DataColumn DataColumnNameEN4;
+        protected System.Data.DataColumn DataColumnValue4;
+        protected System.Data.DataTable DataTableCostRatio;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnJapaneseName1;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnEnglishName1;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnSettingValue1;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnJapaneseName2;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnEnglishName2;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnSettingValue2;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnJapaneseName3;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnEnglishName3;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnSettingValue3;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnJapaneseName4;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnEnglishName4;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnSettingValue4;
         private System.ComponentModel.IContainer components;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BookColumnName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BookColumnValue;
-        private System.Windows.Forms.DataGridViewComboBoxColumn BookColumnType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ScrapingColumnName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ScrapingColumnValue;
-        private System.Windows.Forms.DataGridViewComboBoxColumn ScrapingColumnType;
     }
 }
 
