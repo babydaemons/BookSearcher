@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -12,6 +13,8 @@ namespace BookSearcherApp
     {
         public readonly ParallelOptions parallelOptions = new ParallelOptions();
         public static int ProcessorCount { get; private set; }
+        public string ConfigXml { get; private set; }
+
         protected CSVFile BookCSV;
         protected CSVFile ScrapingCSV;
         protected ExcelSaver excelSaver;
@@ -31,38 +34,53 @@ namespace BookSearcherApp
             InitializeComponent();
             Text = Properties.Resources.Version;
 
+            var appPath = Assembly.GetEntryAssembly().Location;
+            var appDir = Path.GetDirectoryName(appPath);
+            var fileName = Path.GetFileNameWithoutExtension(appPath);
+            ConfigXml = $"{appDir}\\{fileName}.xml";
+            InitDataSettings();
+
             BookSearcher.InitColumnSettings(BookColumnSetting, ScrapingColumnSetting);
             ProcessorCount = Environment.ProcessorCount;
             NumericUpDownUseCpuCoreCount.Maximum = ProcessorCount;
             NumericUpDownUseCpuCoreCount.Value = ProcessorCount;
             LabelTotalCpuCoreCount.Text = $"コア / 全 {ProcessorCount} コア";
+        }
 
-            DataGridViewOutputPattern1.Rows.Add(new object[] { "商品管理番号(商品コード以降)", "sku", "" });
-            DataGridViewOutputPattern1.Rows.Add(new object[] { "商品コードのタイプ", "product-id-type", "" });
-            DataGridViewOutputPattern1.Rows.Add(new object[] { "配送パターン", "merchant_shipping_group_name", "" });
-            DataGridViewOutputPattern1.Rows.Add(new object[] { "ポイントパーセント", "standard-price-points-percent", "" });
-            DataGridViewOutputPattern1.Rows.Add(new object[] { "商品のコンディション", "item-condition", "" });
-            DataGridViewOutputPattern1.Rows.Add(new object[] { "在庫数", "quantity", "" });
-            DataGridViewOutputPattern1.Rows.Add(new object[] { "商品メモ", "item-note", "" });
+        private void InitDataSettings()
+        {
+            if (File.Exists(ConfigXml))
+            {
+                DataSetSetting.ReadXml(ConfigXml);
+                return;
+            }
 
-            DataGridViewOutputPattern2.Rows.Add(new object[] { "商品管理番号(商品コード以降)", "sku", "" });
-            DataGridViewOutputPattern2.Rows.Add(new object[] { "商品コードのタイプ", "product-id-type", "" });
-            DataGridViewOutputPattern2.Rows.Add(new object[] { "配送パターン", "merchant_shipping_group_name", "" });
-            DataGridViewOutputPattern2.Rows.Add(new object[] { "ポイントパーセント", "standard-price-points-percent", "" });
-            DataGridViewOutputPattern2.Rows.Add(new object[] { "商品のコンディション", "item-condition", "" });
-            DataGridViewOutputPattern2.Rows.Add(new object[] { "在庫数", "quantity", "" });
-            DataGridViewOutputPattern2.Rows.Add(new object[] { "商品メモ", "item-note", "" });
+            DataTableOutputPattern1.Rows.Add(new object[] { "商品管理番号(商品コード以降)", "sku", "" });
+            DataTableOutputPattern1.Rows.Add(new object[] { "商品コードのタイプ", "product-id-type", "" });
+            DataTableOutputPattern1.Rows.Add(new object[] { "配送パターン", "merchant_shipping_group_name", "" });
+            DataTableOutputPattern1.Rows.Add(new object[] { "ポイントパーセント", "standard-price-points-percent", "" });
+            DataTableOutputPattern1.Rows.Add(new object[] { "商品のコンディション", "item-condition", "" });
+            DataTableOutputPattern1.Rows.Add(new object[] { "在庫数", "quantity", "" });
+            DataTableOutputPattern1.Rows.Add(new object[] { "商品メモ", "item-note", "" });
 
-            DataGridViewCommonOutput1.Rows.Add(new object[] { "商品管理番号(商品コード以降)", "sku", "" });
-            DataGridViewCommonOutput1.Rows.Add(new object[] { "数量", "quantity", "" });
-            DataGridViewCommonOutput1.Rows.Add(new object[] { "リードタイム", "leadtime", "" });
-            DataGridViewCommonOutput1.Rows.Add(new object[] { "自動価格モードID", "autoprice_template_mode", "" });
-            DataGridViewCommonOutput1.Rows.Add(new object[] { "自動価格テンプレートID", "autoprice_template_id", "" });
-            DataGridViewCommonOutput1.Rows.Add(new object[] { "下限ストッパー", "autoprice_stopper", "" });
-            DataGridViewCommonOutput1.Rows.Add(new object[] { "上限ストッパー", "autoprice_stopper_upper", "" });
+            DataTableOutputPattern2.Rows.Add(new object[] { "商品管理番号(商品コード以降)", "sku", "" });
+            DataTableOutputPattern2.Rows.Add(new object[] { "商品コードのタイプ", "product-id-type", "" });
+            DataTableOutputPattern2.Rows.Add(new object[] { "配送パターン", "merchant_shipping_group_name", "" });
+            DataTableOutputPattern2.Rows.Add(new object[] { "ポイントパーセント", "standard-price-points-percent", "" });
+            DataTableOutputPattern2.Rows.Add(new object[] { "商品のコンディション", "item-condition", "" });
+            DataTableOutputPattern2.Rows.Add(new object[] { "在庫数", "quantity", "" });
+            DataTableOutputPattern2.Rows.Add(new object[] { "商品メモ", "item-note", "" });
 
-            DataGridViewCommonOutput2.Rows.Add(new object[] { "商品管理番号(商品コード以降)", "sku", "" });
-            DataGridViewCommonOutput2.Rows.Add(new object[] { "登録/削除", "add-delete", "" });
+            DataTableCommonOutput1.Rows.Add(new object[] { "商品管理番号(商品コード以降)", "sku", "" });
+            DataTableCommonOutput1.Rows.Add(new object[] { "数量", "quantity", "" });
+            DataTableCommonOutput1.Rows.Add(new object[] { "リードタイム", "leadtime", "" });
+            DataTableCommonOutput1.Rows.Add(new object[] { "自動価格モードID", "autoprice_template_mode", "" });
+            DataTableCommonOutput1.Rows.Add(new object[] { "自動価格テンプレートID", "autoprice_template_id", "" });
+            DataTableCommonOutput1.Rows.Add(new object[] { "下限ストッパー", "autoprice_stopper", "" });
+            DataTableCommonOutput1.Rows.Add(new object[] { "上限ストッパー", "autoprice_stopper_upper", "" });
+
+            DataTableCommonOutput2.Rows.Add(new object[] { "商品管理番号(商品コード以降)", "sku", "" });
+            DataTableCommonOutput2.Rows.Add(new object[] { "登録/削除", "add-delete", "" });
         }
 
         private void ButtonInput1_Click(object sender, EventArgs e)
@@ -785,6 +803,19 @@ namespace BookSearcherApp
                 {
                     CheckBoxBookCost.Checked = true;
                 }
+            }
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            try
+            {
+                DataSetSetting.WriteXml(ConfigXml);
+            }
+            catch (Exception ex)
+            {
+                var myException = new MyException("設定ファイル保存エラー", ConfigXml, ex);
+                myException.Show();
             }
         }
     }
