@@ -1,14 +1,13 @@
 ﻿using System;
 using System.IO;
 using System.Data;
-using Microsoft.VisualBasic.FileIO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BookSearcherApp;
 
 namespace BookSearcherTest
 {
     [TestClass]
-    public class TestCSVWriter : CSVWriter
+    public class TestCSVWriter
     {
         [TestMethod]
         public void TestWrite()
@@ -27,7 +26,10 @@ namespace BookSearcherTest
             table.Rows.Add(row2);
 
             var path = DateTime.Now.ToString("yyyyMMddhhmmssfffff") + ".csv";
-            Write(true, true, path, table);
+            using (var writer = new CSVWriter(path))
+            {
+                writer.Write(table);
+            }
 
             using (var reader = new CSVReader(path))
             {

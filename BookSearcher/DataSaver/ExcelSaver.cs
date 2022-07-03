@@ -67,7 +67,7 @@ namespace BookSearcherApp
             Close();
         }
 
-        private void Close()
+        protected override void Close()
         {
             if (package != null)
             {

@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.IO.MemoryMappedFiles;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -13,7 +12,7 @@ namespace BookSearcherApp
 {
     public abstract class CSVFile : CSVData
     {
-        private readonly FileStream fileStream;
+        private FileStream fileStream;
         protected readonly long fileSize;
         private MemoryMappedFile memoryMappedFile;
         protected readonly ConcurrentBag<long> lineOffsets = new ConcurrentBag<long>();
@@ -23,17 +22,45 @@ namespace BookSearcherApp
 
         protected CSVFile(string path)
         {
-            Path = path;
-            var fileInfo = new FileInfo(Path);
-            fileSize = fileInfo.Length;
-            fileStream = new FileStream(Path, FileMode.Open, FileAccess.Read, FileShare.Read);
-            memoryMappedFile = MemoryMappedFile.CreateFromFile(fileStream, null, fileSize, MemoryMappedFileAccess.Read, null, HandleInheritability.Inheritable, true);
-            const int size = 4 * 1024;
-            var bytes = new byte[size];
-            using (var memoryMappedViewStream = GetMemoryMappedViewStream())
+            try
             {
-                int count = memoryMappedViewStream.Read(bytes, 0, bytes.Length);
-                FileEncoding = DetectEncoding(bytes, count);
+                Path = path;
+                var fileInfo = new FileInfo(Path);
+                fileSize = fileInfo.Length;
+                fileStream = new FileStream(Path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                memoryMappedFile = MemoryMappedFile.CreateFromFile(fileStream, null, fileSize, MemoryMappedFileAccess.Read, null, HandleInheritability.Inheritable, true);
+                const int size = 4 * 1024;
+                var bytes = new byte[size];
+                using (var memoryMappedViewStream = GetMemoryMappedViewStream())
+                {
+                    int count = memoryMappedViewStream.Read(bytes, 0, bytes.Length);
+                    FileEncoding = DetectEncoding(bytes, count);
+                }
+            }
+            catch (Exception ex)
+            {
+                Close();
+                throw new MyException("CSVファイル読込エラー", path, ex);
+            }
+        }
+
+        ~CSVFile()
+        {
+            Close();
+        }
+
+        protected override void Close()
+        {
+            if (memoryMappedFile != null)
+            {
+                memoryMappedFile.Dispose();
+                memoryMappedFile = null;
+            }
+            if (fileStream != null)
+            {
+                fileStream.Close();
+                fileStream.Dispose();
+                fileStream = null;
             }
         }
 
@@ -154,9 +181,6 @@ namespace BookSearcherApp
 
             AllocateTable();
             DoReadAll();
-
-            memoryMappedFile.Dispose();
-            memoryMappedFile = null;
 
             StopIO();
             Debug.WriteLine($"{Path} - {CurrentProgress}");

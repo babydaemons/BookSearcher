@@ -17,9 +17,8 @@ namespace BookSearcherApp
         protected DataTable dataTable = new DataTable();
         public DataTable DataTable => dataTable;
         private readonly Dictionary<string, string> settings = new Dictionary<string, string>();
-        private readonly string path;
 
-        protected CSVSaver(DataGridView view, string path)
+        protected CSVSaver(DataGridView view, string path) : base(path)
         {
             CheckParameterEntered(view);
 
@@ -30,8 +29,6 @@ namespace BookSearcherApp
             {
                 dataTable.Columns.Add(title, typeof(string));
             }
-
-            this.path = path;
         }
 
         private void CheckParameterEntered(DataGridView view)
@@ -75,11 +72,11 @@ namespace BookSearcherApp
             settings["sku"] = sku_middle + DateTime.Now.ToString("yyMM");
         }
 
-        public void Save(bool ISBNFromBook, bool CostFromBook, BackgroundWorker backgroundWorker, FileIOProgressBar progressBar)
+        public void Save(BackgroundWorker backgroundWorker, FileIOProgressBar progressBar)
         {
             ConvertTable();
             StartIO(backgroundWorker, progressBar);
-            Write(ISBNFromBook, CostFromBook, path, dataTable);
+            Write(dataTable);
             StopIO();
         }
 

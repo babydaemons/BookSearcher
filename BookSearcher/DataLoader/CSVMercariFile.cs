@@ -12,23 +12,31 @@ namespace BookSearcherApp
 
         public override bool ParseTitle()
         {
-            using (var memoryMappedViewStream = GetMemoryMappedViewStream())
-            using (var reader = new CSVReader(memoryMappedViewStream, FileEncoding))
+            try
             {
-                _ = reader.ReadFields();
-                var fields = reader.ReadFields();
-                foreach (var field in fields)
+                using (var memoryMappedViewStream = GetMemoryMappedViewStream())
+                using (var reader = new CSVReader(memoryMappedViewStream, FileEncoding))
                 {
-                    if (field.StartsWith("<mer-item-thumbnail "))
+                    _ = reader.ReadFields();
+                    var fields = reader.ReadFields();
+                    foreach (var field in fields)
                     {
-                        Titles = ReadFields("生データ", fields[0], 0);
-                        Fields = ReadFields(fields[0], fields[0], 1);
-                        ColumnCount = Titles.Length;
-                        return true;
+                        if (field.StartsWith("<mer-item-thumbnail "))
+                        {
+                            Titles = ReadFields("生データ", fields[0], 0);
+                            Fields = ReadFields(fields[0], fields[0], 1);
+                            ColumnCount = Titles.Length;
+                            return true;
+                        }
                     }
                 }
+                return false;
             }
-            return false;
+            catch (Exception ex)
+            {
+                Close();
+                throw new MyException("CSVファイル読込エラー", Path, ex);
+            }
         }
 
         protected override void DoReadAll()

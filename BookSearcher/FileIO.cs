@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace BookSearcherApp
 {
-    public  class FileIO
+    public abstract class FileIO : IDisposable
     {
         public const int MAX_VALUE = FileIOProgressBar.MAX_VALUE;
         public const int DIV_VALUE = FileIOProgressBar.DIV_VALUE;
@@ -59,6 +59,7 @@ namespace BookSearcherApp
                 progressBar.Value = MAX_VALUE;
                 progressBar.Text = CurrentProgress;
                 }));
+            Close();
             IsRunning = false;
         }
 
@@ -81,5 +82,12 @@ namespace BookSearcherApp
 #endif
             currentProgress = progress;
         }
+
+        public void Dispose()
+        {
+            Close();
+        }
+
+        protected abstract void Close();
     }
 }

@@ -37,7 +37,7 @@ namespace BookSearcherApp
             NumericUpDownUseCpuCoreCount.Value = ProcessorCount;
             LabelTotalCpuCoreCount.Text = $"コア / 全 {ProcessorCount} コア";
 
-            DataGridViewOutputPattern1.Rows.Add(new object[] { "商品管理番号(真ん中2文字)", "sku", "" });
+            DataGridViewOutputPattern1.Rows.Add(new object[] { "商品管理番号(商品コード以降)", "sku", "" });
             DataGridViewOutputPattern1.Rows.Add(new object[] { "商品コードのタイプ", "product-id-type", "" });
             DataGridViewOutputPattern1.Rows.Add(new object[] { "配送パターン", "merchant_shipping_group_name", "" });
             DataGridViewOutputPattern1.Rows.Add(new object[] { "ポイントパーセント", "standard-price-points-percent", "" });
@@ -74,18 +74,25 @@ namespace BookSearcherApp
             };
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                var path = dialog.FileName;
-                BookCSV = CSVFile.ParseTitle(path);
-                BookColumnSetting.Rows.Clear();
-                if (BookCSV != null)
+                try
                 {
-                    TextBoxInput1.Text = path;
-                    LabelInput1.Enabled = TextBoxInput1.Enabled = ButtonInput1.Enabled = ButtonPreviewDatabase.Enabled = ButtonPreviewOutputs.Enabled = false;
-                    ProgressBarOutputExcel.Value = ProgressBarOutputPatternCSV.Value = ProgressBarOutputCommonCSV1.Value = ProgressBarOutputCommonCSV2.Value = 0;
-                    SetExecuteControlsEnabled(false);
-                    InitColumnSetting(BookCSV, BookColumnSetting);
-                    ProgressBarInput1.Start();
-                    BackgroundWorker1.RunWorkerAsync();
+                    var path = dialog.FileName;
+                    BookCSV = CSVFile.ParseTitle(path);
+                    BookColumnSetting.Rows.Clear();
+                    if (BookCSV != null)
+                    {
+                        TextBoxInput1.Text = path;
+                        LabelInput1.Enabled = TextBoxInput1.Enabled = ButtonInput1.Enabled = ButtonPreviewDatabase.Enabled = ButtonPreviewOutputs.Enabled = false;
+                        ProgressBarOutputExcel.Value = ProgressBarOutputPatternCSV.Value = ProgressBarOutputCommonCSV1.Value = ProgressBarOutputCommonCSV2.Value = 0;
+                        SetExecuteControlsEnabled(false);
+                        InitColumnSetting(BookCSV, BookColumnSetting);
+                        ProgressBarInput1.Start();
+                        BackgroundWorker1.RunWorkerAsync();
+                    }
+                }
+                catch (MyException ex)
+                {
+                    ex.Show();
                 }
             }
         }
@@ -96,7 +103,11 @@ namespace BookSearcherApp
             {
                 BookCSV.ReadAll(BackgroundWorker1, ProgressBarInput1);
             }
-            catch (Exception ex) // for internal error handling
+            catch (MyException ex)
+            {
+                ex.Show();
+            }
+            catch (Exception ex)
             {
                 MyExceptionHandler.Show(ex);
             }
@@ -126,26 +137,33 @@ namespace BookSearcherApp
 
         private void ButtonInput2_Click(object sender, EventArgs e)
         {
-            var dialog = new OpenFileDialog
+            try
             {
-                Title = "スクレイピングデータファイル",
-                Filter = "CSVファイル|*.csv|Excelファイル|*.xlsx"
-            };
-            if (dialog.ShowDialog() == DialogResult.OK)
-            {
-                var path = dialog.FileName;
-                ScrapingCSV = CSVFile.ParseTitle(path);
-                ScrapingColumnSetting.Rows.Clear();
-                if (ScrapingCSV != null)
+                var dialog = new OpenFileDialog
                 {
-                    LabelInput2.Enabled = TextBoxInput2.Enabled = ButtonInput2.Enabled = ButtonPreviewScraping.Enabled = ButtonPreviewOutputs.Enabled = false;
-                    ProgressBarOutputExcel.Value = ProgressBarOutputPatternCSV.Value = ProgressBarOutputCommonCSV1.Value = ProgressBarOutputCommonCSV2.Value = 0;
-                    SetExecuteControlsEnabled(false);
-                    InitColumnSetting(ScrapingCSV, ScrapingColumnSetting);
-                    ProgressBarInput2.Start();
-                    BackgroundWorker2.RunWorkerAsync();
-                    TextBoxInput2.Text = path;
+                    Title = "スクレイピングデータファイル",
+                    Filter = "CSVファイル|*.csv|Excelファイル|*.xlsx"
+                };
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    var path = dialog.FileName;
+                    ScrapingCSV = CSVFile.ParseTitle(path);
+                    ScrapingColumnSetting.Rows.Clear();
+                    if (ScrapingCSV != null)
+                    {
+                        LabelInput2.Enabled = TextBoxInput2.Enabled = ButtonInput2.Enabled = ButtonPreviewScraping.Enabled = ButtonPreviewOutputs.Enabled = false;
+                        ProgressBarOutputExcel.Value = ProgressBarOutputPatternCSV.Value = ProgressBarOutputCommonCSV1.Value = ProgressBarOutputCommonCSV2.Value = 0;
+                        SetExecuteControlsEnabled(false);
+                        InitColumnSetting(ScrapingCSV, ScrapingColumnSetting);
+                        ProgressBarInput2.Start();
+                        BackgroundWorker2.RunWorkerAsync();
+                        TextBoxInput2.Text = path;
+                    }
                 }
+            }
+            catch (MyException ex)
+            {
+                ex.Show();
             }
         }
 
@@ -155,7 +173,11 @@ namespace BookSearcherApp
             {
                 ScrapingCSV.ReadAll(BackgroundWorker2, ProgressBarInput2);
             }
-            catch (Exception ex) // for internal error handling
+            catch (MyException ex)
+            {
+                ex.Show();
+            }
+            catch (Exception ex)
             {
                 MyExceptionHandler.Show(ex);
             }
@@ -309,9 +331,15 @@ namespace BookSearcherApp
 
         private void ButtonExecute_Click(object sender, EventArgs e)
         {
+            bool search_started = false;
+
+            excelSaver = null;
+            saver0 = null;
+            saver1 = null;
+            saver2 = null;
+
             try
             {
-                excelSaver = new ExcelSaver(TextBoxOutputExcel.Text);
                 if (RadioButtonFileTypeCSV1.Checked)
                 {
                     saver0 = new CSVSaverPattern1(DataGridViewOutputPattern1, TextBoxOutputCSV.Text);
@@ -322,6 +350,7 @@ namespace BookSearcherApp
                 }
                 saver1 = new CSVSaverCommon1(DataGridViewCommonOutput1, TextBoxOutputCSV1.Text);
                 saver2 = new CSVSaverCommon2(DataGridViewCommonOutput2, TextBoxOutputCSV2.Text);
+                excelSaver = new ExcelSaver(TextBoxOutputExcel.Text);
 
                 spaceMatch = RadioButtonSpaceContains.Checked ? SpaceMatch.All : SpaceMatch.Ignore;
                 prefixLength = (int)NumericUpDownLength.Value;
@@ -331,6 +360,7 @@ namespace BookSearcherApp
                     return;
                 }
 
+                search_started = true;
                 SetSearchControlsEnabled(false);
                 ProgressBarOutputExcel.Value = ProgressBarOutputPatternCSV.Value = ProgressBarOutputCommonCSV1.Value = ProgressBarOutputCommonCSV2.Value = 0;
                 TimerSearch.Enabled = true;
@@ -342,6 +372,24 @@ namespace BookSearcherApp
             catch (MyException ex)
             {
                 ex.Show();
+            }
+            catch (Exception ex)
+            {
+                MyExceptionHandler.Show(ex);
+            }
+            finally
+            {
+                if (!search_started)
+                {
+                    excelSaver?.Dispose();
+                    excelSaver = null;
+                    saver0?.Dispose();
+                    saver0 = null;
+                    saver1?.Dispose();
+                    saver1 = null;
+                    saver2?.Dispose();
+                    saver2 = null;
+                }
             }
         }
 
@@ -450,6 +498,11 @@ namespace BookSearcherApp
                 ex.Show();
                 return false;
             }
+            catch (Exception ex)
+            {
+                MyExceptionHandler.Show(ex);
+                return false;
+            }
 
             return searcher != null;
         }
@@ -463,6 +516,10 @@ namespace BookSearcherApp
                     searcher.Search();
                     searchInitFailed = false;
                 }
+            }
+            catch (MyException ex)
+            {
+                ex.Show();
             }
             catch (Exception ex) // for internal error handling
             {
@@ -541,9 +598,17 @@ namespace BookSearcherApp
             {
                 excelSaver.Save(BackgroundWorker10, ProgressBarOutputExcel);
             }
+            catch (MyException ex)
+            {
+                ex.Show();
+            }
             catch (Exception ex) // for internal error handling
             {
                 MyExceptionHandler.Show(ex);
+            }
+            finally
+            {
+                excelSaver.Dispose();
             }
         }
 
@@ -559,11 +624,19 @@ namespace BookSearcherApp
         {
             try
             {
-                saver0.Save(CheckBoxBookISBN.Checked, CheckBoxBookCost.Checked, BackgroundWorker11, ProgressBarOutputPatternCSV);
+                saver0.Save(BackgroundWorker11, ProgressBarOutputPatternCSV);
+            }
+            catch (MyException ex)
+            {
+                ex.Show();
             }
             catch (Exception ex) // for internal error handling
             {
                 MyExceptionHandler.Show(ex);
+            }
+            finally
+            {
+                saver0.Dispose();
             }
         }
 
@@ -579,11 +652,19 @@ namespace BookSearcherApp
         {
             try
             {
-                saver1.Save(CheckBoxBookISBN.Checked, CheckBoxBookCost.Checked, BackgroundWorker12, ProgressBarOutputCommonCSV1);
+                saver1.Save(BackgroundWorker12, ProgressBarOutputCommonCSV1);
+            }
+            catch (MyException ex)
+            {
+                ex.Show();
             }
             catch (Exception ex) // for internal error handling
             {
                 MyExceptionHandler.Show(ex);
+            }
+            finally
+            {
+                saver1.Dispose();
             }
         }
 
@@ -599,11 +680,19 @@ namespace BookSearcherApp
         {
             try
             {
-                saver2.Save(CheckBoxBookISBN.Checked, CheckBoxBookCost.Checked, BackgroundWorker13, ProgressBarOutputCommonCSV2);
+                saver2.Save(BackgroundWorker13, ProgressBarOutputCommonCSV2);
+            }
+            catch (MyException ex)
+            {
+                ex.Show();
             }
             catch (Exception ex) // for internal error handling
             {
                 MyExceptionHandler.Show(ex);
+            }
+            finally
+            {
+                saver2.Dispose();
             }
         }
 

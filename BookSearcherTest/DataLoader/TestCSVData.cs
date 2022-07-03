@@ -10,5 +10,10 @@ namespace BookSearcherTest
         {
             throw new NotImplementedException();
         }
+
+        protected override void Close()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
