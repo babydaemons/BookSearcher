@@ -2,13 +2,123 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace BookSearcherApp
 {
-    public abstract class CSVSaver : CSVWriter
+    public abstract class CSVSaver : FileIO
     {
+        #region CSVWriter
+
+        private StreamWriter writer;
+        protected string path;
+
+        public CSVSaver(DataGridView view, string path)
+        {
+            this.path = path;
+
+            CheckParameterEntered(view);
+            foreach (var title in Titles)
+            {
+                dataTable.Columns.Add(title, typeof(string));
+            }
+
+            Open();
+        }
+
+        protected bool IsOpened()
+        {
+            return writer != null && writer.BaseStream != null && writer.BaseStream.CanWrite;
+        }
+
+        protected void Open()
+        {
+            if (IsOpened())
+            {
+                return;
+            }
+
+            try
+            {
+                writer = new StreamWriter(path);
+            }
+            catch (Exception ex)
+            {
+                Close();
+                throw new MyException("CSVファイル保存エラー", path, ex);
+            }
+        }
+
+        protected override void Close()
+        {
+            if (IsOpened())
+            {
+                writer.Close();
+                writer.Dispose();
+            }
+            writer = null;
+
+            try
+            {
+                var file = new FileInfo(path);
+                if (file.Exists && file.Length == 0)
+                {
+                    file.Delete();
+                }
+            }
+            catch (IOException)
+            {
+            }
+        }
+
+        public void Write(DataTable table)
+        {
+            try
+            {
+                var titles = new List<string>();
+                foreach (DataColumn column in table.Columns)
+                {
+                    titles.Add(QuoteValue(column.ColumnName));
+                }
+                writer.WriteLine(string.Join(",", titles.ToArray()));
+
+                var rowCount = table.Rows.Count;
+                var columnCount = table.Columns.Count;
+                ReportProgress(0);
+                foreach (var i in Enumerable.Range(0, rowCount))
+                {
+                    var values = new List<string>();
+                    foreach (var j in Enumerable.Range(0, columnCount))
+                    {
+                        values.Add(QuoteValue(table.Rows[i][j]));
+                    }
+                    writer.WriteLine(string.Join(",", values.ToArray()));
+                    ReportProgress(MAX_VALUE * i / rowCount);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new MyException("CSVファイル保存エラー", path, ex);
+            }
+            finally
+            {
+                Close();
+            }
+        }
+
+        public static string QuoteValue(Object value)
+        {
+            string v = (value.GetType() == typeof(DBNull)) ? "" : (string)value;
+            return "\"" + v.Replace("\"", "\"\"") + "\"";
+        }
+
+        #endregion
+
+        #region CSVSaver
+
         public abstract string[] Titles { get; }
         public int ColumnIndexSKU => 0;
         public abstract int ColumnIndexPrice { get; }
@@ -17,16 +127,6 @@ namespace BookSearcherApp
         protected DataTable dataTable = new DataTable();
         public DataTable DataTable => dataTable;
         private readonly Dictionary<string, string> settings = new Dictionary<string, string>();
-
-        protected CSVSaver(DataGridView view, string path) : base(path)
-        {
-            CheckParameterEntered(view);
-
-            foreach (var title in Titles)
-            {
-                dataTable.Columns.Add(title, typeof(string));
-            }
-        }
 
         private void CheckParameterEntered(DataGridView view)
         {
@@ -102,5 +202,7 @@ namespace BookSearcherApp
         {
             return condition ? then_value : else_value;
         }
+
+        #endregion
     }
 }

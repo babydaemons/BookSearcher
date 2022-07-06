@@ -7,45 +7,48 @@ namespace BookSearcherApp
     internal class MyException : Exception
     {
         private readonly string caption;
-        private readonly string message;
 
-        public MyException(string caption, string message) : base()
+        public MyException(string caption, string message) : base(message)
         {
             this.caption = caption;
-            this.message = message;
+            GC.Collect(0, GCCollectionMode.Forced);
         }
 
-        public MyException(string caption, string path, Exception ex) : base()
+        public MyException(string caption, string path, Exception ex) : base(GetExceptionMessage(caption, path, ex), ex)
         {
             this.caption = caption;
+            GC.Collect(0, GCCollectionMode.Forced);
+        }
 
+        private static string GetExceptionMessage(string caption, string path, Exception ex)
+        {
             if (ex is FileNotFoundException)
             {
-                message = $"ファイルまたはフォルダが見つかりませんでした。\n{path}\n\nエラー詳細：\n{ex.Message}";
+                return $"ファイルまたはフォルダが見つかりませんでした。\n{path}\n\nエラー詳細：\n{ex.Message}";
             }
             else if (ex is DirectoryNotFoundException)
             {
-                message = $"ファイルまたはフォルダが見つかりませんでした。\n{path}\n\nエラー詳細：\n{ex.Message}";
+                return $"ファイルまたはフォルダが見つかりませんでした。\n{path}\n\nエラー詳細：\n{ex.Message}";
             }
             else if (ex is DriveNotFoundException)
             {
-                message = $"ディスクドライブが見つかりませんでした。\n{path}\n\nエラー詳細：\n{ex.Message}";
+                return $"ディスクドライブが見つかりませんでした。\n{path}\n\nエラー詳細：\n{ex.Message}";
             }
             else if (ex is PathTooLongException)
             {
-                message = $"フォルダ名とファイル名を連結したファイルパスが長すぎます。\n{path}\n\nエラー詳細：\n{ex.Message}";
+                return $"フォルダ名とファイル名を連結したファイルパスが長すぎます。\n{path}\n\nエラー詳細：\n{ex.Message}";
             }
             else if (ex is UnauthorizedAccessException)
             {
-                message = $"読み書きする権限がありませんでした。\n{path}\n\nエラー詳細：\n{ex.Message}";
+                return $"読み書きする権限がありませんでした。\n{path}\n\nエラー詳細：\n{ex.Message}";
             }
             else if (ex is IOException && (ex.HResult & 0x0000FFFF) == 32)
             {
-                message = $"共有違反です。他のアプリケーションで開いていないか確認してください。\n{path}\n\nエラー詳細：\n{ex.Message}";
+                return $"共有違反です。他のアプリケーションで開いていないか確認してください。\n{path}\n\nエラー詳細：\n{ex.Message}";
             }
             else if (ex is IOException && (ex.HResult & 0x0000FFFF) == 80)
             {
-                message = $"指定された場所には既にファイルまたはフォルダが存在します。\n{path}\n\nエラー詳細：\n{ex.Message}";
+                return $"指定された場所には既にファイルまたはフォルダが存在します。\n{path}\n\nエラー詳細：\n{ex.Message}";
             }
             else if (ex is IOException)
             {
@@ -63,7 +66,7 @@ namespace BookSearcherApp
 
         public void Show()
         {
-            MessageBox.Show(message, caption);
+            MessageBox.Show(base.Message, caption);
         }
     }
 }

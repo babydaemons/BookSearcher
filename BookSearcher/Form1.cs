@@ -340,6 +340,12 @@ namespace BookSearcherApp
 
             try
             {
+                if (!InvokeMatching())
+                {
+                    return;
+                }
+
+                excelSaver = new ExcelSaver(TextBoxOutputExcel.Text);
                 if (RadioButtonFileTypeCSV1.Checked)
                 {
                     saver0 = new CSVSaverPattern1(DataGridViewOutputPattern1, TextBoxOutputCSV.Text);
@@ -350,15 +356,9 @@ namespace BookSearcherApp
                 }
                 saver1 = new CSVSaverCommon1(DataGridViewCommonOutput1, TextBoxOutputCSV1.Text);
                 saver2 = new CSVSaverCommon2(DataGridViewCommonOutput2, TextBoxOutputCSV2.Text);
-                excelSaver = new ExcelSaver(TextBoxOutputExcel.Text);
 
                 spaceMatch = RadioButtonSpaceContains.Checked ? SpaceMatch.All : SpaceMatch.Ignore;
                 prefixLength = (int)NumericUpDownLength.Value;
-
-                if (!InvokeMatching())
-                {
-                    return;
-                }
 
                 search_started = true;
                 SetSearchControlsEnabled(false);
@@ -389,6 +389,7 @@ namespace BookSearcherApp
                     saver1 = null;
                     saver2?.Dispose();
                     saver2 = null;
+                    GC.Collect(0, GCCollectionMode.Forced);
                 }
             }
         }

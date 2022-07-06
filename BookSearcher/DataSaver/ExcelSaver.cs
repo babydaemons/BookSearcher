@@ -22,6 +22,7 @@ namespace BookSearcherApp
         private FileStream newFile;
         private FileStream oldFile;
         private bool exists;
+        private bool succeed;
 
         private static int N = 0;
 
@@ -39,6 +40,7 @@ namespace BookSearcherApp
         private void Open(string path)
         {
             exists = File.Exists(path);
+            succeed = false;
             var oldSuffix = "-Copy$" + DateTime.Now.ToString("yyyyMMddHHmmssyyyyyy") + ".xlsx";
             oldPath = exists ? path.Replace(".xlsx", oldSuffix) : null;
             newPath = path;
@@ -62,11 +64,6 @@ namespace BookSearcherApp
             }
         }
 
-        ~ExcelSaver()
-        {
-            Close();
-        }
-
         protected override void Close()
         {
             if (package != null)
@@ -85,6 +82,38 @@ namespace BookSearcherApp
                 oldFile.Close();
                 oldFile.Dispose();
                 oldFile = null;
+            }
+            RemoveJunkFile(newPath);
+            RemoveJunkFile(oldPath);
+            if (!succeed && newPath != null && oldPath != null && !File.Exists(newPath) && File.Exists(oldPath))
+            {
+                try
+                {
+                    File.Move(oldPath, newPath);
+                }
+                catch (IOException ex)
+                {
+                    throw new MyException("Excelファイル復旧エラー", $"{newPath}\n{oldPath}", ex);
+                }
+            }
+        }
+
+        private void RemoveJunkFile(string path)
+        {
+            if (path == null)
+            {
+                return;
+            }
+            try
+            {
+                var file = new FileInfo(path);
+                if (file.Exists && file.Length == 0)
+                {
+                    file.Delete();
+                }
+            }
+            catch (IOException)
+            {
             }
         }
 
@@ -151,6 +180,7 @@ namespace BookSearcherApp
                 package.Save();
                 ReportProgress(MAX_VALUE);
                 StopIO();
+                succeed = true;
             }
             catch (Exception ex)
             {

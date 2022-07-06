@@ -102,7 +102,6 @@
     <Compile Include="DataSaver\CSVSaverPattern2.cs" />
     <Compile Include="DataSaver\CSVSaverPattern1.cs" />
     <Compile Include="DataSaver\CSVSaverCommon2.cs" />
-    <Compile Include="DataSaver\CSVWriter.cs" />
     <Compile Include="DataSaver\ExcelSaver.cs" />
     <Compile Include="EPPlus\CellStore.cs" />
     <Compile Include="EPPlus\Compatibility\CompatibilitySettings.cs" />

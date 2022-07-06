@@ -13,7 +13,6 @@ namespace BookSearcherTest
 
         protected override void Close()
         {
-            throw new NotImplementedException();
         }
     }
 }
