@@ -66,7 +66,14 @@ namespace BookSearcherApp
 
         public void Show()
         {
-            MessageBox.Show(base.Message, caption);
+            if (InnerException == null)
+            {
+                MessageBox.Show(Message, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show(Message, caption, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }

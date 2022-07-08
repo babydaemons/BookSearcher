@@ -22,7 +22,7 @@ namespace BookSearcherApp
 
             using (var writer = new StreamWriter(path)) { writer.WriteLine(message); }
 
-            MessageBox.Show(message, "内部エラーが発生しました");
+            MessageBox.Show(message, "内部エラーが発生しました", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         public static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)

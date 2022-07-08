@@ -61,7 +61,7 @@ namespace Properties {
         }
         
         /// <summary>
-        ///   BookSearcher v1.2.4 に類似しているローカライズされた文字列を検索します。
+        ///   BookSearcher v1.2.5 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string Version {
             get {
