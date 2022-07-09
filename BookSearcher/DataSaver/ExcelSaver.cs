@@ -180,6 +180,12 @@ namespace BookSearcherApp
                 package.Save();
                 ReportProgress(MAX_VALUE);
                 StopIO();
+
+                if (exists && File.Exists(oldPath))
+                {
+                    File.Delete(oldPath);
+                }
+
                 succeed = true;
             }
             catch (Exception ex)
