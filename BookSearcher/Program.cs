@@ -14,6 +14,9 @@ namespace BookSearcherApp
         [STAThread]
         static void Main(string[] args)
         {
+            var value0 = int.Parse(args[0]);
+            var value1 = int.Parse(args[1]);
+
             // ThreadExceptionイベント・ハンドラを登録する
             Application.ThreadException += new ThreadExceptionEventHandler(MyExceptionHandler.Application_ThreadException);
 
