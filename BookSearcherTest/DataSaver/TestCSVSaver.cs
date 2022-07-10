@@ -23,6 +23,14 @@ namespace BookSearcherTest
     [TestClass]
     public class TestCSVSaver : Form1
     {
+        public TestCSVSaver() : base(false)
+        {
+            InitDataSettings(false);
+            DataTableCommonOutput2.Rows[0][2] = "NH";
+            DataTableCommonOutput2.Rows[1][2] = "X";
+            CSVSaver.InitCostTable(DataTableCostRatio);
+        }
+
         [TestMethod]
         public void TestCalcSalingPrice00000()
         {
@@ -86,10 +94,6 @@ namespace BookSearcherTest
         [TestMethod]
         public void TestWrite()
         {
-            var view = DataGridViewCommonOutput2;
-            view.Rows[0].Cells[2].Value = "NH";
-            view.Rows[1].Cells[2].Value = "X";
-
             var table = new DataTable();
             table.Columns.Add("AAA,BBB", typeof(string));
             table.Columns.Add("CCC,DDD", typeof(string));
@@ -103,6 +107,7 @@ namespace BookSearcherTest
             row2[0] = "aaa\nbbb";
             table.Rows.Add(row2);
 
+            var view = DataGridViewCommonOutput2;
             var path = DateTime.Now.ToString("yyyyMMddhhmmssfffff") + ".csv";
             using (var writer = new DummyCSVSaver(view, path))
             {

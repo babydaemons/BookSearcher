@@ -26,7 +26,7 @@ namespace BookSearcherApp
 
             try
             {
-                Application.Run(new Form1());
+                Application.Run(new Form1(true));
             }
             catch (Exception ex) // for internal error handling
             {

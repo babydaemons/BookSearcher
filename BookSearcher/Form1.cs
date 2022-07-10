@@ -29,16 +29,24 @@ namespace BookSearcherApp
         private string folderPath = "";
         private bool searchInitFailed = false;
 
-        public Form1()
+        public Form1(bool forceRead)
         {
             InitializeComponent();
             Text = Properties.Resources.Version;
 
-            var appPath = Assembly.GetEntryAssembly().Location;
-            var appDir = Path.GetDirectoryName(appPath);
-            var fileName = Path.GetFileNameWithoutExtension(appPath);
-            ConfigXml = $"{appDir}\\{fileName}.xml";
-            InitDataSettings();
+            var assembly = Assembly.GetExecutingAssembly();
+            if (assembly != null)
+            {
+                var appPath = assembly.Location;
+                var appDir = Path.GetDirectoryName(appPath);
+                var fileName = Path.GetFileNameWithoutExtension(appPath);
+                ConfigXml = $"{appDir}\\{fileName}.xml";
+            }
+            else
+            {
+                ConfigXml = "BookSearcher.xml";
+            }
+            InitDataSettings(forceRead);
 
             BookSearcher.InitColumnSettings(BookColumnSetting, ScrapingColumnSetting);
             ProcessorCount = Environment.ProcessorCount;
@@ -47,14 +55,15 @@ namespace BookSearcherApp
             LabelTotalCpuCoreCount.Text = $"コア / 全 {ProcessorCount} コア";
         }
 
-        private void InitDataSettings()
+        protected void InitDataSettings(bool forceRead)
         {
-            if (File.Exists(ConfigXml))
+            if (forceRead && File.Exists(ConfigXml))
             {
                 DataSetSetting.ReadXml(ConfigXml);
                 return;
             }
 
+            DataTableOutputPattern1.Rows.Clear();
             DataTableOutputPattern1.Rows.Add(new object[] { "商品管理番号(商品コード以降)", "sku", "" });
             DataTableOutputPattern1.Rows.Add(new object[] { "商品コードのタイプ", "product-id-type", "" });
             DataTableOutputPattern1.Rows.Add(new object[] { "配送パターン", "merchant_shipping_group_name", "" });
@@ -63,6 +72,7 @@ namespace BookSearcherApp
             DataTableOutputPattern1.Rows.Add(new object[] { "在庫数", "quantity", "" });
             DataTableOutputPattern1.Rows.Add(new object[] { "商品メモ", "item-note", "" });
 
+            DataTableOutputPattern2.Rows.Clear();
             DataTableOutputPattern2.Rows.Add(new object[] { "商品管理番号(商品コード以降)", "sku", "" });
             DataTableOutputPattern2.Rows.Add(new object[] { "商品コードのタイプ", "product-id-type", "" });
             DataTableOutputPattern2.Rows.Add(new object[] { "配送パターン", "merchant_shipping_group_name", "" });
@@ -71,6 +81,7 @@ namespace BookSearcherApp
             DataTableOutputPattern2.Rows.Add(new object[] { "在庫数", "quantity", "" });
             DataTableOutputPattern2.Rows.Add(new object[] { "商品メモ", "item-note", "" });
 
+            DataTableCommonOutput1.Rows.Clear();
             DataTableCommonOutput1.Rows.Add(new object[] { "商品管理番号(商品コード以降)", "sku", "" });
             DataTableCommonOutput1.Rows.Add(new object[] { "数量", "quantity", "" });
             DataTableCommonOutput1.Rows.Add(new object[] { "リードタイム", "leadtime", "" });
@@ -79,8 +90,17 @@ namespace BookSearcherApp
             DataTableCommonOutput1.Rows.Add(new object[] { "下限ストッパー", "autoprice_stopper", "" });
             DataTableCommonOutput1.Rows.Add(new object[] { "上限ストッパー", "autoprice_stopper_upper", "" });
 
+            DataTableCommonOutput2.Rows.Clear();
             DataTableCommonOutput2.Rows.Add(new object[] { "商品管理番号(商品コード以降)", "sku", "" });
             DataTableCommonOutput2.Rows.Add(new object[] { "登録/削除", "add-delete", "" });
+
+            // =(F4+88+110+330+550+(F4*0.15))*(IF(F4>20000, "1.52",IF(F4>10000, "1.49",IF(F4>5000, "1.46",IF(F4>3000, "1.43", IF(F4>=1, "1.42", ""))))))
+            DataTableCostRatio.Rows.Clear();
+            DataTableCostRatio.Rows.Add(new object[] { 20000, 1.52 });
+            DataTableCostRatio.Rows.Add(new object[] { 10000, 1.49 });
+            DataTableCostRatio.Rows.Add(new object[] { 5000, 1.46 });
+            DataTableCostRatio.Rows.Add(new object[] { 3000, 1.43 });
+            DataTableCostRatio.Rows.Add(new object[] { 0, 1.42 });
         }
 
         private void ButtonInput1_Click(object sender, EventArgs e)
@@ -350,6 +370,7 @@ namespace BookSearcherApp
         private void ButtonExecute_Click(object sender, EventArgs e)
         {
             bool search_started = false;
+            searchInitFailed = true;
 
             excelSaver = null;
             saver0 = null;
@@ -358,6 +379,8 @@ namespace BookSearcherApp
 
             try
             {
+                CSVSaver.InitCostTable(DataTableCostRatio);
+
                 if (!InvokeMatching())
                 {
                     return;
@@ -379,10 +402,10 @@ namespace BookSearcherApp
                 prefixLength = (int)NumericUpDownLength.Value;
 
                 search_started = true;
+                searchInitFailed = false;
                 SetSearchControlsEnabled(false);
                 ProgressBarOutputExcel.Value = ProgressBarOutputPatternCSV.Value = ProgressBarOutputCommonCSV1.Value = ProgressBarOutputCommonCSV2.Value = 0;
                 TimerSearch.Enabled = true;
-                searchTimer = Stopwatch.StartNew();
                 ProcessorCount = (int)NumericUpDownUseCpuCoreCount.Value;
                 parallelOptions.MaxDegreeOfParallelism = ProcessorCount;
                 BackgroundWorker4.RunWorkerAsync();
@@ -553,7 +576,6 @@ namespace BookSearcherApp
             {
                 return;
             }
-            searchTimer.Stop();
             ProgressBarOutputExcel.Start();
             ProgressBarOutputPatternCSV.Start();
             ProgressBarOutputCommonCSV1.Start();
@@ -566,11 +588,11 @@ namespace BookSearcherApp
 
         private void TimerSearch_Tick(object sender, EventArgs e)
         {
-            if (searchInitFailed || searchTimer == null)
+            if (searchInitFailed)
             {
                 return;
             }
-            LabelElapsed.Text = "経過時間 " + searchTimer.Elapsed.ToString(@"hh\:mm\:ss\.fff");
+            LabelElapsed.Text = BookSearcher.Elapsed;
             LabelResultRows.Text = $"{BookSearcher.ResultCount} 件";
         }
 

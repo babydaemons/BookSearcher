@@ -1,29 +1,4 @@
-﻿namespace BookSearcherApp
-{
-    partial class Form1
-    {
-        /// <summary>
-        /// 使用中のリソースをすべてクリーンアップします。
-        /// </summary>
-        /// <param name="disposing">マネージド リソースを破棄する場合は true を指定し、その他の場合は false を指定します。</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        #region Windows フォーム デザイナーで生成されたコード
-
-        /// <summary>
-        /// デザイナー サポートに必要なメソッドです。このメソッドの内容を
-        /// コード エディターで変更しないでください。
-        /// </summary>
-        private void InitializeComponent()
-        {
-            this.components = new System.ComponentModel.Container();
+﻿namespace BookSearcherApp{    partial class Form1    {        /// <summary>        /// 使用中のリソースをすべてクリーンアップします。        /// </summary>        /// <param name="disposing">マネージド リソースを破棄する場合は true を指定し、その他の場合は false を指定します。</param>        protected override void Dispose(bool disposing)        {            if (disposing && (components != null))            {                components.Dispose();            }            base.Dispose(disposing);        }        #region Windows フォーム デザイナーで生成されたコード        /// <summary>        /// デザイナー サポートに必要なメソッドです。このメソッドの内容を        /// コード エディターで変更しないでください。        /// </summary>        private void InitializeComponent()        {            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.TimerSearch = new System.Windows.Forms.Timer(this.components);
             this.BackgroundWorker4 = new System.ComponentModel.BackgroundWorker();
@@ -40,6 +15,12 @@
             this.LabelElapsed = new System.Windows.Forms.Label();
             this.ButtonExecute = new System.Windows.Forms.Button();
             this.GroupBoxFiles = new System.Windows.Forms.GroupBox();
+            this.ProgressBarOutputCommonCSV2 = new BookSearcherApp.FileIOProgressBar();
+            this.ProgressBarOutputCommonCSV1 = new BookSearcherApp.FileIOProgressBar();
+            this.ProgressBarOutputPatternCSV = new BookSearcherApp.FileIOProgressBar();
+            this.ProgressBarOutputExcel = new BookSearcherApp.FileIOProgressBar();
+            this.ProgressBarInput2 = new BookSearcherApp.FileIOProgressBar();
+            this.ProgressBarInput1 = new BookSearcherApp.FileIOProgressBar();
             this.LabelOutputCSV = new System.Windows.Forms.Label();
             this.TextBoxOutputCSV2 = new System.Windows.Forms.TextBox();
             this.LabelOutputCSV2 = new System.Windows.Forms.Label();
@@ -101,24 +82,36 @@
             this.TabControlOutputFileSetting = new System.Windows.Forms.TabControl();
             this.TabPageOutputPattern1 = new System.Windows.Forms.TabPage();
             this.DataGridViewOutputPattern1 = new System.Windows.Forms.DataGridView();
+            this.ColumnJapaneseName1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnEnglishName1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnSettingValue1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DataTableOutputPattern1 = new System.Data.DataTable();
             this.DataColumnNameJP1 = new System.Data.DataColumn();
             this.DataColumnNameEN1 = new System.Data.DataColumn();
             this.DataColumnValue1 = new System.Data.DataColumn();
             this.TabPageOutputPattern2 = new System.Windows.Forms.TabPage();
             this.DataGridViewOutputPattern2 = new System.Windows.Forms.DataGridView();
+            this.ColumnJapaneseName2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnEnglishName2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnSettingValue2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DataTableOutputPattern2 = new System.Data.DataTable();
             this.DataColumnNameJP2 = new System.Data.DataColumn();
             this.DataColumnNameEN2 = new System.Data.DataColumn();
             this.DataColumnValue2 = new System.Data.DataColumn();
             this.TabPageCommonOutput1 = new System.Windows.Forms.TabPage();
             this.DataGridViewCommonOutput1 = new System.Windows.Forms.DataGridView();
+            this.ColumnJapaneseName3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnEnglishName3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnSettingValue3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DataTableCommonOutput1 = new System.Data.DataTable();
             this.DataColumnNameJP3 = new System.Data.DataColumn();
             this.DataColumnNameEN3 = new System.Data.DataColumn();
             this.DataColumnValue3 = new System.Data.DataColumn();
             this.TabPageCommonOutput2 = new System.Windows.Forms.TabPage();
             this.DataGridViewCommonOutput2 = new System.Windows.Forms.DataGridView();
+            this.ColumnJapaneseName4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnEnglishName4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnSettingValue4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DataTableCommonOutput2 = new System.Data.DataTable();
             this.DataColumnNameJP4 = new System.Data.DataColumn();
             this.DataColumnNameEN4 = new System.Data.DataColumn();
@@ -126,8 +119,10 @@
             this.TabPageCostRatio = new System.Windows.Forms.TabPage();
             this.DataGridViewCostRatio = new System.Windows.Forms.DataGridView();
             this.ColumnCostLower = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnCostUpper = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnRatio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCostRatio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DataTableCostRatio = new System.Data.DataTable();
+            this.DataColumnCostLower = new System.Data.DataColumn();
+            this.DataColumnCostRatio = new System.Data.DataColumn();
             this.ButtonPreviewOutputs = new System.Windows.Forms.Button();
             this.BackgroundWorker10 = new System.ComponentModel.BackgroundWorker();
             this.BackgroundWorker11 = new System.ComponentModel.BackgroundWorker();
@@ -139,25 +134,6 @@
             this.NumericUpDownUseCpuCoreCount = new System.Windows.Forms.NumericUpDown();
             this.TimerFileIO = new System.Windows.Forms.Timer(this.components);
             this.DataSetSetting = new System.Data.DataSet();
-            this.DataTableCostRatio = new System.Data.DataTable();
-            this.ColumnJapaneseName1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnEnglishName1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnSettingValue1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnJapaneseName2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnEnglishName2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnSettingValue2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnJapaneseName3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnEnglishName3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnSettingValue3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnJapaneseName4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnEnglishName4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnSettingValue4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProgressBarOutputCommonCSV2 = new BookSearcherApp.FileIOProgressBar();
-            this.ProgressBarOutputCommonCSV1 = new BookSearcherApp.FileIOProgressBar();
-            this.ProgressBarOutputPatternCSV = new BookSearcherApp.FileIOProgressBar();
-            this.ProgressBarOutputExcel = new BookSearcherApp.FileIOProgressBar();
-            this.ProgressBarInput2 = new BookSearcherApp.FileIOProgressBar();
-            this.ProgressBarInput1 = new BookSearcherApp.FileIOProgressBar();
             this.GroupBoxOutput.SuspendLayout();
             this.GroupBoxPartMatch.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownLength)).BeginInit();
@@ -190,10 +166,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.DataTableCommonOutput2)).BeginInit();
             this.TabPageCostRatio.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewCostRatio)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataTableCostRatio)).BeginInit();
             this.GroupBoxCpuCores.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownUseCpuCoreCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataSetSetting)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DataTableCostRatio)).BeginInit();
             this.SuspendLayout();
             // 
             // TimerSearch
@@ -316,21 +292,21 @@
             // 
             // LabelResultRows
             // 
-            this.LabelResultRows.Location = new System.Drawing.Point(255, 25);
+            this.LabelResultRows.Location = new System.Drawing.Point(234, 25);
             this.LabelResultRows.Name = "LabelResultRows";
-            this.LabelResultRows.Size = new System.Drawing.Size(85, 18);
+            this.LabelResultRows.Size = new System.Drawing.Size(126, 18);
             this.LabelResultRows.TabIndex = 2;
             this.LabelResultRows.Text = "0 件";
             this.LabelResultRows.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // LabelElapsed
             // 
-            this.LabelElapsed.Location = new System.Drawing.Point(109, 25);
+            this.LabelElapsed.Location = new System.Drawing.Point(112, 25);
             this.LabelElapsed.Name = "LabelElapsed";
-            this.LabelElapsed.Size = new System.Drawing.Size(140, 18);
+            this.LabelElapsed.Size = new System.Drawing.Size(116, 18);
             this.LabelElapsed.TabIndex = 1;
-            this.LabelElapsed.Text = "経過時間 00:00:00.000";
-            this.LabelElapsed.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.LabelElapsed.Text = "照合 00:00:00.000";
+            this.LabelElapsed.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // ButtonExecute
             // 
@@ -374,6 +350,54 @@
             this.GroupBoxFiles.TabIndex = 0;
             this.GroupBoxFiles.TabStop = false;
             this.GroupBoxFiles.Text = "入力・出力データファイル指定";
+            // 
+            // ProgressBarOutputCommonCSV2
+            // 
+            this.ProgressBarOutputCommonCSV2.Location = new System.Drawing.Point(1026, 170);
+            this.ProgressBarOutputCommonCSV2.Maximum = 1000;
+            this.ProgressBarOutputCommonCSV2.Name = "ProgressBarOutputCommonCSV2";
+            this.ProgressBarOutputCommonCSV2.Size = new System.Drawing.Size(232, 20);
+            this.ProgressBarOutputCommonCSV2.TabIndex = 20;
+            // 
+            // ProgressBarOutputCommonCSV1
+            // 
+            this.ProgressBarOutputCommonCSV1.Location = new System.Drawing.Point(1027, 141);
+            this.ProgressBarOutputCommonCSV1.Maximum = 1000;
+            this.ProgressBarOutputCommonCSV1.Name = "ProgressBarOutputCommonCSV1";
+            this.ProgressBarOutputCommonCSV1.Size = new System.Drawing.Size(232, 20);
+            this.ProgressBarOutputCommonCSV1.TabIndex = 19;
+            // 
+            // ProgressBarOutputPatternCSV
+            // 
+            this.ProgressBarOutputPatternCSV.Location = new System.Drawing.Point(1027, 112);
+            this.ProgressBarOutputPatternCSV.Maximum = 1000;
+            this.ProgressBarOutputPatternCSV.Name = "ProgressBarOutputPatternCSV";
+            this.ProgressBarOutputPatternCSV.Size = new System.Drawing.Size(232, 20);
+            this.ProgressBarOutputPatternCSV.TabIndex = 18;
+            // 
+            // ProgressBarOutputExcel
+            // 
+            this.ProgressBarOutputExcel.Location = new System.Drawing.Point(1027, 83);
+            this.ProgressBarOutputExcel.Maximum = 1000;
+            this.ProgressBarOutputExcel.Name = "ProgressBarOutputExcel";
+            this.ProgressBarOutputExcel.Size = new System.Drawing.Size(232, 20);
+            this.ProgressBarOutputExcel.TabIndex = 17;
+            // 
+            // ProgressBarInput2
+            // 
+            this.ProgressBarInput2.Location = new System.Drawing.Point(1027, 54);
+            this.ProgressBarInput2.Maximum = 1000;
+            this.ProgressBarInput2.Name = "ProgressBarInput2";
+            this.ProgressBarInput2.Size = new System.Drawing.Size(232, 20);
+            this.ProgressBarInput2.TabIndex = 16;
+            // 
+            // ProgressBarInput1
+            // 
+            this.ProgressBarInput1.Location = new System.Drawing.Point(1027, 25);
+            this.ProgressBarInput1.Maximum = 1000;
+            this.ProgressBarInput1.Name = "ProgressBarInput1";
+            this.ProgressBarInput1.Size = new System.Drawing.Size(232, 20);
+            this.ProgressBarInput1.TabIndex = 15;
             // 
             // LabelOutputCSV
             // 
@@ -1172,10 +1196,11 @@
             this.ColumnSettingValue2});
             this.DataGridViewOutputPattern2.DataSource = this.DataTableOutputPattern2;
             this.DataGridViewOutputPattern2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DataGridViewOutputPattern2.Enabled = false;
             this.DataGridViewOutputPattern2.Location = new System.Drawing.Point(3, 3);
             this.DataGridViewOutputPattern2.Name = "DataGridViewOutputPattern2";
             this.DataGridViewOutputPattern2.RowTemplate.Height = 21;
-            this.DataGridViewOutputPattern2.Size = new System.Drawing.Size(747, 430);
+            this.DataGridViewOutputPattern2.Size = new System.Drawing.Size(747, 428);
             this.DataGridViewOutputPattern2.TabIndex = 2;
             this.DataGridViewOutputPattern2.Tag = "出力CSVパターン2";
             // 
@@ -1257,7 +1282,7 @@
             this.DataGridViewCommonOutput1.Location = new System.Drawing.Point(3, 3);
             this.DataGridViewCommonOutput1.Name = "DataGridViewCommonOutput1";
             this.DataGridViewCommonOutput1.RowTemplate.Height = 21;
-            this.DataGridViewCommonOutput1.Size = new System.Drawing.Size(747, 430);
+            this.DataGridViewCommonOutput1.Size = new System.Drawing.Size(747, 428);
             this.DataGridViewCommonOutput1.TabIndex = 3;
             this.DataGridViewCommonOutput1.Tag = "共通CSV出力1";
             // 
@@ -1339,7 +1364,7 @@
             this.DataGridViewCommonOutput2.Location = new System.Drawing.Point(3, 3);
             this.DataGridViewCommonOutput2.Name = "DataGridViewCommonOutput2";
             this.DataGridViewCommonOutput2.RowTemplate.Height = 21;
-            this.DataGridViewCommonOutput2.Size = new System.Drawing.Size(747, 430);
+            this.DataGridViewCommonOutput2.Size = new System.Drawing.Size(747, 428);
             this.DataGridViewCommonOutput2.TabIndex = 3;
             this.DataGridViewCommonOutput2.Tag = "共通CSV出力2";
             // 
@@ -1409,11 +1434,12 @@
             // 
             this.DataGridViewCostRatio.AllowUserToAddRows = false;
             this.DataGridViewCostRatio.AllowUserToDeleteRows = false;
+            this.DataGridViewCostRatio.AutoGenerateColumns = false;
             this.DataGridViewCostRatio.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGridViewCostRatio.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColumnCostLower,
-            this.ColumnCostUpper,
-            this.ColumnRatio});
+            this.ColumnCostRatio});
+            this.DataGridViewCostRatio.DataSource = this.DataTableCostRatio;
             this.DataGridViewCostRatio.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DataGridViewCostRatio.Location = new System.Drawing.Point(0, 0);
             this.DataGridViewCostRatio.Name = "DataGridViewCostRatio";
@@ -1423,25 +1449,38 @@
             // 
             // ColumnCostLower
             // 
+            this.ColumnCostLower.DataPropertyName = "CostLower";
             this.ColumnCostLower.Frozen = true;
             this.ColumnCostLower.HeaderText = "原価下限";
             this.ColumnCostLower.Name = "ColumnCostLower";
-            this.ColumnCostLower.Width = 237;
+            this.ColumnCostLower.Width = 355;
             // 
-            // ColumnCostUpper
+            // ColumnCostRatio
             // 
-            this.ColumnCostUpper.Frozen = true;
-            this.ColumnCostUpper.HeaderText = "原価上限";
-            this.ColumnCostUpper.Name = "ColumnCostUpper";
-            this.ColumnCostUpper.ReadOnly = true;
-            this.ColumnCostUpper.Width = 237;
+            this.ColumnCostRatio.DataPropertyName = "CostRatio";
+            this.ColumnCostRatio.Frozen = true;
+            this.ColumnCostRatio.HeaderText = "料率";
+            this.ColumnCostRatio.Name = "ColumnCostRatio";
+            this.ColumnCostRatio.Width = 355;
             // 
-            // ColumnRatio
+            // DataTableCostRatio
             // 
-            this.ColumnRatio.Frozen = true;
-            this.ColumnRatio.HeaderText = "料率";
-            this.ColumnRatio.Name = "ColumnRatio";
-            this.ColumnRatio.Width = 237;
+            this.DataTableCostRatio.Columns.AddRange(new System.Data.DataColumn[] {
+            this.DataColumnCostLower,
+            this.DataColumnCostRatio});
+            this.DataTableCostRatio.TableName = "TableCostRatio";
+            // 
+            // DataColumnCostLower
+            // 
+            this.DataColumnCostLower.Caption = "原価下限";
+            this.DataColumnCostLower.ColumnName = "CostLower";
+            this.DataColumnCostLower.DataType = typeof(int);
+            // 
+            // DataColumnCostRatio
+            // 
+            this.DataColumnCostRatio.Caption = "料率";
+            this.DataColumnCostRatio.ColumnName = "CostRatio";
+            this.DataColumnCostRatio.DataType = typeof(double);
             // 
             // ButtonPreviewOutputs
             // 
@@ -1552,58 +1591,6 @@
             this.DataTableCommonOutput2,
             this.DataTableCostRatio});
             // 
-            // DataTableCostRatio
-            // 
-            this.DataTableCostRatio.TableName = "TableCostRatio";
-            // 
-            // ProgressBarOutputCommonCSV2
-            // 
-            this.ProgressBarOutputCommonCSV2.Location = new System.Drawing.Point(1026, 170);
-            this.ProgressBarOutputCommonCSV2.Maximum = 1000;
-            this.ProgressBarOutputCommonCSV2.Name = "ProgressBarOutputCommonCSV2";
-            this.ProgressBarOutputCommonCSV2.Size = new System.Drawing.Size(232, 20);
-            this.ProgressBarOutputCommonCSV2.TabIndex = 20;
-            // 
-            // ProgressBarOutputCommonCSV1
-            // 
-            this.ProgressBarOutputCommonCSV1.Location = new System.Drawing.Point(1027, 141);
-            this.ProgressBarOutputCommonCSV1.Maximum = 1000;
-            this.ProgressBarOutputCommonCSV1.Name = "ProgressBarOutputCommonCSV1";
-            this.ProgressBarOutputCommonCSV1.Size = new System.Drawing.Size(232, 20);
-            this.ProgressBarOutputCommonCSV1.TabIndex = 19;
-            // 
-            // ProgressBarOutputPatternCSV
-            // 
-            this.ProgressBarOutputPatternCSV.Location = new System.Drawing.Point(1027, 112);
-            this.ProgressBarOutputPatternCSV.Maximum = 1000;
-            this.ProgressBarOutputPatternCSV.Name = "ProgressBarOutputPatternCSV";
-            this.ProgressBarOutputPatternCSV.Size = new System.Drawing.Size(232, 20);
-            this.ProgressBarOutputPatternCSV.TabIndex = 18;
-            // 
-            // ProgressBarOutputExcel
-            // 
-            this.ProgressBarOutputExcel.Location = new System.Drawing.Point(1027, 83);
-            this.ProgressBarOutputExcel.Maximum = 1000;
-            this.ProgressBarOutputExcel.Name = "ProgressBarOutputExcel";
-            this.ProgressBarOutputExcel.Size = new System.Drawing.Size(232, 20);
-            this.ProgressBarOutputExcel.TabIndex = 17;
-            // 
-            // ProgressBarInput2
-            // 
-            this.ProgressBarInput2.Location = new System.Drawing.Point(1027, 54);
-            this.ProgressBarInput2.Maximum = 1000;
-            this.ProgressBarInput2.Name = "ProgressBarInput2";
-            this.ProgressBarInput2.Size = new System.Drawing.Size(232, 20);
-            this.ProgressBarInput2.TabIndex = 16;
-            // 
-            // ProgressBarInput1
-            // 
-            this.ProgressBarInput1.Location = new System.Drawing.Point(1027, 25);
-            this.ProgressBarInput1.Maximum = 1000;
-            this.ProgressBarInput1.Name = "ProgressBarInput1";
-            this.ProgressBarInput1.Size = new System.Drawing.Size(232, 20);
-            this.ProgressBarInput1.TabIndex = 15;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1662,150 +1649,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.DataTableCommonOutput2)).EndInit();
             this.TabPageCostRatio.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewCostRatio)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataTableCostRatio)).EndInit();
             this.GroupBoxCpuCores.ResumeLayout(false);
             this.GroupBoxCpuCores.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownUseCpuCoreCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataSetSetting)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DataTableCostRatio)).EndInit();
             this.ResumeLayout(false);
 
-        }
-
-        #endregion
-        protected System.Windows.Forms.Timer TimerSearch;
-        protected System.ComponentModel.BackgroundWorker BackgroundWorker4;
-        protected System.ComponentModel.BackgroundWorker BackgroundWorker2;
-        protected System.ComponentModel.BackgroundWorker BackgroundWorker1;
-        protected System.Windows.Forms.GroupBox GroupBoxOutput;
-        protected System.Windows.Forms.RadioButton RadioButtonFileTypeCSV1;
-        protected System.Windows.Forms.GroupBox GroupBoxPartMatch;
-        protected System.Windows.Forms.Label Label4;
-        protected System.Windows.Forms.GroupBox GroupBoxExecute;
-        protected System.Windows.Forms.Button ButtonExecute;
-        protected System.Windows.Forms.GroupBox GroupBoxFiles;
-        protected System.Windows.Forms.Button ButtonOutput1;
-        protected System.Windows.Forms.TextBox TextBoxOutputExcel;
-        protected System.Windows.Forms.Label LabelOutputExcel;
-        protected System.Windows.Forms.Button ButtonInput2;
-        protected System.Windows.Forms.Button ButtonInput1;
-        protected System.Windows.Forms.TextBox TextBoxInput2;
-        protected System.Windows.Forms.TextBox TextBoxInput1;
-        protected System.Windows.Forms.Label LabelInput2;
-        protected System.Windows.Forms.Label LabelInput1;
-        protected System.Windows.Forms.RadioButton RadioButtonFileTypeCSV2;
-        protected System.Windows.Forms.TextBox TextBoxOutputCSV1;
-        protected System.Windows.Forms.TextBox TextBoxOutputCSV;
-        protected System.Windows.Forms.Label LabelOutputCSV1;
-        protected System.Windows.Forms.Label LabelOutputCSV2;
-        protected System.Windows.Forms.NumericUpDown NumericUpDownLength;
-        protected System.Windows.Forms.GroupBox GroupBoxAllMatch;
-        protected System.Windows.Forms.RadioButton RadioButtonSpaceIgnore;
-        protected System.Windows.Forms.RadioButton RadioButtonSpaceContains;
-        protected System.Windows.Forms.Label LabelOutputCSV;
-        protected System.Windows.Forms.TextBox TextBoxOutputCSV2;
-        protected BookSearcherApp.FileIOProgressBar ProgressBarOutputExcel;
-        protected BookSearcherApp.FileIOProgressBar ProgressBarInput2;
-        protected BookSearcherApp.FileIOProgressBar ProgressBarInput1;
-        protected System.Windows.Forms.TabControl TabControlOutputSetting;
-        protected System.Windows.Forms.TabPage TabPageDatabaseColumn;
-        protected System.Windows.Forms.TabPage TabPageScrapingColumn;
-        protected System.Windows.Forms.TabControl TabControlMatchingOutput;
-        protected System.Windows.Forms.TabPage TabPageMatching;
-        protected System.Windows.Forms.TabPage TabPageOutputSetting;
-        protected System.Windows.Forms.Label LabelElapsed;
-        protected System.Windows.Forms.Label LabelResultRows;
-        protected System.Windows.Forms.Panel PanelMatchCondition;
-        protected System.Windows.Forms.RadioButton RadioButtonSearchType17;
-        protected System.Windows.Forms.RadioButton RadioButtonSearchType16;
-        protected System.Windows.Forms.RadioButton RadioButtonSearchType15;
-        protected System.Windows.Forms.RadioButton RadioButtonSearchType14;
-        protected System.Windows.Forms.RadioButton RadioButtonSearchType13;
-        protected System.Windows.Forms.RadioButton RadioButtonSearchType12;
-        protected System.Windows.Forms.RadioButton RadioButtonSearchType11;
-        protected System.Windows.Forms.RadioButton RadioButtonSearchType10;
-        protected System.Windows.Forms.RadioButton RadioButtonSearchType09;
-        protected System.Windows.Forms.RadioButton RadioButtonSearchType08;
-        protected System.Windows.Forms.RadioButton RadioButtonSearchType07;
-        protected System.Windows.Forms.RadioButton RadioButtonSearchType06;
-        protected System.Windows.Forms.RadioButton RadioButtonSearchType05;
-        protected System.Windows.Forms.RadioButton RadioButtonSearchType04;
-        protected System.Windows.Forms.RadioButton RadioButtonSearchType03;
-        protected System.Windows.Forms.RadioButton RadioButtonSearchType02;
-        protected System.Windows.Forms.RadioButton RadioButtonSearchType01;
-        protected System.Windows.Forms.TabControl TabControlOutputFileSetting;
-        protected System.Windows.Forms.TabPage TabPageOutputPattern1;
-        protected System.Windows.Forms.DataGridView DataGridViewOutputPattern1;
-        protected System.Windows.Forms.TabPage TabPageOutputPattern2;
-        protected System.Windows.Forms.DataGridView DataGridViewOutputPattern2;
-        protected System.Windows.Forms.TabPage TabPageCommonOutput1;
-        protected System.Windows.Forms.DataGridView DataGridViewCommonOutput1;
-        protected System.Windows.Forms.TabPage TabPageCommonOutput2;
-        protected System.Windows.Forms.DataGridView DataGridViewCommonOutput2;
-        protected System.Windows.Forms.Button ButtonPreviewOutputs;
-        protected BookSearcherApp.FileIOProgressBar ProgressBarOutputCommonCSV2;
-        protected BookSearcherApp.FileIOProgressBar ProgressBarOutputCommonCSV1;
-        protected BookSearcherApp.FileIOProgressBar ProgressBarOutputPatternCSV;
-        protected System.ComponentModel.BackgroundWorker BackgroundWorker10;
-        protected System.ComponentModel.BackgroundWorker BackgroundWorker11;
-        protected System.ComponentModel.BackgroundWorker BackgroundWorker12;
-        protected System.ComponentModel.BackgroundWorker BackgroundWorker13;
-        protected System.Windows.Forms.GroupBox GroupBoxCpuCores;
-        protected System.Windows.Forms.NumericUpDown NumericUpDownUseCpuCoreCount;
-        protected System.Windows.Forms.Label LabelCpuCoreCountTitle;
-        protected System.Windows.Forms.Label LabelTotalCpuCoreCount;
-        protected System.Windows.Forms.Timer TimerFileIO;
-        protected System.Windows.Forms.TableLayoutPanel TableLayoutPanelBook;
-        protected System.Windows.Forms.DataGridView BookColumnSetting;
-        protected System.Windows.Forms.CheckBox CheckBoxBookISBN;
-        protected System.Windows.Forms.CheckBox CheckBoxBookCost;
-        protected System.Windows.Forms.TableLayoutPanel TableLayoutPanelScraping;
-        protected System.Windows.Forms.DataGridView ScrapingColumnSetting;
-        protected System.Windows.Forms.CheckBox CheckBoxScrapingISBN;
-        protected System.Windows.Forms.CheckBox CheckBoxScrapingCost;
-        protected System.Windows.Forms.Button ButtonPreviewDatabase;
-        protected System.Windows.Forms.Button ButtonPreviewScraping;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn BookColumnName;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn BookColumnValue;
-        protected System.Windows.Forms.DataGridViewComboBoxColumn BookColumnType;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ScrapingColumnName;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ScrapingColumnValue;
-        protected System.Windows.Forms.DataGridViewComboBoxColumn ScrapingColumnType;
-        protected System.Windows.Forms.TabPage TabPageCostRatio;
-        protected System.Windows.Forms.DataGridView DataGridViewCostRatio;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnCostLower;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnCostUpper;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnRatio;
-        protected System.Data.DataSet DataSetSetting;
-        protected System.Data.DataTable DataTableOutputPattern1;
-        protected System.Data.DataColumn DataColumnNameJP1;
-        protected System.Data.DataColumn DataColumnNameEN1;
-        protected System.Data.DataColumn DataColumnValue1;
-        protected System.Data.DataTable DataTableOutputPattern2;
-        protected System.Data.DataColumn DataColumnNameJP2;
-        protected System.Data.DataColumn DataColumnNameEN2;
-        protected System.Data.DataColumn DataColumnValue2;
-        protected System.Data.DataTable DataTableCommonOutput1;
-        protected System.Data.DataColumn DataColumnNameJP3;
-        protected System.Data.DataColumn DataColumnNameEN3;
-        protected System.Data.DataColumn DataColumnValue3;
-        protected System.Data.DataTable DataTableCommonOutput2;
-        protected System.Data.DataColumn DataColumnNameJP4;
-        protected System.Data.DataColumn DataColumnNameEN4;
-        protected System.Data.DataColumn DataColumnValue4;
-        protected System.Data.DataTable DataTableCostRatio;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnJapaneseName1;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnEnglishName1;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnSettingValue1;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnJapaneseName2;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnEnglishName2;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnSettingValue2;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnJapaneseName3;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnEnglishName3;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnSettingValue3;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnJapaneseName4;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnEnglishName4;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnSettingValue4;
-        private System.ComponentModel.IContainer components;
-    }
-}
-
+        }        #endregion        protected System.Windows.Forms.Timer TimerSearch;        protected System.ComponentModel.BackgroundWorker BackgroundWorker4;        protected System.ComponentModel.BackgroundWorker BackgroundWorker2;        protected System.ComponentModel.BackgroundWorker BackgroundWorker1;        protected System.Windows.Forms.GroupBox GroupBoxOutput;        protected System.Windows.Forms.RadioButton RadioButtonFileTypeCSV1;        protected System.Windows.Forms.GroupBox GroupBoxPartMatch;        protected System.Windows.Forms.Label Label4;        protected System.Windows.Forms.GroupBox GroupBoxExecute;        protected System.Windows.Forms.Button ButtonExecute;        protected System.Windows.Forms.GroupBox GroupBoxFiles;        protected System.Windows.Forms.Button ButtonOutput1;        protected System.Windows.Forms.TextBox TextBoxOutputExcel;        protected System.Windows.Forms.Label LabelOutputExcel;        protected System.Windows.Forms.Button ButtonInput2;        protected System.Windows.Forms.Button ButtonInput1;        protected System.Windows.Forms.TextBox TextBoxInput2;        protected System.Windows.Forms.TextBox TextBoxInput1;        protected System.Windows.Forms.Label LabelInput2;        protected System.Windows.Forms.Label LabelInput1;        protected System.Windows.Forms.RadioButton RadioButtonFileTypeCSV2;        protected System.Windows.Forms.TextBox TextBoxOutputCSV1;        protected System.Windows.Forms.TextBox TextBoxOutputCSV;        protected System.Windows.Forms.Label LabelOutputCSV1;        protected System.Windows.Forms.Label LabelOutputCSV2;        protected System.Windows.Forms.NumericUpDown NumericUpDownLength;        protected System.Windows.Forms.GroupBox GroupBoxAllMatch;        protected System.Windows.Forms.RadioButton RadioButtonSpaceIgnore;        protected System.Windows.Forms.RadioButton RadioButtonSpaceContains;        protected System.Windows.Forms.Label LabelOutputCSV;        protected System.Windows.Forms.TextBox TextBoxOutputCSV2;        protected BookSearcherApp.FileIOProgressBar ProgressBarOutputExcel;        protected BookSearcherApp.FileIOProgressBar ProgressBarInput2;        protected BookSearcherApp.FileIOProgressBar ProgressBarInput1;        protected System.Windows.Forms.TabControl TabControlOutputSetting;        protected System.Windows.Forms.TabPage TabPageDatabaseColumn;        protected System.Windows.Forms.TabPage TabPageScrapingColumn;        protected System.Windows.Forms.TabControl TabControlMatchingOutput;        protected System.Windows.Forms.TabPage TabPageMatching;        protected System.Windows.Forms.TabPage TabPageOutputSetting;        protected System.Windows.Forms.Label LabelElapsed;        protected System.Windows.Forms.Label LabelResultRows;        protected System.Windows.Forms.Panel PanelMatchCondition;        protected System.Windows.Forms.RadioButton RadioButtonSearchType17;        protected System.Windows.Forms.RadioButton RadioButtonSearchType16;        protected System.Windows.Forms.RadioButton RadioButtonSearchType15;        protected System.Windows.Forms.RadioButton RadioButtonSearchType14;        protected System.Windows.Forms.RadioButton RadioButtonSearchType13;        protected System.Windows.Forms.RadioButton RadioButtonSearchType12;        protected System.Windows.Forms.RadioButton RadioButtonSearchType11;        protected System.Windows.Forms.RadioButton RadioButtonSearchType10;        protected System.Windows.Forms.RadioButton RadioButtonSearchType09;        protected System.Windows.Forms.RadioButton RadioButtonSearchType08;        protected System.Windows.Forms.RadioButton RadioButtonSearchType07;        protected System.Windows.Forms.RadioButton RadioButtonSearchType06;        protected System.Windows.Forms.RadioButton RadioButtonSearchType05;        protected System.Windows.Forms.RadioButton RadioButtonSearchType04;        protected System.Windows.Forms.RadioButton RadioButtonSearchType03;        protected System.Windows.Forms.RadioButton RadioButtonSearchType02;        protected System.Windows.Forms.RadioButton RadioButtonSearchType01;        protected System.Windows.Forms.TabControl TabControlOutputFileSetting;        protected System.Windows.Forms.TabPage TabPageOutputPattern1;        protected System.Windows.Forms.DataGridView DataGridViewOutputPattern1;        protected System.Windows.Forms.TabPage TabPageOutputPattern2;        protected System.Windows.Forms.DataGridView DataGridViewOutputPattern2;        protected System.Windows.Forms.TabPage TabPageCommonOutput1;        protected System.Windows.Forms.DataGridView DataGridViewCommonOutput1;        protected System.Windows.Forms.TabPage TabPageCommonOutput2;        protected System.Windows.Forms.DataGridView DataGridViewCommonOutput2;        protected System.Windows.Forms.Button ButtonPreviewOutputs;        protected BookSearcherApp.FileIOProgressBar ProgressBarOutputCommonCSV2;        protected BookSearcherApp.FileIOProgressBar ProgressBarOutputCommonCSV1;        protected BookSearcherApp.FileIOProgressBar ProgressBarOutputPatternCSV;        protected System.ComponentModel.BackgroundWorker BackgroundWorker10;        protected System.ComponentModel.BackgroundWorker BackgroundWorker11;        protected System.ComponentModel.BackgroundWorker BackgroundWorker12;        protected System.ComponentModel.BackgroundWorker BackgroundWorker13;        protected System.Windows.Forms.GroupBox GroupBoxCpuCores;        protected System.Windows.Forms.NumericUpDown NumericUpDownUseCpuCoreCount;        protected System.Windows.Forms.Label LabelCpuCoreCountTitle;        protected System.Windows.Forms.Label LabelTotalCpuCoreCount;        protected System.Windows.Forms.Timer TimerFileIO;        protected System.Windows.Forms.TableLayoutPanel TableLayoutPanelBook;        protected System.Windows.Forms.DataGridView BookColumnSetting;        protected System.Windows.Forms.CheckBox CheckBoxBookISBN;        protected System.Windows.Forms.CheckBox CheckBoxBookCost;        protected System.Windows.Forms.TableLayoutPanel TableLayoutPanelScraping;        protected System.Windows.Forms.DataGridView ScrapingColumnSetting;        protected System.Windows.Forms.CheckBox CheckBoxScrapingISBN;        protected System.Windows.Forms.CheckBox CheckBoxScrapingCost;        protected System.Windows.Forms.Button ButtonPreviewDatabase;        protected System.Windows.Forms.Button ButtonPreviewScraping;        protected System.Windows.Forms.DataGridViewTextBoxColumn BookColumnName;        protected System.Windows.Forms.DataGridViewTextBoxColumn BookColumnValue;        protected System.Windows.Forms.DataGridViewComboBoxColumn BookColumnType;        protected System.Windows.Forms.DataGridViewTextBoxColumn ScrapingColumnName;        protected System.Windows.Forms.DataGridViewTextBoxColumn ScrapingColumnValue;        protected System.Windows.Forms.DataGridViewComboBoxColumn ScrapingColumnType;        protected System.Windows.Forms.TabPage TabPageCostRatio;        protected System.Windows.Forms.DataGridView DataGridViewCostRatio;        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnCostLower;        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnCostRatio;        protected System.Data.DataSet DataSetSetting;        protected System.Data.DataTable DataTableOutputPattern1;        protected System.Data.DataColumn DataColumnNameJP1;        protected System.Data.DataColumn DataColumnNameEN1;        protected System.Data.DataColumn DataColumnValue1;        protected System.Data.DataTable DataTableOutputPattern2;        protected System.Data.DataColumn DataColumnNameJP2;        protected System.Data.DataColumn DataColumnNameEN2;        protected System.Data.DataColumn DataColumnValue2;        protected System.Data.DataTable DataTableCommonOutput1;        protected System.Data.DataColumn DataColumnNameJP3;        protected System.Data.DataColumn DataColumnNameEN3;        protected System.Data.DataColumn DataColumnValue3;        protected System.Data.DataTable DataTableCommonOutput2;        protected System.Data.DataColumn DataColumnNameJP4;        protected System.Data.DataColumn DataColumnNameEN4;        protected System.Data.DataColumn DataColumnValue4;        protected System.Data.DataTable DataTableCostRatio;        protected System.Data.DataColumn DataColumnCostLower;        protected System.Data.DataColumn DataColumnCostRatio;        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnJapaneseName1;        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnEnglishName1;        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnSettingValue1;        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnJapaneseName2;        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnEnglishName2;        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnSettingValue2;        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnJapaneseName3;        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnEnglishName3;        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnSettingValue3;        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnJapaneseName4;        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnEnglishName4;        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnSettingValue4;        private System.ComponentModel.IContainer components;    }}

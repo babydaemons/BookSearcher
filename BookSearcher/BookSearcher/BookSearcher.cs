@@ -32,6 +32,10 @@ namespace BookSearcherApp
         public static bool OutputBookISBN { get; private set; }
         public static bool OutputBookCost { get; private set; }
 
+        protected static Stopwatch ExecutionTimer { get; set; } = new Stopwatch();
+        protected static string ExecutionType { get; set; } = "照合";
+        public static string Elapsed { get { return ExecutionType + " " + ExecutionTimer.Elapsed.ToString(@"hh\:mm\:ss\.fff"); } }
+
         protected BookSearcher()
         {
             ColumnIndexISBN = OutputBookISBN ? SelectBookColumnIndex(ColumnType.ISBN) : SelectScrapingColumnIndex(ColumnType.ISBN) + BookColumnSetting.RowCount;
@@ -84,7 +88,14 @@ namespace BookSearcherApp
             OutputBookCost = outputBookCost;
         }
 
-        public abstract void Search();
+        public void Search()
+        {
+            ExecutionTimer.Start();
+            ExecuteSearch();
+            ExecutionTimer.Stop();
+        }
+
+        protected abstract void ExecuteSearch();
 
         protected ConvertValue GetConvertValue(ColumnInfo columnInfo)
         {
@@ -120,6 +131,9 @@ namespace BookSearcherApp
 
         protected void SaveTable(List<RowIndexPair> resultRows)
         {
+            ExecutionType = "集計";
+            ExecutionTimer.Restart();
+
             resultTables.Clear();
             resultTables.Add(new DataTable());
             var emptyColumnNames = 0;

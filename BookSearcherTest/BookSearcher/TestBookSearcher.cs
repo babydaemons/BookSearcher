@@ -38,7 +38,7 @@ namespace BookSearcherTest
             ScrapingColumnSetting.Rows.Add(column.Name, column.Format, column.Key);
         }
 
-        protected TestBookSearcher() : base()
+        protected TestBookSearcher() : base(false)
         {
             ApplyColumnInfo(ISBN);
             ApplyColumnInfo(Cost);

@@ -11,6 +11,6 @@ namespace BookSearcherApp
         {
         }
 
-        public override void Search() => Search(bookTitle, author);
+        protected override void ExecuteSearch() => Search(bookTitle, author);
     }
 }
