@@ -34,55 +34,115 @@ namespace BookSearcherApp
             InitializeComponent();
             Text = Properties.Resources.Version;
 
-            var appPath = Assembly.GetEntryAssembly().Location;
-            var appDir = Path.GetDirectoryName(appPath);
-            var fileName = Path.GetFileNameWithoutExtension(appPath);
-            ConfigXml = $"{appDir}\\{fileName}.xml";
-            InitDataSettings();
-
             BookSearcher.InitColumnSettings(BookColumnSetting, ScrapingColumnSetting);
             ProcessorCount = Environment.ProcessorCount;
             NumericUpDownUseCpuCoreCount.Maximum = ProcessorCount;
             NumericUpDownUseCpuCoreCount.Value = ProcessorCount;
             LabelTotalCpuCoreCount.Text = $"コア / 全 {ProcessorCount} コア";
+
+            var assembly = Assembly.GetEntryAssembly();
+            if (assembly != null)
+            {
+                var appPath = Assembly.GetEntryAssembly().Location;
+                var appDir = Path.GetDirectoryName(appPath);
+                var fileName = Path.GetFileNameWithoutExtension(appPath);
+                ConfigXml = $"{appDir}\\{fileName}.xml";
+            }
+            InitDataSettings(true);
         }
 
-        private void InitDataSettings()
+        protected void InitDataSettings(bool reportError = false)
         {
-            if (File.Exists(ConfigXml))
+            if (ConfigXml != null && File.Exists(ConfigXml))
             {
                 DataSetSetting.ReadXml(ConfigXml);
-                return;
             }
 
-            DataTableOutputPattern1.Rows.Add(new object[] { "商品管理番号(商品コード以降)", "sku", "" });
-            DataTableOutputPattern1.Rows.Add(new object[] { "商品コードのタイプ", "product-id-type", "" });
-            DataTableOutputPattern1.Rows.Add(new object[] { "配送パターン", "merchant_shipping_group_name", "" });
-            DataTableOutputPattern1.Rows.Add(new object[] { "ポイントパーセント", "standard-price-points-percent", "" });
-            DataTableOutputPattern1.Rows.Add(new object[] { "商品のコンディション", "item-condition", "" });
-            DataTableOutputPattern1.Rows.Add(new object[] { "在庫数", "quantity", "" });
-            DataTableOutputPattern1.Rows.Add(new object[] { "商品メモ", "item-note", "" });
+            if (!IsValidTable(DataTableOutputPattern1, "CSVパターン1", 7))
+            {
+                DataTableOutputPattern1.Rows.Clear();
+                DataTableOutputPattern1.Rows.Add(new object[] { "商品管理番号(商品コード以降)", "sku", "" });
+                DataTableOutputPattern1.Rows.Add(new object[] { "商品コードのタイプ", "product-id-type", "" });
+                DataTableOutputPattern1.Rows.Add(new object[] { "配送パターン", "merchant_shipping_group_name", "" });
+                DataTableOutputPattern1.Rows.Add(new object[] { "ポイントパーセント", "standard-price-points-percent", "" });
+                DataTableOutputPattern1.Rows.Add(new object[] { "商品のコンディション", "item-condition", "" });
+                DataTableOutputPattern1.Rows.Add(new object[] { "在庫数", "quantity", "" });
+                DataTableOutputPattern1.Rows.Add(new object[] { "商品メモ", "item-note", "" });
+            }
 
-            DataTableOutputPattern2.Rows.Add(new object[] { "商品管理番号(商品コード以降)", "sku", "" });
-            DataTableOutputPattern2.Rows.Add(new object[] { "商品コードのタイプ", "product-id-type", "" });
-            DataTableOutputPattern2.Rows.Add(new object[] { "配送パターン", "merchant_shipping_group_name", "" });
-            DataTableOutputPattern2.Rows.Add(new object[] { "ポイントパーセント", "standard-price-points-percent", "" });
-            DataTableOutputPattern2.Rows.Add(new object[] { "商品のコンディション", "item-condition", "" });
-            DataTableOutputPattern2.Rows.Add(new object[] { "在庫数", "quantity", "" });
-            DataTableOutputPattern2.Rows.Add(new object[] { "商品メモ", "item-note", "" });
+            if (!IsValidTable(DataTableOutputPattern2, "CSVパターン2", 7))
+            {
+                DataTableOutputPattern2.Rows.Clear();
+                DataTableOutputPattern2.Rows.Add(new object[] { "商品管理番号(商品コード以降)", "sku", "" });
+                DataTableOutputPattern2.Rows.Add(new object[] { "商品コードのタイプ", "product-id-type", "" });
+                DataTableOutputPattern2.Rows.Add(new object[] { "配送パターン", "merchant_shipping_group_name", "" });
+                DataTableOutputPattern2.Rows.Add(new object[] { "ポイントパーセント", "standard-price-points-percent", "" });
+                DataTableOutputPattern2.Rows.Add(new object[] { "商品のコンディション", "item-condition", "" });
+                DataTableOutputPattern2.Rows.Add(new object[] { "在庫数", "quantity", "" });
+                DataTableOutputPattern2.Rows.Add(new object[] { "商品メモ", "item-note", "" });
+            }
 
-            DataTableCommonOutput1.Rows.Add(new object[] { "商品管理番号(商品コード以降)", "sku", "" });
-            DataTableCommonOutput1.Rows.Add(new object[] { "数量", "quantity", "" });
-            DataTableCommonOutput1.Rows.Add(new object[] { "リードタイム", "leadtime", "" });
-            DataTableCommonOutput1.Rows.Add(new object[] { "自動価格モードID", "autoprice_template_mode", "" });
-            DataTableCommonOutput1.Rows.Add(new object[] { "自動価格テンプレートID", "autoprice_template_id", "" });
-            DataTableCommonOutput1.Rows.Add(new object[] { "下限ストッパー", "autoprice_stopper", "" });
-            DataTableCommonOutput1.Rows.Add(new object[] { "上限ストッパー", "autoprice_stopper_upper", "" });
+            if (!IsValidTable(DataTableCommonOutput1, "共通CSV1", 7))
+            {
+                DataTableCommonOutput1.Rows.Clear();
+                DataTableCommonOutput1.Rows.Add(new object[] { "商品管理番号(商品コード以降)", "sku", "" });
+                DataTableCommonOutput1.Rows.Add(new object[] { "数量", "quantity", "" });
+                DataTableCommonOutput1.Rows.Add(new object[] { "リードタイム", "leadtime", "" });
+                DataTableCommonOutput1.Rows.Add(new object[] { "自動価格モードID", "autoprice_template_mode", "" });
+                DataTableCommonOutput1.Rows.Add(new object[] { "自動価格テンプレートID", "autoprice_template_id", "" });
+                DataTableCommonOutput1.Rows.Add(new object[] { "下限ストッパー", "autoprice_stopper", "" });
+                DataTableCommonOutput1.Rows.Add(new object[] { "上限ストッパー", "autoprice_stopper_upper", "" });
+            }
 
-            DataTableCommonOutput2.Rows.Add(new object[] { "商品管理番号(商品コード以降)", "sku", "" });
-            DataTableCommonOutput2.Rows.Add(new object[] { "登録/削除", "add-delete", "" });
+            if (!IsValidTable(DataTableCommonOutput2, "共通CSV2", 2))
+            {
+                DataTableCommonOutput2.Rows.Clear();
+                DataTableCommonOutput2.Rows.Add(new object[] { "商品管理番号(商品コード以降)", "sku", "" });
+                DataTableCommonOutput2.Rows.Add(new object[] { "登録/削除", "add-delete", "" });
+            }
+
+            if (!IsValidTable(DataTableCostRatio, "料率", 5))
+            {
+                // double selling_price = (cost + 88 + 110 + 330 + 550 + (cost * 0.15)) * IF(cost > 20000, 1.52, IF(cost > 10000, 1.49, IF(cost > 5000, 1.46, IF(cost > 3000, 1.43, IF(cost >= 1, 1.42, 0.00)))));
+                DataTableCostRatio.Rows.Clear();
+                DataTableCostRatio.Rows.Add(new object[] { 20000, 1.52 });
+                DataTableCostRatio.Rows.Add(new object[] { 10000, 1.49 });
+                DataTableCostRatio.Rows.Add(new object[] { 5000, 1.46 });
+                DataTableCostRatio.Rows.Add(new object[] { 3000, 1.43 });
+                DataTableCostRatio.Rows.Add(new object[] { 0, 1.42 });
+            }
         }
 
+        protected bool IsValidTable(DataTable table, string dataName, int rowCount, bool reportError = false)
+        {
+            bool ok = true;
+            try
+            {
+                if (table.Rows.Count != rowCount)
+                {
+                    ok = false;
+                    throw new MyException($"「{dataName}」設定破損エラー", "リリース出荷時の初期値に復旧しました。");
+                }
+
+                foreach (DataRow row in table.Rows)
+                {
+                    if (row[0] == DBNull.Value || row[1] == DBNull.Value)
+                    {
+                        ok = false;
+                        throw new MyException($"「{dataName}」設定破損エラー", "リリース出荷時の初期値に復旧しました。");
+                    }
+                }
+            }
+            catch (MyException ex)
+            {
+                if (reportError)
+                {
+                    ex.Show();
+                }
+            }
+            return ok;
+        }
+ 
         private void ButtonInput1_Click(object sender, EventArgs e)
         {
             var dialog = new OpenFileDialog

@@ -23,6 +23,11 @@ namespace BookSearcherTest
     [TestClass]
     public class TestCSVSaver : Form1
     {
+        public TestCSVSaver() : base()
+        {
+            InitDataSettings();
+        }
+
         [TestMethod]
         public void TestCalcSalingPrice00000()
         {
@@ -87,8 +92,9 @@ namespace BookSearcherTest
         public void TestWrite()
         {
             var view = DataGridViewCommonOutput2;
-            view.Rows[0].Cells[2].Value = "NH";
-            view.Rows[1].Cells[2].Value = "X";
+            var data = (DataTable)view.DataSource;
+            data.Rows[0][2] = "NH";
+            data.Rows[1][2] = "X";
 
             var table = new DataTable();
             table.Columns.Add("AAA,BBB", typeof(string));

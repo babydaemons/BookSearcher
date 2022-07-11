@@ -101,24 +101,36 @@
             this.TabControlOutputFileSetting = new System.Windows.Forms.TabControl();
             this.TabPageOutputPattern1 = new System.Windows.Forms.TabPage();
             this.DataGridViewOutputPattern1 = new System.Windows.Forms.DataGridView();
+            this.ColumnJapaneseName1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnEnglishName1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnSettingValue1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DataTableOutputPattern1 = new System.Data.DataTable();
             this.DataColumnNameJP1 = new System.Data.DataColumn();
             this.DataColumnNameEN1 = new System.Data.DataColumn();
             this.DataColumnValue1 = new System.Data.DataColumn();
             this.TabPageOutputPattern2 = new System.Windows.Forms.TabPage();
             this.DataGridViewOutputPattern2 = new System.Windows.Forms.DataGridView();
+            this.ColumnJapaneseName2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnEnglishName2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnSettingValue2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DataTableOutputPattern2 = new System.Data.DataTable();
             this.DataColumnNameJP2 = new System.Data.DataColumn();
             this.DataColumnNameEN2 = new System.Data.DataColumn();
             this.DataColumnValue2 = new System.Data.DataColumn();
             this.TabPageCommonOutput1 = new System.Windows.Forms.TabPage();
             this.DataGridViewCommonOutput1 = new System.Windows.Forms.DataGridView();
+            this.ColumnJapaneseName3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnEnglishName3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnSettingValue3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DataTableCommonOutput1 = new System.Data.DataTable();
             this.DataColumnNameJP3 = new System.Data.DataColumn();
             this.DataColumnNameEN3 = new System.Data.DataColumn();
             this.DataColumnValue3 = new System.Data.DataColumn();
             this.TabPageCommonOutput2 = new System.Windows.Forms.TabPage();
             this.DataGridViewCommonOutput2 = new System.Windows.Forms.DataGridView();
+            this.ColumnJapaneseName4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnEnglishName4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnSettingValue4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DataTableCommonOutput2 = new System.Data.DataTable();
             this.DataColumnNameJP4 = new System.Data.DataColumn();
             this.DataColumnNameEN4 = new System.Data.DataColumn();
@@ -126,8 +138,10 @@
             this.TabPageCostRatio = new System.Windows.Forms.TabPage();
             this.DataGridViewCostRatio = new System.Windows.Forms.DataGridView();
             this.ColumnCostLower = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnCostUpper = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnRatio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCostRatio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DataTableCostRatio = new System.Data.DataTable();
+            this.DataColumnCostLower = new System.Data.DataColumn();
+            this.DataColumnCostRatio = new System.Data.DataColumn();
             this.ButtonPreviewOutputs = new System.Windows.Forms.Button();
             this.BackgroundWorker10 = new System.ComponentModel.BackgroundWorker();
             this.BackgroundWorker11 = new System.ComponentModel.BackgroundWorker();
@@ -139,19 +153,6 @@
             this.NumericUpDownUseCpuCoreCount = new System.Windows.Forms.NumericUpDown();
             this.TimerFileIO = new System.Windows.Forms.Timer(this.components);
             this.DataSetSetting = new System.Data.DataSet();
-            this.DataTableCostRatio = new System.Data.DataTable();
-            this.ColumnJapaneseName1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnEnglishName1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnSettingValue1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnJapaneseName2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnEnglishName2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnSettingValue2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnJapaneseName3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnEnglishName3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnSettingValue3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnJapaneseName4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnEnglishName4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnSettingValue4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProgressBarOutputCommonCSV2 = new BookSearcherApp.FileIOProgressBar();
             this.ProgressBarOutputCommonCSV1 = new BookSearcherApp.FileIOProgressBar();
             this.ProgressBarOutputPatternCSV = new BookSearcherApp.FileIOProgressBar();
@@ -190,10 +191,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.DataTableCommonOutput2)).BeginInit();
             this.TabPageCostRatio.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewCostRatio)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataTableCostRatio)).BeginInit();
             this.GroupBoxCpuCores.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownUseCpuCoreCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataSetSetting)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DataTableCostRatio)).BeginInit();
             this.SuspendLayout();
             // 
             // TimerSearch
@@ -1409,39 +1410,51 @@
             // 
             this.DataGridViewCostRatio.AllowUserToAddRows = false;
             this.DataGridViewCostRatio.AllowUserToDeleteRows = false;
+            this.DataGridViewCostRatio.AutoGenerateColumns = false;
             this.DataGridViewCostRatio.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGridViewCostRatio.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColumnCostLower,
-            this.ColumnCostUpper,
-            this.ColumnRatio});
+            this.ColumnCostRatio});
+            this.DataGridViewCostRatio.DataSource = this.DataTableCostRatio;
             this.DataGridViewCostRatio.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DataGridViewCostRatio.Location = new System.Drawing.Point(0, 0);
             this.DataGridViewCostRatio.Name = "DataGridViewCostRatio";
             this.DataGridViewCostRatio.RowTemplate.Height = 21;
-            this.DataGridViewCostRatio.Size = new System.Drawing.Size(753, 434);
+            this.DataGridViewCostRatio.Size = new System.Drawing.Size(753, 436);
             this.DataGridViewCostRatio.TabIndex = 0;
             // 
             // ColumnCostLower
             // 
+            this.ColumnCostLower.DataPropertyName = "CostLower";
             this.ColumnCostLower.Frozen = true;
             this.ColumnCostLower.HeaderText = "原価下限";
             this.ColumnCostLower.Name = "ColumnCostLower";
-            this.ColumnCostLower.Width = 237;
+            this.ColumnCostLower.Width = 355;
             // 
-            // ColumnCostUpper
+            // ColumnCostRatio
             // 
-            this.ColumnCostUpper.Frozen = true;
-            this.ColumnCostUpper.HeaderText = "原価上限";
-            this.ColumnCostUpper.Name = "ColumnCostUpper";
-            this.ColumnCostUpper.ReadOnly = true;
-            this.ColumnCostUpper.Width = 237;
+            this.ColumnCostRatio.DataPropertyName = "CostRatio";
+            this.ColumnCostRatio.Frozen = true;
+            this.ColumnCostRatio.HeaderText = "料率";
+            this.ColumnCostRatio.Name = "ColumnCostRatio";
+            this.ColumnCostRatio.Width = 355;
             // 
-            // ColumnRatio
+            // DataTableCostRatio
             // 
-            this.ColumnRatio.Frozen = true;
-            this.ColumnRatio.HeaderText = "料率";
-            this.ColumnRatio.Name = "ColumnRatio";
-            this.ColumnRatio.Width = 237;
+            this.DataTableCostRatio.Columns.AddRange(new System.Data.DataColumn[] {
+            this.DataColumnCostLower,
+            this.DataColumnCostRatio});
+            this.DataTableCostRatio.TableName = "TableCostRatio";
+            // 
+            // DataColumnCostLower
+            // 
+            this.DataColumnCostLower.Caption = "原価下限";
+            this.DataColumnCostLower.ColumnName = "CostLower";
+            // 
+            // DataColumnCostRatio
+            // 
+            this.DataColumnCostRatio.Caption = "料率";
+            this.DataColumnCostRatio.ColumnName = "CostRatio";
             // 
             // ButtonPreviewOutputs
             // 
@@ -1552,10 +1565,6 @@
             this.DataTableCommonOutput2,
             this.DataTableCostRatio});
             // 
-            // DataTableCostRatio
-            // 
-            this.DataTableCostRatio.TableName = "TableCostRatio";
-            // 
             // ProgressBarOutputCommonCSV2
             // 
             this.ProgressBarOutputCommonCSV2.Location = new System.Drawing.Point(1026, 170);
@@ -1662,11 +1671,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.DataTableCommonOutput2)).EndInit();
             this.TabPageCostRatio.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewCostRatio)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataTableCostRatio)).EndInit();
             this.GroupBoxCpuCores.ResumeLayout(false);
             this.GroupBoxCpuCores.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownUseCpuCoreCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataSetSetting)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DataTableCostRatio)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1741,6 +1750,8 @@
         protected System.Windows.Forms.DataGridView DataGridViewCommonOutput1;
         protected System.Windows.Forms.TabPage TabPageCommonOutput2;
         protected System.Windows.Forms.DataGridView DataGridViewCommonOutput2;
+        protected System.Windows.Forms.TabPage TabPageCostRatio;
+        protected System.Windows.Forms.DataGridView DataGridViewCostRatio;
         protected System.Windows.Forms.Button ButtonPreviewOutputs;
         protected BookSearcherApp.FileIOProgressBar ProgressBarOutputCommonCSV2;
         protected BookSearcherApp.FileIOProgressBar ProgressBarOutputCommonCSV1;
@@ -1770,11 +1781,6 @@
         protected System.Windows.Forms.DataGridViewTextBoxColumn ScrapingColumnName;
         protected System.Windows.Forms.DataGridViewTextBoxColumn ScrapingColumnValue;
         protected System.Windows.Forms.DataGridViewComboBoxColumn ScrapingColumnType;
-        protected System.Windows.Forms.TabPage TabPageCostRatio;
-        protected System.Windows.Forms.DataGridView DataGridViewCostRatio;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnCostLower;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnCostUpper;
-        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnRatio;
         protected System.Data.DataSet DataSetSetting;
         protected System.Data.DataTable DataTableOutputPattern1;
         protected System.Data.DataColumn DataColumnNameJP1;
@@ -1793,6 +1799,8 @@
         protected System.Data.DataColumn DataColumnNameEN4;
         protected System.Data.DataColumn DataColumnValue4;
         protected System.Data.DataTable DataTableCostRatio;
+        protected System.Data.DataColumn DataColumnCostLower;
+        protected System.Data.DataColumn DataColumnCostRatio;
         protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnJapaneseName1;
         protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnEnglishName1;
         protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnSettingValue1;
@@ -1805,6 +1813,8 @@
         protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnJapaneseName4;
         protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnEnglishName4;
         protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnSettingValue4;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnCostLower;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnCostRatio;
         private System.ComponentModel.IContainer components;
     }
 }
