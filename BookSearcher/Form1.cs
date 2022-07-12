@@ -418,6 +418,11 @@ namespace BookSearcherApp
 
             try
             {
+                ProgressBarOutputExcel.Start();
+                ProgressBarOutputPatternCSV.Start();
+                ProgressBarOutputCommonCSV1.Start();
+                ProgressBarOutputCommonCSV2.Start();
+
                 if (!InvokeMatching())
                 {
                     return;
@@ -440,7 +445,6 @@ namespace BookSearcherApp
 
                 search_started = true;
                 SetSearchControlsEnabled(false);
-                ProgressBarOutputExcel.Value = ProgressBarOutputPatternCSV.Value = ProgressBarOutputCommonCSV1.Value = ProgressBarOutputCommonCSV2.Value = 0;
                 TimerSearch.Enabled = true;
                 searchTimer = Stopwatch.StartNew();
                 ProcessorCount = (int)NumericUpDownUseCpuCoreCount.Value;
