@@ -878,5 +878,26 @@ namespace BookSearcherApp
                 myException.Show();
             }
         }
+
+        private void TextBoxFileName_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                var textBox = sender as TextBox;
+                if (!File.Exists(textBox.Text))
+                {
+                    throw new MyException("ファイルが見つかりませんでした", $"ダブルクリックで開こうとしたファイルが見つかりませんでした。\n\n{textBox.Text}");
+                }
+                Process.Start(textBox.Text);
+            }
+            catch (MyException ex)
+            {
+                ex.Show();
+            }
+            catch (Exception ex)
+            {
+                MyExceptionHandler.Show(ex);
+            }
+        }
     }
 }

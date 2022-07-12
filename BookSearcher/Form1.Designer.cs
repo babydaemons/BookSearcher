@@ -394,6 +394,7 @@
             this.TextBoxOutputCSV2.Size = new System.Drawing.Size(761, 23);
             this.TextBoxOutputCSV2.TabIndex = 14;
             this.TextBoxOutputCSV2.TextChanged += new System.EventHandler(this.TextBoxFileName_TextChanged);
+            this.TextBoxOutputCSV2.DoubleClick += new System.EventHandler(this.TextBoxFileName_DoubleClick);
             // 
             // LabelOutputCSV2
             // 
@@ -423,6 +424,7 @@
             this.TextBoxOutputCSV1.Size = new System.Drawing.Size(761, 23);
             this.TextBoxOutputCSV1.TabIndex = 12;
             this.TextBoxOutputCSV1.TextChanged += new System.EventHandler(this.TextBoxFileName_TextChanged);
+            this.TextBoxOutputCSV1.DoubleClick += new System.EventHandler(this.TextBoxFileName_DoubleClick);
             // 
             // TextBoxOutputCSV
             // 
@@ -432,6 +434,7 @@
             this.TextBoxOutputCSV.Size = new System.Drawing.Size(761, 23);
             this.TextBoxOutputCSV.TabIndex = 10;
             this.TextBoxOutputCSV.TextChanged += new System.EventHandler(this.TextBoxFileName_TextChanged);
+            this.TextBoxOutputCSV.DoubleClick += new System.EventHandler(this.TextBoxFileName_DoubleClick);
             // 
             // ButtonOutput1
             // 
@@ -474,6 +477,7 @@
             this.TextBoxOutputExcel.Size = new System.Drawing.Size(761, 23);
             this.TextBoxOutputExcel.TabIndex = 7;
             this.TextBoxOutputExcel.TextChanged += new System.EventHandler(this.TextBoxFileName_TextChanged);
+            this.TextBoxOutputExcel.DoubleClick += new System.EventHandler(this.TextBoxFileName_DoubleClick);
             // 
             // TextBoxInput2
             // 
@@ -483,6 +487,7 @@
             this.TextBoxInput2.Size = new System.Drawing.Size(761, 23);
             this.TextBoxInput2.TabIndex = 4;
             this.TextBoxInput2.TextChanged += new System.EventHandler(this.TextBoxFileName_TextChanged);
+            this.TextBoxInput2.DoubleClick += new System.EventHandler(this.TextBoxFileName_DoubleClick);
             // 
             // TextBoxInput1
             // 
@@ -492,6 +497,7 @@
             this.TextBoxInput1.Size = new System.Drawing.Size(761, 23);
             this.TextBoxInput1.TabIndex = 1;
             this.TextBoxInput1.TextChanged += new System.EventHandler(this.TextBoxFileName_TextChanged);
+            this.TextBoxInput1.DoubleClick += new System.EventHandler(this.TextBoxFileName_DoubleClick);
             // 
             // LabelOutputExcel
             // 
