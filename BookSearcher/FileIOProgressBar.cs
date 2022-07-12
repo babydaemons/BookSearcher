@@ -20,7 +20,7 @@ namespace BookSearcherApp
 
         public void Start()
         {
-            Text = "00:00:00.000";
+            Text = "  0.00% - 00:00:00.000";
             Maximum = MAX_VALUE;
             Value = 0;
         }
