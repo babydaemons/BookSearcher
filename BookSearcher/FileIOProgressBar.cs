@@ -16,8 +16,11 @@ namespace BookSearcherApp
         private const int WM_PAINT = 0x000F;
         private static TextFormatFlags textFormatFlags = TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.SingleLine;
 
+        private static readonly Font font = new Font("BIZ UDゴシック", 9.0F);
+
         public void Start()
         {
+            Text = "00:00:00.000";
             Maximum = MAX_VALUE;
             Value = 0;
         }
@@ -41,7 +44,7 @@ namespace BookSearcherApp
             {
                 // 文字列を描画する
                 Graphics g = CreateGraphics();
-                TextRenderer.DrawText(g, Text, Font, ClientRectangle, SystemColors.ControlText, textFormatFlags);
+                TextRenderer.DrawText(g, Text, font, ClientRectangle, SystemColors.ControlText, textFormatFlags);
                 g.Dispose();
             }
         }
