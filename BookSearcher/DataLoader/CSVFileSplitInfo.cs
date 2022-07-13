@@ -83,6 +83,11 @@ namespace BookSearcherApp
             }
 
             var infos = RegexInfoDelimiter.Split(fields[infoIndex]);
+            if (infoIndex < fields.Count)
+            {
+                return;
+            }
+
             InsertInfoColumn(fields, infos);
         }
 
