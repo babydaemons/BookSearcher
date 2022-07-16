@@ -418,6 +418,8 @@ namespace BookSearcherApp
 
             try
             {
+                CSVSaver.InitCostTable(DataTableCostRatio);
+
                 ProgressBarOutputExcel.Start();
                 ProgressBarOutputPatternCSV.Start();
                 ProgressBarOutputCommonCSV1.Start();

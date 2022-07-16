@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace BookSearcherApp
@@ -128,6 +127,8 @@ namespace BookSearcherApp
         public DataTable DataTable => dataTable;
         private readonly Dictionary<string, string> settings = new Dictionary<string, string>();
 
+        private static readonly SortedDictionary<int, double> costTable = new SortedDictionary<int, double>();
+
         private void CheckParameterEntered(DataGridView view)
         {
             var settingName = (string)view.Tag;
@@ -191,16 +192,32 @@ namespace BookSearcherApp
                 }
             }
         }
- 
-        public static int CalcSellingPrice(int cost)
+
+        public static void InitCostTable(DataTable table)
         {
-            double selling_price = (cost + 88 + 110 + 330 + 550 + (cost * 0.15)) * IF(cost > 20000, 1.52, IF(cost > 10000, 1.49, IF(cost > 5000, 1.46, IF(cost > 3000, 1.43, IF(cost >= 1, 1.42, 0.00)))));
-            return (int)(selling_price + 0.5);
+            costTable.Clear();
+            foreach (DataRow row in table.Rows)
+            {
+                costTable.Add((int)row[0], (double)row[1]);
+            }
         }
 
-        private static double IF(bool condition, double then_value, double else_value)
+        public static int CalcSellingPrice(int cost)
         {
-            return condition ? then_value : else_value;
+            var costRatio = 0.0;
+            foreach (var costLimit in costTable.Reverse())
+            {
+                if (cost > costLimit.Key)
+                {
+                    costRatio = costLimit.Value;
+                    break;
+                }
+            }
+
+            // ＜出力CSVパターン２＞
+            // ・販売価格の計算式の中で550円の部分を計算式から削除いただきたく。
+            double sellingPrice = (cost + 88 + 110 + 330 + (cost * 0.15)) * costRatio;
+            return (int)(sellingPrice + 0.5);
         }
 
         #endregion
