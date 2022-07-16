@@ -18,9 +18,9 @@ namespace BookSearcherApp
         protected CSVFile BookCSV;
         protected CSVFile ScrapingCSV;
         protected ExcelSaver excelSaver;
-        protected CSVSaver saver0;
-        protected CSVSaver saver1;
-        protected CSVSaver saver2;
+        protected DataSaver saver0;
+        protected DataSaver saver1;
+        protected DataSaver saver2;
         protected SpaceMatch spaceMatch;
         protected int prefixLength;
         protected BookSearcher searcher = null;
@@ -418,7 +418,7 @@ namespace BookSearcherApp
 
             try
             {
-                CSVSaver.InitCostTable(DataTableCostRatio);
+                DataSaver.InitCostTable(DataTableCostRatio);
 
                 ProgressBarOutputExcel.Start();
                 ProgressBarOutputPatternCSV.Start();
@@ -433,14 +433,14 @@ namespace BookSearcherApp
                 excelSaver = new ExcelSaver(TextBoxOutputExcel.Text);
                 if (RadioButtonFileTypeCSV1.Checked)
                 {
-                    saver0 = new CSVSaverPattern1(DataGridViewOutputPattern1, TextBoxOutputCSV.Text);
+                    saver0 = new DataSaverPattern1(DataGridViewOutputPattern1, TextBoxOutputCSV.Text);
                 }
                 else
                 {
-                    saver0 = new CSVSaverPattern2(DataGridViewOutputPattern2, TextBoxOutputCSV.Text);
+                    saver0 = new DataSaverPattern2(DataGridViewOutputPattern2, TextBoxOutputCSV.Text);
                 }
-                saver1 = new CSVSaverCommon1(DataGridViewCommonOutput1, TextBoxOutputCSV1.Text);
-                saver2 = new CSVSaverCommon2(DataGridViewCommonOutput2, TextBoxOutputCSV2.Text);
+                saver1 = new DataSaverCommon1(DataGridViewCommonOutput1, TextBoxOutputCSV1.Text);
+                saver2 = new DataSaverCommon2(DataGridViewCommonOutput2, TextBoxOutputCSV2.Text);
 
                 spaceMatch = RadioButtonSpaceContains.Checked ? SpaceMatch.All : SpaceMatch.Ignore;
                 prefixLength = (int)NumericUpDownLength.Value;

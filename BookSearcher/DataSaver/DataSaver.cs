@@ -4,18 +4,23 @@ using System.ComponentModel;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 
 namespace BookSearcherApp
 {
-    public abstract class CSVSaver : FileIO
+    public enum DataType { CSV, TSV, Excel };
+
+    public abstract class DataSaver : FileIO
     {
         #region CSVWriter
 
+        private FileStream file;
         private StreamWriter writer;
         protected string path;
+        private readonly DataType dataType;
 
-        public CSVSaver(DataGridView view, string path)
+        public DataSaver(DataGridView view, string path)
         {
             this.path = path;
 
@@ -25,12 +30,36 @@ namespace BookSearcherApp
                 dataTable.Columns.Add(title, typeof(string));
             }
 
+            var extension = Path.GetExtension(path).ToLower();
+            if (extension == ".csv")
+            {
+                dataType = DataType.CSV;
+            }
+            else if (extension == ".txt")
+            {
+                dataType = DataType.TSV;
+            }
+            else if (extension == ".xlsx")
+            {
+                dataType = DataType.Excel;
+            }
+            else
+            {
+                throw new MyException("出力ファイル種別エラー", $"不正なデータ種別です：{extension}");
+            }
             Open();
         }
 
         protected bool IsOpened()
         {
-            return writer != null && writer.BaseStream != null && writer.BaseStream.CanWrite;
+            if (file != null)
+            {
+                return writer != null && file != null && file.CanWrite;
+            }
+            else
+            {
+                return writer != null && writer.BaseStream != null && writer.BaseStream.CanWrite;
+            }
         }
 
         protected void Open()
@@ -42,7 +71,8 @@ namespace BookSearcherApp
 
             try
             {
-                writer = new StreamWriter(path);
+                file = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write);
+                writer = dataType != DataType.Excel ?　new StreamWriter(file, Encoding.GetEncoding(932), 8 * 4096) : null;
             }
             catch (Exception ex)
             {
@@ -57,8 +87,14 @@ namespace BookSearcherApp
             {
                 writer.Close();
                 writer.Dispose();
+                if (file != null)
+                {
+                    file.Close();
+                    file.Dispose();
+                }
             }
             writer = null;
+            file = null;
 
             try
             {
@@ -74,6 +110,18 @@ namespace BookSearcherApp
         }
 
         public void Write(DataTable table)
+        {
+            if (dataType == DataType.CSV)
+            {
+                WriteCSV(table);
+            }
+            else if (dataType == DataType.TSV)
+            {
+                WriteTSV(table);
+            }
+        }
+
+        public void WriteCSV(DataTable table)
         {
             try
             {
@@ -112,6 +160,47 @@ namespace BookSearcherApp
         {
             string v = (value.GetType() == typeof(DBNull)) ? "" : (string)value;
             return "\"" + v.Replace("\"", "\"\"") + "\"";
+        }
+
+        public void WriteTSV(DataTable table)
+        {
+            try
+            {
+                var titles = new List<string>();
+                foreach (DataColumn column in table.Columns)
+                {
+                    titles.Add(ExtractValue(column.ColumnName));
+                }
+                writer.WriteLine(string.Join("\t", titles.ToArray()));
+
+                var rowCount = table.Rows.Count;
+                var columnCount = table.Columns.Count;
+                ReportProgress(0);
+                foreach (var i in Enumerable.Range(0, rowCount))
+                {
+                    var values = new List<string>();
+                    foreach (var j in Enumerable.Range(0, columnCount))
+                    {
+                        values.Add(ExtractValue(table.Rows[i][j]));
+                    }
+                    writer.WriteLine(string.Join("\t", values.ToArray()));
+                    ReportProgress(MAX_VALUE * i / rowCount);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new MyException("CSVファイル保存エラー", path, ex);
+            }
+            finally
+            {
+                Close();
+            }
+        }
+
+        public static string ExtractValue(Object value)
+        {
+            string v = (value.GetType() == typeof(DBNull)) ? "" : (string)value;
+            return v;
         }
 
         #endregion
@@ -198,7 +287,9 @@ namespace BookSearcherApp
             costTable.Clear();
             foreach (DataRow row in table.Rows)
             {
-                costTable.Add((int)row[0], (double)row[1]);
+                var costLower = int.Parse(row[0].ToString());
+                var costRatio = double.Parse(row[1].ToString());
+                costTable.Add(costLower, costRatio);
             }
         }
 

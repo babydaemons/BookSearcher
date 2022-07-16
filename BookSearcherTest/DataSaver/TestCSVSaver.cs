@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace BookSearcherTest
 {
-    public class DummyCSVSaver : CSVSaver
+    public class DummyCSVSaver : DataSaver
     {
         public DummyCSVSaver(DataGridView view, string path) : base(view, path)
         {
@@ -31,61 +31,61 @@ namespace BookSearcherTest
         [TestMethod]
         public void TestCalcSalingPrice00000()
         {
-            Assert.AreEqual(0, CSVSaver.CalcSellingPrice(0));
+            Assert.AreEqual(0, DataSaver.CalcSellingPrice(0));
         }
 
         [TestMethod]
         public void TestCalcSalingPrice00001()
         {
-            Assert.AreEqual(1532, CSVSaver.CalcSellingPrice(1));
+            Assert.AreEqual(1532, DataSaver.CalcSellingPrice(1));
         }
 
         [TestMethod]
         public void TestCalcSalingPrice03000()
         {
-            Assert.AreEqual(6430, CSVSaver.CalcSellingPrice(3000));
+            Assert.AreEqual(6430, DataSaver.CalcSellingPrice(3000));
         }
 
         [TestMethod]
         public void TestCalcSalingPrice03001()
         {
-            Assert.AreEqual(6477, CSVSaver.CalcSellingPrice(3001));
+            Assert.AreEqual(6477, DataSaver.CalcSellingPrice(3001));
         }
 
         [TestMethod]
         public void TestCalcSalingPrice05000()
         {
-            Assert.AreEqual(9764, CSVSaver.CalcSellingPrice(5000));
+            Assert.AreEqual(9764, DataSaver.CalcSellingPrice(5000));
         }
 
         [TestMethod]
         public void TestCalcSalingPrice05001()
         {
-            Assert.AreEqual(9971, CSVSaver.CalcSellingPrice(5001));
+            Assert.AreEqual(9971, DataSaver.CalcSellingPrice(5001));
         }
 
         [TestMethod]
         public void TestCalcSalingPrice10000()
         {
-            Assert.AreEqual(18364, CSVSaver.CalcSellingPrice(10000));
+            Assert.AreEqual(18364, DataSaver.CalcSellingPrice(10000));
         }
 
         [TestMethod]
         public void TestCalcSalingPrice10001()
         {
-            Assert.AreEqual(18743, CSVSaver.CalcSellingPrice(10001));
+            Assert.AreEqual(18743, DataSaver.CalcSellingPrice(10001));
         }
 
         [TestMethod]
         public void TestCalcSalingPrice20000()
         {
-            Assert.AreEqual(35876, CSVSaver.CalcSellingPrice(20000));
+            Assert.AreEqual(35876, DataSaver.CalcSellingPrice(20000));
         }
 
         [TestMethod]
         public void TestCalcSalingPrice20001()
         {
-            Assert.AreEqual(36600, CSVSaver.CalcSellingPrice(20001));
+            Assert.AreEqual(36600, DataSaver.CalcSellingPrice(20001));
         }
 
         [TestMethod]

@@ -2,12 +2,12 @@
 
 namespace BookSearcherApp
 {
-    public class CSVSaverCommon2 : CSVSaver1
+    public class DataSaverPattern2 : DataSaverPattern
     {
         public override int ColumnIndexPrice => 5;
 
         public override int ColumnIndexISBN => 1;
 
-        public CSVSaverCommon2(DataGridView view, string path) : base(view, path) { }
+        public DataSaverPattern2(DataGridView view, string path) : base(view, path) { }
     }
 }

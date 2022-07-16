@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace BookSearcherApp
 {
-    public abstract class CSVSaver1 : CSVSaver
+    public abstract class DataSaverPattern : DataSaver
     {
         public override string[] Titles => new string[]
         {
@@ -55,6 +55,6 @@ namespace BookSearcherApp
             "battery_weight_unit_of_measure"
         };
 
-        protected CSVSaver1(DataGridView view, string path) : base(view, path) { }
+        protected DataSaverPattern(DataGridView view, string path) : base(view, path) { }
     }
 }

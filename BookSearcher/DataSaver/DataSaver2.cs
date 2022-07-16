@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace BookSearcherApp
 {
-    public abstract class CSVSaver2 : CSVSaver
+    public abstract class DataSaver2 : DataSaver
     {
         public override int ColumnIndexISBN => 1;
 
@@ -28,6 +28,6 @@ namespace BookSearcherApp
             "is_delete"
         };
 
-        protected CSVSaver2(DataGridView view, string path) : base(view, path) { }
+        protected DataSaver2(DataGridView view, string path) : base(view, path) { }
     }
 }

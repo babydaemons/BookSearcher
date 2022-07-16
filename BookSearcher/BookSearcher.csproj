@@ -97,11 +97,11 @@
     <Compile Include="DataLoader\CSVMultiLineFile.cs" />
     <Compile Include="DataLoader\CSVMercariFile.cs" />
     <Compile Include="DataLoader\ExcelFile.cs" />
-    <Compile Include="DataSaver\CSVSaver2.cs" />
-    <Compile Include="DataSaver\CSVSaverCommon1.cs" />
-    <Compile Include="DataSaver\CSVSaverPattern2.cs" />
-    <Compile Include="DataSaver\CSVSaverPattern1.cs" />
-    <Compile Include="DataSaver\CSVSaverCommon2.cs" />
+    <Compile Include="DataSaver\DataSaver2.cs" />
+    <Compile Include="DataSaver\DataSaverCommon1.cs" />
+    <Compile Include="DataSaver\DataSaverPattern2.cs" />
+    <Compile Include="DataSaver\DataSaverPattern1.cs" />
+    <Compile Include="DataSaver\DataSaverCommon2.cs" />
     <Compile Include="DataSaver\ExcelSaver.cs" />
     <Compile Include="EPPlus\CellStore.cs" />
     <Compile Include="EPPlus\Compatibility\CompatibilitySettings.cs" />
@@ -949,12 +949,12 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="DataLoader\CSVFile.cs" />
-    <Compile Include="DataSaver\CSVSaver1.cs" />
+    <Compile Include="DataSaver\DataSaverPattern.cs" />
     <Compile Include="MyException.cs" />
     <Compile Include="MyExceptionHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DataSaver\CSVSaver.cs" />
+    <Compile Include="DataSaver\DataSaver.cs" />
     <Compile Include="FileIOProgressBar.cs">
       <SubType>Component</SubType>
     </Compile>
