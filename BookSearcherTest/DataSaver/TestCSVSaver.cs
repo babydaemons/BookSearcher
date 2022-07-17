@@ -23,9 +23,9 @@ namespace BookSearcherTest
     [TestClass]
     public class TestCSVSaver : Form1
     {
-        public TestCSVSaver() : base()
+        public TestCSVSaver() : base(false, false)
         {
-            InitDataSettings();
+            DataSaver.InitCostTable(DataTableCostRatio);
         }
 
         [TestMethod]
@@ -37,55 +37,55 @@ namespace BookSearcherTest
         [TestMethod]
         public void TestCalcSalingPrice00001()
         {
-            Assert.AreEqual(1532, DataSaver.CalcSellingPrice(1));
+            Assert.AreEqual(751, DataSaver.CalcSellingPrice(1));
         }
 
         [TestMethod]
         public void TestCalcSalingPrice03000()
         {
-            Assert.AreEqual(6430, DataSaver.CalcSellingPrice(3000));
+            Assert.AreEqual(5649, DataSaver.CalcSellingPrice(3000));
         }
 
         [TestMethod]
         public void TestCalcSalingPrice03001()
         {
-            Assert.AreEqual(6477, DataSaver.CalcSellingPrice(3001));
+            Assert.AreEqual(5690, DataSaver.CalcSellingPrice(3001));
         }
 
         [TestMethod]
         public void TestCalcSalingPrice05000()
         {
-            Assert.AreEqual(9764, DataSaver.CalcSellingPrice(5000));
+            Assert.AreEqual(8978, DataSaver.CalcSellingPrice(5000));
         }
 
         [TestMethod]
         public void TestCalcSalingPrice05001()
         {
-            Assert.AreEqual(9971, DataSaver.CalcSellingPrice(5001));
+            Assert.AreEqual(9168, DataSaver.CalcSellingPrice(5001));
         }
 
         [TestMethod]
         public void TestCalcSalingPrice10000()
         {
-            Assert.AreEqual(18364, DataSaver.CalcSellingPrice(10000));
+            Assert.AreEqual(17561, DataSaver.CalcSellingPrice(10000));
         }
 
         [TestMethod]
         public void TestCalcSalingPrice10001()
         {
-            Assert.AreEqual(18743, DataSaver.CalcSellingPrice(10001));
+            Assert.AreEqual(17923, DataSaver.CalcSellingPrice(10001));
         }
 
         [TestMethod]
         public void TestCalcSalingPrice20000()
         {
-            Assert.AreEqual(35876, DataSaver.CalcSellingPrice(20000));
+            Assert.AreEqual(35057, DataSaver.CalcSellingPrice(20000));
         }
 
         [TestMethod]
         public void TestCalcSalingPrice20001()
         {
-            Assert.AreEqual(36600, DataSaver.CalcSellingPrice(20001));
+            Assert.AreEqual(35764, DataSaver.CalcSellingPrice(20001));
         }
 
         [TestMethod]

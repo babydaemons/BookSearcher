@@ -97,11 +97,14 @@
     <Compile Include="DataLoader\CSVMultiLineFile.cs" />
     <Compile Include="DataLoader\CSVMercariFile.cs" />
     <Compile Include="DataLoader\ExcelFile.cs" />
+    <Compile Include="DataSaver\DataSaverTSV.cs" />
+    <Compile Include="DataSaver\DataSaverCSV.cs" />
     <Compile Include="DataSaver\DataSaver2.cs" />
     <Compile Include="DataSaver\DataSaverCommon1.cs" />
     <Compile Include="DataSaver\DataSaverPattern2.cs" />
     <Compile Include="DataSaver\DataSaverPattern1.cs" />
     <Compile Include="DataSaver\DataSaverCommon2.cs" />
+    <Compile Include="DataSaver\DataSaverExcel.cs" />
     <Compile Include="DataSaver\ExcelSaver.cs" />
     <Compile Include="EPPlus\CellStore.cs" />
     <Compile Include="EPPlus\Compatibility\CompatibilitySettings.cs" />

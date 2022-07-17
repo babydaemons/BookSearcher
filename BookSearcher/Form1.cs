@@ -48,17 +48,25 @@ namespace BookSearcherApp
                 var fileName = Path.GetFileNameWithoutExtension(appPath);
                 ConfigXml = $"{appDir}\\{fileName}.xml";
             }
-            InitDataSettings(true);
+            InitDataSettings(true, true);
         }
 
-        protected void InitDataSettings(bool reportError = false)
+        public Form1(bool readXml, bool reportError)
         {
-            if (ConfigXml != null && File.Exists(ConfigXml))
+            InitializeComponent();
+            BookSearcher.InitColumnSettings(BookColumnSetting, ScrapingColumnSetting);
+            ProcessorCount = Environment.ProcessorCount;
+            InitDataSettings(readXml, reportError);
+        }
+
+        protected void InitDataSettings(bool readXml, bool reportError)
+        {
+            if (readXml && ConfigXml != null && File.Exists(ConfigXml))
             {
                 DataSetSetting.ReadXml(ConfigXml);
             }
 
-            if (!IsValidTable(DataTableOutputPattern1, "CSVパターン1", 7))
+            if (!IsValidTable(DataTableOutputPattern1, "CSVパターン1", 7, reportError))
             {
                 DataTableOutputPattern1.Rows.Clear();
                 DataTableOutputPattern1.Rows.Add(new object[] { "商品管理番号(商品コード以降)", "sku", "" });
@@ -70,7 +78,7 @@ namespace BookSearcherApp
                 DataTableOutputPattern1.Rows.Add(new object[] { "商品メモ", "item-note", "" });
             }
 
-            if (!IsValidTable(DataTableOutputPattern2, "CSVパターン2", 7))
+            if (!IsValidTable(DataTableOutputPattern2, "CSVパターン2", 7, reportError))
             {
                 DataTableOutputPattern2.Rows.Clear();
                 DataTableOutputPattern2.Rows.Add(new object[] { "商品管理番号(商品コード以降)", "sku", "" });
@@ -82,7 +90,7 @@ namespace BookSearcherApp
                 DataTableOutputPattern2.Rows.Add(new object[] { "商品メモ", "item-note", "" });
             }
 
-            if (!IsValidTable(DataTableCommonOutput1, "共通CSV1", 7))
+            if (!IsValidTable(DataTableCommonOutput1, "共通CSV1", 7, reportError))
             {
                 DataTableCommonOutput1.Rows.Clear();
                 DataTableCommonOutput1.Rows.Add(new object[] { "商品管理番号(商品コード以降)", "sku", "" });
@@ -94,14 +102,14 @@ namespace BookSearcherApp
                 DataTableCommonOutput1.Rows.Add(new object[] { "上限ストッパー", "autoprice_stopper_upper", "" });
             }
 
-            if (!IsValidTable(DataTableCommonOutput2, "共通CSV2", 2))
+            if (!IsValidTable(DataTableCommonOutput2, "共通CSV2", 2, reportError))
             {
                 DataTableCommonOutput2.Rows.Clear();
                 DataTableCommonOutput2.Rows.Add(new object[] { "商品管理番号(商品コード以降)", "sku", "" });
                 DataTableCommonOutput2.Rows.Add(new object[] { "登録/削除", "add-delete", "" });
             }
 
-            if (!IsValidTable(DataTableCostRatio, "料率", 5))
+            if (!IsValidTable(DataTableCostRatio, "料率", 5, reportError))
             {
                 // double selling_price = (cost + 88 + 110 + 330 + 550 + (cost * 0.15)) * IF(cost > 20000, 1.52, IF(cost > 10000, 1.49, IF(cost > 5000, 1.46, IF(cost > 3000, 1.43, IF(cost >= 1, 1.42, 0.00)))));
                 DataTableCostRatio.Rows.Clear();
@@ -113,7 +121,7 @@ namespace BookSearcherApp
             }
         }
 
-        protected bool IsValidTable(DataTable table, string dataName, int rowCount, bool reportError = false)
+        protected bool IsValidTable(DataTable table, string dataName, int rowCount, bool reportError)
         {
             bool ok = true;
             try
@@ -121,7 +129,10 @@ namespace BookSearcherApp
                 if (table.Rows.Count != rowCount)
                 {
                     ok = false;
-                    throw new MyException($"「{dataName}」設定破損エラー", "リリース出荷時の初期値に復旧しました。");
+                    if (reportError)
+                    {
+                        throw new MyException($"「{dataName}」設定破損エラー", "リリース出荷時の初期値に復旧しました。");
+                    }
                 }
 
                 foreach (DataRow row in table.Rows)
@@ -129,16 +140,16 @@ namespace BookSearcherApp
                     if (row[0] == DBNull.Value || row[1] == DBNull.Value)
                     {
                         ok = false;
-                        throw new MyException($"「{dataName}」設定破損エラー", "リリース出荷時の初期値に復旧しました。");
+                        if (reportError)
+                        {
+                            throw new MyException($"「{dataName}」設定破損エラー", "リリース出荷時の初期値に復旧しました。");
+                        }
                     }
                 }
             }
             catch (MyException ex)
             {
-                if (reportError)
-                {
-                    ex.Show();
-                }
+                ex.Show();
             }
             return ok;
         }
