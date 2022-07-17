@@ -4,17 +4,17 @@ using System.Diagnostics;
 
 namespace BookSearcherApp
 {
-    public abstract class FileIO : IDisposable
+    public abstract class DataIO : IDisposable
     {
-        public const int MAX_VALUE = FileIOProgressBar.MAX_VALUE;
-        public const int DIV_VALUE = FileIOProgressBar.DIV_VALUE;
+        public const int MAX_VALUE = DataIOProgressBar.MAX_VALUE;
+        public const int DIV_VALUE = DataIOProgressBar.DIV_VALUE;
         private const double DIV = MAX_VALUE / 100.0;
         private bool disposed = false;
 
         private Stopwatch StopWatch;
         private TimeSpan elapsed;
         private int currentProgress;
-        private FileIOProgressBar progressBar;
+        private DataIOProgressBar progressBar;
 
         public int Progress => currentProgress;
 
@@ -34,17 +34,17 @@ namespace BookSearcherApp
 
         public bool IsRunning { get; private set; }
 
-        public FileIO()
+        public DataIO()
         {
             IsRunning = false;
         }
 
-        ~FileIO()
+        ~DataIO()
         {
             Dispose(true);
         }
 
-        protected void StartIO(BackgroundWorker backgroundWorker, FileIOProgressBar progressBar)
+        protected void StartIO(BackgroundWorker backgroundWorker, DataIOProgressBar progressBar)
         {
             IsRunning = true;
             _ = progressBar.BeginInvoke((Action)(() => progressBar.Maximum = MAX_VALUE));

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace BookSearcherApp
 {
-    public abstract partial class DataSaver : FileIO
+    public abstract partial class DataSaver : DataIO
     {
         #region WriteCSV
 

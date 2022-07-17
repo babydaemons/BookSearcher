@@ -25,7 +25,7 @@ namespace BookSearcherApp
             return true;
         }
 
-        public override void ReadAll(BackgroundWorker backgoundworker, FileIOProgressBar progressBar)
+        public override void ReadAll(BackgroundWorker backgoundworker, DataIOProgressBar progressBar)
         {
             StartIO(backgoundworker, progressBar);
 

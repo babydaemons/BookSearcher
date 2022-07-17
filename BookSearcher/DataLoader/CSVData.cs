@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace BookSearcherApp
 {
-    public abstract class CSVData : FileIO
+    public abstract class CSVData : DataIO
     {
         protected readonly DataTable dataTable = new DataTable();
         public DataTable Table => dataTable;
@@ -38,6 +38,6 @@ namespace BookSearcherApp
             dataTable.Rows.Add(row);
         }
 
-        public abstract void ReadAll(BackgroundWorker backgoundworker, FileIOProgressBar progressBar);
+        public abstract void ReadAll(BackgroundWorker backgoundworker, DataIOProgressBar progressBar);
     }
 }

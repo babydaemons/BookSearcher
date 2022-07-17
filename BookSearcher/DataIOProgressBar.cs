@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace BookSearcherApp
 {
-    public class FileIOProgressBar : ProgressBar
+    public class DataIOProgressBar : ProgressBar
     {
         public const int MAX_VALUE = 10000;
         public const int DIV_VALUE = 100;
@@ -25,7 +25,7 @@ namespace BookSearcherApp
             Value = 0;
         }
 
-        public void Stop(FileIO fileIO)
+        public void Stop(DataIO fileIO)
         {
             Value = MAX_VALUE;
             if (fileIO == null)

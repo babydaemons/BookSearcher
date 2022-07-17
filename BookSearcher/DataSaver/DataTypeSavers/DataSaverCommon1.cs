@@ -2,7 +2,7 @@
 
 namespace BookSearcherApp
 {
-    public class DataSaverCommon1 : DataSaver2
+    public class DataSaverCommon1 : DataSaverCommon
     {
         public override int ColumnIndexPrice => 5;
 

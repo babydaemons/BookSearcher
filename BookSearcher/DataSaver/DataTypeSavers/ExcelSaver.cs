@@ -9,7 +9,7 @@ using OfficeOpenXml;
 
 namespace BookSearcherApp
 {
-    public class ExcelSaver : FileIO
+    public class ExcelSaver : DataIO
     {
         public const int MAX_EXCEL_ROWS = 1000000; /* 1048576 */
 
@@ -117,7 +117,7 @@ namespace BookSearcherApp
             }
         }
 
-        public void Write(List<DataTable> tables, BackgroundWorker backgroundWorker, FileIOProgressBar progressBar)
+        public void Write(List<DataTable> tables, BackgroundWorker backgroundWorker, DataIOProgressBar progressBar)
         {
             try
             {
@@ -224,6 +224,6 @@ namespace BookSearcherApp
             }
         }
 
-        public void Save(BackgroundWorker backgroundWorker, FileIOProgressBar progressBar) => Write(BookSearcher.ResultTables, backgroundWorker, progressBar);
+        public void Save(BackgroundWorker backgroundWorker, DataIOProgressBar progressBar) => Write(BookSearcher.ResultTables, backgroundWorker, progressBar);
     }
 }

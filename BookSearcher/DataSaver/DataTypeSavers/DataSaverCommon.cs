@@ -1,9 +1,8 @@
-﻿using System.ComponentModel;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace BookSearcherApp
 {
-    public abstract class DataSaver2 : DataSaver
+    public abstract class DataSaverCommon : DataSaver
     {
         public override int ColumnIndexISBN => 1;
 
@@ -28,6 +27,6 @@ namespace BookSearcherApp
             "is_delete"
         };
 
-        protected DataSaver2(DataGridView view, string path) : base(view, path) { }
+        protected DataSaverCommon(DataGridView view, string path) : base(view, path) { }
     }
 }

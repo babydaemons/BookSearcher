@@ -12,7 +12,7 @@ namespace BookSearcherApp
 {
     public enum DataType { CSV, TSV, Excel };
 
-    public abstract partial class DataSaver : FileIO
+    public abstract partial class DataSaver : DataIO
     {
         #region DataSaver
 
@@ -176,7 +176,7 @@ namespace BookSearcherApp
             }
         }
 
-        public void Save(BackgroundWorker backgroundWorker, FileIOProgressBar progressBar)
+        public void Save(BackgroundWorker backgroundWorker, DataIOProgressBar progressBar)
         {
             ConvertTable();
             StartIO(backgroundWorker, progressBar);

@@ -175,7 +175,7 @@ namespace BookSearcherApp
             return null;
         }
 
-        public override void ReadAll(BackgroundWorker backgroundWorker, FileIOProgressBar progressBar)
+        public override void ReadAll(BackgroundWorker backgroundWorker, DataIOProgressBar progressBar)
         {
             StartIO(backgroundWorker, progressBar);
 
@@ -188,13 +188,13 @@ namespace BookSearcherApp
 
         protected abstract void DoReadAll();
 
-        protected void AddTableRow(Stream stream, string[] fields, int start = 0, int end = FileIOProgressBar.MAX_VALUE)
+        protected void AddTableRow(Stream stream, string[] fields, int start = 0, int end = DataIOProgressBar.MAX_VALUE)
         {
             AddRow(fields);
             ReportProgress((int)(start + (end - start) * stream.Position / stream.Length));
         }
 
-        protected void AddTableRow(long position, long length, string[] fields, int start = 0, int end = FileIOProgressBar.MAX_VALUE)
+        protected void AddTableRow(long position, long length, string[] fields, int start = 0, int end = DataIOProgressBar.MAX_VALUE)
         {
             AddRow(fields);
             ReportProgress((int)(start + (end - start) * position / length));

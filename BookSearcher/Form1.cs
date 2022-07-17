@@ -828,7 +828,7 @@ namespace BookSearcherApp
             UpdateProgressBar(saver2, ProgressBarOutputCommonCSV2);
         }
 
-        public static void UpdateProgressBar(FileIO fileIO, ProgressBar progressBar)
+        public static void UpdateProgressBar(DataIO fileIO, ProgressBar progressBar)
         {
             if (fileIO == null)
             {

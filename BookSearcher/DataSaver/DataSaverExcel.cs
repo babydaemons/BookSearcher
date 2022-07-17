@@ -5,7 +5,7 @@ using OfficeOpenXml;
 
 namespace BookSearcherApp
 {
-    public abstract partial class DataSaver : FileIO
+    public abstract partial class DataSaver : DataIO
     {
         #region WriteExcel
 
