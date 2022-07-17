@@ -20,6 +20,15 @@ namespace BookSearcherApp
                 "【例外種別】\n" + ex.GetType().FullName + "\n\n" +
                 "【スタックトレース】\n" + ex.StackTrace;
 
+            while (ex.InnerException != null)
+            {
+                ex = ex.InnerException;
+                message += "\n\n" +
+                    "【エラー内容】\n" + ex.Message + "\n\n" +
+                    "【例外種別】\n" + ex.GetType().FullName + "\n\n" +
+                    "【スタックトレース】\n" + ex.StackTrace;
+            }
+
             using (var writer = new StreamWriter(path)) { writer.WriteLine(message); }
 
             MessageBox.Show(message, "内部エラーが発生しました", MessageBoxButtons.OK, MessageBoxIcon.Error);

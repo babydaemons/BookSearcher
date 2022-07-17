@@ -55,7 +55,7 @@ namespace BookSearcherApp
         {
             if (dataType == DataType.Excel)
             {
-                return package != null && writer != null && file != null && file.CanWrite;
+                return package != null && file != null && file.CanWrite;
             }
             if (file != null)
             {
@@ -76,7 +76,7 @@ namespace BookSearcherApp
 
             try
             {
-                file = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write);
+                file = new FileStream(path, FileMode.Create, FileAccess.Write);
                 writer = dataType != DataType.Excel ?　new StreamWriter(file, Encoding.GetEncoding(932), 8 * 4096) : null;
                 package = dataType == DataType.Excel ? new ExcelPackage(file) : null;
             }
@@ -99,8 +99,11 @@ namespace BookSearcherApp
                         package = null;
                     }
                 }
-                writer.Close();
-                writer.Dispose();
+                if (writer != null)
+                {
+                    writer.Close();
+                    writer.Dispose();
+                }
                 if (file != null)
                 {
                     file.Close();

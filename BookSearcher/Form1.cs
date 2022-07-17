@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -28,6 +29,7 @@ namespace BookSearcherApp
         private string searchTypeName = "";
         private string folderPath = "";
         private bool searchInitFailed = false;
+        private readonly string[] extensions = new string[] { ".csv", ".txt", ".xlsx" };
 
         public Form1()
         {
@@ -39,6 +41,15 @@ namespace BookSearcherApp
             NumericUpDownUseCpuCoreCount.Maximum = ProcessorCount;
             NumericUpDownUseCpuCoreCount.Value = ProcessorCount;
             LabelTotalCpuCoreCount.Text = $"コア / 全 {ProcessorCount} コア";
+
+            var textBoxList = new TextBox[] { TextBoxOutputCSV, TextBoxOutputCSV1, TextBoxOutputCSV2 };
+            var comboBoxList = new ComboBox[] { ComboBoxOutputPattern, ComboBoxOutputCommon1, ComboBoxOutputCommon2 };
+            foreach (var i in Enumerable.Range(0, comboBoxList.Length))
+            {
+                textBoxList[i].Tag = 0;
+                comboBoxList[i].Tag = textBoxList[i];
+                comboBoxList[i].SelectedIndex = 0;
+            }
 
             var assembly = Assembly.GetEntryAssembly();
             if (assembly != null)
@@ -297,10 +308,8 @@ namespace BookSearcherApp
 
         private void RadioButtonFileType_CheckedChanged(object sender, EventArgs e)
         {
-            string fileType = RadioButtonFileTypeCSV1.Checked ? "出力CSVファイル(パターン1)" : "出力CSVファイル(パターン2)";
             DataGridViewOutputPattern1.Enabled = RadioButtonFileTypeCSV1.Checked;
             DataGridViewOutputPattern2.Enabled = RadioButtonFileTypeCSV2.Checked;
-            LabelOutputCSV.Text = fileType;
             SetOutputFileNames();
         }
 
@@ -331,10 +340,11 @@ namespace BookSearcherApp
             var folderName = Path.GetDirectoryName(folderPath);
             var fileName = Path.GetFileName(folderName);
             var matchingPatternName = GetMatchingPatternName();
+            var n = RadioButtonFileTypeCSV1.Checked ? 1 : 2;
             TextBoxOutputExcel.Text = $"{folderName}\\{fileName}_{matchingPatternName}.xlsx";
-            TextBoxOutputCSV.Text = RadioButtonFileTypeCSV1.Checked ? $"{folderName}\\{fileName}_{matchingPatternName}_パターン1.csv" : $"{folderName}\\{fileName}_{matchingPatternName}_パターン2.csv";
-            TextBoxOutputCSV1.Text = $"{folderName}\\{fileName}_{matchingPatternName}_共通出力1.csv";
-            TextBoxOutputCSV2.Text = $"{folderName}\\{fileName}_{matchingPatternName}_共通出力2.csv";
+            TextBoxOutputCSV.Text = $"{folderName}\\{fileName}_{matchingPatternName}_パターン{n}{extensions[ComboBoxOutputPattern.SelectedIndex]}";
+            TextBoxOutputCSV1.Text = $"{folderName}\\{fileName}_{matchingPatternName}_共通出力1{extensions[ComboBoxOutputCommon1.SelectedIndex]}";
+            TextBoxOutputCSV2.Text = $"{folderName}\\{fileName}_{matchingPatternName}_共通出力2{extensions[ComboBoxOutputCommon2.SelectedIndex]}";
             SetExecuteControlsEnabled();
         }
 
@@ -915,6 +925,27 @@ namespace BookSearcherApp
             {
                 MyExceptionHandler.Show(ex);
             }
+        }
+
+        private void ComboBoxOutput_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var comboBox = sender as ComboBox;
+            var textBox = comboBox.Tag as TextBox;
+            if (comboBox.SelectedIndex == -1)
+            {
+                comboBox.SelectedIndex = (int)textBox.Tag;
+            }
+            textBox.Tag = comboBox.SelectedIndex;
+
+            if (string.IsNullOrEmpty(textBox.Text))
+            {
+                return;
+            }
+            var outputPath = textBox.Text;
+            var outputDir = Path.GetDirectoryName(outputPath);
+            var outputFileName = Path.GetFileNameWithoutExtension(outputPath);
+            var extension = extensions[comboBox.SelectedIndex];
+            textBox.Text = $"{outputDir}\\{outputFileName}{extension}";
         }
     }
 }

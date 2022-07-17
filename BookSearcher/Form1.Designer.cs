@@ -40,10 +40,16 @@
             this.LabelElapsed = new System.Windows.Forms.Label();
             this.ButtonExecute = new System.Windows.Forms.Button();
             this.GroupBoxFiles = new System.Windows.Forms.GroupBox();
-            this.LabelOutputCSV = new System.Windows.Forms.Label();
+            this.ComboBoxOutputCommon2 = new System.Windows.Forms.ComboBox();
+            this.ComboBoxOutputCommon1 = new System.Windows.Forms.ComboBox();
+            this.ComboBoxOutputPattern = new System.Windows.Forms.ComboBox();
+            this.ProgressBarOutputCommonCSV2 = new BookSearcherApp.FileIOProgressBar();
+            this.ProgressBarOutputCommonCSV1 = new BookSearcherApp.FileIOProgressBar();
+            this.ProgressBarOutputPatternCSV = new BookSearcherApp.FileIOProgressBar();
+            this.ProgressBarOutputExcel = new BookSearcherApp.FileIOProgressBar();
+            this.ProgressBarInput2 = new BookSearcherApp.FileIOProgressBar();
+            this.ProgressBarInput1 = new BookSearcherApp.FileIOProgressBar();
             this.TextBoxOutputCSV2 = new System.Windows.Forms.TextBox();
-            this.LabelOutputCSV2 = new System.Windows.Forms.Label();
-            this.LabelOutputCSV1 = new System.Windows.Forms.Label();
             this.TextBoxOutputCSV1 = new System.Windows.Forms.TextBox();
             this.TextBoxOutputCSV = new System.Windows.Forms.TextBox();
             this.ButtonOutput1 = new System.Windows.Forms.Button();
@@ -153,12 +159,6 @@
             this.NumericUpDownUseCpuCoreCount = new System.Windows.Forms.NumericUpDown();
             this.TimerFileIO = new System.Windows.Forms.Timer(this.components);
             this.DataSetSetting = new System.Data.DataSet();
-            this.ProgressBarOutputCommonCSV2 = new BookSearcherApp.FileIOProgressBar();
-            this.ProgressBarOutputCommonCSV1 = new BookSearcherApp.FileIOProgressBar();
-            this.ProgressBarOutputPatternCSV = new BookSearcherApp.FileIOProgressBar();
-            this.ProgressBarOutputExcel = new BookSearcherApp.FileIOProgressBar();
-            this.ProgressBarInput2 = new BookSearcherApp.FileIOProgressBar();
-            this.ProgressBarInput1 = new BookSearcherApp.FileIOProgressBar();
             this.GroupBoxOutput.SuspendLayout();
             this.GroupBoxPartMatch.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownLength)).BeginInit();
@@ -347,16 +347,16 @@
             // 
             // GroupBoxFiles
             // 
+            this.GroupBoxFiles.Controls.Add(this.ComboBoxOutputCommon2);
+            this.GroupBoxFiles.Controls.Add(this.ComboBoxOutputCommon1);
+            this.GroupBoxFiles.Controls.Add(this.ComboBoxOutputPattern);
             this.GroupBoxFiles.Controls.Add(this.ProgressBarOutputCommonCSV2);
             this.GroupBoxFiles.Controls.Add(this.ProgressBarOutputCommonCSV1);
             this.GroupBoxFiles.Controls.Add(this.ProgressBarOutputPatternCSV);
             this.GroupBoxFiles.Controls.Add(this.ProgressBarOutputExcel);
             this.GroupBoxFiles.Controls.Add(this.ProgressBarInput2);
             this.GroupBoxFiles.Controls.Add(this.ProgressBarInput1);
-            this.GroupBoxFiles.Controls.Add(this.LabelOutputCSV);
             this.GroupBoxFiles.Controls.Add(this.TextBoxOutputCSV2);
-            this.GroupBoxFiles.Controls.Add(this.LabelOutputCSV2);
-            this.GroupBoxFiles.Controls.Add(this.LabelOutputCSV1);
             this.GroupBoxFiles.Controls.Add(this.TextBoxOutputCSV1);
             this.GroupBoxFiles.Controls.Add(this.TextBoxOutputCSV);
             this.GroupBoxFiles.Controls.Add(this.ButtonOutput1);
@@ -376,52 +376,111 @@
             this.GroupBoxFiles.TabStop = false;
             this.GroupBoxFiles.Text = "入力・出力データファイル指定";
             // 
-            // LabelOutputCSV
+            // ComboBoxOutputCommon2
             // 
-            this.LabelOutputCSV.AutoSize = true;
-            this.LabelOutputCSV.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.LabelOutputCSV.Location = new System.Drawing.Point(31, 115);
-            this.LabelOutputCSV.Name = "LabelOutputCSV";
-            this.LabelOutputCSV.Size = new System.Drawing.Size(143, 15);
-            this.LabelOutputCSV.TabIndex = 9;
-            this.LabelOutputCSV.Text = "出力CSVファイル(パターン1)";
+            this.ComboBoxOutputCommon2.FormattingEnabled = true;
+            this.ComboBoxOutputCommon2.Items.AddRange(new object[] {
+            "共通出力CSVファイル2",
+            "共通出力TXTファイル2",
+            "共通出力Excelファイル2"});
+            this.ComboBoxOutputCommon2.Location = new System.Drawing.Point(34, 170);
+            this.ComboBoxOutputCommon2.Name = "ComboBoxOutputCommon2";
+            this.ComboBoxOutputCommon2.Size = new System.Drawing.Size(164, 23);
+            this.ComboBoxOutputCommon2.TabIndex = 23;
+            this.ComboBoxOutputCommon2.SelectedIndexChanged += new System.EventHandler(this.ComboBoxOutput_SelectedIndexChanged);
+            // 
+            // ComboBoxOutputCommon1
+            // 
+            this.ComboBoxOutputCommon1.FormattingEnabled = true;
+            this.ComboBoxOutputCommon1.ItemHeight = 15;
+            this.ComboBoxOutputCommon1.Items.AddRange(new object[] {
+            "共通出力CSVファイル1",
+            "共通出力TXTファイル1",
+            "共通出力Excelファイル1"});
+            this.ComboBoxOutputCommon1.Location = new System.Drawing.Point(34, 141);
+            this.ComboBoxOutputCommon1.Name = "ComboBoxOutputCommon1";
+            this.ComboBoxOutputCommon1.Size = new System.Drawing.Size(164, 23);
+            this.ComboBoxOutputCommon1.TabIndex = 22;
+            this.ComboBoxOutputCommon1.SelectedIndexChanged += new System.EventHandler(this.ComboBoxOutput_SelectedIndexChanged);
+            // 
+            // ComboBoxOutputPattern
+            // 
+            this.ComboBoxOutputPattern.FormattingEnabled = true;
+            this.ComboBoxOutputPattern.ItemHeight = 15;
+            this.ComboBoxOutputPattern.Items.AddRange(new object[] {
+            "パターンCSVファイル",
+            "パターンTXTファイル",
+            "パターンExcelファイル"});
+            this.ComboBoxOutputPattern.Location = new System.Drawing.Point(34, 112);
+            this.ComboBoxOutputPattern.Name = "ComboBoxOutputPattern";
+            this.ComboBoxOutputPattern.Size = new System.Drawing.Size(164, 23);
+            this.ComboBoxOutputPattern.TabIndex = 21;
+            this.ComboBoxOutputPattern.SelectedIndexChanged += new System.EventHandler(this.ComboBoxOutput_SelectedIndexChanged);
+            // 
+            // ProgressBarOutputCommonCSV2
+            // 
+            this.ProgressBarOutputCommonCSV2.Location = new System.Drawing.Point(1026, 170);
+            this.ProgressBarOutputCommonCSV2.Maximum = 1000;
+            this.ProgressBarOutputCommonCSV2.Name = "ProgressBarOutputCommonCSV2";
+            this.ProgressBarOutputCommonCSV2.Size = new System.Drawing.Size(232, 20);
+            this.ProgressBarOutputCommonCSV2.TabIndex = 20;
+            // 
+            // ProgressBarOutputCommonCSV1
+            // 
+            this.ProgressBarOutputCommonCSV1.Location = new System.Drawing.Point(1027, 141);
+            this.ProgressBarOutputCommonCSV1.Maximum = 1000;
+            this.ProgressBarOutputCommonCSV1.Name = "ProgressBarOutputCommonCSV1";
+            this.ProgressBarOutputCommonCSV1.Size = new System.Drawing.Size(232, 20);
+            this.ProgressBarOutputCommonCSV1.TabIndex = 19;
+            // 
+            // ProgressBarOutputPatternCSV
+            // 
+            this.ProgressBarOutputPatternCSV.Location = new System.Drawing.Point(1027, 112);
+            this.ProgressBarOutputPatternCSV.Maximum = 1000;
+            this.ProgressBarOutputPatternCSV.Name = "ProgressBarOutputPatternCSV";
+            this.ProgressBarOutputPatternCSV.Size = new System.Drawing.Size(232, 20);
+            this.ProgressBarOutputPatternCSV.TabIndex = 18;
+            // 
+            // ProgressBarOutputExcel
+            // 
+            this.ProgressBarOutputExcel.Location = new System.Drawing.Point(1027, 83);
+            this.ProgressBarOutputExcel.Maximum = 1000;
+            this.ProgressBarOutputExcel.Name = "ProgressBarOutputExcel";
+            this.ProgressBarOutputExcel.Size = new System.Drawing.Size(232, 20);
+            this.ProgressBarOutputExcel.TabIndex = 17;
+            // 
+            // ProgressBarInput2
+            // 
+            this.ProgressBarInput2.Location = new System.Drawing.Point(1027, 54);
+            this.ProgressBarInput2.Maximum = 1000;
+            this.ProgressBarInput2.Name = "ProgressBarInput2";
+            this.ProgressBarInput2.Size = new System.Drawing.Size(232, 20);
+            this.ProgressBarInput2.TabIndex = 16;
+            // 
+            // ProgressBarInput1
+            // 
+            this.ProgressBarInput1.Location = new System.Drawing.Point(1027, 25);
+            this.ProgressBarInput1.Maximum = 1000;
+            this.ProgressBarInput1.Name = "ProgressBarInput1";
+            this.ProgressBarInput1.Size = new System.Drawing.Size(232, 20);
+            this.ProgressBarInput1.TabIndex = 15;
             // 
             // TextBoxOutputCSV2
             // 
             this.TextBoxOutputCSV2.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.TextBoxOutputCSV2.Location = new System.Drawing.Point(179, 170);
+            this.TextBoxOutputCSV2.Location = new System.Drawing.Point(213, 170);
             this.TextBoxOutputCSV2.Name = "TextBoxOutputCSV2";
-            this.TextBoxOutputCSV2.Size = new System.Drawing.Size(761, 23);
+            this.TextBoxOutputCSV2.Size = new System.Drawing.Size(727, 23);
             this.TextBoxOutputCSV2.TabIndex = 14;
             this.TextBoxOutputCSV2.TextChanged += new System.EventHandler(this.TextBoxFileName_TextChanged);
             this.TextBoxOutputCSV2.DoubleClick += new System.EventHandler(this.TextBoxFileName_DoubleClick);
             // 
-            // LabelOutputCSV2
-            // 
-            this.LabelOutputCSV2.AutoSize = true;
-            this.LabelOutputCSV2.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.LabelOutputCSV2.Location = new System.Drawing.Point(31, 173);
-            this.LabelOutputCSV2.Name = "LabelOutputCSV2";
-            this.LabelOutputCSV2.Size = new System.Drawing.Size(120, 15);
-            this.LabelOutputCSV2.TabIndex = 13;
-            this.LabelOutputCSV2.Text = "共通出力CSVファイル2";
-            // 
-            // LabelOutputCSV1
-            // 
-            this.LabelOutputCSV1.AutoSize = true;
-            this.LabelOutputCSV1.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.LabelOutputCSV1.Location = new System.Drawing.Point(31, 144);
-            this.LabelOutputCSV1.Name = "LabelOutputCSV1";
-            this.LabelOutputCSV1.Size = new System.Drawing.Size(120, 15);
-            this.LabelOutputCSV1.TabIndex = 11;
-            this.LabelOutputCSV1.Text = "共通出力CSVファイル1";
-            // 
             // TextBoxOutputCSV1
             // 
             this.TextBoxOutputCSV1.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.TextBoxOutputCSV1.Location = new System.Drawing.Point(179, 141);
+            this.TextBoxOutputCSV1.Location = new System.Drawing.Point(213, 141);
             this.TextBoxOutputCSV1.Name = "TextBoxOutputCSV1";
-            this.TextBoxOutputCSV1.Size = new System.Drawing.Size(761, 23);
+            this.TextBoxOutputCSV1.Size = new System.Drawing.Size(727, 23);
             this.TextBoxOutputCSV1.TabIndex = 12;
             this.TextBoxOutputCSV1.TextChanged += new System.EventHandler(this.TextBoxFileName_TextChanged);
             this.TextBoxOutputCSV1.DoubleClick += new System.EventHandler(this.TextBoxFileName_DoubleClick);
@@ -429,9 +488,9 @@
             // TextBoxOutputCSV
             // 
             this.TextBoxOutputCSV.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.TextBoxOutputCSV.Location = new System.Drawing.Point(179, 112);
+            this.TextBoxOutputCSV.Location = new System.Drawing.Point(213, 112);
             this.TextBoxOutputCSV.Name = "TextBoxOutputCSV";
-            this.TextBoxOutputCSV.Size = new System.Drawing.Size(761, 23);
+            this.TextBoxOutputCSV.Size = new System.Drawing.Size(727, 23);
             this.TextBoxOutputCSV.TabIndex = 10;
             this.TextBoxOutputCSV.TextChanged += new System.EventHandler(this.TextBoxFileName_TextChanged);
             this.TextBoxOutputCSV.DoubleClick += new System.EventHandler(this.TextBoxFileName_DoubleClick);
@@ -472,9 +531,9 @@
             // TextBoxOutputExcel
             // 
             this.TextBoxOutputExcel.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.TextBoxOutputExcel.Location = new System.Drawing.Point(179, 83);
+            this.TextBoxOutputExcel.Location = new System.Drawing.Point(213, 83);
             this.TextBoxOutputExcel.Name = "TextBoxOutputExcel";
-            this.TextBoxOutputExcel.Size = new System.Drawing.Size(761, 23);
+            this.TextBoxOutputExcel.Size = new System.Drawing.Size(727, 23);
             this.TextBoxOutputExcel.TabIndex = 7;
             this.TextBoxOutputExcel.TextChanged += new System.EventHandler(this.TextBoxFileName_TextChanged);
             this.TextBoxOutputExcel.DoubleClick += new System.EventHandler(this.TextBoxFileName_DoubleClick);
@@ -482,9 +541,9 @@
             // TextBoxInput2
             // 
             this.TextBoxInput2.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.TextBoxInput2.Location = new System.Drawing.Point(179, 54);
+            this.TextBoxInput2.Location = new System.Drawing.Point(213, 54);
             this.TextBoxInput2.Name = "TextBoxInput2";
-            this.TextBoxInput2.Size = new System.Drawing.Size(761, 23);
+            this.TextBoxInput2.Size = new System.Drawing.Size(727, 23);
             this.TextBoxInput2.TabIndex = 4;
             this.TextBoxInput2.TextChanged += new System.EventHandler(this.TextBoxFileName_TextChanged);
             this.TextBoxInput2.DoubleClick += new System.EventHandler(this.TextBoxFileName_DoubleClick);
@@ -492,9 +551,9 @@
             // TextBoxInput1
             // 
             this.TextBoxInput1.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.TextBoxInput1.Location = new System.Drawing.Point(179, 25);
+            this.TextBoxInput1.Location = new System.Drawing.Point(213, 25);
             this.TextBoxInput1.Name = "TextBoxInput1";
-            this.TextBoxInput1.Size = new System.Drawing.Size(761, 23);
+            this.TextBoxInput1.Size = new System.Drawing.Size(727, 23);
             this.TextBoxInput1.TabIndex = 1;
             this.TextBoxInput1.TextChanged += new System.EventHandler(this.TextBoxFileName_TextChanged);
             this.TextBoxInput1.DoubleClick += new System.EventHandler(this.TextBoxFileName_DoubleClick);
@@ -1182,7 +1241,7 @@
             this.DataGridViewOutputPattern2.Location = new System.Drawing.Point(3, 3);
             this.DataGridViewOutputPattern2.Name = "DataGridViewOutputPattern2";
             this.DataGridViewOutputPattern2.RowTemplate.Height = 21;
-            this.DataGridViewOutputPattern2.Size = new System.Drawing.Size(747, 430);
+            this.DataGridViewOutputPattern2.Size = new System.Drawing.Size(747, 428);
             this.DataGridViewOutputPattern2.TabIndex = 2;
             this.DataGridViewOutputPattern2.Tag = "出力CSVパターン2";
             // 
@@ -1264,7 +1323,7 @@
             this.DataGridViewCommonOutput1.Location = new System.Drawing.Point(3, 3);
             this.DataGridViewCommonOutput1.Name = "DataGridViewCommonOutput1";
             this.DataGridViewCommonOutput1.RowTemplate.Height = 21;
-            this.DataGridViewCommonOutput1.Size = new System.Drawing.Size(747, 430);
+            this.DataGridViewCommonOutput1.Size = new System.Drawing.Size(747, 428);
             this.DataGridViewCommonOutput1.TabIndex = 3;
             this.DataGridViewCommonOutput1.Tag = "共通CSV出力1";
             // 
@@ -1346,7 +1405,7 @@
             this.DataGridViewCommonOutput2.Location = new System.Drawing.Point(3, 3);
             this.DataGridViewCommonOutput2.Name = "DataGridViewCommonOutput2";
             this.DataGridViewCommonOutput2.RowTemplate.Height = 21;
-            this.DataGridViewCommonOutput2.Size = new System.Drawing.Size(747, 430);
+            this.DataGridViewCommonOutput2.Size = new System.Drawing.Size(747, 428);
             this.DataGridViewCommonOutput2.TabIndex = 3;
             this.DataGridViewCommonOutput2.Tag = "共通CSV出力2";
             // 
@@ -1426,7 +1485,7 @@
             this.DataGridViewCostRatio.Location = new System.Drawing.Point(0, 0);
             this.DataGridViewCostRatio.Name = "DataGridViewCostRatio";
             this.DataGridViewCostRatio.RowTemplate.Height = 21;
-            this.DataGridViewCostRatio.Size = new System.Drawing.Size(753, 436);
+            this.DataGridViewCostRatio.Size = new System.Drawing.Size(753, 434);
             this.DataGridViewCostRatio.TabIndex = 0;
             // 
             // ColumnCostLower
@@ -1571,54 +1630,6 @@
             this.DataTableCommonOutput2,
             this.DataTableCostRatio});
             // 
-            // ProgressBarOutputCommonCSV2
-            // 
-            this.ProgressBarOutputCommonCSV2.Location = new System.Drawing.Point(1026, 170);
-            this.ProgressBarOutputCommonCSV2.Maximum = 1000;
-            this.ProgressBarOutputCommonCSV2.Name = "ProgressBarOutputCommonCSV2";
-            this.ProgressBarOutputCommonCSV2.Size = new System.Drawing.Size(232, 20);
-            this.ProgressBarOutputCommonCSV2.TabIndex = 20;
-            // 
-            // ProgressBarOutputCommonCSV1
-            // 
-            this.ProgressBarOutputCommonCSV1.Location = new System.Drawing.Point(1027, 141);
-            this.ProgressBarOutputCommonCSV1.Maximum = 1000;
-            this.ProgressBarOutputCommonCSV1.Name = "ProgressBarOutputCommonCSV1";
-            this.ProgressBarOutputCommonCSV1.Size = new System.Drawing.Size(232, 20);
-            this.ProgressBarOutputCommonCSV1.TabIndex = 19;
-            // 
-            // ProgressBarOutputPatternCSV
-            // 
-            this.ProgressBarOutputPatternCSV.Location = new System.Drawing.Point(1027, 112);
-            this.ProgressBarOutputPatternCSV.Maximum = 1000;
-            this.ProgressBarOutputPatternCSV.Name = "ProgressBarOutputPatternCSV";
-            this.ProgressBarOutputPatternCSV.Size = new System.Drawing.Size(232, 20);
-            this.ProgressBarOutputPatternCSV.TabIndex = 18;
-            // 
-            // ProgressBarOutputExcel
-            // 
-            this.ProgressBarOutputExcel.Location = new System.Drawing.Point(1027, 83);
-            this.ProgressBarOutputExcel.Maximum = 1000;
-            this.ProgressBarOutputExcel.Name = "ProgressBarOutputExcel";
-            this.ProgressBarOutputExcel.Size = new System.Drawing.Size(232, 20);
-            this.ProgressBarOutputExcel.TabIndex = 17;
-            // 
-            // ProgressBarInput2
-            // 
-            this.ProgressBarInput2.Location = new System.Drawing.Point(1027, 54);
-            this.ProgressBarInput2.Maximum = 1000;
-            this.ProgressBarInput2.Name = "ProgressBarInput2";
-            this.ProgressBarInput2.Size = new System.Drawing.Size(232, 20);
-            this.ProgressBarInput2.TabIndex = 16;
-            // 
-            // ProgressBarInput1
-            // 
-            this.ProgressBarInput1.Location = new System.Drawing.Point(1027, 25);
-            this.ProgressBarInput1.Maximum = 1000;
-            this.ProgressBarInput1.Name = "ProgressBarInput1";
-            this.ProgressBarInput1.Size = new System.Drawing.Size(232, 20);
-            this.ProgressBarInput1.TabIndex = 15;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1710,13 +1721,10 @@
         protected System.Windows.Forms.RadioButton RadioButtonFileTypeCSV2;
         protected System.Windows.Forms.TextBox TextBoxOutputCSV1;
         protected System.Windows.Forms.TextBox TextBoxOutputCSV;
-        protected System.Windows.Forms.Label LabelOutputCSV1;
-        protected System.Windows.Forms.Label LabelOutputCSV2;
         protected System.Windows.Forms.NumericUpDown NumericUpDownLength;
         protected System.Windows.Forms.GroupBox GroupBoxAllMatch;
         protected System.Windows.Forms.RadioButton RadioButtonSpaceIgnore;
         protected System.Windows.Forms.RadioButton RadioButtonSpaceContains;
-        protected System.Windows.Forms.Label LabelOutputCSV;
         protected System.Windows.Forms.TextBox TextBoxOutputCSV2;
         protected BookSearcherApp.FileIOProgressBar ProgressBarOutputExcel;
         protected BookSearcherApp.FileIOProgressBar ProgressBarInput2;
@@ -1822,6 +1830,9 @@
         protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnCostLower;
         protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnCostRatio;
         private System.ComponentModel.IContainer components;
+        private System.Windows.Forms.ComboBox ComboBoxOutputPattern;
+        private System.Windows.Forms.ComboBox ComboBoxOutputCommon2;
+        private System.Windows.Forms.ComboBox ComboBoxOutputCommon1;
     }
 }
 
