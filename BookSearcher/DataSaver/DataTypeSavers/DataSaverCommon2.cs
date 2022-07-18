@@ -8,6 +8,10 @@ namespace BookSearcherApp
 
         public override int ColumnIndexISBN => 1;
 
+        public override int ColumnIndexAutoPriceStopperLower => -1;
+
+        public override int ColumnIndexAutoPriceStopperUpper => -1;
+
         protected override bool IncludeAmazonHeader => true;
 
         public DataSaverCommon2(DataGridView view, string path) : base(view, path) { }

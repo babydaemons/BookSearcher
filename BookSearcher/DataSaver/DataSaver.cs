@@ -222,6 +222,8 @@ namespace BookSearcherApp
         public int ColumnIndexSKU => 0;
         public abstract int ColumnIndexPrice { get; }
         public abstract int ColumnIndexISBN { get; }
+        public abstract int ColumnIndexAutoPriceStopperLower { get; }
+        public abstract int ColumnIndexAutoPriceStopperUpper { get; }
 
         protected DataTable dataTable = new DataTable();
         public DataTable DataTable => dataTable;
@@ -280,19 +282,31 @@ namespace BookSearcherApp
                     }
                     if (ColumnIndexPrice >= 0)
                     {
-                        var costString = (string)resultTable.Rows[i][columnIndexCost];
-                        if (!int.TryParse(costString.Replace(",", "").Replace("円", ""), out int cost))
-                        {
-                            cost = 1; // throw new Exception($"原価のデータの書式が不正です：{i + 1}行{columnIndexCost + 1}列：「{costString}」");
-                        }
-                        var price = CalcSellingPrice(cost);
-                        row[ColumnIndexPrice] = price.ToString();
+                        row[ColumnIndexPrice] = CalcRatedPrice(resultTable.Rows[i][columnIndexCost], 1.0);
+                    }
+                    if (ColumnIndexAutoPriceStopperLower >= 0)
+                    {
+                        row[ColumnIndexPrice] = CalcRatedPrice(resultTable.Rows[i][columnIndexCost], 0.8);
+                    }
+                    if (ColumnIndexAutoPriceStopperUpper >= 0)
+                    {
+                        row[ColumnIndexPrice] = CalcRatedPrice(resultTable.Rows[i][columnIndexCost], 0.8);
                     }
                     dataTable.Rows.Add(row);
                 }
             }
         }
 
+        private string CalcRatedPrice(object costValue, double ratio)
+        {
+            var costString = (string)costValue;
+            if (!int.TryParse(costString.Replace(",", "").Replace("円", ""), out int cost))
+            {
+                cost = 1; // throw new Exception($"原価のデータの書式が不正です：{i + 1}行{columnIndexCost + 1}列：「{costString}」");
+            }
+            var price = (int)Math.Ceiling(CalcSellingPrice(cost) * ratio);
+            return price.ToString();
+        }
         public static void InitCostTable(DataTable table)
         {
             costTable.Clear();

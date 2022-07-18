@@ -103,7 +103,7 @@ namespace BookSearcherApp
                 DataTableOutputPattern2.Rows.Add(new object[] { "商品メモ", "item-note", "" });
             }
 
-            if (!IsValidTable(DataTableCommonOutput1, "共通CSV1", 7, reportError))
+            if (!IsValidTable(DataTableCommonOutput1, "共通CSV1", 5, reportError))
             {
                 DataTableCommonOutput1.Rows.Clear();
                 DataTableCommonOutput1.Rows.Add(new object[] { "商品管理番号(商品コード以降)", "sku", "" });
@@ -111,8 +111,6 @@ namespace BookSearcherApp
                 DataTableCommonOutput1.Rows.Add(new object[] { "リードタイム", "leadtime", "" });
                 DataTableCommonOutput1.Rows.Add(new object[] { "自動価格モードID", "autoprice_template_mode", "" });
                 DataTableCommonOutput1.Rows.Add(new object[] { "自動価格テンプレートID", "autoprice_template_id", "" });
-                DataTableCommonOutput1.Rows.Add(new object[] { "下限ストッパー", "autoprice_stopper", "" });
-                DataTableCommonOutput1.Rows.Add(new object[] { "上限ストッパー", "autoprice_stopper_upper", "" });
             }
 
             if (!IsValidTable(DataTableCommonOutput2, "共通CSV2", 2, reportError))
