@@ -18,6 +18,8 @@ namespace BookSearcherTest
         public override int ColumnIndexPrice => -1;
 
         public override int ColumnIndexISBN => -1;
+
+        protected override bool IncludeAmazonHeader => false;
     }
 
     [TestClass]

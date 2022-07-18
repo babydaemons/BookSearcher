@@ -9,16 +9,36 @@ namespace BookSearcherApp
     {
         #region WriteTSV
 
-        public void WriteTSV(DataTable table)
+        public void WriteTSV(DataTable table, bool includeAmazonHeader)
         {
             try
             {
-                var titles = new List<string>();
+                if (includeAmazonHeader)
+                {
+                    var titles_JP = new List<string>();
+                    foreach (DataColumn column in table.Columns)
+                    {
+                        var name_EN = column.ColumnName;
+                        var name_JP = headers_JP[name_EN];
+                        titles_JP.Add(ExtractValue(name_JP));
+                    }
+
+                    var amazonHeader = GetAmazonHeader(titles_JP.Count);
+                    var titles_AZ = new List<string>();
+                    foreach (var header in amazonHeader)
+                    {
+                        titles_AZ.Add(ExtractValue(header));
+                    }
+                    writer.WriteLine(string.Join("\t", titles_AZ.ToArray()));
+                    writer.WriteLine(string.Join("\t", titles_JP.ToArray()));
+                }
+
+                var titles_EN = new List<string>();
                 foreach (DataColumn column in table.Columns)
                 {
-                    titles.Add(ExtractValue(column.ColumnName));
+                    titles_EN.Add(ExtractValue(column.ColumnName));
                 }
-                writer.WriteLine(string.Join("\t", titles.ToArray()));
+                writer.WriteLine(string.Join("\t", titles_EN.ToArray()));
 
                 var rowCount = table.Rows.Count;
                 var columnCount = table.Columns.Count;

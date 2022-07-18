@@ -14,6 +14,78 @@ namespace BookSearcherApp
 
     public abstract partial class DataSaver : DataIO
     {
+        protected abstract bool IncludeAmazonHeader { get; }
+
+        #region Headers
+
+        private static Dictionary<string, string> headers_JP = new Dictionary<string, string>();
+
+        public static void InitHeaders()
+        {
+            if (headers_JP.Count > 0)
+            {
+                return;
+            }
+
+            headers_JP.Add("sku", "商品管理番号");
+            headers_JP.Add("product-id", "商品コード(JANコード等)");
+            headers_JP.Add("product-id-type", "商品コードのタイプ");
+            headers_JP.Add("optional-payment-type-exclusion", "使用しない支払い方法");
+            headers_JP.Add("merchant_shipping_group_name", " 配送パターン");
+            headers_JP.Add("price", "販売価格");
+            headers_JP.Add("standard-price-points-percent", "ポイントパーセント");
+            headers_JP.Add("minimum-seller-allowed-price", "販売価格の下限設定");
+            headers_JP.Add("maximum-seller-allowed-price", "販売価格の上限設定");
+            headers_JP.Add("item-condition", "商品のコンディション");
+            headers_JP.Add("quantity", "在庫数");
+            headers_JP.Add("add-delete", "登録/削除");
+            headers_JP.Add("will-ship-internationally", "海外配送");
+            headers_JP.Add("item-note", "商品メモ");
+            headers_JP.Add("product-tax-code", "商品タックスコード");
+            headers_JP.Add("fulfillment-center-id", "フルフィルメントセンターID");
+            headers_JP.Add("handling-time", "出荷作業日数");
+            headers_JP.Add("batteries_required", "電池の有無");
+            headers_JP.Add("are_batteries_included", "電池付属");
+            headers_JP.Add("battery_cell_composition", "バッテリーセルタイプ");
+            headers_JP.Add("battery_type", "電池のタイプ");
+            headers_JP.Add("number_of_batteries", "付属バッテリ個数");
+            headers_JP.Add("battery_weight", "電池の重量(グラム)");
+            headers_JP.Add("number_of_lithium_ion_cells", "リチウムイオン電池単数");
+            headers_JP.Add("number_of_lithium_metal_cells", "リチウムメタル電池単数");
+            headers_JP.Add("lithium_battery_packaging", "リチウム電池パッケージ");
+            headers_JP.Add("lithium_battery_energy_content", "リチウム電池エネルギー量");
+            headers_JP.Add("lithium_battery_weight", "リチウム電池重量");
+            headers_JP.Add("supplier_declared_dg_hz_regulation1", "この商品は、危険物に該当しますか？詳細については危険物確認ガイド{X}をご覧ください。1");
+            headers_JP.Add("supplier_declared_dg_hz_regulation2", "この商品は、危険物に該当しますか？詳細については危険物確認ガイド{X}をご覧ください。2");
+            headers_JP.Add("supplier_declared_dg_hz_regulation3", "この商品は、危険物に該当しますか？詳細については危険物確認ガイド{X}をご覧ください。3");
+            headers_JP.Add("supplier_declared_dg_hz_regulation4", "この商品は、危険物に該当しますか？詳細については危険物確認ガイド{X}をご覧ください。4");
+            headers_JP.Add("supplier_declared_dg_hz_regulation5", "この商品は、危険物に該当しますか？詳細については危険物確認ガイド{X}をご覧ください。5");
+            headers_JP.Add("hazmat_united_nations_regulatory_id", "国連(UN)番号");
+            headers_JP.Add("safety_data_sheet_url", "安全データシート(SDS) URL");
+            headers_JP.Add("item_weight", "商品の重量");
+            headers_JP.Add("item_volume", "体積");
+            headers_JP.Add("flash_point", "引火点(°C)");
+            headers_JP.Add("ghs_classification_class1", "分類／危険物ラベル(適用されるものをすべて選択)1");
+            headers_JP.Add("ghs_classification_class2", "分類／危険物ラベル(適用されるものをすべて選択)2");
+            headers_JP.Add("ghs_classification_class3", "分類／危険物ラベル(適用されるものをすべて選択)3");
+            headers_JP.Add("item_weight_unit_of_measure", "商品の重量の単位");
+            headers_JP.Add("item_volume_unit_of_measure", "商品の容量の単位");
+            headers_JP.Add("lithium_battery_energy_content_unit_of_measure", "リチウム電池のエネルギー量測定単位");
+            headers_JP.Add("lithium_battery_weight_unit_of_measure", "リチウム電池の重量の測定単位");
+            headers_JP.Add("battery_weight_unit_of_measure", "リチウム電池の重量の測定単位");
+        }
+
+        string[] GetAmazonHeader(int length)
+        {
+            string[] amazonHeader = new string[length];
+            amazonHeader[0] = "TemplateType=InventoryLoader";
+            amazonHeader[1] = "Version=2020.0805";
+            amazonHeader[2] = "この行はAmazonが使用しますので変更や削除しないでください。";
+            return amazonHeader;
+        }
+
+        #endregion
+
         #region DataSaver
 
         private FileStream file;
@@ -130,15 +202,15 @@ namespace BookSearcherApp
         {
             if (dataType == DataType.CSV)
             {
-                WriteCSV(table);
+                WriteCSV(table, IncludeAmazonHeader);
             }
             else if (dataType == DataType.TSV)
             {
-                WriteTSV(table);
+                WriteTSV(table, IncludeAmazonHeader);
             }
             else if (dataType == DataType.Excel)
             {
-                WriteExcel(table);
+                WriteExcel(table, IncludeAmazonHeader);
             }
         }
 

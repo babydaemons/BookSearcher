@@ -22,7 +22,7 @@ namespace BookSearcherApp
         private static int P0 = 0;
         private static int P1 = 0;
 
-        public void WriteExcel(DataTable table)
+        public void WriteExcel(DataTable table, bool includeAmazonHeader)
         {
             try
             {
@@ -39,7 +39,7 @@ namespace BookSearcherApp
                 sheet.Cells[1, 1].Style.Font.Size = FONT_SIZE;
                 var styleId = sheet.Cells[1, 1].StyleID;
 
-                Write(table, sheet, styleId);
+                Write(table, sheet, styleId, includeAmazonHeader);
 
                 package.Save();
                 ReportProgress(MAX_VALUE);
@@ -54,20 +54,41 @@ namespace BookSearcherApp
             }
         }
 
-        public void Write(DataTable table, ExcelWorksheet sheet, int styleId)
+        public void Write(DataTable table, ExcelWorksheet sheet, int styleId, bool includeAmazonHeader)
         {
-            foreach (var j in Enumerable.Range(0, table.Columns.Count))
+            var i = 1;
+
+            if (includeAmazonHeader)
             {
-                sheet.Cells[1, j + 1].Value = table.Columns[j].ColumnName;
-                sheet.Cells[1, j + 1].StyleID = styleId;
+                var headersAZ = GetAmazonHeader(table.Columns.Count);
+                foreach (var j in Enumerable.Range(0, table.Columns.Count))
+                {
+                    sheet.Cells[i, j + 1].Value = headersAZ[j];
+                    sheet.Cells[i, j + 1].StyleID = styleId;
+                }
+                ++i;
+
+                foreach (var j in Enumerable.Range(0, table.Columns.Count))
+                {
+                    sheet.Cells[i, j + 1].Value = headers_JP[table.Columns[j].ColumnName];
+                    sheet.Cells[i, j + 1].StyleID = styleId;
+                }
+                ++i;
             }
 
-            foreach (var i in Enumerable.Range(0, table.Rows.Count))
+            foreach (var j in Enumerable.Range(0, table.Columns.Count))
+            {
+                sheet.Cells[i, j + 1].Value = table.Columns[j].ColumnName;
+                sheet.Cells[i, j + 1].StyleID = styleId;
+            }
+            ++i;
+
+            foreach (var n in Enumerable.Range(0, table.Rows.Count))
             {
                 foreach (var j in Enumerable.Range(0, table.Columns.Count))
                 {
-                    sheet.Cells[i + 2, j + 1].Value = table.Rows[i][j].ToString();
-                    sheet.Cells[i + 2, j + 1].StyleID = styleId;
+                    sheet.Cells[n + i, j + 1].Value = table.Rows[n][j].ToString();
+                    sheet.Cells[n + i, j + 1].StyleID = styleId;
                 }
 
                 ++m;

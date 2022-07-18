@@ -8,6 +8,8 @@ namespace BookSearcherApp
 
         public override int ColumnIndexISBN => 1;
 
+        protected override bool IncludeAmazonHeader => true;
+
         public DataSaverPattern1(DataGridView view, string path) : base(view, path) { }
     }
 }

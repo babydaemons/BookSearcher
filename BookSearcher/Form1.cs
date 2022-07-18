@@ -60,6 +60,8 @@ namespace BookSearcherApp
                 ConfigXml = $"{appDir}\\{fileName}.xml";
             }
             InitDataSettings(true, true);
+
+            DataSaver.InitHeaders();
         }
 
         public Form1(bool readXml, bool reportError)
