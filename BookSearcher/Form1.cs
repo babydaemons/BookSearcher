@@ -300,10 +300,6 @@ namespace BookSearcherApp
                 var form = new Form2(csvFile);
                 form.ShowDialog();
             }
-#if DEBUG
-            SetSearchControlsEnabled(true);
-            SetExecuteControlsEnabled(true);
-#endif
         }
 
         private void RadioButtonFileType_CheckedChanged(object sender, EventArgs e)
@@ -333,7 +329,7 @@ namespace BookSearcherApp
 
         private void SetOutputFileNames()
         {
-            if (folderPath == null || folderPath == "")
+            if (string.IsNullOrEmpty(folderPath))
             {
                 return;
             }
@@ -658,7 +654,7 @@ namespace BookSearcherApp
                 return;
             }
             LabelElapsed.Text = "経過時間 " + searchTimer.Elapsed.ToString(@"hh\:mm\:ss\.fff");
-            LabelResultRows.Text = $"{BookSearcher.ResultCount} 件";
+            LabelResultRows.Text = $"{BookSearcher.ResultCount:#,##0} 件";
         }
 
         private void SetExecuteControlsEnabled()
@@ -689,7 +685,7 @@ namespace BookSearcherApp
 
         private void SetSearchControlsEnabled(bool enabled)
         {
-            GroupBoxFiles.Enabled = GroupBoxOutput.Enabled = GroupBoxPartMatch.Enabled = GroupBoxCpuCores.Enabled = GroupBoxExecute.Enabled = GroupBoxAllMatch.Enabled = PanelMatchCondition.Enabled = enabled;
+            GroupBoxFiles.Enabled = GroupBoxOutput.Enabled = GroupBoxPartMatch.Enabled = GroupBoxCpuCores.Enabled = GroupBoxExecute.Enabled = GroupBoxAllMatch.Enabled = GroupBoxMatchingCondition.Enabled = GroupBoxRatioSetting.Enabled = enabled;
             BookColumnSetting.Enabled = ScrapingColumnSetting.Enabled = enabled;
             DataGridViewOutputPattern1.Enabled = DataGridViewOutputPattern2.Enabled = DataGridViewCommonOutput1.Enabled = DataGridViewCommonOutput2.Enabled = enabled;
         }
@@ -930,6 +926,22 @@ namespace BookSearcherApp
         private void ComboBoxOutput_SelectedIndexChanged(object sender, EventArgs e)
         {
             var comboBox = sender as ComboBox;
+            if (comboBox == ComboBoxOutputPattern && saver0 != null)
+            {
+                saver0.Dispose();
+                saver0 = null;
+            }
+            else if (comboBox == ComboBoxOutputCommon1 && saver1 != null)
+            {
+                saver1.Dispose();
+                saver1 = null;
+            }
+            else if (comboBox == ComboBoxOutputCommon2 && saver2 != null)
+            {
+                saver2.Dispose();
+                saver2 = null;
+            }
+
             var textBox = comboBox.Tag as TextBox;
             if (comboBox.SelectedIndex == -1)
             {

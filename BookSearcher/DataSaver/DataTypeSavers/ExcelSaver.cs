@@ -53,7 +53,7 @@ namespace BookSearcherApp
                 }
 
                 oldFile = exists ? new FileStream(oldPath, FileMode.Open, FileAccess.ReadWrite) : null;
-                newFile = new FileStream(newPath, FileMode.Create, FileAccess.ReadWrite);
+                newFile = new FileStream(newPath, FileMode.OpenOrCreate, FileAccess.ReadWrite);
 
                 package = exists ? new ExcelPackage(newFile, oldFile) : new ExcelPackage(newFile);
             }
@@ -100,7 +100,7 @@ namespace BookSearcherApp
 
         private void RemoveJunkFile(string path)
         {
-            if (path == null)
+            if (string.IsNullOrEmpty(path))
             {
                 return;
             }
