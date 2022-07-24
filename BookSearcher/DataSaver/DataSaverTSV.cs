@@ -9,7 +9,7 @@ namespace BookSearcherApp
     {
         #region WriteTSV
 
-        public void WriteTSV(DataTable table, bool includeAmazonHeader)
+        public void WriteTSV(DataTable table, int totalRows, bool includeAmazonHeader)
         {
             try
             {
@@ -51,7 +51,7 @@ namespace BookSearcherApp
                         values.Add(ExtractValue(table.Rows[i][j]));
                     }
                     writer.WriteLine(string.Join("\t", values.ToArray()));
-                    ReportProgress(MAX_VALUE * i / rowCount);
+                    ReportProgress(MAX_VALUE * ++currentRow / totalRows);
                 }
             }
             catch (Exception ex)

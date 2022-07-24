@@ -4,6 +4,7 @@ using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BookSearcherApp;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace BookSearcherTest
 {
@@ -116,9 +117,11 @@ namespace BookSearcherTest
             table.Rows.Add(row2);
 
             var path = DateTime.Now.ToString("yyyyMMddhhmmssfffff") + ".csv";
+            var tables = new List<DataTable>();
+            tables.Add(table);
             using (var writer = new DummyCSVSaver(view, path))
             {
-                writer.Write(table);
+                writer.Write(tables);
             }
 
             using (var reader = new CSVReader(path))

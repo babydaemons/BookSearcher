@@ -14,6 +14,8 @@ namespace BookSearcherApp
 
     public abstract partial class DataSaver : DataIO
     {
+        public const int MAX_OUTPUT_ROWS = 1000000; /* 1048576 */
+
         protected abstract bool IncludeAmazonHeader { get; }
 
         #region Headers
@@ -98,9 +100,12 @@ namespace BookSearcherApp
             this.path = path;
 
             CheckParameterEntered(view);
+
+            dataTables.Clear();
+            dataTables.Add(new DataTable());
             foreach (var title in Titles)
             {
-                dataTable.Columns.Add(title, typeof(string));
+                dataTables[0].Columns.Add(title, typeof(string));
             }
 
             var extension = Path.GetExtension(path).ToLower();
@@ -139,7 +144,7 @@ namespace BookSearcherApp
             }
         }
 
-        protected void Open()
+        protected void Open(int index = 1)
         {
             if (IsOpened())
             {
@@ -148,7 +153,12 @@ namespace BookSearcherApp
 
             try
             {
-                file = new FileStream(path, FileMode.Create, FileAccess.Write);
+                var actualPath = path;
+                if (index > 1)
+                {
+                    actualPath = Path.GetDirectoryName(actualPath) + "\\" + Path.GetFileName(actualPath) + $" ({index})" + Path.GetExtension(actualPath);
+                }
+                file = new FileStream(actualPath, FileMode.Create, FileAccess.Write);
                 writer = dataType != DataType.Excel ?　new StreamWriter(file, Encoding.GetEncoding(932), 8 * 4096) : null;
                 package = dataType == DataType.Excel ? new ExcelPackage(file) : null;
             }
@@ -198,19 +208,37 @@ namespace BookSearcherApp
             }
         }
 
-        public void Write(DataTable table)
+        private delegate void WriteFileMethod(DataTable table, int totalRows, bool includeAmazonHeader);
+        private int currentRow;
+
+        public void Write(List<DataTable> tables)
         {
-            if (dataType == DataType.CSV)
+            WriteFileMethod writeFileMethod = WriteCSV;
+            if (dataType == DataType.TSV)
             {
-                WriteCSV(table, IncludeAmazonHeader);
-            }
-            else if (dataType == DataType.TSV)
-            {
-                WriteTSV(table, IncludeAmazonHeader);
+                writeFileMethod = WriteTSV;
             }
             else if (dataType == DataType.Excel)
             {
-                WriteExcel(table, IncludeAmazonHeader);
+                writeFileMethod = WriteExcel;
+            }
+            currentRow = 0;
+
+            var totalRows = 0;
+            foreach (var table in tables)
+            {
+                totalRows += table.Rows.Count;
+            }
+
+            var index = 1;
+            foreach (var table in tables)
+            {
+                writeFileMethod(table, totalRows, IncludeAmazonHeader);
+                ++index;
+                if (tables.Count > 1 && index <= tables.Count)
+                {
+                    Open(index);
+                }
             }
         }
 
@@ -225,8 +253,8 @@ namespace BookSearcherApp
         public abstract int ColumnIndexAutoPriceStopperLower { get; }
         public abstract int ColumnIndexAutoPriceStopperUpper { get; }
 
-        protected DataTable dataTable = new DataTable();
-        public DataTable DataTable => dataTable;
+        protected List<DataTable> dataTables = new List<DataTable>();
+        public List<DataTable> DataTables => dataTables;
         private readonly Dictionary<string, string> settings = new Dictionary<string, string>();
 
         private static readonly SortedDictionary<int, double> costTable = new SortedDictionary<int, double>();
@@ -254,7 +282,7 @@ namespace BookSearcherApp
         {
             ConvertTable();
             StartIO(backgroundWorker, progressBar);
-            Write(dataTable);
+            Write(dataTables);
             StopIO();
         }
 
@@ -262,8 +290,15 @@ namespace BookSearcherApp
 
         public void ConvertTable(List<DataTable> resultTables, int columnIndexISBN, int columnIndexCost)
         {
-            foreach (var resultTable in resultTables)
+            foreach (var k in Enumerable.Range(0, resultTables.Count))
             {
+                var resultTable = resultTables[k];
+                if (k > 0)
+                {
+                    dataTables.Add(dataTables[0].Clone());
+                }
+                var dataTable = dataTables[k];
+
                 foreach (var i in Enumerable.Range(0, resultTable.Rows.Count))
                 {
                     var row = dataTable.NewRow();

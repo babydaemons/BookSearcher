@@ -150,7 +150,7 @@ namespace BookSearcherApp
                 }
                 resultTables[n].Rows.Add(row);
 
-                if (++k > (n + 1) * ExcelSaver.MAX_EXCEL_ROWS)
+                if (++k > (n + 1) * DataSaver.MAX_OUTPUT_ROWS)
                 {
                     resultTables.Add(resultTables[0].Clone());
                     ++n;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using OfficeOpenXml;
@@ -9,40 +10,24 @@ namespace BookSearcherApp
     {
         #region WriteExcel
 
-        public const int MAX_EXCEL_ROWS = 1000000; /* 1048576 */
-
         public const string FONT_NAME = "游ゴシック";
         public const float FONT_SIZE = 11F;
 
         private ExcelPackage package = null;
 
-        private static long M = 0;
-        private static long m = 0;
-
-        private static int P0 = 0;
-        private static int P1 = 0;
-
-        public void WriteExcel(DataTable table, bool includeAmazonHeader)
+        public void WriteExcel(DataTable table, int totalRows, bool includeAmazonHeader)
         {
             try
             {
-                M = table.Rows.Count;
-
-                P0 = 15 * DIV_VALUE;
-                P1 = 75 * DIV_VALUE;
-
-                ReportProgress(P0);
-
                 var sheetName = "提出データ_" + DateTime.Now.ToString("yyyyMMdd-HHmmss");
                 var sheet = package.Workbook.Worksheets.Add(sheetName);
                 sheet.Cells[1, 1].Style.Font.Name = FONT_NAME;
                 sheet.Cells[1, 1].Style.Font.Size = FONT_SIZE;
                 var styleId = sheet.Cells[1, 1].StyleID;
 
-                Write(table, sheet, styleId, includeAmazonHeader);
+                Write(table, totalRows, sheet, styleId, includeAmazonHeader);
 
                 package.Save();
-                ReportProgress(MAX_VALUE);
             }
             catch (Exception ex)
             {
@@ -54,7 +39,7 @@ namespace BookSearcherApp
             }
         }
 
-        public void Write(DataTable table, ExcelWorksheet sheet, int styleId, bool includeAmazonHeader)
+        public void Write(DataTable table, int totalRows, ExcelWorksheet sheet, int styleId, bool includeAmazonHeader)
         {
             var i = 1;
 
@@ -91,9 +76,7 @@ namespace BookSearcherApp
                     sheet.Cells[n + i, j + 1].StyleID = styleId;
                 }
 
-                ++m;
-                int progress = (int)(P0 + (P1 - P0) * m / M);
-                ReportProgress(progress);
+                ReportProgress(MAX_VALUE * ++currentRow / totalRows);
             }
         }
 

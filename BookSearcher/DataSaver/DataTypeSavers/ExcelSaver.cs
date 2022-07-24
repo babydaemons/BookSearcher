@@ -11,8 +11,6 @@ namespace BookSearcherApp
 {
     public class ExcelSaver : DataIO
     {
-        public const int MAX_EXCEL_ROWS = 1000000; /* 1048576 */
-
         public const string FONT_NAME = "游ゴシック";
         public const float FONT_SIZE = 11F;
 

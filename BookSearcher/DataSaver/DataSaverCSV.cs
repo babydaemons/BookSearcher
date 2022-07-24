@@ -9,7 +9,7 @@ namespace BookSearcherApp
     {
         #region WriteCSV
 
-        public void WriteCSV(DataTable table, bool includeAmazonHeader)
+        public void WriteCSV(DataTable table, int totalRows, bool includeAmazonHeader)
         {
             try
             {
@@ -51,7 +51,7 @@ namespace BookSearcherApp
                         values.Add(QuoteValue(table.Rows[i][j]));
                     }
                     writer.WriteLine(string.Join(",", values.ToArray()));
-                    ReportProgress(MAX_VALUE * i / rowCount);
+                    ReportProgress(MAX_VALUE * ++currentRow / totalRows);
                 }
             }
             catch (Exception ex)
