@@ -60,6 +60,7 @@ namespace BookSearcherApp
                 ConfigXml = $"{appDir}\\{fileName}.xml";
             }
             InitDataSettings(true, true);
+            TextBoxMaxLines.Text = DataTableAppConfig.Rows[0][1].ToString();
 
             DataSaver.InitHeaders();
         }
@@ -70,6 +71,7 @@ namespace BookSearcherApp
             BookSearcher.InitColumnSettings(BookColumnSetting, ScrapingColumnSetting);
             ProcessorCount = Environment.ProcessorCount;
             InitDataSettings(readXml, reportError);
+            TextBoxMaxLines.Text = DataTableAppConfig.Rows[0][1].ToString();
         }
 
         protected void InitDataSettings(bool readXml, bool reportError)
@@ -129,6 +131,12 @@ namespace BookSearcherApp
                 DataTableCostRatio.Rows.Add(new object[] { 5000, 1.46 });
                 DataTableCostRatio.Rows.Add(new object[] { 3000, 1.43 });
                 DataTableCostRatio.Rows.Add(new object[] { 0, 1.42 });
+            }
+
+            if (!IsValidTable(DataTableAppConfig, "出力ファイル最大行数", 1, reportError))
+            {
+                DataTableAppConfig.Rows.Clear();
+                DataTableAppConfig.Rows.Add(new object[] { "MaxLines", 100 * 10000 });
             }
         }
 
@@ -958,6 +966,33 @@ namespace BookSearcherApp
             var outputFileName = Path.GetFileNameWithoutExtension(outputPath);
             var extension = extensions[comboBox.SelectedIndex];
             textBox.Text = $"{outputDir}\\{outputFileName}{extension}";
+        }
+
+        private void TextBoxMaxLines_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!int.TryParse(TextBoxMaxLines.Text, out int maxLines))
+                {
+                    throw new MyException("最大行数入力エラー", $"数値以外の文字が入力されています。\n\n「{TextBoxMaxLines.Text}」");
+                }
+                if (maxLines < 1)
+                {
+                    throw new MyException("最大行数入力エラー", $"1行未満の行数は指定できません。\n\n「{maxLines:#,##0}」");
+                }
+                if (maxLines > 100 * 10000)
+                {
+                    throw new MyException("最大行数入力エラー", $"100万行を超える行数の指定はできません。\n\n「{maxLines:#,##0}」");
+                }
+
+                DataTableAppConfig.Rows[0][1] = maxLines;
+                DataSaver.MAX_OUTPUT_ROWS = maxLines;
+            }
+            catch (MyException ex)
+            {
+                ex.Show();
+                TextBoxMaxLines.Text = DataTableAppConfig.Rows[0][1].ToString();
+            }
         }
     }
 }

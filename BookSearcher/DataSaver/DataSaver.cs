@@ -14,7 +14,7 @@ namespace BookSearcherApp
 
     public abstract partial class DataSaver : DataIO
     {
-        public const int MAX_OUTPUT_ROWS = 1000000; /* 1048576 */
+        public static int MAX_OUTPUT_ROWS { get; set; } /* 1048576 */
 
         protected abstract bool IncludeAmazonHeader { get; }
 

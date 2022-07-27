@@ -125,4 +125,8 @@
     <CostLower>0</CostLower>
     <CostRatio>1.42</CostRatio>
   </TableCostRatio>
+  <AppConfig>
+    <AppConfigKey>MaxLines</AppConfigKey>
+    <AppConfigValue>1000</AppConfigValue>
+  </AppConfig>
 </DataSetSetting>

@@ -66,7 +66,7 @@ namespace BookSearcherApp
 
         public static string ExtractValue(Object value)
         {
-            string v = (value.GetType() == typeof(DBNull)) ? "" : (string)value;
+            string v = (value == null || value.GetType() == typeof(DBNull)) ? "" : (string)value;
             return v;
         }
 
