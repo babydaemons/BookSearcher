@@ -55,6 +55,12 @@
             this.ComboBoxOutputCommon2 = new System.Windows.Forms.ComboBox();
             this.ComboBoxOutputCommon1 = new System.Windows.Forms.ComboBox();
             this.ComboBoxOutputPattern = new System.Windows.Forms.ComboBox();
+            this.ProgressBarOutputCommonCSV2 = new BookSearcherApp.DataIOProgressBar();
+            this.ProgressBarOutputCommonCSV1 = new BookSearcherApp.DataIOProgressBar();
+            this.ProgressBarOutputPatternCSV = new BookSearcherApp.DataIOProgressBar();
+            this.ProgressBarOutputExcel = new BookSearcherApp.DataIOProgressBar();
+            this.ProgressBarInput2 = new BookSearcherApp.DataIOProgressBar();
+            this.ProgressBarInput1 = new BookSearcherApp.DataIOProgressBar();
             this.TextBoxOutputCSV2 = new System.Windows.Forms.TextBox();
             this.TextBoxOutputCSV1 = new System.Windows.Forms.TextBox();
             this.TextBoxOutputCSV = new System.Windows.Forms.TextBox();
@@ -72,6 +78,9 @@
             this.RadioButtonSpaceContains = new System.Windows.Forms.RadioButton();
             this.TabControlMatchingOutput = new System.Windows.Forms.TabControl();
             this.TabPageMatchingRatioSetting = new System.Windows.Forms.TabPage();
+            this.GroupBoxMaxLines = new System.Windows.Forms.GroupBox();
+            this.TextBoxMaxLines = new System.Windows.Forms.TextBox();
+            this.LabelMaxLines = new System.Windows.Forms.Label();
             this.GroupBoxRatioSetting = new System.Windows.Forms.GroupBox();
             this.DataGridViewCostRatio = new System.Windows.Forms.DataGridView();
             this.ColumnCostLower = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -152,6 +161,9 @@
             this.DataColumnNameEN4 = new System.Data.DataColumn();
             this.DataColumnValue4 = new System.Data.DataColumn();
             this.ButtonPreviewOutputs = new System.Windows.Forms.Button();
+            this.DataTableAppConfig = new System.Data.DataTable();
+            this.DataColumnAppConfigKey = new System.Data.DataColumn();
+            this.DataColumnAppConfigValue = new System.Data.DataColumn();
             this.BackgroundWorker10 = new System.ComponentModel.BackgroundWorker();
             this.BackgroundWorker11 = new System.ComponentModel.BackgroundWorker();
             this.BackgroundWorker12 = new System.ComponentModel.BackgroundWorker();
@@ -162,12 +174,6 @@
             this.NumericUpDownUseCpuCoreCount = new System.Windows.Forms.NumericUpDown();
             this.TimerFileIO = new System.Windows.Forms.Timer(this.components);
             this.DataSetSetting = new System.Data.DataSet();
-            this.ProgressBarOutputCommonCSV2 = new BookSearcherApp.DataIOProgressBar();
-            this.ProgressBarOutputCommonCSV1 = new BookSearcherApp.DataIOProgressBar();
-            this.ProgressBarOutputPatternCSV = new BookSearcherApp.DataIOProgressBar();
-            this.ProgressBarOutputExcel = new BookSearcherApp.DataIOProgressBar();
-            this.ProgressBarInput2 = new BookSearcherApp.DataIOProgressBar();
-            this.ProgressBarInput1 = new BookSearcherApp.DataIOProgressBar();
             this.GroupBoxOutput.SuspendLayout();
             this.GroupBoxPartMatch.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownLength)).BeginInit();
@@ -176,6 +182,7 @@
             this.GroupBoxAllMatch.SuspendLayout();
             this.TabControlMatchingOutput.SuspendLayout();
             this.TabPageMatchingRatioSetting.SuspendLayout();
+            this.GroupBoxMaxLines.SuspendLayout();
             this.GroupBoxRatioSetting.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewCostRatio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataTableCostRatio)).BeginInit();
@@ -198,6 +205,7 @@
             this.TabPageCommonOutput2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewCommonOutput2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataTableCommonOutput2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataTableAppConfig)).BeginInit();
             this.GroupBoxCpuCores.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownUseCpuCoreCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataSetSetting)).BeginInit();
@@ -423,6 +431,54 @@
             this.ComboBoxOutputPattern.TabIndex = 21;
             this.ComboBoxOutputPattern.SelectedIndexChanged += new System.EventHandler(this.ComboBoxOutput_SelectedIndexChanged);
             // 
+            // ProgressBarOutputCommonCSV2
+            // 
+            this.ProgressBarOutputCommonCSV2.Location = new System.Drawing.Point(1026, 170);
+            this.ProgressBarOutputCommonCSV2.Maximum = 1000;
+            this.ProgressBarOutputCommonCSV2.Name = "ProgressBarOutputCommonCSV2";
+            this.ProgressBarOutputCommonCSV2.Size = new System.Drawing.Size(232, 20);
+            this.ProgressBarOutputCommonCSV2.TabIndex = 20;
+            // 
+            // ProgressBarOutputCommonCSV1
+            // 
+            this.ProgressBarOutputCommonCSV1.Location = new System.Drawing.Point(1027, 141);
+            this.ProgressBarOutputCommonCSV1.Maximum = 1000;
+            this.ProgressBarOutputCommonCSV1.Name = "ProgressBarOutputCommonCSV1";
+            this.ProgressBarOutputCommonCSV1.Size = new System.Drawing.Size(232, 20);
+            this.ProgressBarOutputCommonCSV1.TabIndex = 19;
+            // 
+            // ProgressBarOutputPatternCSV
+            // 
+            this.ProgressBarOutputPatternCSV.Location = new System.Drawing.Point(1027, 112);
+            this.ProgressBarOutputPatternCSV.Maximum = 1000;
+            this.ProgressBarOutputPatternCSV.Name = "ProgressBarOutputPatternCSV";
+            this.ProgressBarOutputPatternCSV.Size = new System.Drawing.Size(232, 20);
+            this.ProgressBarOutputPatternCSV.TabIndex = 18;
+            // 
+            // ProgressBarOutputExcel
+            // 
+            this.ProgressBarOutputExcel.Location = new System.Drawing.Point(1027, 83);
+            this.ProgressBarOutputExcel.Maximum = 1000;
+            this.ProgressBarOutputExcel.Name = "ProgressBarOutputExcel";
+            this.ProgressBarOutputExcel.Size = new System.Drawing.Size(232, 20);
+            this.ProgressBarOutputExcel.TabIndex = 17;
+            // 
+            // ProgressBarInput2
+            // 
+            this.ProgressBarInput2.Location = new System.Drawing.Point(1027, 54);
+            this.ProgressBarInput2.Maximum = 1000;
+            this.ProgressBarInput2.Name = "ProgressBarInput2";
+            this.ProgressBarInput2.Size = new System.Drawing.Size(232, 20);
+            this.ProgressBarInput2.TabIndex = 16;
+            // 
+            // ProgressBarInput1
+            // 
+            this.ProgressBarInput1.Location = new System.Drawing.Point(1027, 25);
+            this.ProgressBarInput1.Maximum = 1000;
+            this.ProgressBarInput1.Name = "ProgressBarInput1";
+            this.ProgressBarInput1.Size = new System.Drawing.Size(232, 20);
+            this.ProgressBarInput1.TabIndex = 15;
+            // 
             // TextBoxOutputCSV2
             // 
             this.TextBoxOutputCSV2.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
@@ -595,6 +651,7 @@
             // TabPageMatchingRatioSetting
             // 
             this.TabPageMatchingRatioSetting.BackColor = System.Drawing.SystemColors.Control;
+            this.TabPageMatchingRatioSetting.Controls.Add(this.GroupBoxMaxLines);
             this.TabPageMatchingRatioSetting.Controls.Add(this.GroupBoxRatioSetting);
             this.TabPageMatchingRatioSetting.Controls.Add(this.GroupBoxMatchingCondition);
             this.TabPageMatchingRatioSetting.Location = new System.Drawing.Point(4, 24);
@@ -604,12 +661,40 @@
             this.TabPageMatchingRatioSetting.TabIndex = 0;
             this.TabPageMatchingRatioSetting.Text = "照合パターン・料率指定";
             // 
+            // GroupBoxMaxLines
+            // 
+            this.GroupBoxMaxLines.Controls.Add(this.TextBoxMaxLines);
+            this.GroupBoxMaxLines.Controls.Add(this.LabelMaxLines);
+            this.GroupBoxMaxLines.Location = new System.Drawing.Point(761, 449);
+            this.GroupBoxMaxLines.Name = "GroupBoxMaxLines";
+            this.GroupBoxMaxLines.Size = new System.Drawing.Size(513, 61);
+            this.GroupBoxMaxLines.TabIndex = 2;
+            this.GroupBoxMaxLines.TabStop = false;
+            this.GroupBoxMaxLines.Text = "出力ファイル最大行数指定";
+            // 
+            // TextBoxMaxLines
+            // 
+            this.TextBoxMaxLines.Location = new System.Drawing.Point(272, 25);
+            this.TextBoxMaxLines.Name = "TextBoxMaxLines";
+            this.TextBoxMaxLines.Size = new System.Drawing.Size(188, 23);
+            this.TextBoxMaxLines.TabIndex = 1;
+            this.TextBoxMaxLines.TextChanged += new System.EventHandler(this.TextBoxMaxLines_TextChanged);
+            // 
+            // LabelMaxLines
+            // 
+            this.LabelMaxLines.AutoSize = true;
+            this.LabelMaxLines.Location = new System.Drawing.Point(36, 28);
+            this.LabelMaxLines.Name = "LabelMaxLines";
+            this.LabelMaxLines.Size = new System.Drawing.Size(229, 15);
+            this.LabelMaxLines.TabIndex = 0;
+            this.LabelMaxLines.Text = "出力CSV/TXT/Excelファイル最大データ行数";
+            // 
             // GroupBoxRatioSetting
             // 
             this.GroupBoxRatioSetting.Controls.Add(this.DataGridViewCostRatio);
             this.GroupBoxRatioSetting.Location = new System.Drawing.Point(758, 7);
             this.GroupBoxRatioSetting.Name = "GroupBoxRatioSetting";
-            this.GroupBoxRatioSetting.Size = new System.Drawing.Size(519, 503);
+            this.GroupBoxRatioSetting.Size = new System.Drawing.Size(519, 438);
             this.GroupBoxRatioSetting.TabIndex = 1;
             this.GroupBoxRatioSetting.TabStop = false;
             this.GroupBoxRatioSetting.Text = "料率指定";
@@ -628,7 +713,7 @@
             this.DataGridViewCostRatio.Location = new System.Drawing.Point(3, 19);
             this.DataGridViewCostRatio.Name = "DataGridViewCostRatio";
             this.DataGridViewCostRatio.RowTemplate.Height = 21;
-            this.DataGridViewCostRatio.Size = new System.Drawing.Size(513, 481);
+            this.DataGridViewCostRatio.Size = new System.Drawing.Size(513, 416);
             this.DataGridViewCostRatio.TabIndex = 1;
             // 
             // ColumnCostLower
@@ -1233,7 +1318,7 @@
             this.DataGridViewOutputPattern2.Location = new System.Drawing.Point(3, 3);
             this.DataGridViewOutputPattern2.Name = "DataGridViewOutputPattern2";
             this.DataGridViewOutputPattern2.RowTemplate.Height = 21;
-            this.DataGridViewOutputPattern2.Size = new System.Drawing.Size(1263, 455);
+            this.DataGridViewOutputPattern2.Size = new System.Drawing.Size(1263, 453);
             this.DataGridViewOutputPattern2.TabIndex = 2;
             this.DataGridViewOutputPattern2.Tag = "出力CSVパターン2";
             // 
@@ -1322,7 +1407,7 @@
             this.DataGridViewCommonOutput1.Location = new System.Drawing.Point(3, 3);
             this.DataGridViewCommonOutput1.Name = "DataGridViewCommonOutput1";
             this.DataGridViewCommonOutput1.RowTemplate.Height = 21;
-            this.DataGridViewCommonOutput1.Size = new System.Drawing.Size(1263, 455);
+            this.DataGridViewCommonOutput1.Size = new System.Drawing.Size(1263, 453);
             this.DataGridViewCommonOutput1.TabIndex = 3;
             this.DataGridViewCommonOutput1.Tag = "共通CSV出力1";
             // 
@@ -1411,7 +1496,7 @@
             this.DataGridViewCommonOutput2.Location = new System.Drawing.Point(3, 3);
             this.DataGridViewCommonOutput2.Name = "DataGridViewCommonOutput2";
             this.DataGridViewCommonOutput2.RowTemplate.Height = 21;
-            this.DataGridViewCommonOutput2.Size = new System.Drawing.Size(1263, 455);
+            this.DataGridViewCommonOutput2.Size = new System.Drawing.Size(1263, 453);
             this.DataGridViewCommonOutput2.TabIndex = 3;
             this.DataGridViewCommonOutput2.Tag = "共通CSV出力2";
             // 
@@ -1484,6 +1569,23 @@
             this.ButtonPreviewOutputs.Text = "詳細確認";
             this.ButtonPreviewOutputs.UseVisualStyleBackColor = true;
             this.ButtonPreviewOutputs.Click += new System.EventHandler(this.ButtonPreviewOutputs_Click);
+            // 
+            // DataTableAppConfig
+            // 
+            this.DataTableAppConfig.Columns.AddRange(new System.Data.DataColumn[] {
+            this.DataColumnAppConfigKey,
+            this.DataColumnAppConfigValue});
+            this.DataTableAppConfig.TableName = "AppConfig";
+            // 
+            // DataColumnAppConfigKey
+            // 
+            this.DataColumnAppConfigKey.Caption = "アプリ設定項目";
+            this.DataColumnAppConfigKey.ColumnName = "AppConfigKey";
+            // 
+            // DataColumnAppConfigValue
+            // 
+            this.DataColumnAppConfigValue.Caption = "アプリ設定値";
+            this.DataColumnAppConfigValue.ColumnName = "AppConfigValue";
             // 
             // BackgroundWorker10
             // 
@@ -1580,55 +1682,8 @@
             this.DataTableOutputPattern2,
             this.DataTableCommonOutput1,
             this.DataTableCommonOutput2,
-            this.DataTableCostRatio});
-            // 
-            // ProgressBarOutputCommonCSV2
-            // 
-            this.ProgressBarOutputCommonCSV2.Location = new System.Drawing.Point(1026, 170);
-            this.ProgressBarOutputCommonCSV2.Maximum = 1000;
-            this.ProgressBarOutputCommonCSV2.Name = "ProgressBarOutputCommonCSV2";
-            this.ProgressBarOutputCommonCSV2.Size = new System.Drawing.Size(232, 20);
-            this.ProgressBarOutputCommonCSV2.TabIndex = 20;
-            // 
-            // ProgressBarOutputCommonCSV1
-            // 
-            this.ProgressBarOutputCommonCSV1.Location = new System.Drawing.Point(1027, 141);
-            this.ProgressBarOutputCommonCSV1.Maximum = 1000;
-            this.ProgressBarOutputCommonCSV1.Name = "ProgressBarOutputCommonCSV1";
-            this.ProgressBarOutputCommonCSV1.Size = new System.Drawing.Size(232, 20);
-            this.ProgressBarOutputCommonCSV1.TabIndex = 19;
-            // 
-            // ProgressBarOutputPatternCSV
-            // 
-            this.ProgressBarOutputPatternCSV.Location = new System.Drawing.Point(1027, 112);
-            this.ProgressBarOutputPatternCSV.Maximum = 1000;
-            this.ProgressBarOutputPatternCSV.Name = "ProgressBarOutputPatternCSV";
-            this.ProgressBarOutputPatternCSV.Size = new System.Drawing.Size(232, 20);
-            this.ProgressBarOutputPatternCSV.TabIndex = 18;
-            // 
-            // ProgressBarOutputExcel
-            // 
-            this.ProgressBarOutputExcel.Location = new System.Drawing.Point(1027, 83);
-            this.ProgressBarOutputExcel.Maximum = 1000;
-            this.ProgressBarOutputExcel.Name = "ProgressBarOutputExcel";
-            this.ProgressBarOutputExcel.Size = new System.Drawing.Size(232, 20);
-            this.ProgressBarOutputExcel.TabIndex = 17;
-            // 
-            // ProgressBarInput2
-            // 
-            this.ProgressBarInput2.Location = new System.Drawing.Point(1027, 54);
-            this.ProgressBarInput2.Maximum = 1000;
-            this.ProgressBarInput2.Name = "ProgressBarInput2";
-            this.ProgressBarInput2.Size = new System.Drawing.Size(232, 20);
-            this.ProgressBarInput2.TabIndex = 16;
-            // 
-            // ProgressBarInput1
-            // 
-            this.ProgressBarInput1.Location = new System.Drawing.Point(1027, 25);
-            this.ProgressBarInput1.Maximum = 1000;
-            this.ProgressBarInput1.Name = "ProgressBarInput1";
-            this.ProgressBarInput1.Size = new System.Drawing.Size(232, 20);
-            this.ProgressBarInput1.TabIndex = 15;
+            this.DataTableCostRatio,
+            this.DataTableAppConfig});
             // 
             // Form1
             // 
@@ -1660,6 +1715,8 @@
             this.GroupBoxAllMatch.PerformLayout();
             this.TabControlMatchingOutput.ResumeLayout(false);
             this.TabPageMatchingRatioSetting.ResumeLayout(false);
+            this.GroupBoxMaxLines.ResumeLayout(false);
+            this.GroupBoxMaxLines.PerformLayout();
             this.GroupBoxRatioSetting.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewCostRatio)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataTableCostRatio)).EndInit();
@@ -1684,6 +1741,7 @@
             this.TabPageCommonOutput2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewCommonOutput2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataTableCommonOutput2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataTableAppConfig)).EndInit();
             this.GroupBoxCpuCores.ResumeLayout(false);
             this.GroupBoxCpuCores.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownUseCpuCoreCount)).EndInit();
@@ -1771,6 +1829,9 @@
         protected System.Data.DataTable DataTableCostRatio;
         protected System.Data.DataColumn DataColumnCostLower;
         protected System.Data.DataColumn DataColumnCostRatio;
+        protected System.Data.DataTable DataTableAppConfig;
+        protected System.Data.DataColumn DataColumnAppConfigKey;
+        protected System.Data.DataColumn DataColumnAppConfigValue;
         protected System.Windows.Forms.ComboBox ComboBoxOutputPattern;
         protected System.Windows.Forms.ComboBox ComboBoxOutputCommon2;
         protected System.Windows.Forms.ComboBox ComboBoxOutputCommon1;
@@ -1811,20 +1872,23 @@
         protected System.Windows.Forms.RadioButton RadioButtonSearchType01;
         protected System.Windows.Forms.GroupBox GroupBoxRatioSetting;
         protected System.Windows.Forms.DataGridView DataGridViewCostRatio;
-        private System.ComponentModel.IContainer components;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ScrapingColumnName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ScrapingColumnValue;
-        private System.Windows.Forms.DataGridViewComboBoxColumn ScrapingColumnType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BookColumnName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BookColumnValue;
-        private System.Windows.Forms.DataGridViewComboBoxColumn BookColumnType;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn ScrapingColumnName;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn ScrapingColumnValue;
+        protected System.Windows.Forms.DataGridViewComboBoxColumn ScrapingColumnType;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn BookColumnName;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn BookColumnValue;
+        protected System.Windows.Forms.DataGridViewComboBoxColumn BookColumnType;
         protected System.Windows.Forms.Button ButtonPreviewDatabase;
         protected System.Windows.Forms.Button ButtonPreviewScraping;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnJapaneseName1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnEnglishName1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnSettingValue1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCostLower;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCostRatio;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnJapaneseName1;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnEnglishName1;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnSettingValue1;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnCostLower;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn ColumnCostRatio;
+        protected System.Windows.Forms.GroupBox GroupBoxMaxLines;
+        protected System.Windows.Forms.TextBox TextBoxMaxLines;
+        protected System.Windows.Forms.Label LabelMaxLines;
+        private System.ComponentModel.IContainer components;
     }
 }
 

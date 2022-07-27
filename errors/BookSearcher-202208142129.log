@@ -1,0 +1,16 @@
+ご迷惑をお掛けします。内部エラーが発生しました。
+ログファイル「BookSearcher-202208142129.log」をお送りください。
+
+【アプリバージョン】
+BookSearcher v1.6.0
+
+【エラー内容】
+オブジェクト参照がオブジェクト インスタンスに設定されていません。
+
+【例外種別】
+System.NullReferenceException
+
+【スタックトレース】
+   場所 BookSearcherApp.Form1.InitColumnSetting(CSVFile csvFile, DataGridView columnSetting) 場所 A:\BookSearcher\Form1.cs:行 241
+   場所 BookSearcherApp.Form1.BackgroundWorker2_RunWorkerCompleted(Object sender, RunWorkerCompletedEventArgs e) 場所 A:\BookSearcher\Form1.cs:行 298
+   場所 System.ComponentModel.BackgroundWorker.OnRunWorkerCompleted(RunWorkerCompletedEventArgs e)

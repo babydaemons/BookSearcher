@@ -1,0 +1,40 @@
+ご迷惑をお掛けします。内部エラーが発生しました。
+ログファイル「BookSearcher-202208201556.log」をお送りください。
+
+【アプリバージョン】
+BookSearcher v1.6.0
+
+【エラー内容】
+1 つ以上のエラーが発生しました。
+
+【例外種別】
+System.AggregateException
+
+【スタックトレース】
+   場所 System.Linq.Parallel.QueryTaskGroupState.QueryEnd(Boolean userInitiatedDispose)
+   場所 System.Linq.Parallel.DefaultMergeHelper`2.System.Linq.Parallel.IMergeHelper<TInputOutput>.Execute()
+   場所 System.Linq.Parallel.MergeExecutor`1.Execute[TKey](PartitionedStream`2 partitions, Boolean ignoreOutput, ParallelMergeOptions options, TaskScheduler taskScheduler, Boolean isOrdered, CancellationState cancellationState, Int32 queryId)
+   場所 System.Linq.Parallel.PartitionedStreamMerger`1.Receive[TKey](PartitionedStream`2 partitionedStream)
+   場所 System.Linq.Parallel.ForAllOperator`1.WrapPartitionedStream[TKey](PartitionedStream`2 inputStream, IPartitionedStreamRecipient`1 recipient, Boolean preferStriping, QuerySettings settings)
+   場所 System.Linq.Parallel.UnaryQueryOperator`2.UnaryQueryOperatorResults.ChildResultsRecipient.Receive[TKey](PartitionedStream`2 inputStream)
+   場所 System.Linq.Parallel.UnaryQueryOperator`2.UnaryQueryOperatorResults.GivePartitionedStream(IPartitionedStreamRecipient`1 recipient)
+   場所 System.Linq.Parallel.QueryOperator`1.GetOpenedEnumerator(Nullable`1 mergeOptions, Boolean suppressOrder, Boolean forEffect, QuerySettings querySettings)
+   場所 System.Linq.Parallel.ForAllOperator`1.RunSynchronously()
+   場所 BookSearcherApp.BookSearcher17.Search(ColumnInfo columnPartial1, ColumnInfo columnPartial2, ColumnInfo columnPartial3) 場所 A:\BookSearcher\BookSearcher\Match3\BookSearcher17.cs:行 30
+   場所 BookSearcherApp.BookSearcher17.Search() 場所 A:\BookSearcher\BookSearcher\Match3\BookSearcher17.cs:行 19
+   場所 BookSearcherApp.Form1.BackgroundWorker4_DoWork(Object sender, DoWorkEventArgs e) 場所 A:\BookSearcher\Form1.cs:行 627
+
+【エラー内容】
+インデックスが配列の境界外です。
+
+【例外種別】
+System.IndexOutOfRangeException
+
+【スタックトレース】
+   場所 BookSearcherApp.BookSearcher17.IsPartialMatch32(String value1a, String value1b, String value1c, String value2a, String value2b, String value2c) 場所 A:\BookSearcher\BookSearcher\Match3\BookSearcher17.cs:行 51
+   場所 BookSearcherApp.BookSearcher17.<>c__DisplayClass5_1.<Search>b__1(Int32 j) 場所 A:\BookSearcher\BookSearcher\Match3\BookSearcher17.cs:行 40
+   場所 System.Linq.Parallel.ForAllOperator`1.ForAllEnumerator`1.MoveNext(TInput& currentElement, Int32& currentKey)
+   場所 System.Linq.Parallel.ForAllSpoolingTask`2.SpoolingWork()
+   場所 System.Linq.Parallel.SpoolingTaskBase.Work()
+   場所 System.Linq.Parallel.QueryTask.BaseWork(Object unused)
+   場所 System.Threading.Tasks.Task.Execute()
