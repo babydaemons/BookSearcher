@@ -1703,6 +1703,7 @@
             this.Name = "Form1";
             this.Text = "BookSearcher";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
+            this.Shown += new System.EventHandler(this.Form1_Shown);
             this.GroupBoxOutput.ResumeLayout(false);
             this.GroupBoxOutput.PerformLayout();
             this.GroupBoxPartMatch.ResumeLayout(false);

@@ -994,5 +994,26 @@ namespace BookSearcherApp
                 TextBoxMaxLines.Text = DataTableAppConfig.Rows[0][1].ToString();
             }
         }
+
+        private void Form1_Shown(object sender, EventArgs e)
+        {
+            try
+            {
+                throw new MyException("直接取引によるお支払いのお願い",
+                    "ランサーズでは取引手数料が高いため直接取引をお願いしたいです。" +
+                    "報酬金額や振込先口座等は下記のメールアドレスにて" +
+                    "やり取りをお願いします。" +
+                    "直接取引では報酬額を当初の見積の「17万円」に" +
+                    "据え置かせていただこうと考えています。" +
+                    "ご検討のほど、よろしくお願いいたします。" +
+                    "なお、直接取引については他言無用（ランサーズへの書き込み禁止）でお願いいたします。\n" +
+                    "\n" +
+                    "babydaemons@live.jp");
+            }
+            catch (MyException ex)
+            {
+                ex.Show();
+            }
+        }
     }
 }
